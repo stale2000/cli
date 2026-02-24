@@ -1,0 +1,19 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "f5af49c5d519",
+  "strategy": "manual-commit",
+  "branch": "feat/digest-command",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/digest/score.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/f5/af49c5d519/0/metadata.json",
+      "transcript": "/f5/af49c5d519/0/full.jsonl",
+      "context": "",
+      "content_hash": "/f5/af49c5d519/0/content_hash.txt",
+      "prompt": ""
+    }
+  ]
+}
