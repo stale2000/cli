@@ -1,0 +1,19 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "db7623d7c4e7",
+  "strategy": "manual-commit",
+  "branch": "feat/digest-command",
+  "checkpoints_count": 0,
+  "files_touched": [
+    ".claude/skills/digest/SKILL.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/db/7623d7c4e7/0/metadata.json",
+      "transcript": "/db/7623d7c4e7/0/full.jsonl",
+      "context": "",
+      "content_hash": "/db/7623d7c4e7/0/content_hash.txt",
+      "prompt": ""
+    }
+  ]
+}
