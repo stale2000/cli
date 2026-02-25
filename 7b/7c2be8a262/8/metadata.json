@@ -1,0 +1,23 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "7b7c2be8a262",
+  "session_id": "2026-01-06-569aed7b-6ead-4790-a3fe-c7028466112c",
+  "strategy": "manual-commit",
+  "created_at": "2026-02-16T14:08:20.587048Z",
+  "branch": "soph/agent-refactor",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/strategy/manual_commit.go"
+  ],
+  "checkpoint_transcript_start": 204,
+  "transcript_lines_at_start": 204,
+  "initial_attribution": {
+    "calculated_at": "2026-02-16T14:08:20.571797Z",
+    "agent_lines": 5,
+    "human_added": 21111,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 21116,
+    "agent_percentage": 0.02367872703163478
+  }
+}

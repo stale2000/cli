@@ -1,0 +1,29 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "aab5ff05b0bb",
+  "strategy": "manual-commit",
+  "branch": "soph/agent-refactor",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/lifecycle.go",
+    "cmd/entire/cli/lifecycle_test.go",
+    "cmd/entire/cli/strategy/auto_commit.go",
+    "cmd/entire/cli/strategy/registry.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/aa/b5ff05b0bb/0/metadata.json",
+      "transcript": "/aa/b5ff05b0bb/0/full.jsonl",
+      "context": "/aa/b5ff05b0bb/0/context.md",
+      "content_hash": "/aa/b5ff05b0bb/0/content_hash.txt",
+      "prompt": "/aa/b5ff05b0bb/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 56,
+    "cache_creation_tokens": 123730,
+    "cache_read_tokens": 3703701,
+    "output_tokens": 2521,
+    "api_call_count": 54
+  }
+}

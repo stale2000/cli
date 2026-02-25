@@ -1,0 +1,39 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "c74816392558",
+  "session_id": "test",
+  "strategy": "manual-commit",
+  "created_at": "2026-02-19T03:26:36.511544Z",
+  "branch": "gtrrz-victor/github-copilot-support",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/setup_test.go",
+    "cmd/entire/cli/summarize/summarize.go",
+    "copilot-integration.md",
+    "cmd/entire/cli/agent/copilot/lifecycle_test.go",
+    "cmd/entire/cli/agent/copilot/transcript_test.go",
+    "cmd/entire/cli/agent/copilot/types.go",
+    "cmd/entire/cli/agent/registry.go",
+    "cmd/entire/cli/strategy/rewind_test.go",
+    "cmd/entire/cli/agent/copilot/copilot.go",
+    "cmd/entire/cli/agent/copilot/hooks_test.go",
+    "cmd/entire/cli/agent/copilot/lifecycle.go",
+    "cmd/entire/cli/agent/copilot/transcript.go",
+    "cmd/entire/cli/hooks_cmd.go",
+    "cmd/entire/cli/agent/copilot/copilot_test.go",
+    "cmd/entire/cli/agent/copilot/hooks.go",
+    "cmd/entire/cli/hook_registry.go",
+    "cmd/entire/cli/setup.go"
+  ],
+  "agent": "Mock Lifecycle Agent",
+  "turn_id": "1353f37cc43a",
+  "initial_attribution": {
+    "calculated_at": "2026-02-19T03:26:36.485664Z",
+    "agent_lines": 2,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 2,
+    "agent_percentage": 100
+  }
+}

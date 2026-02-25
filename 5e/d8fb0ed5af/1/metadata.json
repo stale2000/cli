@@ -1,0 +1,25 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "5ed8fb0ed5af",
+  "session_id": "test",
+  "strategy": "manual-commit",
+  "created_at": "2026-02-16T17:49:32.168565Z",
+  "branch": "soph/agent-refactor",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/hooks_claudecode_handlers.go",
+    "cmd/entire/cli/hooks_claudecode_posttodo.go",
+    "cmd/entire/cli/hooks_geminicli_handlers.go"
+  ],
+  "agent": "Mock Lifecycle Agent",
+  "turn_id": "f8a6c149bd67",
+  "initial_attribution": {
+    "calculated_at": "2026-02-16T17:49:32.146941Z",
+    "agent_lines": 139,
+    "human_added": 743,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 882,
+    "agent_percentage": 15.759637188208616
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "c8200a737b62",
+  "session_id": "test",
+  "strategy": "manual-commit",
+  "created_at": "2026-02-18T04:58:45.839943Z",
+  "branch": "gtrrz-victor/fix-restore-sessions",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/strategy/manual_commit_rewind.go",
+    "cmd/entire/cli/checkpoint/checkpoint.go",
+    "cmd/entire/cli/e2e_test/resume_relocated_repo_test.go",
+    "cmd/entire/cli/strategy/common.go",
+    "cmd/entire/cli/strategy/manual_commit_condensation.go"
+  ],
+  "agent": "Mock Lifecycle Agent",
+  "turn_id": "1353f37cc43a",
+  "initial_attribution": {
+    "calculated_at": "2026-02-18T04:58:45.807264Z",
+    "agent_lines": 0,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 0,
+    "agent_percentage": 0
+  }
+}

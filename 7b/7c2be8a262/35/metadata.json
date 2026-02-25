@@ -1,0 +1,24 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "7b7c2be8a262",
+  "session_id": "2026-01-21-7744721d-0ad2-4529-8b08-3b18561c6c36",
+  "strategy": "manual-commit",
+  "created_at": "2026-02-16T14:08:28.505209Z",
+  "branch": "soph/agent-refactor",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/hooks_claudecode_handlers.go"
+  ],
+  "agent": "Agent",
+  "checkpoint_transcript_start": 56,
+  "transcript_lines_at_start": 56,
+  "initial_attribution": {
+    "calculated_at": "2026-02-16T14:08:28.488079Z",
+    "agent_lines": 89,
+    "human_added": 21027,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 21116,
+    "agent_percentage": 0.4214813411630991
+  }
+}

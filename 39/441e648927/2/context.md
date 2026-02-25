@@ -1,0 +1,8 @@
+# Session Context
+
+## User Prompts
+
+### Prompt 1
+
+every commit I currently do takes 10-20s on this repo, I suspect it's related to our git hooks but can you somehow check where this happens?
+

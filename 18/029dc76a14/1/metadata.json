@@ -1,0 +1,23 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "18029dc76a14",
+  "session_id": "test",
+  "strategy": "manual-commit",
+  "created_at": "2026-02-19T10:19:39.019717Z",
+  "branch": "alex/fix-multi-session-vacuums-too-much",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/integration_test/carry_forward_overlap_test.go"
+  ],
+  "agent": "Mock Lifecycle Agent",
+  "turn_id": "f8a6c149bd67",
+  "initial_attribution": {
+    "calculated_at": "2026-02-19T10:19:38.99819Z",
+    "agent_lines": 893,
+    "human_added": 4609,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 5502,
+    "agent_percentage": 16.23046165030898
+  }
+}

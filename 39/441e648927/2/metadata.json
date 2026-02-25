@@ -1,0 +1,30 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "39441e648927",
+  "session_id": "0678bc4f-2fc6-46a8-be5f-bc8938d51a06",
+  "strategy": "manual-commit",
+  "created_at": "2026-02-24T12:39:04.323544Z",
+  "branch": "soph/opencode-acknowledgment",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "CHANGELOG.md"
+  ],
+  "agent": "Claude Code",
+  "turn_id": "09dfaba25c49",
+  "token_usage": {
+    "input_tokens": 12,
+    "cache_creation_tokens": 18854,
+    "cache_read_tokens": 454663,
+    "output_tokens": 333,
+    "api_call_count": 10
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-02-24T12:39:04.272627Z",
+    "agent_lines": 0,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 0,
+    "agent_percentage": 0
+  }
+}

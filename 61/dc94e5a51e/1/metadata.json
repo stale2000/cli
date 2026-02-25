@@ -1,0 +1,23 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "61dc94e5a51e",
+  "session_id": "test",
+  "strategy": "manual-commit",
+  "created_at": "2026-02-19T14:57:12.643956Z",
+  "branch": "soph/opencode-feedback",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/integration_test/opencode_hooks_test.go"
+  ],
+  "agent": "Mock Lifecycle Agent",
+  "turn_id": "cf7257a0468a",
+  "initial_attribution": {
+    "calculated_at": "2026-02-19T14:57:12.619947Z",
+    "agent_lines": 276,
+    "human_added": 2340,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 2616,
+    "agent_percentage": 10.550458715596331
+  }
+}

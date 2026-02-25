@@ -1,0 +1,30 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "e0a43ed1a500",
+  "session_id": "test",
+  "strategy": "manual-commit",
+  "created_at": "2026-02-18T16:29:32.237381Z",
+  "branch": "soph/opencode-agent-guide",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/agent/opencode/entire.ts",
+    "cmd/entire/cli/agent/opencode/hooks.go",
+    "cmd/entire/cli/agent/opencode/hooks_test.go",
+    "cmd/entire/cli/agent/opencode/lifecycle.go",
+    "cmd/entire/cli/agent/opencode/lifecycle_test.go",
+    "cmd/entire/cli/agent/opencode/opencode.go",
+    "cmd/entire/cli/agent/opencode/opencode_test.go",
+    "cmd/entire/cli/agent/opencode/types.go"
+  ],
+  "agent": "Mock Lifecycle Agent",
+  "turn_id": "cf7257a0468a",
+  "initial_attribution": {
+    "calculated_at": "2026-02-18T16:29:32.217576Z",
+    "agent_lines": 1575,
+    "human_added": 36,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 1611,
+    "agent_percentage": 97.76536312849163
+  }
+}

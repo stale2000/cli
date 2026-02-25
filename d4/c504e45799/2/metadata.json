@@ -1,0 +1,30 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "d4c504e45799",
+  "session_id": "b9d6e95c-9d96-44c4-9e92-93c6839c4636",
+  "strategy": "manual-commit",
+  "created_at": "2026-02-24T00:26:47.750747Z",
+  "branch": "soph/opencode-refactor-e2e",
+  "checkpoints_count": 4,
+  "files_touched": [
+    ".github/workflows/e2e.yml"
+  ],
+  "agent": "Claude Code",
+  "turn_id": "7f8954d784ad",
+  "token_usage": {
+    "input_tokens": 26,
+    "cache_creation_tokens": 37824,
+    "cache_read_tokens": 827981,
+    "output_tokens": 642,
+    "api_call_count": 16
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-02-24T00:26:47.679903Z",
+    "agent_lines": 7,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 3,
+    "total_committed": 7,
+    "agent_percentage": 100
+  }
+}

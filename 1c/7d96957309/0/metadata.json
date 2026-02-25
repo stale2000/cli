@@ -1,0 +1,22 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "1c7d96957309",
+  "session_id": "2026-01-06-3a782158-6c7c-4d4d-9c73-eae031da5b18",
+  "strategy": "manual-commit",
+  "created_at": "2026-02-16T15:53:19.197967Z",
+  "branch": "soph/agent-refactor",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/lifecycle.go",
+    "cmd/entire/cli/lifecycle_test.go"
+  ],
+  "initial_attribution": {
+    "calculated_at": "2026-02-16T15:53:19.133985Z",
+    "agent_lines": 0,
+    "human_added": 4887,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 4887,
+    "agent_percentage": 0
+  }
+}

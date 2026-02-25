@@ -1,0 +1,27 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "7b7c2be8a262",
+  "session_id": "2026-01-19-eb4bcc15-3ff5-4d73-bac5-9bc1d786b2bb",
+  "strategy": "manual-commit",
+  "created_at": "2026-02-16T14:08:27.36344Z",
+  "branch": "soph/agent-refactor",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/hooks_claudecode_handlers.go",
+    "cmd/entire/cli/state.go",
+    "cmd/entire/cli/state_test.go",
+    "cmd/entire/cli/strategy/auto_commit.go"
+  ],
+  "agent": "Claude Code",
+  "checkpoint_transcript_start": 1060,
+  "transcript_lines_at_start": 1060,
+  "initial_attribution": {
+    "calculated_at": "2026-02-16T14:08:27.347336Z",
+    "agent_lines": 457,
+    "human_added": 20659,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 21116,
+    "agent_percentage": 2.164235650691419
+  }
+}

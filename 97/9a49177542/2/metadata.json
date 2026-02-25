@@ -1,0 +1,25 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "979a49177542",
+  "session_id": "test",
+  "strategy": "manual-commit",
+  "created_at": "2026-02-19T20:55:55.582952Z",
+  "branch": "alisha/factoryai-agent",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/agent/factoryaidroid/lifecycle.go",
+    "cmd/entire/cli/agent/factoryaidroid/transcript.go",
+    "cmd/entire/cli/agent/factoryaidroid/transcript_test.go"
+  ],
+  "agent": "Mock Lifecycle Agent",
+  "turn_id": "2062883546a0",
+  "initial_attribution": {
+    "calculated_at": "2026-02-19T20:55:55.582644Z",
+    "agent_lines": 23,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 23,
+    "agent_percentage": 100
+  }
+}

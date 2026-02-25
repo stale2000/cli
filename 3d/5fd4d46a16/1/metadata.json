@@ -1,0 +1,23 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "3d5fd4d46a16",
+  "session_id": "test",
+  "strategy": "manual-commit",
+  "created_at": "2026-02-20T11:43:13.370195Z",
+  "branch": "fix/utf8-safe-string-truncation",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/strategy/manual_commit_condensation_test.go"
+  ],
+  "agent": "Mock Lifecycle Agent",
+  "turn_id": "02d161bbff3a",
+  "initial_attribution": {
+    "calculated_at": "2026-02-20T11:43:13.369838Z",
+    "agent_lines": 87,
+    "human_added": 13,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 100,
+    "agent_percentage": 87
+  }
+}

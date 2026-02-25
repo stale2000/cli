@@ -1,0 +1,23 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "4983aa6be5ba",
+  "session_id": "test",
+  "strategy": "manual-commit",
+  "created_at": "2026-02-22T20:26:55.198255Z",
+  "branch": "soph/go-1-26",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/versioninfo/versioninfo.go"
+  ],
+  "agent": "Mock Lifecycle Agent",
+  "turn_id": "f8a6c149bd67",
+  "initial_attribution": {
+    "calculated_at": "2026-02-22T20:26:55.171762Z",
+    "agent_lines": 7,
+    "human_added": 5739,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 5746,
+    "agent_percentage": 0.12182387747998608
+  }
+}

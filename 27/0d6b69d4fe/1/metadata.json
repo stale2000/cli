@@ -1,0 +1,23 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "270d6b69d4fe",
+  "session_id": "test",
+  "strategy": "manual-commit",
+  "created_at": "2026-02-19T20:52:32.88884Z",
+  "branch": "benchmarking",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "top"
+  ],
+  "agent": "Mock Lifecycle Agent",
+  "turn_id": "249c94fe6a8b",
+  "initial_attribution": {
+    "calculated_at": "2026-02-19T20:52:32.862138Z",
+    "agent_lines": 0,
+    "human_added": 55,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 55,
+    "agent_percentage": 0
+  }
+}

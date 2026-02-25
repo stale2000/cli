@@ -1,0 +1,23 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "d5891c95e5a4",
+  "session_id": "test",
+  "strategy": "manual-commit",
+  "created_at": "2026-02-20T13:27:34.558889Z",
+  "branch": "robin/cursor-agent",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/agent/cursor/cursor_test.go"
+  ],
+  "agent": "Mock Lifecycle Agent",
+  "turn_id": "a569f5615569",
+  "initial_attribution": {
+    "calculated_at": "2026-02-20T13:27:34.539033Z",
+    "agent_lines": 670,
+    "human_added": 9017,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 9687,
+    "agent_percentage": 6.916486012181274
+  }
+}

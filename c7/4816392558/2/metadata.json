@@ -1,0 +1,36 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "c74816392558",
+  "session_id": "d98d9846-735d-41ce-925a-44f40eb856a8",
+  "strategy": "manual-commit",
+  "created_at": "2026-02-19T03:26:36.077708Z",
+  "branch": "gtrrz-victor/github-copilot-support",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/agent/copilot/hooks.go",
+    "cmd/entire/cli/agent/copilot/hooks_test.go",
+    "cmd/entire/cli/agent/copilot/lifecycle.go",
+    "cmd/entire/cli/agent/copilot/transcript.go",
+    "cmd/entire/cli/agent/copilot/transcript_test.go",
+    "cmd/entire/cli/agent/copilot/types.go"
+  ],
+  "agent": "Claude Code",
+  "turn_id": "8f56254d8fdb",
+  "token_usage": {
+    "input_tokens": 35,
+    "cache_creation_tokens": 122409,
+    "cache_read_tokens": 2404891,
+    "output_tokens": 5605,
+    "api_call_count": 25
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-02-19T03:26:35.61188Z",
+    "agent_lines": 2,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 2,
+    "agent_percentage": 100
+  },
+  "transcript_path": ".claude/projects/-Users-gtrrz-victor-wks-cli-cli/d98d9846-735d-41ce-925a-44f40eb856a8.jsonl"
+}

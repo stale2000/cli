@@ -1,0 +1,48 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "1c7d96957309",
+  "strategy": "manual-commit",
+  "branch": "soph/agent-refactor",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "cmd/entire/cli/lifecycle.go",
+    "cmd/entire/cli/lifecycle_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/1c/7d96957309/0/metadata.json",
+      "transcript": "/1c/7d96957309/0/full.jsonl",
+      "context": "",
+      "content_hash": "/1c/7d96957309/0/content_hash.txt",
+      "prompt": ""
+    },
+    {
+      "metadata": "/1c/7d96957309/1/metadata.json",
+      "transcript": "/1c/7d96957309/1/full.jsonl",
+      "context": "/1c/7d96957309/1/context.md",
+      "content_hash": "/1c/7d96957309/1/content_hash.txt",
+      "prompt": "/1c/7d96957309/1/prompt.txt"
+    },
+    {
+      "metadata": "/1c/7d96957309/2/metadata.json",
+      "transcript": "/1c/7d96957309/2/full.jsonl",
+      "context": "",
+      "content_hash": "/1c/7d96957309/2/content_hash.txt",
+      "prompt": ""
+    },
+    {
+      "metadata": "/1c/7d96957309/3/metadata.json",
+      "transcript": "/1c/7d96957309/3/full.jsonl",
+      "context": "",
+      "content_hash": "/1c/7d96957309/3/content_hash.txt",
+      "prompt": ""
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 45298,
+    "cache_creation_tokens": 174940,
+    "cache_read_tokens": 3159483,
+    "output_tokens": 123,
+    "api_call_count": 39
+  }
+}

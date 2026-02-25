@@ -1,0 +1,30 @@
+{
+  "cli_version": "v0.4.6-1-gbc0448c6",
+  "checkpoint_id": "44385f3a7892",
+  "strategy": "manual-commit",
+  "branch": "alex/consolidate-e2e-tests",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "e2e/agents/agent.go",
+    "e2e/agents/claude.go",
+    "e2e/agents/gemini.go",
+    "e2e/agents/opencode.go",
+    "e2e/testutil/repo.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/44/385f3a7892/0/metadata.json",
+      "transcript": "/44/385f3a7892/0/full.jsonl",
+      "context": "/44/385f3a7892/0/context.md",
+      "content_hash": "/44/385f3a7892/0/content_hash.txt",
+      "prompt": "/44/385f3a7892/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 50566,
+    "cache_creation_tokens": 1453156,
+    "cache_read_tokens": 74898729,
+    "output_tokens": 39210,
+    "api_call_count": 693
+  }
+}

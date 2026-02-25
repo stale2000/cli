@@ -1,0 +1,23 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "5ba1abd32f4d",
+  "session_id": "test",
+  "strategy": "manual-commit",
+  "created_at": "2026-02-23T08:31:57.511994Z",
+  "branch": "remove-trail-enable-disable",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/trail_cmd.go"
+  ],
+  "agent": "Mock Lifecycle Agent",
+  "turn_id": "6e680fd26a2c",
+  "initial_attribution": {
+    "calculated_at": "2026-02-23T08:31:57.486701Z",
+    "agent_lines": 489,
+    "human_added": 5141,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 5630,
+    "agent_percentage": 8.685612788632326
+  }
+}

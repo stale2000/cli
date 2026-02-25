@@ -1,0 +1,455 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "7b7c2be8a262",
+  "strategy": "manual-commit",
+  "branch": "soph/agent-refactor",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/agent/claudecode/claude.go",
+    "cmd/entire/cli/hook_registry.go",
+    "cmd/entire/cli/hooks_claudecode_handlers.go",
+    "cmd/entire/cli/hooks_geminicli_handlers.go",
+    "cmd/entire/cli/lifecycle.go",
+    "cmd/entire/cli/state.go",
+    "cmd/entire/cli/state_test.go",
+    "cmd/entire/cli/strategy/auto_commit.go",
+    "cmd/entire/cli/strategy/manual_commit.go",
+    "cmd/entire/cli/strategy/registry.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/7b/7c2be8a262/0/metadata.json",
+      "transcript": "/7b/7c2be8a262/0/full.jsonl",
+      "context": "/7b/7c2be8a262/0/context.md",
+      "content_hash": "/7b/7c2be8a262/0/content_hash.txt",
+      "prompt": "/7b/7c2be8a262/0/prompt.txt"
+    },
+    {
+      "metadata": "/7b/7c2be8a262/1/metadata.json",
+      "transcript": "/7b/7c2be8a262/1/full.jsonl",
+      "context": "",
+      "content_hash": "/7b/7c2be8a262/1/content_hash.txt",
+      "prompt": ""
+    },
+    {
+      "metadata": "/7b/7c2be8a262/2/metadata.json",
+      "transcript": "/7b/7c2be8a262/2/full.jsonl",
+      "context": "",
+      "content_hash": "/7b/7c2be8a262/2/content_hash.txt",
+      "prompt": ""
+    },
+    {
+      "metadata": "/7b/7c2be8a262/3/metadata.json",
+      "transcript": "/7b/7c2be8a262/3/full.jsonl",
+      "context": "",
+      "content_hash": "/7b/7c2be8a262/3/content_hash.txt",
+      "prompt": ""
+    },
+    {
+      "metadata": "/7b/7c2be8a262/4/metadata.json",
+      "transcript": "/7b/7c2be8a262/4/full.jsonl",
+      "context": "",
+      "content_hash": "/7b/7c2be8a262/4/content_hash.txt",
+      "prompt": ""
+    },
+    {
+      "metadata": "/7b/7c2be8a262/5/metadata.json",
+      "transcript": "/7b/7c2be8a262/5/full.jsonl",
+      "context": "",
+      "content_hash": "/7b/7c2be8a262/5/content_hash.txt",
+      "prompt": ""
+    },
+    {
+      "metadata": "/7b/7c2be8a262/6/metadata.json",
+      "transcript": "/7b/7c2be8a262/6/full.jsonl",
+      "context": "",
+      "content_hash": "/7b/7c2be8a262/6/content_hash.txt",
+      "prompt": ""
+    },
+    {
+      "metadata": "/7b/7c2be8a262/7/metadata.json",
+      "transcript": "/7b/7c2be8a262/7/full.jsonl",
+      "context": "",
+      "content_hash": "/7b/7c2be8a262/7/content_hash.txt",
+      "prompt": ""
+    },
+    {
+      "metadata": "/7b/7c2be8a262/8/metadata.json",
+      "transcript": "/7b/7c2be8a262/8/full.jsonl",
+      "context": "",
+      "content_hash": "/7b/7c2be8a262/8/content_hash.txt",
+      "prompt": ""
+    },
+    {
+      "metadata": "/7b/7c2be8a262/9/metadata.json",
+      "transcript": "/7b/7c2be8a262/9/full.jsonl",
+      "context": "",
+      "content_hash": "/7b/7c2be8a262/9/content_hash.txt",
+      "prompt": ""
+    },
+    {
+      "metadata": "/7b/7c2be8a262/10/metadata.json",
+      "transcript": "/7b/7c2be8a262/10/full.jsonl",
+      "context": "",
+      "content_hash": "/7b/7c2be8a262/10/content_hash.txt",
+      "prompt": ""
+    },
+    {
+      "metadata": "/7b/7c2be8a262/11/metadata.json",
+      "transcript": "/7b/7c2be8a262/11/full.jsonl",
+      "context": "",
+      "content_hash": "/7b/7c2be8a262/11/content_hash.txt",
+      "prompt": ""
+    },
+    {
+      "metadata": "/7b/7c2be8a262/12/metadata.json",
+      "transcript": "/7b/7c2be8a262/12/full.jsonl",
+      "context": "",
+      "content_hash": "/7b/7c2be8a262/12/content_hash.txt",
+      "prompt": ""
+    },
+    {
+      "metadata": "/7b/7c2be8a262/13/metadata.json",
+      "transcript": "/7b/7c2be8a262/13/full.jsonl",
+      "context": "",
+      "content_hash": "/7b/7c2be8a262/13/content_hash.txt",
+      "prompt": ""
+    },
+    {
+      "metadata": "/7b/7c2be8a262/14/metadata.json",
+      "transcript": "/7b/7c2be8a262/14/full.jsonl",
+      "context": "",
+      "content_hash": "/7b/7c2be8a262/14/content_hash.txt",
+      "prompt": ""
+    },
+    {
+      "metadata": "/7b/7c2be8a262/15/metadata.json",
+      "transcript": "/7b/7c2be8a262/15/full.jsonl",
+      "context": "",
+      "content_hash": "/7b/7c2be8a262/15/content_hash.txt",
+      "prompt": ""
+    },
+    {
+      "metadata": "/7b/7c2be8a262/16/metadata.json",
+      "transcript": "/7b/7c2be8a262/16/full.jsonl",
+      "context": "",
+      "content_hash": "/7b/7c2be8a262/16/content_hash.txt",
+      "prompt": ""
+    },
+    {
+      "metadata": "/7b/7c2be8a262/17/metadata.json",
+      "transcript": "/7b/7c2be8a262/17/full.jsonl",
+      "context": "",
+      "content_hash": "/7b/7c2be8a262/17/content_hash.txt",
+      "prompt": ""
+    },
+    {
+      "metadata": "/7b/7c2be8a262/18/metadata.json",
+      "transcript": "/7b/7c2be8a262/18/full.jsonl",
+      "context": "",
+      "content_hash": "/7b/7c2be8a262/18/content_hash.txt",
+      "prompt": ""
+    },
+    {
+      "metadata": "/7b/7c2be8a262/19/metadata.json",
+      "transcript": "/7b/7c2be8a262/19/full.jsonl",
+      "context": "",
+      "content_hash": "/7b/7c2be8a262/19/content_hash.txt",
+      "prompt": ""
+    },
+    {
+      "metadata": "/7b/7c2be8a262/20/metadata.json",
+      "transcript": "/7b/7c2be8a262/20/full.jsonl",
+      "context": "",
+      "content_hash": "/7b/7c2be8a262/20/content_hash.txt",
+      "prompt": ""
+    },
+    {
+      "metadata": "/7b/7c2be8a262/21/metadata.json",
+      "transcript": "/7b/7c2be8a262/21/full.jsonl",
+      "context": "",
+      "content_hash": "/7b/7c2be8a262/21/content_hash.txt",
+      "prompt": ""
+    },
+    {
+      "metadata": "/7b/7c2be8a262/22/metadata.json",
+      "transcript": "/7b/7c2be8a262/22/full.jsonl",
+      "context": "",
+      "content_hash": "/7b/7c2be8a262/22/content_hash.txt",
+      "prompt": ""
+    },
+    {
+      "metadata": "/7b/7c2be8a262/23/metadata.json",
+      "transcript": "/7b/7c2be8a262/23/full.jsonl",
+      "context": "",
+      "content_hash": "/7b/7c2be8a262/23/content_hash.txt",
+      "prompt": ""
+    },
+    {
+      "metadata": "/7b/7c2be8a262/24/metadata.json",
+      "transcript": "/7b/7c2be8a262/24/full.jsonl",
+      "context": "",
+      "content_hash": "/7b/7c2be8a262/24/content_hash.txt",
+      "prompt": ""
+    },
+    {
+      "metadata": "/7b/7c2be8a262/25/metadata.json",
+      "transcript": "/7b/7c2be8a262/25/full.jsonl",
+      "context": "",
+      "content_hash": "/7b/7c2be8a262/25/content_hash.txt",
+      "prompt": ""
+    },
+    {
+      "metadata": "/7b/7c2be8a262/26/metadata.json",
+      "transcript": "/7b/7c2be8a262/26/full.jsonl",
+      "context": "",
+      "content_hash": "/7b/7c2be8a262/26/content_hash.txt",
+      "prompt": ""
+    },
+    {
+      "metadata": "/7b/7c2be8a262/27/metadata.json",
+      "transcript": "/7b/7c2be8a262/27/full.jsonl",
+      "context": "",
+      "content_hash": "/7b/7c2be8a262/27/content_hash.txt",
+      "prompt": ""
+    },
+    {
+      "metadata": "/7b/7c2be8a262/28/metadata.json",
+      "transcript": "/7b/7c2be8a262/28/full.jsonl",
+      "context": "",
+      "content_hash": "/7b/7c2be8a262/28/content_hash.txt",
+      "prompt": ""
+    },
+    {
+      "metadata": "/7b/7c2be8a262/29/metadata.json",
+      "transcript": "/7b/7c2be8a262/29/full.jsonl",
+      "context": "",
+      "content_hash": "/7b/7c2be8a262/29/content_hash.txt",
+      "prompt": ""
+    },
+    {
+      "metadata": "/7b/7c2be8a262/30/metadata.json",
+      "transcript": "/7b/7c2be8a262/30/full.jsonl",
+      "context": "",
+      "content_hash": "/7b/7c2be8a262/30/content_hash.txt",
+      "prompt": ""
+    },
+    {
+      "metadata": "/7b/7c2be8a262/31/metadata.json",
+      "transcript": "/7b/7c2be8a262/31/full.jsonl",
+      "context": "",
+      "content_hash": "/7b/7c2be8a262/31/content_hash.txt",
+      "prompt": ""
+    },
+    {
+      "metadata": "/7b/7c2be8a262/32/metadata.json",
+      "transcript": "/7b/7c2be8a262/32/full.jsonl",
+      "context": "",
+      "content_hash": "/7b/7c2be8a262/32/content_hash.txt",
+      "prompt": ""
+    },
+    {
+      "metadata": "/7b/7c2be8a262/33/metadata.json",
+      "transcript": "/7b/7c2be8a262/33/full.jsonl",
+      "context": "",
+      "content_hash": "/7b/7c2be8a262/33/content_hash.txt",
+      "prompt": ""
+    },
+    {
+      "metadata": "/7b/7c2be8a262/34/metadata.json",
+      "transcript": "/7b/7c2be8a262/34/full.jsonl",
+      "context": "",
+      "content_hash": "/7b/7c2be8a262/34/content_hash.txt",
+      "prompt": ""
+    },
+    {
+      "metadata": "/7b/7c2be8a262/35/metadata.json",
+      "transcript": "/7b/7c2be8a262/35/full.jsonl",
+      "context": "",
+      "content_hash": "/7b/7c2be8a262/35/content_hash.txt",
+      "prompt": ""
+    },
+    {
+      "metadata": "/7b/7c2be8a262/36/metadata.json",
+      "transcript": "/7b/7c2be8a262/36/full.jsonl",
+      "context": "",
+      "content_hash": "/7b/7c2be8a262/36/content_hash.txt",
+      "prompt": ""
+    },
+    {
+      "metadata": "/7b/7c2be8a262/37/metadata.json",
+      "transcript": "/7b/7c2be8a262/37/full.jsonl",
+      "context": "",
+      "content_hash": "/7b/7c2be8a262/37/content_hash.txt",
+      "prompt": ""
+    },
+    {
+      "metadata": "/7b/7c2be8a262/38/metadata.json",
+      "transcript": "/7b/7c2be8a262/38/full.jsonl",
+      "context": "/7b/7c2be8a262/38/context.md",
+      "content_hash": "/7b/7c2be8a262/38/content_hash.txt",
+      "prompt": "/7b/7c2be8a262/38/prompt.txt"
+    },
+    {
+      "metadata": "/7b/7c2be8a262/39/metadata.json",
+      "transcript": "/7b/7c2be8a262/39/full.jsonl",
+      "context": "/7b/7c2be8a262/39/context.md",
+      "content_hash": "/7b/7c2be8a262/39/content_hash.txt",
+      "prompt": "/7b/7c2be8a262/39/prompt.txt"
+    },
+    {
+      "metadata": "/7b/7c2be8a262/40/metadata.json",
+      "transcript": "/7b/7c2be8a262/40/full.jsonl",
+      "context": "/7b/7c2be8a262/40/context.md",
+      "content_hash": "/7b/7c2be8a262/40/content_hash.txt",
+      "prompt": "/7b/7c2be8a262/40/prompt.txt"
+    },
+    {
+      "metadata": "/7b/7c2be8a262/41/metadata.json",
+      "transcript": "/7b/7c2be8a262/41/full.jsonl",
+      "context": "/7b/7c2be8a262/41/context.md",
+      "content_hash": "/7b/7c2be8a262/41/content_hash.txt",
+      "prompt": "/7b/7c2be8a262/41/prompt.txt"
+    },
+    {
+      "metadata": "/7b/7c2be8a262/42/metadata.json",
+      "transcript": "/7b/7c2be8a262/42/full.jsonl",
+      "context": "/7b/7c2be8a262/42/context.md",
+      "content_hash": "/7b/7c2be8a262/42/content_hash.txt",
+      "prompt": "/7b/7c2be8a262/42/prompt.txt"
+    },
+    {
+      "metadata": "/7b/7c2be8a262/43/metadata.json",
+      "transcript": "/7b/7c2be8a262/43/full.jsonl",
+      "context": "/7b/7c2be8a262/43/context.md",
+      "content_hash": "/7b/7c2be8a262/43/content_hash.txt",
+      "prompt": "/7b/7c2be8a262/43/prompt.txt"
+    },
+    {
+      "metadata": "/7b/7c2be8a262/44/metadata.json",
+      "transcript": "/7b/7c2be8a262/44/full.jsonl",
+      "context": "/7b/7c2be8a262/44/context.md",
+      "content_hash": "/7b/7c2be8a262/44/content_hash.txt",
+      "prompt": "/7b/7c2be8a262/44/prompt.txt"
+    },
+    {
+      "metadata": "/7b/7c2be8a262/45/metadata.json",
+      "transcript": "/7b/7c2be8a262/45/full.jsonl",
+      "context": "/7b/7c2be8a262/45/context.md",
+      "content_hash": "/7b/7c2be8a262/45/content_hash.txt",
+      "prompt": "/7b/7c2be8a262/45/prompt.txt"
+    },
+    {
+      "metadata": "/7b/7c2be8a262/46/metadata.json",
+      "transcript": "/7b/7c2be8a262/46/full.jsonl",
+      "context": "/7b/7c2be8a262/46/context.md",
+      "content_hash": "/7b/7c2be8a262/46/content_hash.txt",
+      "prompt": "/7b/7c2be8a262/46/prompt.txt"
+    },
+    {
+      "metadata": "/7b/7c2be8a262/47/metadata.json",
+      "transcript": "/7b/7c2be8a262/47/full.jsonl",
+      "context": "/7b/7c2be8a262/47/context.md",
+      "content_hash": "/7b/7c2be8a262/47/content_hash.txt",
+      "prompt": "/7b/7c2be8a262/47/prompt.txt"
+    },
+    {
+      "metadata": "/7b/7c2be8a262/48/metadata.json",
+      "transcript": "/7b/7c2be8a262/48/full.jsonl",
+      "context": "/7b/7c2be8a262/48/context.md",
+      "content_hash": "/7b/7c2be8a262/48/content_hash.txt",
+      "prompt": "/7b/7c2be8a262/48/prompt.txt"
+    },
+    {
+      "metadata": "/7b/7c2be8a262/49/metadata.json",
+      "transcript": "/7b/7c2be8a262/49/full.jsonl",
+      "context": "/7b/7c2be8a262/49/context.md",
+      "content_hash": "/7b/7c2be8a262/49/content_hash.txt",
+      "prompt": "/7b/7c2be8a262/49/prompt.txt"
+    },
+    {
+      "metadata": "/7b/7c2be8a262/50/metadata.json",
+      "transcript": "/7b/7c2be8a262/50/full.jsonl",
+      "context": "/7b/7c2be8a262/50/context.md",
+      "content_hash": "/7b/7c2be8a262/50/content_hash.txt",
+      "prompt": "/7b/7c2be8a262/50/prompt.txt"
+    },
+    {
+      "metadata": "/7b/7c2be8a262/51/metadata.json",
+      "transcript": "/7b/7c2be8a262/51/full.jsonl",
+      "context": "/7b/7c2be8a262/51/context.md",
+      "content_hash": "/7b/7c2be8a262/51/content_hash.txt",
+      "prompt": "/7b/7c2be8a262/51/prompt.txt"
+    },
+    {
+      "metadata": "/7b/7c2be8a262/52/metadata.json",
+      "transcript": "/7b/7c2be8a262/52/full.jsonl",
+      "context": "/7b/7c2be8a262/52/context.md",
+      "content_hash": "/7b/7c2be8a262/52/content_hash.txt",
+      "prompt": "/7b/7c2be8a262/52/prompt.txt"
+    },
+    {
+      "metadata": "/7b/7c2be8a262/53/metadata.json",
+      "transcript": "/7b/7c2be8a262/53/full.jsonl",
+      "context": "/7b/7c2be8a262/53/context.md",
+      "content_hash": "/7b/7c2be8a262/53/content_hash.txt",
+      "prompt": "/7b/7c2be8a262/53/prompt.txt"
+    },
+    {
+      "metadata": "/7b/7c2be8a262/54/metadata.json",
+      "transcript": "/7b/7c2be8a262/54/full.jsonl",
+      "context": "/7b/7c2be8a262/54/context.md",
+      "content_hash": "/7b/7c2be8a262/54/content_hash.txt",
+      "prompt": "/7b/7c2be8a262/54/prompt.txt"
+    },
+    {
+      "metadata": "/7b/7c2be8a262/55/metadata.json",
+      "transcript": "/7b/7c2be8a262/55/full.jsonl",
+      "context": "/7b/7c2be8a262/55/context.md",
+      "content_hash": "/7b/7c2be8a262/55/content_hash.txt",
+      "prompt": "/7b/7c2be8a262/55/prompt.txt"
+    },
+    {
+      "metadata": "/7b/7c2be8a262/56/metadata.json",
+      "transcript": "/7b/7c2be8a262/56/full.jsonl",
+      "context": "/7b/7c2be8a262/56/context.md",
+      "content_hash": "/7b/7c2be8a262/56/content_hash.txt",
+      "prompt": "/7b/7c2be8a262/56/prompt.txt"
+    },
+    {
+      "metadata": "/7b/7c2be8a262/57/metadata.json",
+      "transcript": "/7b/7c2be8a262/57/full.jsonl",
+      "context": "/7b/7c2be8a262/57/context.md",
+      "content_hash": "/7b/7c2be8a262/57/content_hash.txt",
+      "prompt": "/7b/7c2be8a262/57/prompt.txt"
+    },
+    {
+      "metadata": "/7b/7c2be8a262/58/metadata.json",
+      "transcript": "/7b/7c2be8a262/58/full.jsonl",
+      "context": "/7b/7c2be8a262/58/context.md",
+      "content_hash": "/7b/7c2be8a262/58/content_hash.txt",
+      "prompt": "/7b/7c2be8a262/58/prompt.txt"
+    },
+    {
+      "metadata": "/7b/7c2be8a262/59/metadata.json",
+      "transcript": "/7b/7c2be8a262/59/full.jsonl",
+      "context": "/7b/7c2be8a262/59/context.md",
+      "content_hash": "/7b/7c2be8a262/59/content_hash.txt",
+      "prompt": "/7b/7c2be8a262/59/prompt.txt"
+    },
+    {
+      "metadata": "/7b/7c2be8a262/60/metadata.json",
+      "transcript": "/7b/7c2be8a262/60/full.jsonl",
+      "context": "/7b/7c2be8a262/60/context.md",
+      "content_hash": "/7b/7c2be8a262/60/content_hash.txt",
+      "prompt": "/7b/7c2be8a262/60/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 4606,
+    "cache_creation_tokens": 934114,
+    "cache_read_tokens": 29458584,
+    "output_tokens": 8537,
+    "api_call_count": 284
+  }
+}

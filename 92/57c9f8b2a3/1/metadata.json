@@ -1,0 +1,42 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "9257c9f8b2a3",
+  "session_id": "b186546e-dce4-4f0d-8dea-4dbb407d95fe",
+  "strategy": "manual-commit",
+  "created_at": "2026-02-19T00:30:14.523035Z",
+  "branch": "remove-auto-commit",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "cmd/entire/cli/config_test.go",
+    "cmd/entire/cli/e2e_test/scenario_agent_commit_test.go",
+    "cmd/entire/cli/e2e_test/scenario_basic_workflow_test.go",
+    "cmd/entire/cli/e2e_test/scenario_checkpoint_test.go",
+    "cmd/entire/cli/e2e_test/scenario_checkpoint_workflows_test.go",
+    "cmd/entire/cli/e2e_test/scenario_rewind_test.go",
+    "cmd/entire/cli/e2e_test/scenario_subagent_test.go",
+    "cmd/entire/cli/e2e_test/testenv.go",
+    "cmd/entire/cli/integration_test/testenv_test.go",
+    "cmd/entire/cli/resume_test.go",
+    "cmd/entire/cli/settings/settings_test.go",
+    "cmd/entire/cli/status_test.go"
+  ],
+  "agent": "Claude Code",
+  "turn_id": "73be282649e3",
+  "token_usage": {
+    "input_tokens": 67,
+    "cache_creation_tokens": 137065,
+    "cache_read_tokens": 6506937,
+    "output_tokens": 10593,
+    "api_call_count": 61
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-02-19T00:30:14.183168Z",
+    "agent_lines": 0,
+    "human_added": 5,
+    "human_modified": 500,
+    "human_removed": 0,
+    "total_committed": 50,
+    "agent_percentage": 0
+  },
+  "transcript_path": ".claude/projects/-Users-gtrrz-victor-wks-cli-remove-auto-commit/b186546e-dce4-4f0d-8dea-4dbb407d95fe.jsonl"
+}

@@ -1,0 +1,41 @@
+# Session Context
+
+## User Prompts
+
+### Prompt 1
+
+this works on my co-workers machine, but is reproducible elsewhere. 
+
+All the e2e tests fail with claude is not logged in:
+
+dvydra@Mac artifacts % cat 2026-02-25T10-29-57/TestSubagentCommitFlow-claude-code/console.log
+> claude -p "use a subagent: create a markdown file at docs/red.md with a paragraph about the colour red. Do not commit the file. Do not ask for confirmation, just make the change." --model haiku --dangerously-skip-permissions
+stdout:
+Not logged in · Please run /login
+
+any ideas...
+
+### Prompt 2
+
+[Request interrupted by user for tool use]
+
+### Prompt 3
+
+we're in the context of a user with a seat on a team plan, so nobdy has ANTHROPIC_API_KEY set
+
+### Prompt 4
+
+ok make sure this is nice and clean, it's my first commit.
+
+### Prompt 5
+
+push it
+
+### Prompt 6
+
+remove the logging
+
+### Prompt 7
+
+you can make a new one
+

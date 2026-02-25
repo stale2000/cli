@@ -1,0 +1,56 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "c74816392558",
+  "strategy": "manual-commit",
+  "branch": "gtrrz-victor/github-copilot-support",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/agent/copilot/copilot.go",
+    "cmd/entire/cli/agent/copilot/copilot_test.go",
+    "cmd/entire/cli/agent/copilot/hooks.go",
+    "cmd/entire/cli/agent/copilot/hooks_test.go",
+    "cmd/entire/cli/agent/copilot/lifecycle.go",
+    "cmd/entire/cli/agent/copilot/lifecycle_test.go",
+    "cmd/entire/cli/agent/copilot/transcript.go",
+    "cmd/entire/cli/agent/copilot/transcript_test.go",
+    "cmd/entire/cli/agent/copilot/types.go",
+    "cmd/entire/cli/agent/registry.go",
+    "cmd/entire/cli/hook_registry.go",
+    "cmd/entire/cli/hooks_cmd.go",
+    "cmd/entire/cli/setup.go",
+    "cmd/entire/cli/setup_test.go",
+    "cmd/entire/cli/strategy/rewind_test.go",
+    "cmd/entire/cli/summarize/summarize.go",
+    "copilot-integration.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/c7/4816392558/0/metadata.json",
+      "transcript": "/c7/4816392558/0/full.jsonl",
+      "context": "/c7/4816392558/0/context.md",
+      "content_hash": "/c7/4816392558/0/content_hash.txt",
+      "prompt": "/c7/4816392558/0/prompt.txt"
+    },
+    {
+      "metadata": "/c7/4816392558/1/metadata.json",
+      "transcript": "/c7/4816392558/1/full.jsonl",
+      "context": "",
+      "content_hash": "/c7/4816392558/1/content_hash.txt",
+      "prompt": ""
+    },
+    {
+      "metadata": "/c7/4816392558/2/metadata.json",
+      "transcript": "/c7/4816392558/2/full.jsonl",
+      "context": "/c7/4816392558/2/context.md",
+      "content_hash": "/c7/4816392558/2/content_hash.txt",
+      "prompt": "/c7/4816392558/2/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 453,
+    "cache_creation_tokens": 502155,
+    "cache_read_tokens": 26232184,
+    "output_tokens": 49273,
+    "api_call_count": 220
+  }
+}

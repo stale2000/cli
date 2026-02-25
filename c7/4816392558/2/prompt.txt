@@ -1,0 +1,89 @@
+Implement the following plan:
+
+# Plan: Simplify Copilot Implementation (YAGNI)
+
+## Context
+
+The copilot package exports functions and types that are only used internally. This violates YAGNI and exposes unnecessary API surface. This plan unexports internal-only symbols and removes a redundant method.
+
+## Changes
+
+### 1. Unexport internal-only functions in `transcript.go`
+
+These 5 functions are only called from within the copilot package (by `lifecycle.go`). No external package references them.
+
+| Current (exported) | New (unexported) |
+|---|---|
+| `CountLines()` | `countLines()` |
+| `ExtractModifiedFilesFromLines()` | `extractModifiedFilesFromLines()` |
+| `ExtractPromptsFromData()` | `extractPromptsFromData()` |
+| `ExtractLastAssistantMessage()` | `extractLastAssistantMessage()` |
+| `SliceFromLine()` | `sliceFromLine()` |
+
+**Keep exported**: `ParseTranscript()` — used by `summarize/summarize.go`
+
+### 2. Unexport internal-only types in `types.go` and `hooks.go`
+
+| Current (exported) | New (unexported) |
+|---|---|
+| `HookConfig` | `hookConfig` |
+| `HookEntry` | `hookEntry` |
+| `FileModificationTools` | `fileModificationTools` |
+
+**Keep exported**: `Event` — returned by `ParseTranscript()`, used by `summarize/summarize.go`
+
+### 3. Remove `GetHookNames()` indirection
+
+`HookNames()` in lifecycle.go delegates to `GetHookNames()` in hooks.go. Inline the list directly into `HookNames()` and remove `GetHookNames()`. Update `InstallHooks` (hooks.go:126) to call `c.HookNames()`.
+
+### 4. Update all internal callers
+
+In `lifecycle.go`, update calls: `CountLines` → `countLines`, etc.
+
+### 5. Update tests
+
+- `transcript_test.go`: Use unexported function names
+- `hooks_test.go`: `TestGetHookNames` → `TestHookNames`, `HookConfig` → `hookConfig`, `HookEntry` → `hookEntry`
+
+## Files
+
+| File | Change |
+|---|---|
+| `copilot/transcript.go` | Lowercase 5 function names |
+| `copilot/types.go` | Lowercase `HookConfig`, `HookEntry`, `FileModificationTools` |
+| `copilot/hooks.go` | Remove `GetHookNames()`, lowercase type refs |
+| `copilot/lifecycle.go` | Inline `HookNames()`, lowercase function calls |
+| `copilot/transcript_test.go` | Update to unexported names |
+| `copilot/hooks_test.go` | Update to unexported names |
+| `copilot/copilot_test.go` | Remove `TestGetSupportedHooks` if it tests removed method (verify) |
+
+## Verification
+
+```bash
+mise run fmt && mise run lint && go test ./cmd/entire/cli/agent/copilot/... -count=1
+```
+
+
+If you need specific details from before exiting plan mode (like exact code snippets, error messages, or content you generated), read the full transcript at: /Users/gtrrz-victor/.REDACTED.jsonl
+
+---
+
+[Request interrupted by user for tool use]
+
+---
+
+clear
+
+---
+
+<task-notification>
+<task-id>b2fe795</task-id>
+<output-file>/private/tmp/claude-501/-Users-gtrrz-victor-wks-cli-cli/tasks/b2fe795.output</output-file>
+<status>failed</status>
+<summary>Background command "Run full CI test suite" failed with exit code 1</summary>
+</task-notification>
+Read the output file to retrieve the result: /private/tmp/claude-501/-Users-gtrrz-victor-wks-cli-cli/tasks/b2fe795.output
+
+---
+
+copilot agent is created, and we can start using it by entire enable --agent copilot, but, we don't have any e2e test running on copilot. What do we need to do to run our e2e test over copilot agents?

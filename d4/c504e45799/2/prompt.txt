@@ -1,0 +1,22 @@
+I do want to run a matrix where we run in parallel:
+mise run test:e2e:claude and mise run test:e2e:opencode
+
+---
+
+instll opencode with the sh script: curl -fsSL https://opencode.ai/install | bash
+
+---
+
+can we simplify the step to run one curl or the other based on the agent?
+
+---
+
+is the matrix running in parallel ?
+
+---
+
+[Request interrupted by user for tool use]
+
+---
+
+install opencode using the npm -g way
