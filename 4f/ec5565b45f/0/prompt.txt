@@ -1,0 +1,1 @@
+Can you also check all of the locally configured hooks in this repo and update them as well accordingly?
