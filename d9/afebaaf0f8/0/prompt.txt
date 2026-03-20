@@ -51,3 +51,7 @@ an alternative to this would be to just always use `verification_uri` i.e. open 
 ---
 
 in @cmd/entire/cli/login.go on line 74-76 we're still falling back to `VerificationURIComplete` - please drop this and all uses of it
+
+---
+
+commit the staged changes, push and update the PR description with the rationale
