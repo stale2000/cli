@@ -2,11 +2,19 @@
   "cli_version": "dev",
   "checkpoint_id": "1c7d96957309",
   "strategy": "manual-commit",
-  "branch": "soph/agent-refactor",
+  "branch": "soph/add-absolute-hook-path-option",
   "checkpoints_count": 2,
   "files_touched": [
+    "cmd/entire/cli/bench_enable_test.go",
     "cmd/entire/cli/lifecycle.go",
-    "cmd/entire/cli/lifecycle_test.go"
+    "cmd/entire/cli/lifecycle_test.go",
+    "cmd/entire/cli/setup.go",
+    "cmd/entire/cli/setup_test.go",
+    "cmd/entire/cli/strategy/common.go",
+    "cmd/entire/cli/strategy/hook_managers.go",
+    "cmd/entire/cli/strategy/hook_managers_test.go",
+    "cmd/entire/cli/strategy/hooks.go",
+    "cmd/entire/cli/strategy/hooks_test.go"
   ],
   "sessions": [
     {
@@ -31,18 +39,18 @@
       "prompt": ""
     },
     {
-      "metadata": "/1c/7d96957309/3/metadata.json",
-      "transcript": "/1c/7d96957309/3/full.jsonl",
-      "context": "",
-      "content_hash": "/1c/7d96957309/3/content_hash.txt",
-      "prompt": ""
+      "metadata": "/1c/7d96957309/4/metadata.json",
+      "transcript": "/1c/7d96957309/4/full.jsonl",
+      "context": "/1c/7d96957309/4/context.md",
+      "content_hash": "/1c/7d96957309/4/content_hash.txt",
+      "prompt": "/1c/7d96957309/4/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 45298,
-    "cache_creation_tokens": 174940,
-    "cache_read_tokens": 3159483,
-    "output_tokens": 123,
-    "api_call_count": 39
+    "input_tokens": 46366,
+    "cache_creation_tokens": 1260228,
+    "cache_read_tokens": 17208386,
+    "output_tokens": 471,
+    "api_call_count": 171
   }
 }

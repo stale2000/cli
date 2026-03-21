@@ -26,13 +26,6 @@
       "context": "/e0/a43ed1a500/0/context.md",
       "content_hash": "/e0/a43ed1a500/0/content_hash.txt",
       "prompt": "/e0/a43ed1a500/0/prompt.txt"
-    },
-    {
-      "metadata": "/e0/a43ed1a500/1/metadata.json",
-      "transcript": "/e0/a43ed1a500/1/full.jsonl",
-      "context": "",
-      "content_hash": "/e0/a43ed1a500/1/content_hash.txt",
-      "prompt": ""
     }
   ],
   "token_usage": {

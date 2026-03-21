@@ -52,13 +52,6 @@
       "context": "/5b/a1abd32f4d/5/context.md",
       "content_hash": "/5b/a1abd32f4d/5/content_hash.txt",
       "prompt": "/5b/a1abd32f4d/5/prompt.txt"
-    },
-    {
-      "metadata": "/5b/a1abd32f4d/6/metadata.json",
-      "transcript": "/5b/a1abd32f4d/6/full.jsonl",
-      "context": "",
-      "content_hash": "/5b/a1abd32f4d/6/content_hash.txt",
-      "prompt": ""
     }
   ],
   "token_usage": {

@@ -67,7 +67,3 @@ write an updated PR description, print it only please for PR A
 ---
 
 and according to the plan, PR A is now clean and ready to commit?
-
----
-
-okay go ahead and commit, push, and update the pr title, and body. remember this is on PR 599 on the branch perf/force-condense-ended-sessions
