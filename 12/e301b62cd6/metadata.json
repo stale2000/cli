@@ -16,13 +16,6 @@
       "context": "/12/e301b62cd6/0/context.md",
       "content_hash": "/12/e301b62cd6/0/content_hash.txt",
       "prompt": "/12/e301b62cd6/0/prompt.txt"
-    },
-    {
-      "metadata": "/12/e301b62cd6/1/metadata.json",
-      "transcript": "/12/e301b62cd6/1/full.jsonl",
-      "context": "",
-      "content_hash": "/12/e301b62cd6/1/content_hash.txt",
-      "prompt": ""
     }
   ],
   "token_usage": {

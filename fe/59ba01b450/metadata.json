@@ -26,13 +26,6 @@
       "context": "/fe/59ba01b450/1/context.md",
       "content_hash": "/fe/59ba01b450/1/content_hash.txt",
       "prompt": "/fe/59ba01b450/1/prompt.txt"
-    },
-    {
-      "metadata": "/fe/59ba01b450/2/metadata.json",
-      "transcript": "/fe/59ba01b450/2/full.jsonl",
-      "context": "",
-      "content_hash": "/fe/59ba01b450/2/content_hash.txt",
-      "prompt": ""
     }
   ],
   "token_usage": {
