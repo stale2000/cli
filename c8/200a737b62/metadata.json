@@ -25,6 +25,13 @@
       "context": "/c8/200a737b62/1/context.md",
       "content_hash": "/c8/200a737b62/1/content_hash.txt",
       "prompt": "/c8/200a737b62/1/prompt.txt"
+    },
+    {
+      "metadata": "/c8/200a737b62/2/metadata.json",
+      "transcript": "/c8/200a737b62/2/full.jsonl",
+      "context": "",
+      "content_hash": "/c8/200a737b62/2/content_hash.txt",
+      "prompt": ""
     }
   ],
   "token_usage": {
