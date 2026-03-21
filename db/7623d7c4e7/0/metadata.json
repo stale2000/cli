@@ -1,0 +1,23 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "db7623d7c4e7",
+  "session_id": "test",
+  "strategy": "manual-commit",
+  "created_at": "2026-02-25T01:04:22.474962Z",
+  "branch": "feat/digest-command",
+  "checkpoints_count": 0,
+  "files_touched": [
+    ".claude/skills/digest/SKILL.md"
+  ],
+  "agent": "Mock Lifecycle Agent",
+  "turn_id": "b1e558f86d28",
+  "initial_attribution": {
+    "calculated_at": "2026-02-25T01:04:22.47343Z",
+    "agent_lines": 45,
+    "human_added": 625,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 670,
+    "agent_percentage": 6.7164179104477615
+  }
+}
