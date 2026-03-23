@@ -1,0 +1,269 @@
+{
+  "info": {
+    "id": "ses_2f255c1c4ffe7kNgtxenzQ340d",
+    "slug": "proud-forest",
+    "projectID": "e72157d04022f74eb1af25d0a2ca9cd92933f715",
+    "directory": "/Users/pfleidi/entire/cli/.worktrees/fix/local-dev-agent-hooks",
+    "title": "New session - 2026-03-20T23:52:34.107Z",
+    "version": "1.2.27",
+    "summary": {
+      "additions": 0,
+      "deletions": 0,
+      "files": 0
+    },
+    "time": {
+      "created": 1774050754107,
+      "updated": 1774050826387
+    }
+  },
+  "messages": [
+    {
+      "info": {
+        "role": "user",
+        "time": {
+          "created": 1774050754114
+        },
+        "summary": {
+          "diffs": []
+        },
+        "agent": "build",
+        "model": {
+          "providerID": "anthropic",
+          "modelID": "claude-opus-4-6"
+        },
+        "id": "msg_d0daa3e3e001J5AOiml3pt1d9m",
+        "sessionID": "ses_2f255c1c4ffe7kNgtxenzQ340d"
+      },
+      "parts": [
+        {
+          "type": "text",
+          "text": "hi",
+          "id": "prt_d0daa3e3f001gyR7Fhcr4Xxkhu",
+          "sessionID": "ses_2f255c1c4ffe7kNgtxenzQ340d",
+          "messageID": "msg_d0daa3e3e001J5AOiml3pt1d9m"
+        }
+      ]
+    },
+    {
+      "info": {
+        "role": "assistant",
+        "time": {
+          "created": 1774050754121,
+          "completed": 1774050754227
+        },
+        "error": {
+          "name": "UnknownError",
+          "data": {
+            "message": "Error: Token refresh failed: 429"
+          }
+        },
+        "parentID": "msg_d0daa3e3e001J5AOiml3pt1d9m",
+        "modelID": "claude-opus-4-6",
+        "providerID": "anthropic",
+        "mode": "build",
+        "agent": "build",
+        "path": {
+          "cwd": "/Users/pfleidi/entire/cli/.worktrees/fix/local-dev-agent-hooks",
+          "root": "/Users/pfleidi/entire/cli/.worktrees/fix/local-dev-agent-hooks"
+        },
+        "cost": 0,
+        "tokens": {
+          "input": 0,
+          "output": 0,
+          "reasoning": 0,
+          "cache": {
+            "read": 0,
+            "write": 0
+          }
+        },
+        "id": "msg_d0daa3e490011nBfioK2GIo3n0",
+        "sessionID": "ses_2f255c1c4ffe7kNgtxenzQ340d"
+      },
+      "parts": []
+    },
+    {
+      "info": {
+        "role": "user",
+        "time": {
+          "created": 1774050759905
+        },
+        "summary": {
+          "diffs": []
+        },
+        "agent": "build",
+        "model": {
+          "providerID": "anthropic",
+          "modelID": "claude-opus-4-6"
+        },
+        "id": "msg_d0daa54de0012Ibv1SmSewvUYe",
+        "sessionID": "ses_2f255c1c4ffe7kNgtxenzQ340d"
+      },
+      "parts": [
+        {
+          "type": "text",
+          "text": "What",
+          "id": "prt_d0daa54de002OnRxXaZNYMrtkZ",
+          "sessionID": "ses_2f255c1c4ffe7kNgtxenzQ340d",
+          "messageID": "msg_d0daa54de0012Ibv1SmSewvUYe"
+        }
+      ]
+    },
+    {
+      "info": {
+        "role": "assistant",
+        "time": {
+          "created": 1774050759907,
+          "completed": 1774050759934
+        },
+        "error": {
+          "name": "UnknownError",
+          "data": {
+            "message": "Error: Token refresh failed: 429"
+          }
+        },
+        "parentID": "msg_d0daa54de0012Ibv1SmSewvUYe",
+        "modelID": "claude-opus-4-6",
+        "providerID": "anthropic",
+        "mode": "build",
+        "agent": "build",
+        "path": {
+          "cwd": "/Users/pfleidi/entire/cli/.worktrees/fix/local-dev-agent-hooks",
+          "root": "/Users/pfleidi/entire/cli/.worktrees/fix/local-dev-agent-hooks"
+        },
+        "cost": 0,
+        "tokens": {
+          "input": 0,
+          "output": 0,
+          "reasoning": 0,
+          "cache": {
+            "read": 0,
+            "write": 0
+          }
+        },
+        "id": "msg_d0daa54e3001qheY25R3ZzmrZ5",
+        "sessionID": "ses_2f255c1c4ffe7kNgtxenzQ340d"
+      },
+      "parts": []
+    },
+    {
+      "info": {
+        "role": "user",
+        "time": {
+          "created": 1774050826376
+        },
+        "summary": {
+          "diffs": []
+        },
+        "agent": "build",
+        "model": {
+          "providerID": "openai",
+          "modelID": "gpt-5.3-codex"
+        },
+        "id": "msg_d0dab5880001XoJ9IJ0cXbHVom",
+        "sessionID": "ses_2f255c1c4ffe7kNgtxenzQ340d"
+      },
+      "parts": [
+        {
+          "type": "text",
+          "text": "hi",
+          "id": "prt_d0dab5881001b44ZJBcC67V0ye",
+          "sessionID": "ses_2f255c1c4ffe7kNgtxenzQ340d",
+          "messageID": "msg_d0dab5880001XoJ9IJ0cXbHVom"
+        }
+      ]
+    },
+    {
+      "info": {
+        "role": "assistant",
+        "time": {
+          "created": 1774050826382,
+          "completed": 1774050830074
+        },
+        "parentID": "msg_d0dab5880001XoJ9IJ0cXbHVom",
+        "modelID": "gpt-5.3-codex",
+        "providerID": "openai",
+        "mode": "build",
+        "agent": "build",
+        "path": {
+          "cwd": "/Users/pfleidi/entire/cli/.worktrees/fix/local-dev-agent-hooks",
+          "root": "/Users/pfleidi/entire/cli/.worktrees/fix/local-dev-agent-hooks"
+        },
+        "cost": 0,
+        "tokens": {
+          "total": 16916,
+          "input": 16887,
+          "output": 29,
+          "reasoning": 11,
+          "cache": {
+            "read": 0,
+            "write": 0
+          }
+        },
+        "finish": "stop",
+        "id": "msg_d0dab588e001JQ7Rq4urwcmzdP",
+        "sessionID": "ses_2f255c1c4ffe7kNgtxenzQ340d"
+      },
+      "parts": [
+        {
+          "type": "step-start",
+          "snapshot": "32333682317801e3261602de14fc523ef88e6dd3",
+          "id": "prt_d0dab629000141KeTMVPrSEhp0",
+          "sessionID": "ses_2f255c1c4ffe7kNgtxenzQ340d",
+          "messageID": "msg_d0dab588e001JQ7Rq4urwcmzdP"
+        },
+        {
+          "type": "reasoning",
+          "text": "",
+          "metadata": {
+            "openai": {
+              "itemId": "rs_0260732172e81a730169bdde0d4054819580ab53181dacd2a6",
+              "reasoningEncryptedContent": "REDACTED"
+            }
+          },
+          "time": {
+            "start": 1774050829273,
+            "end": 1774050829684
+          },
+          "id": "prt_d0dab63d90015yLhioFBsNycQ8",
+          "sessionID": "ses_2f255c1c4ffe7kNgtxenzQ340d",
+          "messageID": "msg_d0dab588e001JQ7Rq4urwcmzdP"
+        },
+        {
+          "type": "text",
+          "text": "Hey! 👋 What can I help you with today?",
+          "time": {
+            "start": 1774050829862,
+            "end": 1774050829862
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "msg_0260732172e81a730169bdde0da838819585ec532c11251037"
+            }
+          },
+          "id": "prt_d0dab6576001j8uFyOAcefnxLw",
+          "sessionID": "ses_2f255c1c4ffe7kNgtxenzQ340d",
+          "messageID": "msg_d0dab588e001JQ7Rq4urwcmzdP"
+        },
+        {
+          "type": "step-finish",
+          "reason": "stop",
+          "snapshot": "32333682317801e3261602de14fc523ef88e6dd3",
+          "cost": 0,
+          "tokens": {
+            "total": 16916,
+            "input": 16887,
+            "output": 29,
+            "reasoning": 11,
+            "cache": {
+              "read": 0,
+              "write": 0
+            }
+          },
+          "id": "prt_d0dab66ba001dhSzcDF6FbDgu1",
+          "sessionID": "ses_2f255c1c4ffe7kNgtxenzQ340d",
+          "messageID": "msg_d0dab588e001JQ7Rq4urwcmzdP"
+        }
+      ]
+    }
+  ]
+}
