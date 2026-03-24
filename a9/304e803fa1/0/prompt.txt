@@ -128,3 +128,7 @@ okay and insights will work similarly?
 ---
 
 I don't see how seed is that different than improve. so leave that out. i don't really understand the benchmark stuff and the I'm very interested in pre instruction effectiveness tracking
+
+---
+
+do it
