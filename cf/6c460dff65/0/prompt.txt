@@ -153,11 +153,3 @@ Usage:
 Flags:
   -f, --force   Delete without prompting for confirmation
   -h, --help    help for clean
-
----
-
-Just commit and push to perf/warn-stale-ended-sessions
-
----
-
-i've already created the PR, https://github.com/entireio/cli/pull/746, with one commit, so view this first one and edit commit message
