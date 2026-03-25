@@ -89,3 +89,24 @@ Rerun failed tests:
   mise run test:e2e --agent codex TestSingleSessionManualCommit
 
 💥 FAILED (0/1 passed) 💥
+
+---
+
+I got these a few times: 
+
+✗ TestInteractiveMultiStep (118.3s)
+  ✗ codex                118.3s
+      interactive_test.go:17: start session: waiting for codex prompt: timed out waiting for ">" after 30s
+      --- pane content ---
+      Introducing GPT-5.4
+      Codex just got an upgrade with GPT-5.4, our most capable model for
+      professional work. It outperforms prior models while being more token
+      efficient, with notable improvements on long-running tasks, tool calling,
+      computer use, and frontend development.
+      Learn more: https://openai.com/index/introducing-gpt-5-4
+      You can always keep using GPT-5.3-Codex if you prefer.
+      Choose how you'd like Codex to proceed.
+      › 1. Try new model
+      2. Use existing model
+      Use ↑/↓ to move, press enter to confirm
+      --- end pane content ---
