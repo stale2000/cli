@@ -69,3 +69,7 @@ You can commit this and go on
 ---
 
 Commit and continue
+
+---
+
+Commit and continue
