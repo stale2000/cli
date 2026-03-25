@@ -65,3 +65,7 @@ I've reverted the changes again. This time, list them one by one, allow me to in
 ---
 
 You can commit this and go on
+
+---
+
+Commit and continue
