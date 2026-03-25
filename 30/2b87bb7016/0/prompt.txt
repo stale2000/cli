@@ -56,3 +56,7 @@ are we sure this works on the repo level?
 ---
 
 but could we not rather figure out how codex stores trust and enable that?
+
+---
+
+but don't we just need to enable trust in ~/.codex/config.toml and then can do the repo scoped hooks enabling? can we test that
