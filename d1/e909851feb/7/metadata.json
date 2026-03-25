@@ -1,0 +1,35 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "d1e909851feb",
+  "session_id": "c91271c4-0fa4-4456-ab9a-6b3eddc37fa5",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-25T17:50:38.813667Z",
+  "branch": "convert-full-transcript",
+  "checkpoints_count": 3,
+  "files_touched": [
+    "cmd/entire/cli/transcript/compact.go",
+    "cmd/entire/cli/transcript/testdata/opencode_expected.jsonl"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-6[1m]",
+  "turn_id": "bb7c2363d7be",
+  "token_usage": {
+    "input_tokens": 7397,
+    "cache_creation_tokens": 108178,
+    "cache_read_tokens": 4359187,
+    "output_tokens": 20528,
+    "api_call_count": 58
+  },
+  "session_metrics": {
+    "turn_count": 3
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-03-25T17:50:38.618214Z",
+    "agent_lines": 318,
+    "human_added": 8545,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 8863,
+    "agent_percentage": 3.587949904095679
+  }
+}
