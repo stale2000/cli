@@ -493,3 +493,7 @@ The `entire improve` command runs a four-phase pipeline:
 <usage><total_tokens>84485</total_tokens><tool_uses>65</tool_uses><duration_ms>286580</duration_ms></usage>
 </task-notification>
 Full transcript available at: /private/tmp/claude-501/-Users-alisha--superset-worktrees-cli-agent-improvements/5da2bf60-2e29-4c46-b13a-b74801006853/tasks/ac5f003288eda2450.output
+
+---
+
+yks
