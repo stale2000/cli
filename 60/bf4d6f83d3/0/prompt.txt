@@ -110,3 +110,109 @@ I got these a few times:
       2. Use existing model
       Use ↑/↓ to move, press enter to confirm
       --- end pane content ---
+
+---
+
+these 5 are failing: 
+
+✗ TestInteractiveAttributionMultiCommitSameSession (145.5s)
+  ✗ codex                145.5s
+      attribution_test.go:93: WaitFor(">"): timed out waiting for ">" after 1m0s
+      --- pane content ---
+      • There are unrelated untracked directories in the worktree. I’m staging only
+      poem.txt and committing it separately.
+      • Ran git add -- poem.txt && git commit -m "Add coding poem"
+      └ [master 24f2eab] Add coding poem
+      1 file changed, 4 insertions(+)
+      create mode 100644 poem.txt
+      ────────────────────────────────────────────────────────────────────────────────
+      • Created poem.txt and committed it as 24f2eab with message Add coding poem.
+      Unrelated untracked directories remain in the repo and were not included in
+      the commit.
+      • Running Stop hook
+      Stop hook (completed)
+      › Run /review on my current changes
+      gpt-5.4 default · 100% left · /private/var/folders/hb/p13k1fg56kg3bk61qx01hn9…
+      --- end pane content ---
+
+✗ TestInteractiveAttributionOnAgentCommit (223.7s)
+  ✗ codex                223.7s
+      attribution_test.go:62: WaitFor(">"): timed out waiting for ">" after 1m30s
+      --- pane content ---
+      • Ran git status --short
+      └ ?? .codex/
+      ?? .entire/
+      • Ran git rev-parse --short HEAD
+      └ 41462ad
+      ────────────────────────────────────────────────────────────────────────────────
+      • Created hello.txt with hello world and committed it as 41462ad with message
+      Add hello.txt.
+      git status now shows only the pre-existing untracked directories .codex/
+      and .entire/.
+      • Running Stop hook
+      Stop hook (completed)
+      › Run /review on my current changes
+      gpt-5.4 default · 99% left · /private/var/folders/hb/p13k1fg56kg3bk61qx01hn9r…
+      --- end pane content ---
+
+✗ TestInteractiveContentOverlapRevertNewFile (119.4s)
+  ✗ codex                119.4s
+      existing_files_test.go:111: WaitFor(">"): timed out waiting for ">" after 1m0s
+      --- pane content ---
+      ────────────────────────────────────────────────────────────────────────────────
+      • Writing the new markdown file now.
+      • Added docs/red.md (+3 -0)
+      1 +# Red
+      2 +
+      3 +Red is a vivid color often associated with energy, warmth, passion, and u
+      rgency. It appears prominently in nature, art, and design, where it can d
+      raw attention quickly and create a strong emotional impression.
+      ────────────────────────────────────────────────────────────────────────────────
+      • Created docs/red.md with a short paragraph about the color red. I did not
+      commit anything.
+      • Running Stop hook
+      Stop hook (completed)
+      › Use /skills to list available skills
+      gpt-5.4 default · 100% left · /private/var/folders/hb/p13k1fg56kg3bk61qx01hn9…
+      --- end pane content ---
+
+✗ TestInteractiveMultiStep (139.2s)
+  ✗ codex                139.2s
+      interactive_test.go:25: WaitFor(">"): timed out waiting for ">" after 1m0s
+      --- pane content ---
+      UserPromptSubmit hook (completed)
+      • I’m creating docs/red.md directly and will keep the content minimal: a single
+      paragraph about the color red.
+      • Added docs/red.md (+1 -0)
+      1 +Red is a vivid color often associated with energy, warmth, passion, and u
+      rgency. It appears prominently in nature, from sunsets and autumn leaves
+      to flowers and ripe fruit, and it is frequently used in art, design, and
+      signaling because it attracts attention quickly and conveys strong emotio
+      n.
+      ────────────────────────────────────────────────────────────────────────────────
+      • Created docs/red.md with a single paragraph about the color red.
+      • Running Stop hook
+      Stop hook (completed)
+      › Use /skills to list available skills
+      gpt-5.4 default · 100% left · /private/var/folders/hb/p13k1fg56kg3bk61qx01hn9…
+      --- end pane content ---
+
+✗ TestInteractiveShadowBranchCleanedAfterAgentCommit (162.0s)
+  ✗ codex                162.0s
+      attribution_test.go:133: WaitFor(">"): timed out waiting for ">" after 1m30s
+      --- pane content ---
+      ────────────────────────────────────────────────────────────────────────────────
+      • The file is in place. I’m staging hello.txt explicitly and creating a single
+      commit for it.
+      • Ran git add -- hello.txt && git commit -m "Add hello.txt"
+      └ [master 42eb229] Add hello.txt
+      1 file changed, 1 insertion(+)
+      create mode 100644 hello.txt
+      ────────────────────────────────────────────────────────────────────────────────
+      • Created hello.txt with hello world and committed it as 42eb229 (Add
+      hello.txt).
+      • Running Stop hook
+      Stop hook (completed)
+      › Implement {feature}
+      gpt-5.4 default · 100% left · /private/var/folders/hb/p13k1fg56kg3bk61qx01hn9…
+      --- end pane content ---
