@@ -60,3 +60,32 @@ but could we not rather figure out how codex stores trust and enable that?
 ---
 
 but don't we just need to enable trust in ~/.codex/config.toml and then can do the repo scoped hooks enabling? can we test that
+
+---
+
+it's not working :( 
+
+❯ mise run test:e2e --agent codex TestSingleSessionManualCommit
+[build] $ ~/Work/entire/devenv/cli_worktree1/mise-tasks/build
+artifacts: /Users/soph/Work/entire/devenv/cli_worktree1/e2e/artifacts/2026-03-25T13-47-38
+[e2e/tests]✖✖
+=== Failed
+=== FAIL: e2e/tests TestSingleSessionManualCommit/codex (19.22s)
+    single_session_test.go:47: agent failed: exit status 1
+
+=== FAIL: e2e/tests TestSingleSessionManualCommit (19.22s)
+
+DONE 2 tests, 2 failures in 20.076s
+E2E Test Report
+═══════════════
+
+Total: 1  Passed: 0  Failed: 1  Skipped: 0
+
+✗ TestSingleSessionManualCommit (19.2s)
+  ✗ codex                19.2s
+      single_session_test.go:47: agent failed: exit status 1
+
+Rerun failed tests:
+  mise run test:e2e --agent codex TestSingleSessionManualCommit
+
+💥 FAILED (0/1 passed) 💥
