@@ -89,3 +89,7 @@ For v2 checkpoints only, though!
 ---
 
 The formatting here looks off. Validate that it's formatted correctly
+
+---
+
+Commit and continue
