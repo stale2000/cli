@@ -371,3 +371,32 @@ All 25 tests pass, lint is clean (0 issues).</result>
 <usage><total_tokens>62517</total_tokens><tool_uses>47</tool_uses><duration_ms>288056</duration_ms></usage>
 </task-notification>
 Full transcript available at: /private/tmp/claude-501/-Users-alisha--superset-worktrees-cli-agent-improvements/5da2bf60-2e29-4c46-b13a-b74801006853/tasks/a8fb94e374f9a53a9.output
+
+---
+
+<task-notification>
+<task-id>aedcbcc197b08cf98</task-id>
+<tool-use-id>toolu_01WkjaG5v412Gi2oSUhaKXMq</tool-use-id>
+<output-file>/private/tmp/claude-501/-Users-alisha--superset-worktrees-cli-agent-improvements/5da2bf60-2e29-4c46-b13a-b74801006853/tasks/aedcbcc197b08cf98.output</output-file>
+<status>completed</status>
+<summary>Agent "Phase 2c: insights command" completed</summary>
+<result>The `entire insights` command has been implemented. Here is a summary of what was done:
+
+**File created:** `/Users/alisha/.superset/worktrees/cli/agent-improvements/cmd/entire/cli/insights_cmd.go`
+
+**File modified:** `/Users/alisha/.superset/worktrees/cli/agent-improvements/cmd/entire/cli/root.go` — added `cmd.AddCommand(newInsightsCmd())`
+
+**Key design decisions:**
+
+1. **Cache refresh strategy** — `refreshCacheIfStale` compares the stored branch tip hash against the current `entire/checkpoints/v1` ref. If they differ, it iterates `store.ListCommitted` and uses `HasCheckpoint` to skip already-cached checkpoints before inserting new ones. This is an incremental refresh, not a full rebuild.
+
+2. **Non-fatal cache errors** — if the cache refresh fails (e.g., no git repo reachable, network issue), the command continues with whatever data is already in the cache. The user sees partial data rather than an error.
+
+3. **`agentTypeFromString` is not needed** — `types.AgentType` is a plain `string` typedef, so a direct cast `types.AgentType(r.Agent)` is used.
+
+4. **`idb.Close()` pattern** — uses `defer func() { _ = idb.Close() }()` consistent with the rest of the codebase.
+
+5. **Terminal rendering** — uses `termstyle.New(w)` for color detection and `s.SectionRule(...)` for section headers. Trends show directional arrows (↑/↓/→) with green/red/gray coloring. The session ID is truncated to 12 chars for readability.</result>
+<usage><total_tokens>73463</total_tokens><tool_uses>56</tool_uses><duration_ms>205100</duration_ms></usage>
+</task-notification>
+Full transcript available at: /private/tmp/claude-501/-Users-alisha--superset-worktrees-cli-agent-improvements/5da2bf60-2e29-4c46-b13a-b74801006853/tasks/aedcbcc197b08cf98.output
