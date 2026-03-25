@@ -52,3 +52,7 @@ Rerun failed tests:
 💥 FAILED (0/1 passed) 💥
 
 are we sure this works on the repo level?
+
+---
+
+but could we not rather figure out how codex stores trust and enable that?
