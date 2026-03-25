@@ -228,3 +228,15 @@ I think `mise run fmt` removes the nolint rules, and then lint fails, any idea w
 ---
 
 /simplify
+
+---
+
+so what are the gaps to a proper agent implementation?
+
+---
+
+ok, so the e2e tests should now produce enough logs to do 1,2 and 3?
+
+---
+
+yes
