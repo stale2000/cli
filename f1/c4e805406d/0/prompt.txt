@@ -220,3 +220,7 @@ these 5 are failing:
 ---
 
 can you check linting
+
+---
+
+I think `mise run fmt` removes the nolint rules, and then lint fails, any idea why?
