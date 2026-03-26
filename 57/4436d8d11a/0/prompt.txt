@@ -91,3 +91,11 @@ commit all relevant changes made until this far, then from a clean git state add
 ---
 
 commit all relevant changes made until this far, then from a clean git state add some debug logging to the API handler code to print out the HTTP request headers including auth token
+
+---
+
+commit and push the current state, open a draft pr
+
+---
+
+commit and push the current state, open a draft pr
