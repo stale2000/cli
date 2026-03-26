@@ -129,3 +129,7 @@ How about duplicating the helpers instead? That would allow us to evolve both ch
 ---
 
 Can you fetch the pull request comments for this change, list them by priority and walk through fixing them one by one?
+
+---
+
+Commit and continue
