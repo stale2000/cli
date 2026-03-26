@@ -35920,3 +35920,11 @@ The customer provided an `entire-export.txt` file. It's too large to be read by 
 Can we first add some additional logging first: If would be great if we could consistently log e.g. the session ID in debug logs to ensure that we can appropriately debug these things.
 
 After that, we can work on the two fixes you suggested.
+
+---
+
+1
+
+---
+
+I just wanted to ammend this plan: Only add the logging/diagnostics changes for now. I don't trust that the proposed fixes will actually address the customer's problem and will get to them once I can actually reproduce them.
