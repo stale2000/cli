@@ -1,0 +1,17 @@
+tested, it works. If the repo isn't trusted codex asks you and then hooks are working, ok now to the other items: 
+
+let's do 1-5 one by one and can you commit each of them when done
+
+---
+
+yeah for 6 I want to know what the proper fix would be before deciding to do anything
+
+---
+
+I meant: I would push back slightly on the parseHookType complaint. cmd/entire/cli/agent/codex/hooks.go:244 does silently swallow unmarshal errors, but that
+     pattern already exists in other built-in agents, for example Cursor: cmd/entire/cli/agent/cursor/hooks.go:318. It is a real robustness problem, but not
+     Codex-specific.
+
+---
+
+do it now
