@@ -1,5 +1,1 @@
-can you take a look at https://github.com/entireio/cli/actions/runs/23600554108/job/68729503163 and let me know why this didn't work in CI?
-
----
-
 do 1 yes
