@@ -223,3 +223,11 @@ start renaming the "apiurl" package to just "api"
 
 pull in latest remote changes
 start renaming the "apiurl" package to just "api"
+
+---
+
+ensure lint and formatting is all correct - especially in the touched files, then commit and push
+
+---
+
+ensure lint and formatting is all correct - especially in the touched files, then commit and push
