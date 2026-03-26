@@ -205,3 +205,11 @@ Medium Severity
 The Labels field in TrailUpdateRequest uses json:"labels,omitempty", which omits both nil and empty slices from the JSON output. When a user removes all labels via --remove-label, buildTrailUpdateRequest computes an empty []string{} and assigns it to req.Labels. Because of omitempty, this empty slice is dropped from the serialized PATCH payload, so the server never receives the instruction to clear labels. The old code wrote directly to the store, where an empty slice was correctly persisted.
 
 change the types so we're properly able to distinguish between no value i.e. no change and empty value i.e. reset to empty for these fields
+
+---
+
+commit and push
+
+---
+
+commit and push
