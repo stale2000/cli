@@ -187,3 +187,7 @@ commit and push
 ---
 
 Can you retrieve the current PR comments, list them by priority and help me address them one by one. Pause in between each to allow me to inspect before committing them.
+
+---
+
+Commit and continue
