@@ -67,3 +67,7 @@ can you open the visual companion again to show what it was supposde to look lik
 ---
 
 [Image #6] borders are still not showing up and needs space between top tabs and memory specific tabs. add space between memory list and the details card. add border to details card
+
+---
+
+injection tab missing top level tabs [Image #7]. settings tab looks very bad and I can't update settings[Image #8]
