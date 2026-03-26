@@ -501,11 +501,3 @@ yks
 ---
 
 commit changes
-
----
-
-commit all changes
-
----
-
-commit chanegs
