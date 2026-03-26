@@ -11,3 +11,13 @@ what are all these changes
 ---
 
 they're from main?
+
+---
+
+great now to address the real bugs. open three new git worktrees based off this branch
+  each worktree should fix one of the bugs from @e2e/OPENCODE_BUGS.md add the bug md to
+  each worktree
+
+---
+
+now pull comments from pr and fix if real issues
