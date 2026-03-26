@@ -179,7 +179,3 @@ There's new review comments. Can you take a look?
 ---
 
 Just 1
-
----
-
-commit and push
