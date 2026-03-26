@@ -120,3 +120,7 @@ Let's do B
 ---
 
 Yes
+
+---
+
+Commit and continue
