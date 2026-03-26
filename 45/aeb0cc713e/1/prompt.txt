@@ -55,3 +55,7 @@ how to use
 ---
 
 can you open the visual companion again to show what it was supposde to look like
+
+---
+
+[Image #1][Image #2] they don't look the same. make accent color orange
