@@ -141,3 +141,11 @@ Keep operations and hooks that try to resolve trails for checkpoints or vice ver
 
 prepare to remove storing trails metadata in the `entire/trails/v1` orphan branch since we're switching to having the trails stored in the database via our API.
 Keep operations and hooks that try to resolve trails for checkpoints or vice versa. Validate that the API operations for Trails currently support provide all necessary functionality and highlight any potential gaps
+
+---
+
+commit these changes
+
+---
+
+commit these changes
