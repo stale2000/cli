@@ -231,3 +231,8 @@ ensure lint and formatting is all correct - especially in the touched files, the
 ---
 
 ensure lint and formatting is all correct - especially in the touched files, then commit and push
+
+---
+
+when running `entire trail list --insecure-http-auth` now in local development, I'm getting this error Error: Invalid usage: unknown flag: --insecure-http-auth
+please ensure the flag is respected but the specified command is executed
