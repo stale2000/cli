@@ -83,3 +83,11 @@ we're now using the proper URL scheme - why am I still seeing a http 401 from th
 ---
 
 we're now using the proper URL scheme - why am I still seeing a http 401 from the `/api/v1/trails/...` endpoint when running `entire trail list` against my localhost instance?
+
+---
+
+commit all relevant changes made until this far, then from a clean git state add some debug logging to the API handler code to print out the HTTP request headers including auth token
+
+---
+
+commit all relevant changes made until this far, then from a clean git state add some debug logging to the API handler code to print out the HTTP request headers including auth token
