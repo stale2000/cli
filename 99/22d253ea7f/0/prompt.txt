@@ -149,3 +149,7 @@ commit and continue
 ---
 
 The code of isGenerationRefSuffix is hard to read. Could this be a regex?
+
+---
+
+commit and continue
