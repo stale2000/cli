@@ -767,3 +767,7 @@ Do it
 ---
 
 Also the Go convention is to define an interface where it is used, isn't it? Shouldn't we define the CommittedReader interface in manual_commit_rewind?
+
+---
+
+commit and continue
