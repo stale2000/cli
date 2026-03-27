@@ -27,3 +27,7 @@ interactive bubbletea TUI
 ---
 
 [Image #4] when error happens the footer should still show [Image #5]
+
+---
+
+commit
