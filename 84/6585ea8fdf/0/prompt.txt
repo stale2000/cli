@@ -692,3 +692,7 @@ What about tests for `GetV2MetadataTree`?
 Shouldn't we at least debug log the fact that we encountered an error on this line?
 
 logContent, _, _ = v2Store.GetSessionLog(ctx, checkpointID) //nolint:errcheck // v2 miss is expected, fall through to v1
+
+---
+
+Commit and continue
