@@ -795,3 +795,7 @@ Could we rename resolveTranscriptFromFull to searchTranscriptFromFullRef or woul
 ---
 
 Make it so.
+
+---
+
+Can you also update the comment for that method to reflect the changes?
