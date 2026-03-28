@@ -1,0 +1,142 @@
+can you check why the e2e tests failed remotely: https://github.com/entireio/cli/actions/runs/23658728502
+
+---
+
+the thing is: I just let the whole suite run on my mac book and it passed
+
+---
+
+which model do I run when I just do "mise run test:e2e --agent codex"
+
+---
+
+E2E_CODEX_MODEL=gpt-5.1-codex-mini mise run test:e2e --agent codex TestAgentCommitsMidTurnUserCommitsRemainder
+E2E_CODEX_MODEL=gpt-5.1-codex-mini mise run test:e2e --agent codex TestDirtyWorkingTree
+
+bot passed
+
+---
+
+do 2, pinning we don't want
+
+---
+
+hmm wait: The difference is then probably something with tty in TestAgentCommitsMidTurnUserCommitsRemainder can that be?
+
+---
+
+can you compare, this worked: artifacts: /Users/soph/Work/entire/devenv/cli_worktree1/e2e/artifacts/2026-03-27T23-50-35
+
+this failed: artifacts: /Users/soph/Work/entire/devenv/cli_worktree1/e2e/artifacts/2026-03-27T23-49-49
+
+---
+
+what would be the fix?
+
+---
+
+yeah
+
+---
+
+TestPostCommit_EndedSession_FilesTouched_NoNewContent and TestPostCommit_IdleSession_NoNewContent_PreservesBaseCommit fail now
+
+---
+
+we need to fix the vogon test: 
+
+✗ TestDirtyWorkingTree (2.9s)
+  ✗ vogon                2.9s
+      edge_cases_test.go:113:
+      Error Trace:      /Users/soph/Work/entire/devenv/cli_worktree1/e2e/testutil/assertions.go:36
+      /Users/soph/Work/entire/devenv/cli_worktree1/e2e/tests/edge_cases_test.go:113
+      /Users/soph/Work/entire/devenv/cli_worktree1/e2e/testutil/repo.go:349
+      /Users/soph/Work/entire/devenv/cli_worktree1/e2e/testutil/repo.go:319
+      Error:            Should NOT be empty, but was []
+      Test:             TestDirtyWorkingTree/vogon
+      Messages:         expected files matching docs/red.md in /private/var/folders/hb/p13k1fg56kg3bk61qx01hn9r0000gn/T/e2e-repo-883237699
+
+---
+
+https://github.com/entireio/roger-roger
+
+---
+
+let's give roger roger / vogon the old text, but give the new text to all agents?
+
+---
+
+roger roger still fails
+
+---
+
+why are these lines needed:
+
++               if s.Agent.Name() == "roger-roger" {
++                       s.Git(t, "add", ".")
++                       s.Git(t, "commit", "-m", "Add red doc via roger-roger")
++               }
+
+---
+
+but why did this work before, this is the same prompt as before and it clearly worked?
+
+---
+
+this was the original prompt: "create a markdown file at docs/red.md with a paragraph about the colour red, then commit it. Do not ask for confirmation, just make the change."
+
+---
+
+yes, let's try that
+
+---
+
+it's still failing, source of roger-roger is now in ../roger-roger can you take a look
+
+---
+
+but again: why did that work before, what changed in this branch
+
+---
+
+ok, wait: 
+
+✓ TestExternalAgentDeepCheckpointValidation (1.6s)
+  ✓ roger-roger          1.6s
+
+✓ TestExternalAgentMultipleTurnsManualCommit (1.7s)
+  ✓ roger-roger          1.7s
+
+✓ TestExternalAgentSessionMetadata (1.2s)
+  ✓ roger-roger          1.2s
+
+✓ TestExternalAgentSingleSessionManualCommit (1.5s)
+  ✓ roger-roger          1.5s
+
+these are the only 4 tests we run for roger-roger
+
+---
+
+ok, so we could have one new prompt for vogon and agents and can remove the if, let's not explicitily skip roger-roger either
+
+---
+
+what's the difference between:
+
+testutil.WaitForCheckpointExists(t, s.Dir, userCpID, 30*time.Second)
+
+and
+
+testutil.WaitForCheckpointAdvanceFrom(t, s.Dir, cpBranchAfterAgent, 30*time.Second)
+
+---
+
+should we tighten that up in more places?
+
+---
+
+yes
+
+---
+
+can you separate the commits to the one fix that made e2e work and then the fixes from the last prompt?
