@@ -109,3 +109,7 @@ I just tried this manually, and I got this:
 
  A subagent is now appending "nope" to the end of README.md and will commit the change.
   You can check the status or results using /tasks or let me know if you want an update.
+
+---
+
+but I wonder if we could just send another prompt (in case of copilot) to report back when done?
