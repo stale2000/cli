@@ -27,3 +27,7 @@ commit the staged changed
 ---
 
 extend this logic to the createCherryPickCommit func
+
+---
+
+commit
