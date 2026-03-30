@@ -248,3 +248,7 @@ Commit and continue
 ---
 
 For `fetchAndMergeRef()` is there a chance we could short circuit that method if both trees are idential? Is it likely that they'd be identical?
+
+---
+
+Skip it for now. Commit and continue from here.
