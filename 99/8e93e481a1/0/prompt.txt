@@ -19,3 +19,7 @@ Amend the CreateCommit in cmd/entire/cli/checkpoint/committed.go, get an instanc
 ---
 
 Fix the linter issues in that file.
+
+---
+
+commit the staged changed
