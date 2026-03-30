@@ -1,0 +1,124 @@
+{
+  "info": {
+    "id": "ses_2f22dba17ffeibOsaM5YD1p1CB",
+    "slug": "quiet-meadow",
+    "projectID": "e72157d04022f74eb1af25d0a2ca9cd92933f715",
+    "directory": "/Users/pfleidi/entire/cli/.worktrees/fix/local-dev-agent-hooks",
+    "title": "Quick greeting",
+    "version": "1.2.27",
+    "summary": {
+      "additions": 0,
+      "deletions": 0,
+      "files": 0
+    },
+    "time": {
+      "created": 1774053377512,
+      "updated": 1774053379812
+    }
+  },
+  "messages": [
+    {
+      "info": {
+        "role": "user",
+        "time": {
+          "created": 1774053377526
+        },
+        "summary": {
+          "diffs": []
+        },
+        "agent": "build",
+        "model": {
+          "providerID": "openai",
+          "modelID": "gpt-5.3-codex"
+        },
+        "id": "msg_d0dd245ee001OVMtW3iIlSkssS",
+        "sessionID": "ses_2f22dba17ffeibOsaM5YD1p1CB"
+      },
+      "parts": [
+        {
+          "type": "text",
+          "text": "hi",
+          "id": "prt_d0dd245ee002zzgpqO1cTH3Hlt",
+          "sessionID": "ses_2f22dba17ffeibOsaM5YD1p1CB",
+          "messageID": "msg_d0dd245ee001OVMtW3iIlSkssS"
+        }
+      ]
+    },
+    {
+      "info": {
+        "role": "assistant",
+        "time": {
+          "created": 1774053377536,
+          "completed": 1774053380093
+        },
+        "parentID": "msg_d0dd245ee001OVMtW3iIlSkssS",
+        "modelID": "gpt-5.3-codex",
+        "providerID": "openai",
+        "mode": "build",
+        "agent": "build",
+        "path": {
+          "cwd": "/Users/pfleidi/entire/cli/.worktrees/fix/local-dev-agent-hooks",
+          "root": "/Users/pfleidi/entire/cli/.worktrees/fix/local-dev-agent-hooks"
+        },
+        "cost": 0,
+        "tokens": {
+          "total": 16891,
+          "input": 16877,
+          "output": 14,
+          "reasoning": 0,
+          "cache": {
+            "read": 0,
+            "write": 0
+          }
+        },
+        "finish": "stop",
+        "id": "msg_d0dd246000015x9qsZ7tNVFsWG",
+        "sessionID": "ses_2f22dba17ffeibOsaM5YD1p1CB"
+      },
+      "parts": [
+        {
+          "type": "step-start",
+          "snapshot": "db914cd48b6ca267232d5f60d63ba21e5a9b11e4",
+          "id": "prt_d0dd24e81001Po7O4NOZE9kCEJ",
+          "sessionID": "ses_2f22dba17ffeibOsaM5YD1p1CB",
+          "messageID": "msg_d0dd246000015x9qsZ7tNVFsWG"
+        },
+        {
+          "type": "text",
+          "text": "Hey! What would you like to work on?",
+          "time": {
+            "start": 1774053380032,
+            "end": 1774053380032
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "msg_0bda0a4de67c46ee0169bde803b6d88194964f93b5c89f738c"
+            }
+          },
+          "id": "prt_d0dd24ea2001o9CXm2iCVuf7r7",
+          "sessionID": "ses_2f22dba17ffeibOsaM5YD1p1CB",
+          "messageID": "msg_d0dd246000015x9qsZ7tNVFsWG"
+        },
+        {
+          "type": "step-finish",
+          "reason": "stop",
+          "snapshot": "db914cd48b6ca267232d5f60d63ba21e5a9b11e4",
+          "cost": 0,
+          "tokens": {
+            "total": 16891,
+            "input": 16877,
+            "output": 14,
+            "reasoning": 0,
+            "cache": {
+              "read": 0,
+              "write": 0
+            }
+          },
+          "id": "prt_d0dd24fc4001m3IalN6nqD6s2f",
+          "sessionID": "ses_2f22dba17ffeibOsaM5YD1p1CB",
+          "messageID": "msg_d0dd246000015x9qsZ7tNVFsWG"
+        }
+      ]
+    }
+  ]
+}
