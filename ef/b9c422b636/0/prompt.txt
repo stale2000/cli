@@ -226,3 +226,7 @@ How much extra work would extracting a common WalkCheckpointShards helper?
 ---
 
 Yes
+
+---
+
+Can you commit this?
