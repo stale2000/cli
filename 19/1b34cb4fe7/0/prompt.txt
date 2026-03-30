@@ -240,3 +240,7 @@ Go ahead
 What's the reason for `--no-verify` in this line?
 
 cmd := exec.CommandContext(ctx, "git", "push", "--no-verify", target, refSpec)
+
+---
+
+Commit and continue
