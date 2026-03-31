@@ -329,3 +329,7 @@ That's not better, either. Revert back to:
 
     args := append([]string{"fetch", "origin"}, refSpecs...)
     fetchCmd := exec.CommandContext(ctx, "git", args...)
+
+---
+
+Commit and continue
