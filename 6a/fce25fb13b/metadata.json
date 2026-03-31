@@ -3,7 +3,7 @@
   "checkpoint_id": "6afce25fb13b",
   "strategy": "manual-commit",
   "branch": "gemini-transcript-support",
-  "checkpoints_count": 2,
+  "checkpoints_count": 3,
   "files_touched": [
     "cmd/entire/cli/transcript/compact/gemini.go"
   ],
