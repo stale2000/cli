@@ -2,8 +2,8 @@
   "cli_version": "dev",
   "checkpoint_id": "079c1c0e0eeb",
   "strategy": "manual-commit",
-  "branch": "03-29-attribution",
-  "checkpoints_count": 20,
+  "branch": "fix/attribution-intermediate-commit-inflation",
+  "checkpoints_count": 9,
   "files_touched": [
     "cmd/entire/cli/strategy/manual_commit_condensation.go"
   ],

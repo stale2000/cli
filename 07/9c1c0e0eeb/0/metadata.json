@@ -3,9 +3,9 @@
   "checkpoint_id": "079c1c0e0eeb",
   "session_id": "759d25ab-f7d2-43df-a4fb-237ae02a514e",
   "strategy": "manual-commit",
-  "created_at": "2026-03-31T01:37:40.771309Z",
-  "branch": "03-29-attribution",
-  "checkpoints_count": 12,
+  "created_at": "2026-03-31T01:45:47.704957Z",
+  "branch": "fix/attribution-intermediate-commit-inflation",
+  "checkpoints_count": 1,
   "files_touched": [
     "cmd/entire/cli/strategy/manual_commit_condensation.go"
   ],
@@ -22,98 +22,12 @@
     "turn_count": 22
   },
   "initial_attribution": {
-    "calculated_at": "2026-03-31T01:37:40.463931Z",
+    "calculated_at": "2026-03-31T01:45:47.397682Z",
     "agent_lines": 0,
-    "human_added": 140,
-    "human_modified": 18,
-    "human_removed": 0,
-    "total_committed": 154,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 14,
+    "total_committed": 14,
     "agent_percentage": 0
-  },
-  "prompt_attributions": [
-    {
-      "checkpoint_number": 1,
-      "user_lines_added": 0,
-      "user_lines_removed": 0,
-      "agent_lines_added": 0,
-      "agent_lines_removed": 0
-    },
-    {
-      "checkpoint_number": 2,
-      "user_lines_added": 0,
-      "user_lines_removed": 0,
-      "agent_lines_added": 363,
-      "agent_lines_removed": 0
-    },
-    {
-      "checkpoint_number": 3,
-      "user_lines_added": 0,
-      "user_lines_removed": 0,
-      "agent_lines_added": 301,
-      "agent_lines_removed": 0
-    },
-    {
-      "checkpoint_number": 4,
-      "user_lines_added": 0,
-      "user_lines_removed": 0,
-      "agent_lines_added": 328,
-      "agent_lines_removed": 0
-    },
-    {
-      "checkpoint_number": 5,
-      "user_lines_added": 0,
-      "user_lines_removed": 0,
-      "agent_lines_added": 328,
-      "agent_lines_removed": 0
-    },
-    {
-      "checkpoint_number": 6,
-      "user_lines_added": 0,
-      "user_lines_removed": 0,
-      "agent_lines_added": 328,
-      "agent_lines_removed": 0
-    },
-    {
-      "checkpoint_number": 7,
-      "user_lines_added": 0,
-      "user_lines_removed": 0,
-      "agent_lines_added": 328,
-      "agent_lines_removed": 0
-    },
-    {
-      "checkpoint_number": 8,
-      "user_lines_added": 0,
-      "user_lines_removed": 0,
-      "agent_lines_added": 328,
-      "agent_lines_removed": 0
-    },
-    {
-      "checkpoint_number": 9,
-      "user_lines_added": 0,
-      "user_lines_removed": 0,
-      "agent_lines_added": 328,
-      "agent_lines_removed": 0
-    },
-    {
-      "checkpoint_number": 10,
-      "user_lines_added": 0,
-      "user_lines_removed": 0,
-      "agent_lines_added": 328,
-      "agent_lines_removed": 0
-    },
-    {
-      "checkpoint_number": 11,
-      "user_lines_added": 0,
-      "user_lines_removed": 0,
-      "agent_lines_added": 328,
-      "agent_lines_removed": 0
-    },
-    {
-      "checkpoint_number": 12,
-      "user_lines_added": 0,
-      "user_lines_removed": 0,
-      "agent_lines_added": 328,
-      "agent_lines_removed": 0
-    }
-  ]
+  }
 }
