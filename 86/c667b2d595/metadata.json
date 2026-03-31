@@ -3,7 +3,7 @@
   "checkpoint_id": "86c667b2d595",
   "strategy": "manual-commit",
   "branch": "cli_search",
-  "checkpoints_count": 0,
+  "checkpoints_count": 1,
   "files_touched": [
     "cmd/entire/cli/search/search.go",
     "cmd/entire/cli/search/search_test.go",
@@ -29,6 +29,19 @@
       "transcript": "/86/c667b2d595/2/full.jsonl",
       "content_hash": "/86/c667b2d595/2/content_hash.txt",
       "prompt": ""
+    },
+    {
+      "metadata": "/86/c667b2d595/3/metadata.json",
+      "transcript": "/86/c667b2d595/3/full.jsonl",
+      "content_hash": "/86/c667b2d595/3/content_hash.txt",
+      "prompt": "/86/c667b2d595/3/prompt.txt"
     }
-  ]
+  ],
+  "token_usage": {
+    "input_tokens": 190,
+    "cache_creation_tokens": 155115,
+    "cache_read_tokens": 14369090,
+    "output_tokens": 36988,
+    "api_call_count": 131
+  }
 }
