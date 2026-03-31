@@ -5,7 +5,8 @@
   "branch": "feat/checkpoints-v2-push-logic",
   "checkpoints_count": 1,
   "files_touched": [
-    "cmd/entire/cli/checkpoint/committed.go"
+    "cmd/entire/cli/checkpoint/committed.go",
+    "cmd/entire/cli/strategy/push_v2_test.go"
   ],
   "sessions": [
     {
@@ -13,6 +14,12 @@
       "transcript": "/3f/733012225d/0/full.jsonl",
       "content_hash": "/3f/733012225d/0/content_hash.txt",
       "prompt": "/3f/733012225d/0/prompt.txt"
+    },
+    {
+      "metadata": "/3f/733012225d/1/metadata.json",
+      "transcript": "/3f/733012225d/1/full.jsonl",
+      "content_hash": "/3f/733012225d/1/content_hash.txt",
+      "prompt": ""
     }
   ],
   "token_usage": {
