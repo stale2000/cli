@@ -297,3 +297,7 @@ In updateGenerationTimestamps(), setting the NewestCheckpointAt to the current t
 ---
 
 Okay, commit and continue.
+
+---
+
+Commit and continue
