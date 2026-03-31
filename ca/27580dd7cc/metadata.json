@@ -4,13 +4,21 @@
   "strategy": "manual-commit",
   "branch": "feat/checkpoints-v2-push-logic",
   "checkpoints_count": 2,
-  "files_touched": null,
+  "files_touched": [
+    "cmd/entire/cli/strategy/push_v2.go"
+  ],
   "sessions": [
     {
       "metadata": "/ca/27580dd7cc/0/metadata.json",
       "transcript": "/ca/27580dd7cc/0/full.jsonl",
       "content_hash": "/ca/27580dd7cc/0/content_hash.txt",
       "prompt": "/ca/27580dd7cc/0/prompt.txt"
+    },
+    {
+      "metadata": "/ca/27580dd7cc/1/metadata.json",
+      "transcript": "/ca/27580dd7cc/1/full.jsonl",
+      "content_hash": "/ca/27580dd7cc/1/content_hash.txt",
+      "prompt": ""
     }
   ],
   "token_usage": {
