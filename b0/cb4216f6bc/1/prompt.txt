@@ -499,7 +499,3 @@ I can see the checkpoints in the branch I just created too, I just don't see the
 
 peytonmontei@Peytons-MacBook-Pro /t/test-baseline-fix (main)> git log entire/checkpoints/v1 --oneline -1
 9aca740 (entire/checkpoints/v1) Checkpoint: 4ba66be9d2f3
-
----
-
-okay that wokred 100% let's commit and push then help me with the logs issue for codex
