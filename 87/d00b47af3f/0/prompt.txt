@@ -31,3 +31,7 @@ extend this logic to the createCherryPickCommit func
 ---
 
 commit
+
+---
+
+commit staged changes
