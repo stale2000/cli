@@ -7,3 +7,7 @@ what is git stat please
 ---
 
 diff --stat sorry
+
+---
+
+yes go ahead, commit and push
