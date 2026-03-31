@@ -293,3 +293,7 @@ I'm assuming setting Stdout in handleRotationConflict() to nil is also not neces
 ---
 
 In updateGenerationTimestamps(), setting the NewestCheckpointAt to the current time isn't fully accurate. If we assume the merged checkpoints are older than the current time/date, the cleanup process could be way off. Should we inspect the timestamps of the actual checkpoints instead?
+
+---
+
+Okay, commit and continue.
