@@ -3,7 +3,7 @@
   "checkpoint_id": "079c1c0e0eeb",
   "strategy": "manual-commit",
   "branch": "fix/attribution-intermediate-commit-inflation",
-  "checkpoints_count": 9,
+  "checkpoints_count": 2,
   "files_touched": [
     "cmd/entire/cli/strategy/manual_commit_condensation.go"
   ],
