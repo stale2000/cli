@@ -505,3 +505,15 @@ continue
 ---
 
 continue
+
+---
+
+/pr-feedback
+
+---
+
+Can you please ensure to always validate that there aren't any lint errors before pushing?
+
+---
+
+Yes
