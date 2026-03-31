@@ -322,3 +322,10 @@ These recent changes made it even worse. What I would have expected would be som
 fetchCmd := exec.CommandContext(ctx, "git", "fetch", "origin", refSpecs...)
 
 Is there a syntactic contstaint preventing that?
+
+---
+
+That's not better, either. Revert back to:
+
+    args := append([]string{"fetch", "origin"}, refSpecs...)
+    fetchCmd := exec.CommandContext(ctx, "git", args...)
