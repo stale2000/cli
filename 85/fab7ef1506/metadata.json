@@ -21,6 +21,12 @@
       "transcript": "/85/fab7ef1506/1/full.jsonl",
       "content_hash": "/85/fab7ef1506/1/content_hash.txt",
       "prompt": ""
+    },
+    {
+      "metadata": "/85/fab7ef1506/2/metadata.json",
+      "transcript": "/85/fab7ef1506/2/full.jsonl",
+      "content_hash": "/85/fab7ef1506/2/content_hash.txt",
+      "prompt": ""
     }
   ]
 }
