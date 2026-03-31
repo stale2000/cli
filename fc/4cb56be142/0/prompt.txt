@@ -256,3 +256,7 @@ Skip it for now. Commit and continue from here.
 ---
 
 For pushV2Refs: Pushing each and every archived /full/x ref could mean doing a lot of pushes. Given that anything but the latest generation and /full/current should effectively be immutable, we should be okay to only push the two refs I've mentioned in addition to /main. Would that make sense? Am I missing something here?
+
+---
+
+Okay, commit and continue.
