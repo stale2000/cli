@@ -406,3 +406,7 @@ How much of a change would it be to update the v1 behavior to be consistent with
 ---
 
 Okay, let's do that for now. Update the comment for `comittedReader` appropriately or remove it.
+
+---
+
+commit and continue
