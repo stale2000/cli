@@ -370,3 +370,7 @@ Adding a GetV2RefTree function only to delegate to a private function seems like
 ---
 
 Why does GetV2RefTree need to be public to address the debug logging fixes in the first place?
+
+---
+
+Yes, revert it, give me a chance to review and only continue with these changes when I approve.
