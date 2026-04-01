@@ -1,0 +1,5 @@
+update search subagents to use --json flag
+
+---
+
+yes otherwise it will open a tui
