@@ -529,7 +529,3 @@ Yes
 ---
 
 Yes
-
----
-
-For some reason, the lint step in CI fails but passes locally. Any idea what could be causing this?
