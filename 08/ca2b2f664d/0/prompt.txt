@@ -1,0 +1,1246 @@
+<external_links>
+### Potentially Relevant Websearch Results
+
+You should respond as if these information are known to you. Refrain from saying "I am unable to browse the internet" or "I don't have access to the internet" or "I'm unable to provide real-time news updates". This is your internet search results. Please always cite any links you referenced from the above search results in your response in markdown format.
+
+-------
+Website URL: https://github.com/entireio/cli/pull/828
+Website Title: Checkpoints v2: write compact transcript file + metadata by computermode · Pull Request #828 · entireio/cli · GitHub
+Website Content:
+Skip to content 
+
+## Navigation Menu
+
+Toggle navigation 
+
+ Sign in 
+
+Appearance settings 
+
+* Platform  
+   * AI CODE CREATION  
+         * GitHub CopilotWrite better code with AI  
+         * GitHub SparkBuild and deploy intelligent apps  
+         * GitHub ModelsManage and compare prompts  
+         * MCP RegistryNewIntegrate external tools  
+   * DEVELOPER WORKFLOWS  
+         * ActionsAutomate any workflow  
+         * CodespacesInstant dev environments  
+         * IssuesPlan and track work  
+         * Code ReviewManage code changes  
+   * APPLICATION SECURITY  
+         * GitHub Advanced SecurityFind and fix vulnerabilities  
+         * Code securitySecure your code as you build  
+         * Secret protectionStop leaks before they start  
+   * EXPLORE  
+         * Why GitHub  
+         * Documentation  
+         * Blog  
+         * Changelog  
+         * Marketplace  
+View all features
+* Solutions  
+   * BY COMPANY SIZE  
+         * Enterprises  
+         * Small and medium teams  
+         * Startups  
+         * Nonprofits  
+   * BY USE CASE  
+         * App Modernization  
+         * DevSecOps  
+         * DevOps  
+         * CI/CD  
+         * View all use cases  
+   * BY INDUSTRY  
+         * Healthcare  
+         * Financial services  
+         * Manufacturing  
+         * Government  
+         * View all industries  
+View all solutions
+* Resources  
+   * EXPLORE BY TOPIC  
+         * AI  
+         * Software Development  
+         * DevOps  
+         * Security  
+         * View all topics  
+   * EXPLORE BY TYPE  
+         * Customer stories  
+         * Events & webinars  
+         * Ebooks & reports  
+         * Business insights  
+         * GitHub Skills  
+   * SUPPORT & SERVICES  
+         * Documentation  
+         * Customer support  
+         * Community forum  
+         * Trust center  
+         * Partners  
+View all resources
+* Open Source  
+   * COMMUNITY  
+         * GitHub SponsorsFund open source developers  
+   * PROGRAMS  
+         * Security Lab  
+         * Maintainer Community  
+         * Accelerator  
+         * GitHub Stars  
+         * Archive Program  
+   * REPOSITORIES  
+         * Topics  
+         * Trending  
+         * Collections
+* Enterprise  
+   * ENTERPRISE SOLUTIONS  
+         * Enterprise platformAI-powered developer platform  
+   * AVAILABLE ADD-ONS  
+         * GitHub Advanced SecurityEnterprise-grade security features  
+         * Copilot for BusinessEnterprise-grade AI features  
+         * Premium SupportEnterprise-grade 24/7 support
+* Pricing
+
+Search or jump to... 
+
+# Search code, repositories, users, issues, pull requests...
+
+ Search 
+
+Clear 
+
+Search syntax tips 
+
+#  Provide feedback
+
+We read every piece of feedback, and take your input very seriously.
+
+Include my email address so I can be contacted 
+
+ Cancel  Submit feedback 
+
+#  Saved searches
+
+## Use saved searches to filter your results more quickly
+
+Name 
+
+Query 
+
+ To see all available qualifiers, see our documentation.
+
+ Cancel  Create saved search 
+
+ Sign in 
+
+ Sign up 
+
+Appearance settings 
+
+Resetting focus 
+
+You signed in with another tab or window. Reload to refresh your session. You signed out in another tab or window. Reload to refresh your session. You switched accounts on another tab or window. Reload to refresh your session. Dismiss alert 
+
+{{ message }}
+
+ entireio / **cli** Public 
+
+* Notifications You must be signed in to change notification settings
+* Fork280
+* Star 3.8k
+
+* Code
+* Issues 71
+* Pull requests 59
+* Actions
+* Security and quality 0
+* Insights
+
+Additional navigation options 
+
+* Code
+* Issues
+* Pull requests
+* Actions
+* Security and quality
+* Insights
+
+# Checkpoints v2: write compact transcript file + metadata#828
+
+Open
+
+computermode wants to merge 10 commits intomainentireio/cli:mainfrom 
+
+write-transcript-main-refentireio/cli:write-transcript-main-refCopy head branch name to clipboard
+
+ConversationCommits10 (10)ChecksFiles changed
+
+Open
+
+## 
+
+Checkpoints v2: write compact transcript file + metadata#828
+
+computermode wants to merge 10 commits intomainentireio/cli:mainfrom 
+
+write-transcript-main-refentireio/cli:write-transcript-main-refCopy head branch name to clipboard
+
+## Conversation
+
+@computermode 
+
+ Copy link  Copy Markdown 
+
+Contributor 
+
+### 
+
+@computermode **computermode**  commentedApr 1, 2026 • 
+
+ edited by cursorbot 
+
+Loading 
+
+###  Uh oh!
+
+There was an error while loading. Please reload this page.
+
+Writes the `transcript.jsonl` file to `refs/entire/checkpoints/v2/main` when the v2 checkpoints setting is enabled.
+
+Tested locally:
+
+```
+➜  test-repo git:(test-v2-checkpoints) ✗ git show-ref refs/entire/checkpoints/v2/main
+d4cea66ced1e346fa584113e982d16fc7c1a50d8 refs/entire/checkpoints/v2/main
+
+```
+
+```
+➜  test-repo git:(test-v2-checkpoints) ✗ git show refs/entire/checkpoints/v2/main:3c/ed2b94d513/0/transcript.jsonl
+
+{"v":1,"agent":"claude-code","cli_version":"v0.5.2-dev-717d7810c","type":"user","ts":"2026-04-01T20:52:39.072Z","content":[{"id":"c5e73887-be32-4c29-9461-ead695f305da","text":"update v2 to add \"testing again\""}]}
+{"v":1,"agent":"claude-code","cli_version":"v0.5.2-dev-717d7810c","type":"assistant","ts":"2026-04-01T20:52:43.270Z","id":"REDACTED","input_tokens":3,"output_tokens":123,"content":[{"id":"REDACTED","input":{"pattern":"v2|test v2","output_mode":"files_with_matches"},"name":"Grep","result":{"output":"Found 2 files\ntest-v2.md\n.entire/settings.json","status":"success","matchCount":2},"type":"tool_use"}]}
+{"v":1,"agent":"claude-code","cli_version":"v0.5.2-dev-717d7810c","type":"assistant","ts":"2026-04-01T20:52:47.454Z","id":"REDACTED","input_tokens":1,"output_tokens":75,"content":[{"id":"toolu_01J1do5pvCSyd327EtebzwkC","input":{"file_path":"/Users/ninawork/entire/test-repos/test-repo/test-v2.md"},"name":"Read","result":{"output":"1\ttesting v2\n2\t","status":"success","file":{"filePath":"/Users/ninawork/entire/test-repos/test-repo/test-v2.md","numLines":2}},"type":"tool_use"}]}
+{"v":1,"agent":"claude-code","cli_version":"v0.5.2-dev-717d7810c","type":"assistant","ts":"2026-04-01T20:52:50.594Z","id":"msg_01J2S6HmZXNVFpcgYKzZJrKX","input_tokens":1,"output_tokens":120,"content":[{"id":"toolu_01AWD7CRQH1EACsSy91T8Swy","input":{"replace_all":false,"file_path":"/Users/ninawork/entire/test-repos/test-repo/test-v2.md","old_string":"testing v2","new_string":"testing v2\ntesting again"},"name":"Edit","result":{"output":"The file /Users/ninawork/entire/test-repos/test-repo/test-v2.md has been updated successfully.","status":"success","file":{"filePath":"/Users/ninawork/entire/test-repos/test-repo/test-v2.md"}},"type":"tool_use"}]}
+{"v":1,"agent":"claude-code","cli_version":"v0.5.2-dev-717d7810c","type":"assistant","ts":"2026-04-01T20:52:54.560Z","id":"REDACTED","input_tokens":1,"output_tokens":23,"content":[{"text":"Done. Added \"testing again\" on a new line in `test-v2.md`.","type":"text"}]}
+
+```
+
+```
+➜  test-repo git:(test-v2-checkpoints) ✗ git ls-tree -r refs/entire/checkpoints/v2/main
+
+100644 blob 6560fea9b1fd7f2b6a0c7114f2b7150a4b14f221	3c/ed2b94d513/0/metadata.json
+100644 blob 5f52afef5f351f5f47a3ae1c9d96a099de5d6cba	3c/ed2b94d513/0/prompt.txt
+100644 blob eb88d390b34ee8f7de5ce494f2e88dc322aa2f29	3c/ed2b94d513/0/transcript.jsonl
+100644 blob 14587f39e987cb315b26e8ecd475d16186d826be	3c/ed2b94d513/0/transcript_hash.txt
+100644 blob da48506b27531e8fe67eb24f426f1042fd277481	3c/ed2b94d513/1/metadata.json
+100644 blob 54bd80c02ecc778a79652855ec2c26e5f1341cc5	3c/ed2b94d513/1/prompt.txt
+100644 blob f9f36ff2d2a78f79ad154268f626d67d8ce0645d	3c/ed2b94d513/1/transcript.jsonl
+100644 blob a3c68608f5db097698aef90cbd53562ad53074f0	3c/ed2b94d513/1/transcript_hash.txt
+100644 blob 93f1890701bab01ed41554ae068ec07999563877	3c/ed2b94d513/metadata.json
+
+```
+
+---
+
+Note
+
+**Medium Risk**  
+Changes the v2 checkpoint persistence contract by adding new files and metadata on `refs/entire/checkpoints/v2/main`, including stop-time updates; issues could lead to missing/incorrect transcript artifacts but writes are gated by the v2 setting and are non-blocking for v1.
+
+**Overview**  
+Adds support for writing a _compact_ session transcript (`transcript.jsonl`) alongside v2 checkpoint metadata on `refs/entire/checkpoints/v2/main`, plus a companion SHA-256 `transcript_hash.txt` and new `SessionFilePaths` fields to expose their locations.
+
+Updates v2 stop-time finalization (`UpdateCommitted`) to also replace the compact transcript on `/main` when provided, and wires the manual-commit flow to generate the compact format (best-effort; skipped for unknown agents/empty transcripts/compaction errors). Tests are expanded to cover writing/updating compact transcripts and integration assertions for dual-write behavior.
+
+Written by Cursor Bugbot for commit 717d781. Configure here.
+
+ Sorry, something went wrong.
+
+###  Uh oh!
+
+There was an error while loading. Please reload this page.
+
+All reactions 
+
+computermode and others added 9 commitsApril 1, 2026 09:51
+
+@computermode @claude 
+
+`feat: add compact transcript file name constants for v2 /main ref `  … 
+
+`709a75a ` 
+
+Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>
+Entire-Checkpoint: 62d2f1146e6b
+
+@computermode @claude 
+
+`feat: add CompactTranscript field to checkpoint options and SessionFi… `  … 
+
+`94f3f89 ` 
+
+…lePaths
+
+Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>
+Entire-Checkpoint: 1069dd0fb5b4
+
+@computermode @claude 
+
+`test: add failing tests for compact transcript on v2 /main ref `  … 
+
+`35fde3f ` 
+
+Add three tests covering compact transcript write behavior:
+- WriteCommittedMain writes transcript.jsonl and transcript_hash.txt
+- WriteCommittedMain gracefully skips when CompactTranscript is nil
+- UpdateCommitted writes compact transcript on update path
+
+Co-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>
+Entire-Checkpoint: aacaa6dbe559
+
+@computermode @claude 
+
+`feat: write compact transcript (transcript.jsonl) to v2 /main ref `  … 
+
+`3e576f0 ` 
+
+Add writeCompactTranscriptHash helper and integrate compact transcript
+writing into both writeMainSessionToSubdirectory and updateCommittedMain.
+When CompactTranscript bytes are provided, transcript.jsonl and
+transcript_hash.txt are written alongside metadata.json and prompt.txt
+on the /main ref. When nil, these files are simply not written.
+
+Co-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>
+Entire-Checkpoint: 5ea183e58cf7
+
+@computermode @claude 
+
+`feat: generate compact transcript at condensation time for v2 /main `  … 
+
+`4f1afe5 ` 
+
+Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>
+Entire-Checkpoint: c7d57cdafde9
+
+@computermode 
+
+`feat: generate compact transcript at stop-time finalization for v2 /main `  … 
+
+`8fb079f ` 
+
+Entire-Checkpoint: adc5a19c0d26
+
+@computermode 
+
+`test: verify compact transcript on v2 /main in integration tests `  … 
+
+`a3366c5 ` 
+
+Entire-Checkpoint: 15a4d30c12f0
+
+@computermode 
+
+`fix: add nolint directive for errcheck on GetByAgentType in stop-time… `  … 
+
+`919ab75 ` 
+
+… finalization
+
+Entire-Checkpoint: 3660294efee6
+
+@computermode 
+
+`docs: update stale comments in UpdateCommitted to reflect compact tra… `  … 
+
+`717d781 ` 
+
+…nscript support
+
+Entire-Checkpoint: dd0331b980df
+
+@computermode computermode requested a review from a team as a code owner April 1, 2026 21:02 
+
+Copilot AI review requested due to automatic review settingsApril 1, 2026 21:02 
+
+**Copilot** started reviewing on behalf of computermode April 1, 2026 21:03 View session 
+
+**Copilot AI**  reviewed Apr 1, 2026 
+
+View reviewed changes 
+
+ Copy link  Copy Markdown 
+
+Contributor 
+
+### 
+
+**Copilot AI**  left a comment
+
+There was a problem hiding this comment.
+
+### Choose a reason for hiding this comment
+
+ The reason will be displayed to describe this comment to others. Learn more.
+
+ Choose a reason Spam Abuse Off Topic Outdated Duplicate Resolved Hide comment 
+
+## Pull request overview
+
+Adds support for writing a compact `transcript.jsonl` (Entire Transcript Format) and its hash to the v2 checkpoints `/main` ref during dual-write, so `/main` can carry lightweight transcript data while `/full/current` continues to store the raw transcript.
+
+**Changes:**
+
+* Generate and attach a compact transcript during condensation and stop-time finalization when v2 checkpoints are enabled.
+* Persist `transcript.jsonl` \+ `transcript_hash.txt` to v2 `/main`, and expose their paths in `SessionFilePaths`.
+* Extend unit/integration tests to validate the compact transcript artifacts on v2 refs.
+
+### Reviewed changes
+
+Copilot reviewed 7 out of 7 changed files in this pull request and generated 4 comments.
+
+Show a summary per file 
+
+| File                                                      | Description                                                                                 |
+| --------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| cmd/entire/cli/strategy/manual\_commit\_hooks.go          | Generates compact transcript during stop-time finalization for v2 /main.                    |
+| cmd/entire/cli/strategy/manual\_commit\_condensation.go   | Adds compact transcript generation helper and wires it into condensation writes.            |
+| cmd/entire/cli/paths/paths.go                             | Introduces constants for compact transcript filename + hash filename.                       |
+| cmd/entire/cli/integration\_test/v2\_dual\_write\_test.go | Verifies compact transcript + hash exist on v2 /main in integration flows.                  |
+| cmd/entire/cli/checkpoint/v2\_store\_test.go              | Adds unit tests for writing/updating compact transcript and hash on v2 /main.               |
+| cmd/entire/cli/checkpoint/v2\_committed.go                | Implements writing compact transcript + hash on /main and updates related comments.         |
+| cmd/entire/cli/checkpoint/checkpoint.go                   | Extends checkpoint option structs and SessionFilePaths to include compact transcript paths. |
+
+ Sorry, something went wrong.
+
+###  Uh oh!
+
+There was an error while loading. Please reload this page.
+
+All reactions 
+
+cmd/entire/cli/strategy/manual\_commit\_hooks.go 
+
+| // Generate compact transcript for v2 /main                                                                                                         |
+| --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| if v2Store != nil && len(fullTranscript) > 0 {                                                                                                      |
+| finalAg, \_ := agent.GetByAgentType(state.AgentType) //nolint:errcheck // ag may be nil for unknown agent types; compactTranscriptForV2 handles nil |
+| updateOpts.CompactTranscript = compactTranscriptForV2(logCtx, finalAg, fullTranscript, state.CheckpointTranscriptStart)                             |
+
+ Copy link 
+
+### 
+
+**Copilot AI** Apr 1, 2026 
+
+There was a problem hiding this comment.
+
+### Choose a reason for hiding this comment
+
+ The reason will be displayed to describe this comment to others. Learn more.
+
+ Choose a reason Spam Abuse Off Topic Outdated Duplicate Resolved Hide comment 
+
+In stop-time finalization, the compact transcript is generated using state.CheckpointTranscriptStart for every checkpoint in TurnCheckpointIDs. That state offset is updated after each condensation, so it may not match the per-checkpoint CheckpointTranscriptStart stored in each checkpoint’s metadata. Since compact.Compact slices by StartLine, this can produce incorrectly truncated transcript.jsonl for earlier checkpoints. Consider reading each checkpoint’s metadata to get the correct start offset (e.g., from existing metadata.json) and passing that into compactTranscriptForV2 per checkpoint, or generating the compact transcript without truncation (StartLine=0) during finalization.
+
+ Suggested change
+
+| updateOpts.CompactTranscript \= compactTranscriptForV2(logCtx, finalAg, fullTranscript, state.CheckpointTranscriptStart) |
+| ------------------------------------------------------------------------------------------------------------------------ |
+| updateOpts.CompactTranscript \= compactTranscriptForV2(logCtx, finalAg, fullTranscript, 0)                               |
+
+ Sorry, something went wrong.
+
+###  Uh oh!
+
+There was an error while loading. Please reload this page.
+
+All reactions 
+
+Copilot uses AI. Check for mistakes. 
+
+cmd/entire/cli/strategy/manual\_commit\_condensation.go 
+
+ Comment on lines +924 to  +936 
+
+| func compactTranscriptForV2(ctx context.Context, ag agent.Agent, transcript \[\]byte, checkpointTranscriptStart int) \[\]byte { |
+| ------------------------------------------------------------------------------------------------------------------------------- |
+| if ag == nil \|| len(transcript) == 0 {                                                                                         |
+| return nil                                                                                                                      |
+| }                                                                                                                               |
+| if !settings.IsCheckpointsV2Enabled(ctx) {                                                                                      |
+| return nil                                                                                                                      |
+| }                                                                                                                               |
+|                                                                                                                                 |
+| compacted, err := compact.Compact(transcript, compact.MetadataFields{                                                           |
+| Agent: string(ag.Name()),                                                                                                       |
+| CLIVersion: versioninfo.Version,                                                                                                |
+| StartLine: checkpointTranscriptStart,                                                                                           |
+| })                                                                                                                              |
+
+ Copy link 
+
+### 
+
+**Copilot AI** Apr 1, 2026 
+
+There was a problem hiding this comment.
+
+### Choose a reason for hiding this comment
+
+ The reason will be displayed to describe this comment to others. Learn more.
+
+ Choose a reason Spam Abuse Off Topic Outdated Duplicate Resolved Hide comment 
+
+compactTranscriptForV2 compacts and then persists transcript content to v2 /main, but it currently runs compaction on the raw transcript bytes. Unlike the /full/current path (which redacts in writeTranscriptBlobs) and the stop-time finalization path (which redacts before calling this helper), this can store unredacted secrets in transcript.jsonl on /main. Consider redacting the input transcript inside this helper (e.g., redact.JSONLBytes with a safe fallback) before calling compact.Compact so both condensation-time and finalization-time writes are consistently redacted.
+
+ Sorry, something went wrong.
+
+###  Uh oh!
+
+There was an error while loading. Please reload this page.
+
+All reactions 
+
+Copilot uses AI. Check for mistakes. 
+
+cmd/entire/cli/checkpoint/v2\_committed.go 
+
+|                                                                                                    |
+| -------------------------------------------------------------------------------------------------- |
+| if err := s.writeCompactTranscriptHash(opts.CompactTranscript, sessionPath, entries); err != nil { |
+| return 0, fmt.Errorf("failed to write compact transcript hash: %w", err)                           |
+| }                                                                                                  |
+
+ Copy link 
+
+### 
+
+**Copilot AI** Apr 1, 2026 
+
+There was a problem hiding this comment.
+
+### Choose a reason for hiding this comment
+
+ The reason will be displayed to describe this comment to others. Learn more.
+
+ Choose a reason Spam Abuse Off Topic Outdated Duplicate Resolved Hide comment 
+
+updateCommittedMain writes transcript.jsonl and transcript\_hash.txt when opts.CompactTranscript is set, but it does not update the root checkpoint summary (basePath/metadata.json) SessionFilePaths to include CompactTranscript / CompactTranscriptHash. This creates inconsistent metadata (the files exist but aren’t discoverable via CheckpointSummary.Sessions). Consider updating summary.Sessions\[sessionIndex\] with the new fields and rewriting the checkpoint summary blob when adding/replacing the compact transcript (similar to writeMainCheckpointEntries).
+
+ Suggested change
+
+| }                                                                                      |
+| -------------------------------------------------------------------------------------- |
+| }                                                                                      |
+| // Keep checkpoint summary metadata in sync with the newly written compact transcript. |
+| // This mirrors the behavior used when initially writing main checkpoint entries.      |
+| if summary != nil && sessionIndex \>= 0 && sessionIndex < len(summary.Sessions) {      |
+| files := summary.Sessions\[sessionIndex\].Files                                        |
+| files.CompactTranscript \= sessionPath + paths.CompactTranscriptFileName               |
+| files.CompactTranscriptHash \= sessionPath + paths.CompactTranscriptHashFileName       |
+| summary.Sessions\[sessionIndex\].Files \= files                                        |
+| summaryBytes, err := jsonutil.Marshal(summary)                                         |
+| if err != nil {                                                                        |
+| return 0, fmt.Errorf("failed to marshal updated checkpoint summary: %w", err)          |
+| }                                                                                      |
+| summaryBlobHash, err := CreateBlobFromContent(s.repo, summaryBytes)                    |
+| if err != nil {                                                                        |
+| return 0, fmt.Errorf("failed to create updated checkpoint summary blob: %w", err)      |
+| }                                                                                      |
+| entries\[basePath+paths.MetadataFileName\] \= object.TreeEntry{                        |
+| Name: basePath + paths.MetadataFileName,                                               |
+| Mode: filemode.Regular,                                                                |
+| Hash: summaryBlobHash,                                                                 |
+| }                                                                                      |
+| }                                                                                      |
+
+ Sorry, something went wrong.
+
+###  Uh oh!
+
+There was an error while loading. Please reload this page.
+
+All reactions 
+
+Copilot uses AI. Check for mistakes. 
+
+cmd/entire/cli/checkpoint/checkpoint.go 
+
+| Agent types.AgentType                                               |
+| ------------------------------------------------------------------- |
+|                                                                     |
+| // CompactTranscript is the updated Entire Transcript Format bytes. |
+| // If non-nil, replaces the existing transcript.jsonl on v2 /main.  |
+
+ Copy link 
+
+### 
+
+**Copilot AI** Apr 1, 2026 
+
+There was a problem hiding this comment.
+
+### Choose a reason for hiding this comment
+
+ The reason will be displayed to describe this comment to others. Learn more.
+
+ Choose a reason Spam Abuse Off Topic Outdated Duplicate Resolved Hide comment 
+
+The UpdateCommittedOptions comment says “If non-nil, replaces the existing transcript.jsonl on v2 /main”, but the implementation checks len(opts.CompactTranscript) > 0 (so a non-nil empty slice won’t replace anything). To avoid misleading API docs, update the comment to reflect the actual behavior (e.g., “if non-empty”).
+
+ Suggested change
+
+| // If non-nil, replaces the existing transcript.jsonl on v2 /main.   |
+| -------------------------------------------------------------------- |
+| // If non-empty, replaces the existing transcript.jsonl on v2 /main. |
+
+ Sorry, something went wrong.
+
+###  Uh oh!
+
+There was an error while loading. Please reload this page.
+
+All reactions 
+
+Copilot uses AI. Check for mistakes. 
+
+cursor[bot] 
+
+**cursor bot**  reviewed Apr 1, 2026 
+
+View reviewed changes 
+
+ Copy link  Copy Markdown 
+
+### 
+
+@cursor **cursor bot**  left a comment
+
+There was a problem hiding this comment.
+
+### Choose a reason for hiding this comment
+
+ The reason will be displayed to describe this comment to others. Learn more.
+
+ Choose a reason Spam Abuse Off Topic Outdated Duplicate Resolved Hide comment 
+
+Cursor Bugbot has reviewed your changes and found 1 potential issue.
+
+Fix All in Cursor
+
+Bugbot Autofix is OFF. To automatically fix reported issues with cloud agents, enable autofix in the Cursor dashboard.
+
+_Comment `@cursor review` or `bugbot run` to trigger another review on this PR_
+
+ Sorry, something went wrong.
+
+###  Uh oh!
+
+There was an error while loading. Please reload this page.
+
+All reactions 
+
+cmd/entire/cli/strategy/manual\_commit\_condensation.go 
+
+| Summary: summary,                                                                                                      |
+| ---------------------------------------------------------------------------------------------------------------------- |
+| }                                                                                                                      |
+|                                                                                                                        |
+| writeOpts.CompactTranscript = compactTranscriptForV2(ctx, ag, sessionData.Transcript, state.CheckpointTranscriptStart) |
+
+ Copy link  Copy Markdown 
+
+### 
+
+@cursor **cursor bot** Apr 1, 2026 
+
+There was a problem hiding this comment.
+
+### Choose a reason for hiding this comment
+
+ The reason will be displayed to describe this comment to others. Learn more.
+
+ Choose a reason Spam Abuse Off Topic Outdated Duplicate Resolved Hide comment 
+
+### Compact transcript written without secret redaction at condensation time
+
+**High Severity**
+
+The compact transcript at condensation time is generated from the raw, unredacted `sessionData.Transcript` via `compactTranscriptForV2`, and `compact.Compact` performs no secret redaction. The resulting bytes are written directly to git via `CreateBlobFromContent` in `writeMainSessionToSubdirectory` without any call to `redact.JSONLBytes`. In contrast, the raw transcript is always redacted before being persisted (v1 in `writeTranscript`, v2 in `writeTranscriptBlobs`), and the stop-time finalization path correctly redacts the transcript _before_ compaction. This means secrets present in the transcript could be persisted unredacted to the v2 `/main` ref during condensation.
+
+Additional Locations (1) 
+* cmd/entire/cli/checkpoint/v2\_committed.go#L330-L347
+
+Fix in Cursor Fix in Web
+
+ Sorry, something went wrong.
+
+###  Uh oh!
+
+There was an error while loading. Please reload this page.
+
+👀 1 computermode reacted with eyes emoji 
+
+All reactions 
+* 👀 1 reaction
+
+pfleidi 
+
+**pfleidi**  reviewed Apr 1, 2026 
+
+View reviewed changes 
+
+cmd/entire/cli/checkpoint/checkpoint.go 
+
+| Prompt string \`json:"prompt"\`             |
+| ------------------------------------------- |
+| Metadata string \`json:"metadata"\`         |
+| Transcript string \`json:"transcript"\`     |
+| ContentHash string \`json:"content\_hash"\` |
+
+ Copy link  Copy Markdown 
+
+Contributor 
+
+### 
+
+@pfleidi **pfleidi** Apr 1, 2026 
+
+There was a problem hiding this comment.
+
+### Choose a reason for hiding this comment
+
+ The reason will be displayed to describe this comment to others. Learn more.
+
+ Choose a reason Spam Abuse Off Topic Outdated Duplicate Resolved Hide comment 
+
+I was assuming we'd repurpose the `Transcript` and `ContentHash` properties for the compacted transcript. If not, we should be able to mark them as optional.
+
+Given that we can't create a stable reference to a full transcript that can be persisted here, these properties shouldn't be necessary for v2 anymore. Do we want to add a note that they're only used in v1 and mark them as `omitempty`?
+
+ Sorry, something went wrong.
+
+###  Uh oh!
+
+There was an error while loading. Please reload this page.
+
+All reactions 
+
+@computermode 
+
+`Add redaction step for transcript.jsonl write and test ` 
+
+`fd546ac ` 
+
+ This file contains hidden or bidirectional Unicode text that may be interpreted or compiled differently than what appears below. To review, open the file in an editor that reveals hidden Unicode characters.Learn more about bidirectional Unicode characters 
+
+ Show hidden characters 
+
+Sign up for free **to join this conversation on GitHub**. Already have an account?Sign in to comment 
+
+###  Reviewers
+
+@pfleidi pfleidi pfleidi left review comments 
+
+Copilot code review Copilot Copilot left review comments 
+
+@cursor cursor\[bot\] cursor\[bot\] left review comments 
+
+ At least 1 approving review is required to merge this pull request.
+
+###  Assignees
+
+ No one assigned 
+
+###  Labels
+
+ None yet
+
+###  Milestone
+
+ No milestone
+
+###  Development
+
+Successfully merging this pull request may close these issues.
+
+###  Uh oh!
+
+There was an error while loading. Please reload this page.
+
+###  3 participants
+
+@computermode @pfleidi 
+
+Add this suggestion to a batch that can be applied as a single commit.This suggestion is invalid because no changes were made to the code.Suggestions cannot be applied while the pull request is closed.Suggestions cannot be applied while viewing a subset of changes.Only one suggestion per line can be applied in a batch.Add this suggestion to a batch that can be applied as a single commit.Applying suggestions on deleted lines is not supported.You must change the existing code in this line in order to create a valid suggestion.Outdated suggestions cannot be applied.This suggestion has been applied or marked resolved.Suggestions cannot be applied from pending reviews.Suggestions cannot be applied on multi-line comments.Suggestions cannot be applied while the pull request is queued to merge.Suggestion cannot be applied right now. Please check back later.
+
+## Footer
+
+ © 2026 GitHub, Inc. 
+
+### Footer navigation
+
+* Terms
+* Privacy
+* Security
+* Status
+* Community
+* Docs
+* Contact
+* Manage cookies
+* Do not share my personal information
+
+ You can’t perform that action at this time.
+____
+
+</external_links>
+<git_diff_from_branch_to_main>
+  Relevant Diff: The following is the git diff from the current branch to the main/default branch:
+
+diff --git a/cmd/entire/cli/checkpoint/checkpoint.go b/cmd/entire/cli/checkpoint/checkpoint.go
+index 40133fbcf..33ec50bda 100644
+--- a/cmd/entire/cli/checkpoint/checkpoint.go
++++ b/cmd/entire/cli/checkpoint/checkpoint.go
+@@ -289,6 +289,11 @@ type WriteCommittedOptions struct {
+ 	//   - the transcript was empty or too short to summarize
+ 	//   - the checkpoint predates the summarization feature
+ 	Summary *Summary
++
++	// CompactTranscript is the Entire Transcript Format (transcript.jsonl) bytes.
++	// Written to v2 /main ref alongside metadata. May be nil if compaction
++	// was not performed (unknown agent, compaction error, empty transcript).
++	CompactTranscript []byte
+ }
+ 
+ // UpdateCommittedOptions contains options for updating an existing committed checkpoint.
+@@ -310,6 +315,10 @@ type UpdateCommittedOptions struct {
+ 
+ 	// Agent identifies the agent type (needed for transcript chunking)
+ 	Agent types.AgentType
++
++	// CompactTranscript is the updated Entire Transcript Format bytes.
++	// If non-nil, replaces the existing transcript.jsonl on v2 /main.
++	CompactTranscript []byte
+ }
+ 
+ // CommittedInfo contains summary information about a committed checkpoint.
+@@ -422,6 +431,8 @@ type SessionFilePaths struct {
+ 	Transcript            string `json:"transcript"`
+ 	ContentHash           string `json:"content_hash"`
+ 	Prompt                string `json:"prompt"`
++	CompactTranscript     string `json:"compact_transcript,omitempty"`
++	CompactTranscriptHash string `json:"compact_transcript_hash,omitempty"`
+ }
+ 
+ // CheckpointSummary is the root-level metadata.json for a checkpoint.
+diff --git a/cmd/entire/cli/checkpoint/v2_committed.go b/cmd/entire/cli/checkpoint/v2_committed.go
+index d5a7a4f34..10d15df8b 100644
+--- a/cmd/entire/cli/checkpoint/v2_committed.go
++++ b/cmd/entire/cli/checkpoint/v2_committed.go
+@@ -52,7 +52,7 @@ func (s *V2GitStore) WriteCommitted(ctx context.Context, opts WriteCommittedOpti
+ // UpdateCommitted replaces the prompts and/or transcript for an existing v2 checkpoint.
+ // Called at stop time to finalize checkpoints with the complete session transcript.
+ //
+-// On /main: replaces prompts (transcript is not stored there).
++// On /main: replaces prompts and compact transcript (if provided).
+ // On /full/current: replaces the raw transcript (if provided).
+ //
+ // Returns ErrCheckpointNotFound if the checkpoint doesn't exist on /main.
+@@ -75,7 +75,7 @@ func (s *V2GitStore) UpdateCommitted(ctx context.Context, opts UpdateCommittedOp
+ 	return nil
+ }
+ 
+-// updateCommittedMain updates prompts on the /main ref for an existing checkpoint.
++// updateCommittedMain updates prompts and compact transcript on the /main ref for an existing checkpoint.
+ // Returns the session index for coordination with /full/current.
+ func (s *V2GitStore) updateCommittedMain(ctx context.Context, opts UpdateCommittedOptions) (int, error) {
+ 	refName := plumbing.ReferenceName(paths.V2MainRefName)
+@@ -133,6 +133,23 @@ func (s *V2GitStore) updateCommittedMain(ctx context.Context, opts UpdateCommitt
+ 		}
+ 	}
+ 
++	// Replace compact transcript if provided
++	if len(opts.CompactTranscript) > 0 {
++		blobHash, err := CreateBlobFromContent(s.repo, opts.CompactTranscript)
++		if err != nil {
++			return 0, fmt.Errorf("failed to create compact transcript blob: %w", err)
++		}
++		entries[sessionPath+paths.CompactTranscriptFileName] = object.TreeEntry{
++			Name: sessionPath + paths.CompactTranscriptFileName,
++			Mode: filemode.Regular,
++			Hash: blobHash,
++		}
++
++		if err := s.writeCompactTranscriptHash(opts.CompactTranscript, sessionPath, entries); err != nil {
++			return 0, fmt.Errorf("failed to write compact transcript hash: %w", err)
++		}
++	}
++
+ 	newTreeHash, err := s.gs.spliceCheckpointSubtree(rootTreeHash, opts.CheckpointID, basePath, entries)
+ 	if err != nil {
+ 		return 0, err
+@@ -281,10 +298,10 @@ func (s *V2GitStore) writeMainCheckpointEntries(ctx context.Context, opts WriteC
+ 	return sessionIndex, nil
+ }
+ 
+-// writeMainSessionToSubdirectory writes a single session's metadata and prompts
+-// to a session subdirectory (0/, 1/, 2/, … indexed by session order within the
+-// checkpoint). Unlike the v1 equivalent, this does NOT write the raw transcript
+-// (full.jsonl) or content hash (content_hash.txt) — those go to /full/current.
++// writeMainSessionToSubdirectory writes a single session's metadata, prompts,
++// and compact transcript to a session subdirectory (0/, 1/, 2/, … indexed by
++// session order within the checkpoint). The raw transcript (full.jsonl) and its
++// content hash (content_hash.txt) go to /full/current, not here.
+ func (s *V2GitStore) writeMainSessionToSubdirectory(opts WriteCommittedOptions, sessionPath string, entries map[string]object.TreeEntry) (SessionFilePaths, error) {
+ 	filePaths := SessionFilePaths{}
+ 
+@@ -310,6 +327,25 @@ func (s *V2GitStore) writeMainSessionToSubdirectory(opts WriteCommittedOptions,
+ 		filePaths.Prompt = "/" + sessionPath + paths.PromptFileName
+ 	}
+ 
++	// Write compact transcript (transcript.jsonl) + hash if provided
++	if len(opts.CompactTranscript) > 0 {
++		blobHash, err := CreateBlobFromContent(s.repo, opts.CompactTranscript)
++		if err != nil {
++			return filePaths, fmt.Errorf("failed to create compact transcript blob: %w", err)
++		}
++		entries[sessionPath+paths.CompactTranscriptFileName] = object.TreeEntry{
++			Name: sessionPath + paths.CompactTranscriptFileName,
++			Mode: filemode.Regular,
++			Hash: blobHash,
++		}
++		filePaths.CompactTranscript = "/" + sessionPath + paths.CompactTranscriptFileName
++
++		if err := s.writeCompactTranscriptHash(opts.CompactTranscript, sessionPath, entries); err != nil {
++			return filePaths, fmt.Errorf("failed to write compact transcript hash: %w", err)
++		}
++		filePaths.CompactTranscriptHash = "/" + sessionPath + paths.CompactTranscriptHashFileName
++	}
++
+ 	// Write session metadata
+ 	sessionMetadata := CommittedMetadata{
+ 		CheckpointID:                opts.CheckpointID,
+@@ -366,6 +402,21 @@ func (s *V2GitStore) writeContentHash(redactedTranscript []byte, sessionPath str
+ 	return nil
+ }
+ 
++// writeCompactTranscriptHash computes and writes the SHA-256 hash of the compact transcript.
++func (s *V2GitStore) writeCompactTranscriptHash(compactTranscript []byte, sessionPath string, entries map[string]object.TreeEntry) error {
++	hash := fmt.Sprintf("sha256:%x", sha256.Sum256(compactTranscript))
++	blobHash, err := CreateBlobFromContent(s.repo, []byte(hash))
++	if err != nil {
++		return err
++	}
++	entries[sessionPath+paths.CompactTranscriptHashFileName] = object.TreeEntry{
++		Name: sessionPath + paths.CompactTranscriptHashFileName,
++		Mode: filemode.Regular,
++		Hash: blobHash,
++	}
++	return nil
++}
++
+ // writeCommittedFullTranscript writes the raw transcript to the /full/current ref.
+ // Transcripts accumulate across checkpoints — each write splices into the existing
+ // tree. Generation metadata (generation.json) at the tree root is updated on every
+diff --git a/cmd/entire/cli/checkpoint/v2_store_test.go b/cmd/entire/cli/checkpoint/v2_store_test.go
+index 63fa50ab7..940b75e32 100644
+--- a/cmd/entire/cli/checkpoint/v2_store_test.go
++++ b/cmd/entire/cli/checkpoint/v2_store_test.go
+@@ -304,6 +304,119 @@ func TestV2GitStore_WriteCommittedMain_ExcludesTranscript(t *testing.T) {
+ 	}
+ }
+ 
++func TestV2GitStore_WriteCommittedMain_WritesCompactTranscript(t *testing.T) {
++	t.Parallel()
++	repo := initTestRepo(t)
++	store := NewV2GitStore(repo)
++	ctx := context.Background()
++
++	compactData := []byte(`{"v":1,"agent":"claude-code","cli_version":"0.1.0","type":"user","ts":"2026-01-01T00:00:00Z","content":"hello"}`)
++
++	cpID := id.MustCheckpointID("d4e5f6a1b2c3")
++	_, err := store.writeCommittedMain(ctx, WriteCommittedOptions{
++		CheckpointID:      cpID,
++		SessionID:         "test-session-compact",
++		Strategy:          "manual-commit",
++		Transcript:        []byte(`{"type":"human","message":"hello"}`),
++		CompactTranscript: compactData,
++		Prompts:           []string{"hello"},
++		AuthorName:        "Test",
++		AuthorEmail:       "test@test.com",
++	})
++	require.NoError(t, err)
++
++	tree := v2MainTree(t, repo)
++	cpPath := cpID.Path()
++
++	// transcript.jsonl should exist on /main
++	transcriptContent := v2ReadFile(t, tree, cpPath+"/0/"+paths.CompactTranscriptFileName)
++	assert.Equal(t, string(compactData), transcriptContent)
++
++	// transcript_hash.txt should exist on /main
++	hashContent := v2ReadFile(t, tree, cpPath+"/0/"+paths.CompactTranscriptHashFileName)
++	assert.True(t, strings.HasPrefix(hashContent, "sha256:"),
++		"transcript_hash.txt should be a sha256 hash")
++
++	// SessionFilePaths should include compact transcript paths
++	summaryContent := v2ReadFile(t, tree, cpPath+"/"+paths.MetadataFileName)
++	var summary CheckpointSummary
++	require.NoError(t, json.Unmarshal([]byte(summaryContent), &summary))
++	require.Len(t, summary.Sessions, 1)
++	assert.Contains(t, summary.Sessions[0].CompactTranscript, paths.CompactTranscriptFileName)
++	assert.Contains(t, summary.Sessions[0].CompactTranscriptHash, paths.CompactTranscriptHashFileName)
++}
++
++func TestV2GitStore_WriteCommittedMain_NoCompactTranscript_SkipsGracefully(t *testing.T) {
++	t.Parallel()
++	repo := initTestRepo(t)
++	store := NewV2GitStore(repo)
++	ctx := context.Background()
++
++	cpID := id.MustCheckpointID("e5f6a1b2c3d4")
++	_, err := store.writeCommittedMain(ctx, WriteCommittedOptions{
++		CheckpointID:      cpID,
++		SessionID:         "test-session-no-compact",
++		Strategy:          "manual-commit",
++		Transcript:        []byte(`{"type":"human","message":"hello"}`),
++		CompactTranscript: nil,
++		Prompts:           []string{"hello"},
++		AuthorName:        "Test",
++		AuthorEmail:       "test@test.com",
++	})
++	require.NoError(t, err)
++
++	tree := v2MainTree(t, repo)
++	cpPath := cpID.Path()
++
++	// metadata.json and prompt.txt should still exist
++	_ = v2ReadFile(t, tree, cpPath+"/0/"+paths.MetadataFileName)
++	_ = v2ReadFile(t, tree, cpPath+"/0/"+paths.PromptFileName)
++
++	// transcript.jsonl should NOT exist
++	sessionTree, err := tree.Tree(cpPath + "/0")
++	require.NoError(t, err)
++	_, err = sessionTree.File(paths.CompactTranscriptFileName)
++	assert.Error(t, err, "transcript.jsonl should not exist when CompactTranscript is nil")
++}
++
++func TestV2GitStore_UpdateCommitted_WritesCompactTranscript(t *testing.T) {
++	t.Parallel()
++	repo := initTestRepo(t)
++	store := NewV2GitStore(repo)
++	ctx := context.Background()
++
++	cpID := id.MustCheckpointID("f6a1b2c3d4e5")
++	err := store.WriteCommitted(ctx, WriteCommittedOptions{
++		CheckpointID: cpID,
++		SessionID:    "test-session-update-compact",
++		Strategy:     "manual-commit",
++		Transcript:   []byte(`{"type":"human","message":"hello"}`),
++		Prompts:      []string{"hello"},
++		AuthorName:   "Test",
++		AuthorEmail:  "test@test.com",
++	})
++	require.NoError(t, err)
++
++	compactData := []byte(`{"v":1,"agent":"claude-code","cli_version":"0.1.0","type":"user","content":"hello"}`)
++	err = store.UpdateCommitted(ctx, UpdateCommittedOptions{
++		CheckpointID:      cpID,
++		SessionID:         "test-session-update-compact",
++		Transcript:        []byte(`{"type":"human","message":"hello updated"}`),
++		CompactTranscript: compactData,
++		Agent:             "Claude Code",
++	})
++	require.NoError(t, err)
++
++	tree := v2MainTree(t, repo)
++	cpPath := cpID.Path()
++
++	transcriptContent := v2ReadFile(t, tree, cpPath+"/0/"+paths.CompactTranscriptFileName)
++	assert.Equal(t, string(compactData), transcriptContent)
++
++	hashContent := v2ReadFile(t, tree, cpPath+"/0/"+paths.CompactTranscriptHashFileName)
++	assert.True(t, strings.HasPrefix(hashContent, "sha256:"))
++}
++
+ func TestV2GitStore_WriteCommittedMain_MultiSession(t *testing.T) {
+ 	t.Parallel()
+ 	repo := initTestRepo(t)
+diff --git a/cmd/entire/cli/integration_test/v2_dual_write_test.go b/cmd/entire/cli/integration_test/v2_dual_write_test.go
+index 714ba6c98..290d7b409 100644
+--- a/cmd/entire/cli/integration_test/v2_dual_write_test.go
++++ b/cmd/entire/cli/integration_test/v2_dual_write_test.go
+@@ -99,6 +99,17 @@ func TestV2DualWrite_FullWorkflow(t *testing.T) {
+ 	_, found = env.ReadFileFromRef(paths.V2MainRefName, cpPath+"/0/"+paths.TranscriptFileName)
+ 	assert.False(t, found, "full.jsonl should NOT be on v2 /main")
+ 
++	// transcript.jsonl (compact format) SHOULD be on /main
++	compactTranscript, found := env.ReadFileFromRef(paths.V2MainRefName, cpPath+"/0/"+paths.CompactTranscriptFileName)
++	require.True(t, found, "transcript.jsonl should exist on v2 /main")
++	assert.Contains(t, compactTranscript, `"v":1`)
++	assert.Contains(t, compactTranscript, `"agent":`)
++
++	// transcript_hash.txt should be on /main
++	transcriptHash, found := env.ReadFileFromRef(paths.V2MainRefName, cpPath+"/0/"+paths.CompactTranscriptHashFileName)
++	require.True(t, found, "transcript_hash.txt should exist on v2 /main")
++	assert.True(t, strings.HasPrefix(transcriptHash, "sha256:"))
++
+ 	// ========================================
+ 	// Verify v2 /full/current ref
+ 	// ========================================
+@@ -227,4 +238,9 @@ func TestV2DualWrite_StopTimeFinalization(t *testing.T) {
+ 	fullTranscript, found := env.ReadFileFromRef(paths.V2FullCurrentRefName, cpPath+"/0/"+paths.TranscriptFileName)
+ 	require.True(t, found, "full.jsonl should exist on /full/current after finalization")
+ 	assert.Contains(t, fullTranscript, "main")
++
++	// transcript.jsonl should exist on /main after stop-time finalization
++	compactTranscript, found := env.ReadFileFromRef(paths.V2MainRefName, cpPath+"/0/"+paths.CompactTranscriptFileName)
++	require.True(t, found, "transcript.jsonl should exist on v2 /main after finalization")
++	assert.Contains(t, compactTranscript, `"v":1`)
+ }
+diff --git a/cmd/entire/cli/paths/paths.go b/cmd/entire/cli/paths/paths.go
+index f22617249..15f93d004 100644
+--- a/cmd/entire/cli/paths/paths.go
++++ b/cmd/entire/cli/paths/paths.go
+@@ -25,6 +25,8 @@ const (
+ 	PromptFileName                = "prompt.txt"
+ 	TranscriptFileName            = "full.jsonl"
+ 	TranscriptFileNameLegacy      = "full.log"
++	CompactTranscriptFileName     = "transcript.jsonl"
++	CompactTranscriptHashFileName = "transcript_hash.txt"
+ 	MetadataFileName              = "metadata.json"
+ 	CheckpointFileName            = "checkpoint.json"
+ 	ContentHashFileName           = "content_hash.txt"
+diff --git a/cmd/entire/cli/strategy/manual_commit_condensation.go b/cmd/entire/cli/strategy/manual_commit_condensation.go
+index 2e80e270e..bb5634ea1 100644
+--- a/cmd/entire/cli/strategy/manual_commit_condensation.go
++++ b/cmd/entire/cli/strategy/manual_commit_condensation.go
+@@ -24,6 +24,9 @@ import (
+ 	"github.com/entireio/cli/cmd/entire/cli/summarize"
+ 	"github.com/entireio/cli/cmd/entire/cli/textutil"
+ 	"github.com/entireio/cli/cmd/entire/cli/transcript"
++	"github.com/entireio/cli/cmd/entire/cli/transcript/compact"
++	"github.com/entireio/cli/cmd/entire/cli/versioninfo"
++	"github.com/entireio/cli/redact"
+ 
+ 	"github.com/go-git/go-git/v6"
+ 	"github.com/go-git/go-git/v6/plumbing"
+@@ -267,6 +270,8 @@ func (s *ManualCommitStrategy) CondenseSession(ctx context.Context, repo *git.Re
+ 		Summary:                     summary,
+ 	}
+ 
++	writeOpts.CompactTranscript = compactTranscriptForV2(ctx, ag, sessionData.Transcript, state.CheckpointTranscriptStart)
++
+ 	// Write checkpoint metadata to v1 branch
+ 	if err := store.WriteCommitted(ctx, writeOpts); err != nil {
+ 		return nil, fmt.Errorf("failed to write checkpoint metadata: %w", err)
+@@ -913,6 +918,42 @@ func (s *ManualCommitStrategy) cleanupShadowBranchIfUnused(ctx context.Context,
+ 	return nil
+ }
+ 
++// compactTranscriptForV2 produces the Entire Transcript Format (transcript.jsonl)
++// from a raw agent transcript. Returns nil if compaction cannot be performed
++// (nil agent, empty transcript, redaction failure, or compaction error) —
++// callers treat nil as "skip writing transcript.jsonl to /main".
++func compactTranscriptForV2(ctx context.Context, ag agent.Agent, transcript []byte, checkpointTranscriptStart int) []byte {
++	if ag == nil || len(transcript) == 0 {
++		return nil
++	}
++	if !settings.IsCheckpointsV2Enabled(ctx) {
++		return nil
++	}
++
++	redactedTranscript, err := redact.JSONLBytes(transcript)
++	if err != nil {
++		logging.Warn(ctx, "compact transcript redaction failed, skipping transcript.jsonl on /main",
++			slog.String("agent", string(ag.Name())),
++			slog.String("error", err.Error()),
++		)
++		return nil
++	}
++
++	compacted, err := compact.Compact(redactedTranscript, compact.MetadataFields{
++		Agent:      string(ag.Name()),
++		CLIVersion: versioninfo.Version,
++		StartLine:  checkpointTranscriptStart,
++	})
++	if err != nil {
++		logging.Warn(ctx, "compact transcript generation failed, skipping transcript.jsonl on /main",
++			slog.String("agent", string(ag.Name())),
++			slog.String("error", err.Error()),
++		)
++		return nil
++	}
++	return compacted
++}
++
+ // writeCommittedV2IfEnabled writes checkpoint data to v2 refs when checkpoints_v2
+ // is enabled in settings. Failures are logged as warnings — v2 writes are
+ // best-effort during the dual-write period and must not block the v1 path.
+diff --git a/cmd/entire/cli/strategy/manual_commit_hooks.go b/cmd/entire/cli/strategy/manual_commit_hooks.go
+index 969225012..4f970d09e 100644
+--- a/cmd/entire/cli/strategy/manual_commit_hooks.go
++++ b/cmd/entire/cli/strategy/manual_commit_hooks.go
+@@ -2349,6 +2349,12 @@ func (s *ManualCommitStrategy) finalizeAllTurnCheckpoints(ctx context.Context, s
+ 			Agent:        state.AgentType,
+ 		}
+ 
++		// Generate compact transcript for v2 /main
++		if v2Store != nil && len(fullTranscript) > 0 {
++			finalAg, _ := agent.GetByAgentType(state.AgentType) //nolint:errcheck // ag may be nil for unknown agent types; compactTranscriptForV2 handles nil
++			updateOpts.CompactTranscript = compactTranscriptForV2(logCtx, finalAg, fullTranscript, state.CheckpointTranscriptStart)
++		}
++
+ 		updateErr := store.UpdateCommitted(ctx, updateOpts)
+ 		if updateErr != nil {
+ 			logging.Warn(logCtx, "finalize: failed to update checkpoint",
+diff --git a/cmd/entire/cli/strategy/manual_commit_test.go b/cmd/entire/cli/strategy/manual_commit_test.go
+index cbba220ff..a256dd64b 100644
+--- a/cmd/entire/cli/strategy/manual_commit_test.go
++++ b/cmd/entire/cli/strategy/manual_commit_test.go
+@@ -3908,7 +3908,8 @@ func TestCondenseSession_V2DualWrite(t *testing.T) {
+ 	metadataDirAbs := filepath.Join(dir, metadataDir)
+ 	require.NoError(t, os.MkdirAll(metadataDirAbs, 0o755))
+ 
+-	transcript := `{"type":"human","message":{"content":"hello"}}
++	secret := "REDACTED"
++	transcript := `{"type":"human","message":{"content":"hello secret: ` + secret + `"}}
+ {"type":"assistant","message":{"content":"hi there"}}
+ `
+ 	require.NoError(t, os.WriteFile(filepath.Join(metadataDirAbs, paths.TranscriptFileName), []byte(transcript), 0o644))
+@@ -3929,6 +3930,7 @@ func TestCondenseSession_V2DualWrite(t *testing.T) {
+ 	require.NoError(t, err)
+ 	state.TranscriptPath = filepath.Join(metadataDirAbs, paths.TranscriptFileName)
+ 	state.BaseCommit = commitHash.String()[:7]
++	state.AgentType = agent.AgentTypeClaudeCode
+ 
+ 	checkpointID := id.MustCheckpointID("dd11ee22ff33")
+ 	result, err := s.CondenseSession(context.Background(), repo, checkpointID, state, nil)
+@@ -3950,7 +3952,7 @@ func TestCondenseSession_V2DualWrite(t *testing.T) {
+ 	require.NoError(t, err, "v2 /full/current ref should exist")
+ 	require.NotEqual(t, plumbing.ZeroHash, v2FullRef.Hash())
+ 
+-	// Verify /main has metadata but no transcript
++	// Verify /main has metadata and redacted compact transcript
+ 	v2MainCommit, err := repo.CommitObject(v2MainRef.Hash())
+ 	require.NoError(t, err)
+ 	v2MainTree, err := v2MainCommit.Tree()
+@@ -3964,6 +3966,14 @@ func TestCondenseSession_V2DualWrite(t *testing.T) {
+ 	_, err = mainCpTree.File(paths.MetadataFileName)
+ 	require.NoError(t, err, "root metadata.json should exist on /main")
+ 
++	mainSessionTree, err := mainCpTree.Tree("0")
++	require.NoError(t, err)
++	compactFile, err := mainSessionTree.File(paths.CompactTranscriptFileName)
++	require.NoError(t, err, "transcript.jsonl should exist on /main")
++	compactContent, err := compactFile.Contents()
++	require.NoError(t, err)
++	require.NotContains(t, compactContent, secret, "compact transcript on /main must be redacted")
++
+ 	// Verify /full/current has transcript
+ 	v2FullCommit, err := repo.CommitObject(v2FullRef.Hash())
+ 	require.NoError(t, err)
+
+  </git_diff_from_branch_to_main>
+
+Review the comment from Pfleidi on https://github.com/entireio/cli/pull/828  and apply the fix.
