@@ -43,3 +43,7 @@ continue
 ---
 
 contunue
+
+---
+
+commit all staged files
