@@ -15,3 +15,7 @@ fail with an explicit error
 ---
 
 explain this more Full git reachability filter by checkpoint-linked user commits.
+
+---
+
+yes that sounds right
