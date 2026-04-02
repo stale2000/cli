@@ -7,13 +7,13 @@
     "title": "OpenCode checkpoints missing attached transcripts",
     "version": "1.3.13",
     "summary": {
-      "additions": 90,
+      "additions": 99,
       "deletions": 44,
       "files": 5
     },
     "time": {
       "created": 1775082652909,
-      "updated": 1775088396613
+      "updated": 1775088460606
     }
   },
   "messages": [
@@ -17994,7 +17994,16 @@
           "modelID": "gpt-5.3-codex"
         },
         "summary": {
-          "diffs": []
+          "diffs": [
+            {
+              "file": "cmd/entire/cli/agent/opencode/lifecycle_test.go",
+              "before": "package opencode\n\nimport (\n\t\"context\"\n\t\"encoding/json\"\n\t\"os\"\n\t\"path/filepath\"\n\t\"strings\"\n\t\"testing\"\n\n\t\"github.com/entireio/cli/cmd/entire/cli/agent\"\n\t\"github.com/entireio/cli/cmd/entire/cli/paths\"\n\t\"github.com/stretchr/testify/require\"\n)\n\nfunc TestParseHookEvent_SessionStart(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\t// Plugin now only sends session_id, not transcript_path\n\tinput := `{\"session_id\": \"sess-abc123\"}`\n\n\tevent, err := ag.ParseHookEvent(context.Background(), HookNameSessionStart, strings.NewReader(input))\n\n\tif err != nil {\n\t\tt.Fatalf(\"unexpected error: %v\", err)\n\t}\n\trequire.NotNil(t, event, \"expected event, got nil\")\n\tif event.Type != agent.SessionStart {\n\t\tt.Errorf(\"expected SessionStart, got %v\", event.Type)\n\t}\n\tif event.SessionID != \"sess-abc123\" {\n\t\tt.Errorf(\"expected session_id 'sess-abc123', got %q\", event.SessionID)\n\t}\n\t// SessionRef is now empty for session-start (no transcript path from plugin)\n\tif event.SessionRef != \"\" {\n\t\tt.Errorf(\"expected empty session ref, got %q\", event.SessionRef)\n\t}\n}\n\nfunc TestParseHookEvent_TurnStart(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\t// Plugin now only sends session_id and prompt, not transcript_path\n\tinput := `{\"session_id\": \"sess-1\", \"prompt\": \"Fix the bug in login.ts\"}`\n\n\tevent, err := ag.ParseHookEvent(context.Background(), HookNameTurnStart, strings.NewReader(input))\n\n\tif err != nil {\n\t\tt.Fatalf(\"unexpected error: %v\", err)\n\t}\n\trequire.NotNil(t, event, \"expected event, got nil\")\n\tif event.Type != agent.TurnStart {\n\t\tt.Errorf(\"expected TurnStart, got %v\", event.Type)\n\t}\n\tif event.Prompt != \"Fix the bug in login.ts\" {\n\t\tt.Errorf(\"expected prompt 'Fix the bug in login.ts', got %q\", event.Prompt)\n\t}\n\tif event.SessionID != \"sess-1\" {\n\t\tt.Errorf(\"expected session_id 'sess-1', got %q\", event.SessionID)\n\t}\n\t// SessionRef is computed from session_id, should end with .json\n\tif !strings.HasSuffix(event.SessionRef, \"sess-1.json\") {\n\t\tt.Errorf(\"expected session ref to end with 'sess-1.json', got %q\", event.SessionRef)\n\t}\n}\n\nfunc TestParseHookEvent_TurnStart_IncludesModel(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\tinput := `{\"session_id\": \"sess-model\", \"prompt\": \"hello\", \"model\": \"claude-sonnet-4-20250514\"}`\n\n\tevent, err := ag.ParseHookEvent(context.Background(), HookNameTurnStart, strings.NewReader(input))\n\n\tif err != nil {\n\t\tt.Fatalf(\"unexpected error: %v\", err)\n\t}\n\tif event.Model != \"claude-sonnet-4-20250514\" {\n\t\tt.Errorf(\"expected model 'claude-sonnet-4-20250514', got %q\", event.Model)\n\t}\n}\n\nfunc TestParseHookEvent_TurnStart_EmptyModel(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\t// Model field absent — should parse as empty string\n\tinput := `{\"session_id\": \"sess-no-model\", \"prompt\": \"hello\"}`\n\n\tevent, err := ag.ParseHookEvent(context.Background(), HookNameTurnStart, strings.NewReader(input))\n\n\tif err != nil {\n\t\tt.Fatalf(\"unexpected error: %v\", err)\n\t}\n\tif event.Model != \"\" {\n\t\tt.Errorf(\"expected empty model, got %q\", event.Model)\n\t}\n}\n\nfunc TestParseHookEvent_TurnEnd(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\tinput := `{\"session_id\": \"sess-2\"}`\n\n\tevent, err := ag.ParseHookEvent(context.Background(), HookNameTurnEnd, strings.NewReader(input))\n\n\tif err != nil {\n\t\tt.Fatalf(\"unexpected error: %v\", err)\n\t}\n\trequire.NotNil(t, event, \"expected event, got nil\")\n\tif event.Type != agent.TurnEnd {\n\t\tt.Errorf(\"expected TurnEnd, got %v\", event.Type)\n\t}\n\tif event.SessionID != \"sess-2\" {\n\t\tt.Errorf(\"expected session_id 'sess-2', got %q\", event.SessionID)\n\t}\n\t// SessionRef is computed from session_id, should end with .json (same pattern as TurnStart)\n\tif !strings.HasSuffix(event.SessionRef, \"sess-2.json\") {\n\t\tt.Errorf(\"expected session ref to end with 'sess-2.json', got %q\", event.SessionRef)\n\t}\n}\n\nfunc TestParseHookEvent_Compaction(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\tinput := `{\"session_id\": \"sess-3\"}`\n\n\tevent, err := ag.ParseHookEvent(context.Background(), HookNameCompaction, strings.NewReader(input))\n\n\tif err != nil {\n\t\tt.Fatalf(\"unexpected error: %v\", err)\n\t}\n\trequire.NotNil(t, event, \"expected event, got nil\")\n\tif event.Type != agent.Compaction {\n\t\tt.Errorf(\"expected Compaction, got %v\", event.Type)\n\t}\n\tif event.SessionID != \"sess-3\" {\n\t\tt.Errorf(\"expected session_id 'sess-3', got %q\", event.SessionID)\n\t}\n}\n\nfunc TestParseHookEvent_SessionEnd(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\t// Plugin now only sends session_id\n\tinput := `{\"session_id\": \"sess-4\"}`\n\n\tevent, err := ag.ParseHookEvent(context.Background(), HookNameSessionEnd, strings.NewReader(input))\n\n\tif err != nil {\n\t\tt.Fatalf(\"unexpected error: %v\", err)\n\t}\n\trequire.NotNil(t, event, \"expected event, got nil\")\n\tif event.Type != agent.SessionEnd {\n\t\tt.Errorf(\"expected SessionEnd, got %v\", event.Type)\n\t}\n}\n\nfunc TestParseHookEvent_UnknownHook(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\tevent, err := ag.ParseHookEvent(context.Background(), \"unknown-hook\", strings.NewReader(`{}`))\n\n\tif err != nil {\n\t\tt.Fatalf(\"unexpected error: %v\", err)\n\t}\n\tif event != nil {\n\t\tt.Errorf(\"expected nil event for unknown hook, got %+v\", event)\n\t}\n}\n\nfunc TestParseHookEvent_EmptyInput(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\t_, err := ag.ParseHookEvent(context.Background(), HookNameSessionStart, strings.NewReader(\"\"))\n\n\tif err == nil {\n\t\tt.Fatal(\"expected error for empty input\")\n\t}\n\tif !strings.Contains(err.Error(), \"empty hook input\") {\n\t\tt.Errorf(\"expected 'empty hook input' error, got: %v\", err)\n\t}\n}\n\nfunc TestParseHookEvent_MalformedJSON(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\t_, err := ag.ParseHookEvent(context.Background(), HookNameSessionStart, strings.NewReader(\"not json\"))\n\n\tif err == nil {\n\t\tt.Fatal(\"expected error for malformed JSON\")\n\t}\n}\n\nfunc TestFormatResumeCommand(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\tcmd := ag.FormatResumeCommand(\"sess-abc123\")\n\n\texpected := \"opencode -s sess-abc123\"\n\tif cmd != expected {\n\t\tt.Errorf(\"expected %q, got %q\", expected, cmd)\n\t}\n}\n\nfunc TestFormatResumeCommand_Empty(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\tcmd := ag.FormatResumeCommand(\"\")\n\n\tif cmd != \"opencode\" {\n\t\tt.Errorf(\"expected %q, got %q\", \"opencode\", cmd)\n\t}\n}\n\nfunc TestHookNames(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\tnames := ag.HookNames()\n\n\texpected := []string{\n\t\tHookNameSessionStart,\n\t\tHookNameSessionEnd,\n\t\tHookNameTurnStart,\n\t\tHookNameTurnEnd,\n\t\tHookNameCompaction,\n\t}\n\n\tif len(names) != len(expected) {\n\t\tt.Fatalf(\"expected %d hook names, got %d\", len(expected), len(names))\n\t}\n\n\tnameSet := make(map[string]bool)\n\tfor _, n := range names {\n\t\tnameSet[n] = true\n\t}\n\tfor _, e := range expected {\n\t\tif !nameSet[e] {\n\t\t\tt.Errorf(\"missing expected hook name: %s\", e)\n\t\t}\n\t}\n}\n\nfunc TestPrepareTranscript_AlwaysRefreshesTranscript(t *testing.T) {\n\tt.Parallel()\n\n\t// PrepareTranscript should always attempt to refresh via fetchAndCacheExport,\n\t// even when the file already exists. Without opencode CLI or mock mode,\n\t// this means it must return an error (proving it tried to refresh).\n\ttmpDir := t.TempDir()\n\ttranscriptPath := filepath.Join(tmpDir, \"sess-123.json\")\n\n\t// Create an existing file with stale data\n\tif err := os.WriteFile(transcriptPath, []byte(`{\"info\":{},\"messages\":[]}`), 0o600); err != nil {\n\t\tt.Fatalf(\"failed to create test file: %v\", err)\n\t}\n\n\tag := &OpenCodeAgent{}\n\terr := ag.PrepareTranscript(context.Background(), transcriptPath)\n\n\t// Without opencode CLI, fetchAndCacheExport must fail — proving it attempted a refresh\n\t// rather than short-circuiting because the file exists.\n\tif err == nil {\n\t\tt.Fatal(\"expected error (refresh attempt should fail without opencode CLI), got nil\")\n\t}\n\tif !strings.Contains(err.Error(), \"opencode export failed\") {\n\t\tt.Errorf(\"expected 'opencode export failed' error, got: %v\", err)\n\t}\n}\n\nfunc TestPrepareTranscript_ErrorOnInvalidPath(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\n\t// Path without .json extension\n\terr := ag.PrepareTranscript(context.Background(), \"/tmp/not-a-json-file\")\n\tif err == nil {\n\t\tt.Fatal(\"expected error for path without .json extension\")\n\t}\n\tif !strings.Contains(err.Error(), \"invalid OpenCode transcript path\") {\n\t\tt.Errorf(\"expected 'invalid OpenCode transcript path' error, got: %v\", err)\n\t}\n}\n\nfunc TestPrepareTranscript_ErrorOnBrokenSymlink(t *testing.T) {\n\tt.Parallel()\n\n\t// Broken symlinks cause os.Stat to return a non-IsNotExist error.\n\t// PrepareTranscript should surface this as a stat error.\n\ttmpDir := t.TempDir()\n\ttranscriptPath := filepath.Join(tmpDir, \"broken-link.json\")\n\n\tif err := os.Symlink(\"/nonexistent/target\", transcriptPath); err != nil {\n\t\tt.Skipf(\"cannot create symlink (permission denied?): %v\", err)\n\t}\n\n\tag := &OpenCodeAgent{}\n\terr := ag.PrepareTranscript(context.Background(), transcriptPath)\n\n\tif err == nil {\n\t\tt.Fatal(\"expected error for broken symlink, got nil\")\n\t}\n}\n\nfunc TestPrepareTranscript_ErrorOnEmptySessionID(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\n\t// Path with empty session ID (.json with no basename)\n\terr := ag.PrepareTranscript(context.Background(), \"/tmp/.json\")\n\tif err == nil {\n\t\tt.Fatal(\"expected error for empty session ID\")\n\t}\n\tif !strings.Contains(err.Error(), \"empty session ID\") {\n\t\tt.Errorf(\"expected 'empty session ID' error, got: %v\", err)\n\t}\n}\n\nfunc TestParseHookEvent_TurnStart_InvalidSessionID(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\tinput := `{\"session_id\": \"../escape\", \"prompt\": \"hello\"}`\n\n\t_, err := ag.ParseHookEvent(context.Background(), HookNameTurnStart, strings.NewReader(input))\n\n\tif err == nil {\n\t\tt.Fatal(\"expected error for path-traversal session ID\")\n\t}\n\tif !strings.Contains(err.Error(), \"contains path separators\") {\n\t\tt.Errorf(\"expected 'contains path separators' error, got: %v\", err)\n\t}\n}\n\nfunc TestParseHookEvent_TurnEnd_InvalidSessionID(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\tinput := `{\"session_id\": \"../escape\"}`\n\n\t_, err := ag.ParseHookEvent(context.Background(), HookNameTurnEnd, strings.NewReader(input))\n\n\tif err == nil {\n\t\tt.Fatal(\"expected error for path-traversal session ID\")\n\t}\n\tif !strings.Contains(err.Error(), \"contains path separators\") {\n\t\tt.Errorf(\"expected 'contains path separators' error, got: %v\", err)\n\t}\n}\n\nfunc TestFetchAndCacheExport_UsesRedirectedExportWhenPipeOutputWouldBeInvalid(t *testing.T) {\n\ttmpDir := t.TempDir()\n\tt.Chdir(tmpDir)\n\n\tpaths.ClearWorktreeRootCache()\n\tt.Cleanup(paths.ClearWorktreeRootCache)\n\n\tbinDir := filepath.Join(tmpDir, \"bin\")\n\trequire.NoError(t, os.MkdirAll(binDir, 0o755))\n\n\topencodePath := filepath.Join(binDir, \"opencode\")\n\tscript := `#!/bin/sh\nif [ \"$1\" = \"export\" ]; then\n  # Simulate truncated/invalid JSON only when stdout is a pipe.\n  if [ -p /dev/fd/1 ]; then\n    printf '{\"info\":'\n    exit 0\n  fi\n\n  # Redirection path should return full valid JSON.\n  printf '{\"info\":{\"id\":\"%s\"},\"messages\":[]}\\n' \"$2\"\n  exit 0\nfi\n\necho \"unexpected args\" >&2\nexit 1\n`\n\trequire.NoError(t, os.WriteFile(opencodePath, []byte(script), 0o755))\n\tt.Setenv(\"PATH\", binDir+string(os.PathListSeparator)+os.Getenv(\"PATH\"))\n\n\tag := &OpenCodeAgent{}\n\ttranscriptPath, err := ag.fetchAndCacheExport(context.Background(), \"ses_abc123\")\n\trequire.NoError(t, err)\n\n\tcontent, err := os.ReadFile(transcriptPath)\n\trequire.NoError(t, err)\n\trequire.True(t, json.Valid(content), \"expected cached transcript to be valid JSON\")\n\trequire.Contains(t, string(content), \"\\\"ses_abc123\\\"\")\n}\n",
+              "after": "package opencode\n\nimport (\n\t\"context\"\n\t\"encoding/json\"\n\t\"os\"\n\t\"os/exec\"\n\t\"path/filepath\"\n\t\"runtime\"\n\t\"strings\"\n\t\"testing\"\n\n\t\"github.com/entireio/cli/cmd/entire/cli/agent\"\n\t\"github.com/entireio/cli/cmd/entire/cli/paths\"\n\t\"github.com/stretchr/testify/require\"\n)\n\nfunc TestParseHookEvent_SessionStart(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\t// Plugin now only sends session_id, not transcript_path\n\tinput := `{\"session_id\": \"sess-abc123\"}`\n\n\tevent, err := ag.ParseHookEvent(context.Background(), HookNameSessionStart, strings.NewReader(input))\n\n\tif err != nil {\n\t\tt.Fatalf(\"unexpected error: %v\", err)\n\t}\n\trequire.NotNil(t, event, \"expected event, got nil\")\n\tif event.Type != agent.SessionStart {\n\t\tt.Errorf(\"expected SessionStart, got %v\", event.Type)\n\t}\n\tif event.SessionID != \"sess-abc123\" {\n\t\tt.Errorf(\"expected session_id 'sess-abc123', got %q\", event.SessionID)\n\t}\n\t// SessionRef is now empty for session-start (no transcript path from plugin)\n\tif event.SessionRef != \"\" {\n\t\tt.Errorf(\"expected empty session ref, got %q\", event.SessionRef)\n\t}\n}\n\nfunc TestParseHookEvent_TurnStart(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\t// Plugin now only sends session_id and prompt, not transcript_path\n\tinput := `{\"session_id\": \"sess-1\", \"prompt\": \"Fix the bug in login.ts\"}`\n\n\tevent, err := ag.ParseHookEvent(context.Background(), HookNameTurnStart, strings.NewReader(input))\n\n\tif err != nil {\n\t\tt.Fatalf(\"unexpected error: %v\", err)\n\t}\n\trequire.NotNil(t, event, \"expected event, got nil\")\n\tif event.Type != agent.TurnStart {\n\t\tt.Errorf(\"expected TurnStart, got %v\", event.Type)\n\t}\n\tif event.Prompt != \"Fix the bug in login.ts\" {\n\t\tt.Errorf(\"expected prompt 'Fix the bug in login.ts', got %q\", event.Prompt)\n\t}\n\tif event.SessionID != \"sess-1\" {\n\t\tt.Errorf(\"expected session_id 'sess-1', got %q\", event.SessionID)\n\t}\n\t// SessionRef is computed from session_id, should end with .json\n\tif !strings.HasSuffix(event.SessionRef, \"sess-1.json\") {\n\t\tt.Errorf(\"expected session ref to end with 'sess-1.json', got %q\", event.SessionRef)\n\t}\n}\n\nfunc TestParseHookEvent_TurnStart_IncludesModel(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\tinput := `{\"session_id\": \"sess-model\", \"prompt\": \"hello\", \"model\": \"claude-sonnet-4-20250514\"}`\n\n\tevent, err := ag.ParseHookEvent(context.Background(), HookNameTurnStart, strings.NewReader(input))\n\n\tif err != nil {\n\t\tt.Fatalf(\"unexpected error: %v\", err)\n\t}\n\tif event.Model != \"claude-sonnet-4-20250514\" {\n\t\tt.Errorf(\"expected model 'claude-sonnet-4-20250514', got %q\", event.Model)\n\t}\n}\n\nfunc TestParseHookEvent_TurnStart_EmptyModel(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\t// Model field absent — should parse as empty string\n\tinput := `{\"session_id\": \"sess-no-model\", \"prompt\": \"hello\"}`\n\n\tevent, err := ag.ParseHookEvent(context.Background(), HookNameTurnStart, strings.NewReader(input))\n\n\tif err != nil {\n\t\tt.Fatalf(\"unexpected error: %v\", err)\n\t}\n\tif event.Model != \"\" {\n\t\tt.Errorf(\"expected empty model, got %q\", event.Model)\n\t}\n}\n\nfunc TestParseHookEvent_TurnEnd(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\tinput := `{\"session_id\": \"sess-2\"}`\n\n\tevent, err := ag.ParseHookEvent(context.Background(), HookNameTurnEnd, strings.NewReader(input))\n\n\tif err != nil {\n\t\tt.Fatalf(\"unexpected error: %v\", err)\n\t}\n\trequire.NotNil(t, event, \"expected event, got nil\")\n\tif event.Type != agent.TurnEnd {\n\t\tt.Errorf(\"expected TurnEnd, got %v\", event.Type)\n\t}\n\tif event.SessionID != \"sess-2\" {\n\t\tt.Errorf(\"expected session_id 'sess-2', got %q\", event.SessionID)\n\t}\n\t// SessionRef is computed from session_id, should end with .json (same pattern as TurnStart)\n\tif !strings.HasSuffix(event.SessionRef, \"sess-2.json\") {\n\t\tt.Errorf(\"expected session ref to end with 'sess-2.json', got %q\", event.SessionRef)\n\t}\n}\n\nfunc TestParseHookEvent_Compaction(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\tinput := `{\"session_id\": \"sess-3\"}`\n\n\tevent, err := ag.ParseHookEvent(context.Background(), HookNameCompaction, strings.NewReader(input))\n\n\tif err != nil {\n\t\tt.Fatalf(\"unexpected error: %v\", err)\n\t}\n\trequire.NotNil(t, event, \"expected event, got nil\")\n\tif event.Type != agent.Compaction {\n\t\tt.Errorf(\"expected Compaction, got %v\", event.Type)\n\t}\n\tif event.SessionID != \"sess-3\" {\n\t\tt.Errorf(\"expected session_id 'sess-3', got %q\", event.SessionID)\n\t}\n}\n\nfunc TestParseHookEvent_SessionEnd(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\t// Plugin now only sends session_id\n\tinput := `{\"session_id\": \"sess-4\"}`\n\n\tevent, err := ag.ParseHookEvent(context.Background(), HookNameSessionEnd, strings.NewReader(input))\n\n\tif err != nil {\n\t\tt.Fatalf(\"unexpected error: %v\", err)\n\t}\n\trequire.NotNil(t, event, \"expected event, got nil\")\n\tif event.Type != agent.SessionEnd {\n\t\tt.Errorf(\"expected SessionEnd, got %v\", event.Type)\n\t}\n}\n\nfunc TestParseHookEvent_UnknownHook(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\tevent, err := ag.ParseHookEvent(context.Background(), \"unknown-hook\", strings.NewReader(`{}`))\n\n\tif err != nil {\n\t\tt.Fatalf(\"unexpected error: %v\", err)\n\t}\n\tif event != nil {\n\t\tt.Errorf(\"expected nil event for unknown hook, got %+v\", event)\n\t}\n}\n\nfunc TestParseHookEvent_EmptyInput(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\t_, err := ag.ParseHookEvent(context.Background(), HookNameSessionStart, strings.NewReader(\"\"))\n\n\tif err == nil {\n\t\tt.Fatal(\"expected error for empty input\")\n\t}\n\tif !strings.Contains(err.Error(), \"empty hook input\") {\n\t\tt.Errorf(\"expected 'empty hook input' error, got: %v\", err)\n\t}\n}\n\nfunc TestParseHookEvent_MalformedJSON(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\t_, err := ag.ParseHookEvent(context.Background(), HookNameSessionStart, strings.NewReader(\"not json\"))\n\n\tif err == nil {\n\t\tt.Fatal(\"expected error for malformed JSON\")\n\t}\n}\n\nfunc TestFormatResumeCommand(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\tcmd := ag.FormatResumeCommand(\"sess-abc123\")\n\n\texpected := \"opencode -s sess-abc123\"\n\tif cmd != expected {\n\t\tt.Errorf(\"expected %q, got %q\", expected, cmd)\n\t}\n}\n\nfunc TestFormatResumeCommand_Empty(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\tcmd := ag.FormatResumeCommand(\"\")\n\n\tif cmd != \"opencode\" {\n\t\tt.Errorf(\"expected %q, got %q\", \"opencode\", cmd)\n\t}\n}\n\nfunc TestHookNames(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\tnames := ag.HookNames()\n\n\texpected := []string{\n\t\tHookNameSessionStart,\n\t\tHookNameSessionEnd,\n\t\tHookNameTurnStart,\n\t\tHookNameTurnEnd,\n\t\tHookNameCompaction,\n\t}\n\n\tif len(names) != len(expected) {\n\t\tt.Fatalf(\"expected %d hook names, got %d\", len(expected), len(names))\n\t}\n\n\tnameSet := make(map[string]bool)\n\tfor _, n := range names {\n\t\tnameSet[n] = true\n\t}\n\tfor _, e := range expected {\n\t\tif !nameSet[e] {\n\t\t\tt.Errorf(\"missing expected hook name: %s\", e)\n\t\t}\n\t}\n}\n\nfunc TestPrepareTranscript_AlwaysRefreshesTranscript(t *testing.T) {\n\tt.Parallel()\n\n\t// PrepareTranscript should always attempt to refresh via fetchAndCacheExport,\n\t// even when the file already exists. Without opencode CLI or mock mode,\n\t// this means it must return an error (proving it tried to refresh).\n\ttmpDir := t.TempDir()\n\ttranscriptPath := filepath.Join(tmpDir, \"sess-123.json\")\n\n\t// Create an existing file with stale data\n\tif err := os.WriteFile(transcriptPath, []byte(`{\"info\":{},\"messages\":[]}`), 0o600); err != nil {\n\t\tt.Fatalf(\"failed to create test file: %v\", err)\n\t}\n\n\tag := &OpenCodeAgent{}\n\terr := ag.PrepareTranscript(context.Background(), transcriptPath)\n\n\t// Without opencode CLI, fetchAndCacheExport must fail — proving it attempted a refresh\n\t// rather than short-circuiting because the file exists.\n\tif err == nil {\n\t\tt.Fatal(\"expected error (refresh attempt should fail without opencode CLI), got nil\")\n\t}\n\tif !strings.Contains(err.Error(), \"opencode export failed\") {\n\t\tt.Errorf(\"expected 'opencode export failed' error, got: %v\", err)\n\t}\n}\n\nfunc TestPrepareTranscript_ErrorOnInvalidPath(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\n\t// Path without .json extension\n\terr := ag.PrepareTranscript(context.Background(), \"/tmp/not-a-json-file\")\n\tif err == nil {\n\t\tt.Fatal(\"expected error for path without .json extension\")\n\t}\n\tif !strings.Contains(err.Error(), \"invalid OpenCode transcript path\") {\n\t\tt.Errorf(\"expected 'invalid OpenCode transcript path' error, got: %v\", err)\n\t}\n}\n\nfunc TestPrepareTranscript_ErrorOnBrokenSymlink(t *testing.T) {\n\tt.Parallel()\n\n\t// Broken symlinks cause os.Stat to return a non-IsNotExist error.\n\t// PrepareTranscript should surface this as a stat error.\n\ttmpDir := t.TempDir()\n\ttranscriptPath := filepath.Join(tmpDir, \"broken-link.json\")\n\n\tif err := os.Symlink(\"/nonexistent/target\", transcriptPath); err != nil {\n\t\tt.Skipf(\"cannot create symlink (permission denied?): %v\", err)\n\t}\n\n\tag := &OpenCodeAgent{}\n\terr := ag.PrepareTranscript(context.Background(), transcriptPath)\n\n\tif err == nil {\n\t\tt.Fatal(\"expected error for broken symlink, got nil\")\n\t}\n}\n\nfunc TestPrepareTranscript_ErrorOnEmptySessionID(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\n\t// Path with empty session ID (.json with no basename)\n\terr := ag.PrepareTranscript(context.Background(), \"/tmp/.json\")\n\tif err == nil {\n\t\tt.Fatal(\"expected error for empty session ID\")\n\t}\n\tif !strings.Contains(err.Error(), \"empty session ID\") {\n\t\tt.Errorf(\"expected 'empty session ID' error, got: %v\", err)\n\t}\n}\n\nfunc TestParseHookEvent_TurnStart_InvalidSessionID(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\tinput := `{\"session_id\": \"../escape\", \"prompt\": \"hello\"}`\n\n\t_, err := ag.ParseHookEvent(context.Background(), HookNameTurnStart, strings.NewReader(input))\n\n\tif err == nil {\n\t\tt.Fatal(\"expected error for path-traversal session ID\")\n\t}\n\tif !strings.Contains(err.Error(), \"contains path separators\") {\n\t\tt.Errorf(\"expected 'contains path separators' error, got: %v\", err)\n\t}\n}\n\nfunc TestParseHookEvent_TurnEnd_InvalidSessionID(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\tinput := `{\"session_id\": \"../escape\"}`\n\n\t_, err := ag.ParseHookEvent(context.Background(), HookNameTurnEnd, strings.NewReader(input))\n\n\tif err == nil {\n\t\tt.Fatal(\"expected error for path-traversal session ID\")\n\t}\n\tif !strings.Contains(err.Error(), \"contains path separators\") {\n\t\tt.Errorf(\"expected 'contains path separators' error, got: %v\", err)\n\t}\n}\n\nfunc TestFetchAndCacheExport_UsesRedirectedExportWhenPipeOutputWouldBeInvalid(t *testing.T) {\n\tif runtime.GOOS == \"windows\" {\n\t\tt.Skip(\"shell script mock uses POSIX sh semantics\")\n\t}\n\tif _, err := exec.LookPath(\"sh\"); err != nil {\n\t\tt.Skip(\"sh not available\")\n\t}\n\n\ttmpDir := t.TempDir()\n\tt.Chdir(tmpDir)\n\n\tpaths.ClearWorktreeRootCache()\n\tt.Cleanup(paths.ClearWorktreeRootCache)\n\n\tbinDir := filepath.Join(tmpDir, \"bin\")\n\trequire.NoError(t, os.MkdirAll(binDir, 0o755))\n\n\topencodePath := filepath.Join(binDir, \"opencode\")\n\tscript := `#!/bin/sh\nif [ \"$1\" = \"export\" ]; then\n  # Simulate truncated/invalid JSON only when stdout is a pipe.\n  if [ -p /dev/fd/1 ]; then\n    printf '{\"info\":'\n    exit 0\n  fi\n\n  # Redirection path should return full valid JSON.\n  printf '{\"info\":{\"id\":\"%s\"},\"messages\":[]}\\n' \"$2\"\n  exit 0\nfi\n\necho \"unexpected args\" >&2\nexit 1\n`\n\trequire.NoError(t, os.WriteFile(opencodePath, []byte(script), 0o755))\n\tt.Setenv(\"PATH\", binDir+string(os.PathListSeparator)+os.Getenv(\"PATH\"))\n\n\tag := &OpenCodeAgent{}\n\ttranscriptPath, err := ag.fetchAndCacheExport(context.Background(), \"ses_abc123\")\n\trequire.NoError(t, err)\n\n\tcontent, err := os.ReadFile(transcriptPath)\n\trequire.NoError(t, err)\n\trequire.True(t, json.Valid(content), \"expected cached transcript to be valid JSON\")\n\trequire.Contains(t, string(content), \"\\\"ses_abc123\\\"\")\n}\n",
+              "additions": 9,
+              "deletions": 0,
+              "status": "modified"
+            }
+          ]
         },
         "id": "msg_d4b83457e001K6B3qrItZP686D",
         "sessionID": "ses_2b4d43b12ffeAiKhp1wmvaMqHT"
@@ -18132,19 +18141,22 @@
         },
         "cost": 0,
         "tokens": {
-          "input": 0,
-          "output": 0,
-          "reasoning": 0,
+          "total": 109190,
+          "input": 535,
+          "output": 111,
+          "reasoning": 6,
           "cache": {
-            "read": 0,
-            "write": 0
+            "write": 0,
+            "read": 108544
           }
         },
         "modelID": "gpt-5.3-codex",
         "providerID": "openai",
         "time": {
-          "created": 1775088396555
+          "created": 1775088396555,
+          "completed": 1775088407473
         },
+        "finish": "tool-calls",
         "id": "msg_d4b83690b001Ma5TUwbTz1em5I",
         "sessionID": "ses_2b4d43b12ffeAiKhp1wmvaMqHT"
       },
@@ -18178,19 +18190,24 @@
           "tool": "bash",
           "callID": "call_1IsLYKmgPjHTVjIltIG7PamO",
           "state": {
-            "metadata": {
-              "output": "",
-              "description": "Commit review fix for sensitive debug logging"
-            },
-            "status": "running",
+            "status": "completed",
             "input": {
               "command": "git add cmd/entire/cli/agent/opencode/lifecycle.go && git commit -m \"fix: avoid logging opencode transcript content\" -m \"Keep invalid-export debug logs to non-content metadata by recording byte count and file path instead of transcript prefix/suffix snippets.\"",
               "timeout": 120000,
               "workdir": "/Users/pfleidi/entire/cli",
               "description": "Commit review fix for sensitive debug logging"
             },
+            "output": "[fix/opencode-export-transcript 22209b21] fix: avoid logging opencode transcript content\n 1 file changed, 1 insertion(+), 2 deletions(-)\n",
+            "metadata": {
+              "output": "[fix/opencode-export-transcript 22209b21] fix: avoid logging opencode transcript content\n 1 file changed, 1 insertion(+), 2 deletions(-)\n",
+              "exit": 0,
+              "description": "Commit review fix for sensitive debug logging",
+              "truncated": false
+            },
+            "title": "Commit review fix for sensitive debug logging",
             "time": {
-              "start": 1775088401891
+              "start": 1775088401890,
+              "end": 1775088407426
             }
           },
           "metadata": {
@@ -18201,6 +18218,644 @@
           "id": "prt_d4b837728002IZh600mYm9CxAb",
           "sessionID": "ses_2b4d43b12ffeAiKhp1wmvaMqHT",
           "messageID": "msg_d4b83690b001Ma5TUwbTz1em5I"
+        },
+        {
+          "reason": "tool-calls",
+          "snapshot": "798658439841dc85cc610c56177ce99db9d0ccfe",
+          "type": "step-finish",
+          "tokens": {
+            "total": 109190,
+            "input": 535,
+            "output": 111,
+            "reasoning": 6,
+            "cache": {
+              "write": 0,
+              "read": 108544
+            }
+          },
+          "cost": 0,
+          "id": "prt_d4b839382002CNgbcSzq3AQTp7",
+          "sessionID": "ses_2b4d43b12ffeAiKhp1wmvaMqHT",
+          "messageID": "msg_d4b83690b001Ma5TUwbTz1em5I"
+        }
+      ]
+    },
+    {
+      "info": {
+        "parentID": "msg_d4b83457e001K6B3qrItZP686D",
+        "role": "assistant",
+        "mode": "build",
+        "agent": "build",
+        "path": {
+          "cwd": "/Users/pfleidi/entire/cli",
+          "root": "/Users/pfleidi/entire/cli"
+        },
+        "cost": 0,
+        "tokens": {
+          "total": 109486,
+          "input": 183,
+          "output": 247,
+          "reasoning": 16,
+          "cache": {
+            "write": 0,
+            "read": 109056
+          }
+        },
+        "modelID": "gpt-5.3-codex",
+        "providerID": "openai",
+        "time": {
+          "created": 1775088407485,
+          "completed": 1775088418231
+        },
+        "finish": "tool-calls",
+        "id": "msg_d4b8393bd001DZJMBfyHoEoqoS",
+        "sessionID": "ses_2b4d43b12ffeAiKhp1wmvaMqHT"
+      },
+      "parts": [
+        {
+          "snapshot": "798658439841dc85cc610c56177ce99db9d0ccfe",
+          "type": "step-start",
+          "id": "prt_d4b839945001oQjGZuTbKmcCCY",
+          "sessionID": "ses_2b4d43b12ffeAiKhp1wmvaMqHT",
+          "messageID": "msg_d4b8393bd001DZJMBfyHoEoqoS"
+        },
+        {
+          "type": "reasoning",
+          "text": "",
+          "time": {
+            "start": 1775088413063,
+            "end": 1775088413810
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "rs_06be1fb54a6ac8440169cdb31d04988197ac476e2091041223",
+              "reasoningEncryptedContent": "REDACTED"
+            }
+          },
+          "id": "prt_d4b83a987001SCosoJtFeC32cj",
+          "sessionID": "ses_2b4d43b12ffeAiKhp1wmvaMqHT",
+          "messageID": "msg_d4b8393bd001DZJMBfyHoEoqoS"
+        },
+        {
+          "type": "tool",
+          "tool": "apply_patch",
+          "callID": "call_e6A4yDAD0DuRISs42arGmlpY",
+          "state": {
+            "status": "completed",
+            "input": {
+              "patchText": "*** Begin Patch\n*** Update File: /Users/pfleidi/entire/cli/cmd/entire/cli/agent/opencode/lifecycle_test.go\n@@\n import (\n \t\"context\"\n \t\"encoding/json\"\n \t\"os\"\n+\t\"os/exec\"\n \t\"path/filepath\"\n+\t\"runtime\"\n \t\"strings\"\n \t\"testing\"\n@@\n func TestFetchAndCacheExport_UsesRedirectedExportWhenPipeOutputWouldBeInvalid(t *testing.T) {\n+\tif runtime.GOOS == \"windows\" {\n+\t\tt.Skip(\"shell script mock uses POSIX sh semantics\")\n+\t}\n+\tif _, err := exec.LookPath(\"sh\"); err != nil {\n+\t\tt.Skip(\"sh not available\")\n+\t}\n+\n \ttmpDir := t.TempDir()\n \tt.Chdir(tmpDir)\n*** End Patch"
+            },
+            "output": "Success. Updated the following files:\nM cmd/entire/cli/agent/opencode/lifecycle_test.go",
+            "metadata": {
+              "diff": "Index: /Users/pfleidi/entire/cli/cmd/entire/cli/agent/opencode/lifecycle_test.go\n===================================================================\n--- /Users/pfleidi/entire/cli/cmd/entire/cli/agent/opencode/lifecycle_test.go\n+++ /Users/pfleidi/entire/cli/cmd/entire/cli/agent/opencode/lifecycle_test.go\n@@ -3,9 +3,11 @@\n import (\n \t\"context\"\n \t\"encoding/json\"\n \t\"os\"\n+\t\"os/exec\"\n \t\"path/filepath\"\n+\t\"runtime\"\n \t\"strings\"\n \t\"testing\"\n \n \t\"github.com/entireio/cli/cmd/entire/cli/agent\"\n@@ -361,8 +363,15 @@\n \t}\n }\n \n func TestFetchAndCacheExport_UsesRedirectedExportWhenPipeOutputWouldBeInvalid(t *testing.T) {\n+\tif runtime.GOOS == \"windows\" {\n+\t\tt.Skip(\"shell script mock uses POSIX sh semantics\")\n+\t}\n+\tif _, err := exec.LookPath(\"sh\"); err != nil {\n+\t\tt.Skip(\"sh not available\")\n+\t}\n+\n \ttmpDir := t.TempDir()\n \tt.Chdir(tmpDir)\n \n \tpaths.ClearWorktreeRootCache()\n\n",
+              "files": [
+                {
+                  "filePath": "/Users/pfleidi/entire/cli/cmd/entire/cli/agent/opencode/lifecycle_test.go",
+                  "relativePath": "cmd/entire/cli/agent/opencode/lifecycle_test.go",
+                  "type": "update",
+                  "diff": "Index: /Users/pfleidi/entire/cli/cmd/entire/cli/agent/opencode/lifecycle_test.go\n===================================================================\n--- /Users/pfleidi/entire/cli/cmd/entire/cli/agent/opencode/lifecycle_test.go\n+++ /Users/pfleidi/entire/cli/cmd/entire/cli/agent/opencode/lifecycle_test.go\n@@ -3,9 +3,11 @@\n import (\n \t\"context\"\n \t\"encoding/json\"\n \t\"os\"\n+\t\"os/exec\"\n \t\"path/filepath\"\n+\t\"runtime\"\n \t\"strings\"\n \t\"testing\"\n \n \t\"github.com/entireio/cli/cmd/entire/cli/agent\"\n@@ -361,8 +363,15 @@\n \t}\n }\n \n func TestFetchAndCacheExport_UsesRedirectedExportWhenPipeOutputWouldBeInvalid(t *testing.T) {\n+\tif runtime.GOOS == \"windows\" {\n+\t\tt.Skip(\"shell script mock uses POSIX sh semantics\")\n+\t}\n+\tif _, err := exec.LookPath(\"sh\"); err != nil {\n+\t\tt.Skip(\"sh not available\")\n+\t}\n+\n \ttmpDir := t.TempDir()\n \tt.Chdir(tmpDir)\n \n \tpaths.ClearWorktreeRootCache()\n",
+                  "before": "package opencode\n\nimport (\n\t\"context\"\n\t\"encoding/json\"\n\t\"os\"\n\t\"path/filepath\"\n\t\"strings\"\n\t\"testing\"\n\n\t\"github.com/entireio/cli/cmd/entire/cli/agent\"\n\t\"github.com/entireio/cli/cmd/entire/cli/paths\"\n\t\"github.com/stretchr/testify/require\"\n)\n\nfunc TestParseHookEvent_SessionStart(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\t// Plugin now only sends session_id, not transcript_path\n\tinput := `{\"session_id\": \"sess-abc123\"}`\n\n\tevent, err := ag.ParseHookEvent(context.Background(), HookNameSessionStart, strings.NewReader(input))\n\n\tif err != nil {\n\t\tt.Fatalf(\"unexpected error: %v\", err)\n\t}\n\trequire.NotNil(t, event, \"expected event, got nil\")\n\tif event.Type != agent.SessionStart {\n\t\tt.Errorf(\"expected SessionStart, got %v\", event.Type)\n\t}\n\tif event.SessionID != \"sess-abc123\" {\n\t\tt.Errorf(\"expected session_id 'sess-abc123', got %q\", event.SessionID)\n\t}\n\t// SessionRef is now empty for session-start (no transcript path from plugin)\n\tif event.SessionRef != \"\" {\n\t\tt.Errorf(\"expected empty session ref, got %q\", event.SessionRef)\n\t}\n}\n\nfunc TestParseHookEvent_TurnStart(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\t// Plugin now only sends session_id and prompt, not transcript_path\n\tinput := `{\"session_id\": \"sess-1\", \"prompt\": \"Fix the bug in login.ts\"}`\n\n\tevent, err := ag.ParseHookEvent(context.Background(), HookNameTurnStart, strings.NewReader(input))\n\n\tif err != nil {\n\t\tt.Fatalf(\"unexpected error: %v\", err)\n\t}\n\trequire.NotNil(t, event, \"expected event, got nil\")\n\tif event.Type != agent.TurnStart {\n\t\tt.Errorf(\"expected TurnStart, got %v\", event.Type)\n\t}\n\tif event.Prompt != \"Fix the bug in login.ts\" {\n\t\tt.Errorf(\"expected prompt 'Fix the bug in login.ts', got %q\", event.Prompt)\n\t}\n\tif event.SessionID != \"sess-1\" {\n\t\tt.Errorf(\"expected session_id 'sess-1', got %q\", event.SessionID)\n\t}\n\t// SessionRef is computed from session_id, should end with .json\n\tif !strings.HasSuffix(event.SessionRef, \"sess-1.json\") {\n\t\tt.Errorf(\"expected session ref to end with 'sess-1.json', got %q\", event.SessionRef)\n\t}\n}\n\nfunc TestParseHookEvent_TurnStart_IncludesModel(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\tinput := `{\"session_id\": \"sess-model\", \"prompt\": \"hello\", \"model\": \"claude-sonnet-4-20250514\"}`\n\n\tevent, err := ag.ParseHookEvent(context.Background(), HookNameTurnStart, strings.NewReader(input))\n\n\tif err != nil {\n\t\tt.Fatalf(\"unexpected error: %v\", err)\n\t}\n\tif event.Model != \"claude-sonnet-4-20250514\" {\n\t\tt.Errorf(\"expected model 'claude-sonnet-4-20250514', got %q\", event.Model)\n\t}\n}\n\nfunc TestParseHookEvent_TurnStart_EmptyModel(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\t// Model field absent — should parse as empty string\n\tinput := `{\"session_id\": \"sess-no-model\", \"prompt\": \"hello\"}`\n\n\tevent, err := ag.ParseHookEvent(context.Background(), HookNameTurnStart, strings.NewReader(input))\n\n\tif err != nil {\n\t\tt.Fatalf(\"unexpected error: %v\", err)\n\t}\n\tif event.Model != \"\" {\n\t\tt.Errorf(\"expected empty model, got %q\", event.Model)\n\t}\n}\n\nfunc TestParseHookEvent_TurnEnd(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\tinput := `{\"session_id\": \"sess-2\"}`\n\n\tevent, err := ag.ParseHookEvent(context.Background(), HookNameTurnEnd, strings.NewReader(input))\n\n\tif err != nil {\n\t\tt.Fatalf(\"unexpected error: %v\", err)\n\t}\n\trequire.NotNil(t, event, \"expected event, got nil\")\n\tif event.Type != agent.TurnEnd {\n\t\tt.Errorf(\"expected TurnEnd, got %v\", event.Type)\n\t}\n\tif event.SessionID != \"sess-2\" {\n\t\tt.Errorf(\"expected session_id 'sess-2', got %q\", event.SessionID)\n\t}\n\t// SessionRef is computed from session_id, should end with .json (same pattern as TurnStart)\n\tif !strings.HasSuffix(event.SessionRef, \"sess-2.json\") {\n\t\tt.Errorf(\"expected session ref to end with 'sess-2.json', got %q\", event.SessionRef)\n\t}\n}\n\nfunc TestParseHookEvent_Compaction(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\tinput := `{\"session_id\": \"sess-3\"}`\n\n\tevent, err := ag.ParseHookEvent(context.Background(), HookNameCompaction, strings.NewReader(input))\n\n\tif err != nil {\n\t\tt.Fatalf(\"unexpected error: %v\", err)\n\t}\n\trequire.NotNil(t, event, \"expected event, got nil\")\n\tif event.Type != agent.Compaction {\n\t\tt.Errorf(\"expected Compaction, got %v\", event.Type)\n\t}\n\tif event.SessionID != \"sess-3\" {\n\t\tt.Errorf(\"expected session_id 'sess-3', got %q\", event.SessionID)\n\t}\n}\n\nfunc TestParseHookEvent_SessionEnd(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\t// Plugin now only sends session_id\n\tinput := `{\"session_id\": \"sess-4\"}`\n\n\tevent, err := ag.ParseHookEvent(context.Background(), HookNameSessionEnd, strings.NewReader(input))\n\n\tif err != nil {\n\t\tt.Fatalf(\"unexpected error: %v\", err)\n\t}\n\trequire.NotNil(t, event, \"expected event, got nil\")\n\tif event.Type != agent.SessionEnd {\n\t\tt.Errorf(\"expected SessionEnd, got %v\", event.Type)\n\t}\n}\n\nfunc TestParseHookEvent_UnknownHook(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\tevent, err := ag.ParseHookEvent(context.Background(), \"unknown-hook\", strings.NewReader(`{}`))\n\n\tif err != nil {\n\t\tt.Fatalf(\"unexpected error: %v\", err)\n\t}\n\tif event != nil {\n\t\tt.Errorf(\"expected nil event for unknown hook, got %+v\", event)\n\t}\n}\n\nfunc TestParseHookEvent_EmptyInput(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\t_, err := ag.ParseHookEvent(context.Background(), HookNameSessionStart, strings.NewReader(\"\"))\n\n\tif err == nil {\n\t\tt.Fatal(\"expected error for empty input\")\n\t}\n\tif !strings.Contains(err.Error(), \"empty hook input\") {\n\t\tt.Errorf(\"expected 'empty hook input' error, got: %v\", err)\n\t}\n}\n\nfunc TestParseHookEvent_MalformedJSON(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\t_, err := ag.ParseHookEvent(context.Background(), HookNameSessionStart, strings.NewReader(\"not json\"))\n\n\tif err == nil {\n\t\tt.Fatal(\"expected error for malformed JSON\")\n\t}\n}\n\nfunc TestFormatResumeCommand(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\tcmd := ag.FormatResumeCommand(\"sess-abc123\")\n\n\texpected := \"opencode -s sess-abc123\"\n\tif cmd != expected {\n\t\tt.Errorf(\"expected %q, got %q\", expected, cmd)\n\t}\n}\n\nfunc TestFormatResumeCommand_Empty(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\tcmd := ag.FormatResumeCommand(\"\")\n\n\tif cmd != \"opencode\" {\n\t\tt.Errorf(\"expected %q, got %q\", \"opencode\", cmd)\n\t}\n}\n\nfunc TestHookNames(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\tnames := ag.HookNames()\n\n\texpected := []string{\n\t\tHookNameSessionStart,\n\t\tHookNameSessionEnd,\n\t\tHookNameTurnStart,\n\t\tHookNameTurnEnd,\n\t\tHookNameCompaction,\n\t}\n\n\tif len(names) != len(expected) {\n\t\tt.Fatalf(\"expected %d hook names, got %d\", len(expected), len(names))\n\t}\n\n\tnameSet := make(map[string]bool)\n\tfor _, n := range names {\n\t\tnameSet[n] = true\n\t}\n\tfor _, e := range expected {\n\t\tif !nameSet[e] {\n\t\t\tt.Errorf(\"missing expected hook name: %s\", e)\n\t\t}\n\t}\n}\n\nfunc TestPrepareTranscript_AlwaysRefreshesTranscript(t *testing.T) {\n\tt.Parallel()\n\n\t// PrepareTranscript should always attempt to refresh via fetchAndCacheExport,\n\t// even when the file already exists. Without opencode CLI or mock mode,\n\t// this means it must return an error (proving it tried to refresh).\n\ttmpDir := t.TempDir()\n\ttranscriptPath := filepath.Join(tmpDir, \"sess-123.json\")\n\n\t// Create an existing file with stale data\n\tif err := os.WriteFile(transcriptPath, []byte(`{\"info\":{},\"messages\":[]}`), 0o600); err != nil {\n\t\tt.Fatalf(\"failed to create test file: %v\", err)\n\t}\n\n\tag := &OpenCodeAgent{}\n\terr := ag.PrepareTranscript(context.Background(), transcriptPath)\n\n\t// Without opencode CLI, fetchAndCacheExport must fail — proving it attempted a refresh\n\t// rather than short-circuiting because the file exists.\n\tif err == nil {\n\t\tt.Fatal(\"expected error (refresh attempt should fail without opencode CLI), got nil\")\n\t}\n\tif !strings.Contains(err.Error(), \"opencode export failed\") {\n\t\tt.Errorf(\"expected 'opencode export failed' error, got: %v\", err)\n\t}\n}\n\nfunc TestPrepareTranscript_ErrorOnInvalidPath(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\n\t// Path without .json extension\n\terr := ag.PrepareTranscript(context.Background(), \"/tmp/not-a-json-file\")\n\tif err == nil {\n\t\tt.Fatal(\"expected error for path without .json extension\")\n\t}\n\tif !strings.Contains(err.Error(), \"invalid OpenCode transcript path\") {\n\t\tt.Errorf(\"expected 'invalid OpenCode transcript path' error, got: %v\", err)\n\t}\n}\n\nfunc TestPrepareTranscript_ErrorOnBrokenSymlink(t *testing.T) {\n\tt.Parallel()\n\n\t// Broken symlinks cause os.Stat to return a non-IsNotExist error.\n\t// PrepareTranscript should surface this as a stat error.\n\ttmpDir := t.TempDir()\n\ttranscriptPath := filepath.Join(tmpDir, \"broken-link.json\")\n\n\tif err := os.Symlink(\"/nonexistent/target\", transcriptPath); err != nil {\n\t\tt.Skipf(\"cannot create symlink (permission denied?): %v\", err)\n\t}\n\n\tag := &OpenCodeAgent{}\n\terr := ag.PrepareTranscript(context.Background(), transcriptPath)\n\n\tif err == nil {\n\t\tt.Fatal(\"expected error for broken symlink, got nil\")\n\t}\n}\n\nfunc TestPrepareTranscript_ErrorOnEmptySessionID(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\n\t// Path with empty session ID (.json with no basename)\n\terr := ag.PrepareTranscript(context.Background(), \"/tmp/.json\")\n\tif err == nil {\n\t\tt.Fatal(\"expected error for empty session ID\")\n\t}\n\tif !strings.Contains(err.Error(), \"empty session ID\") {\n\t\tt.Errorf(\"expected 'empty session ID' error, got: %v\", err)\n\t}\n}\n\nfunc TestParseHookEvent_TurnStart_InvalidSessionID(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\tinput := `{\"session_id\": \"../escape\", \"prompt\": \"hello\"}`\n\n\t_, err := ag.ParseHookEvent(context.Background(), HookNameTurnStart, strings.NewReader(input))\n\n\tif err == nil {\n\t\tt.Fatal(\"expected error for path-traversal session ID\")\n\t}\n\tif !strings.Contains(err.Error(), \"contains path separators\") {\n\t\tt.Errorf(\"expected 'contains path separators' error, got: %v\", err)\n\t}\n}\n\nfunc TestParseHookEvent_TurnEnd_InvalidSessionID(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\tinput := `{\"session_id\": \"../escape\"}`\n\n\t_, err := ag.ParseHookEvent(context.Background(), HookNameTurnEnd, strings.NewReader(input))\n\n\tif err == nil {\n\t\tt.Fatal(\"expected error for path-traversal session ID\")\n\t}\n\tif !strings.Contains(err.Error(), \"contains path separators\") {\n\t\tt.Errorf(\"expected 'contains path separators' error, got: %v\", err)\n\t}\n}\n\nfunc TestFetchAndCacheExport_UsesRedirectedExportWhenPipeOutputWouldBeInvalid(t *testing.T) {\n\ttmpDir := t.TempDir()\n\tt.Chdir(tmpDir)\n\n\tpaths.ClearWorktreeRootCache()\n\tt.Cleanup(paths.ClearWorktreeRootCache)\n\n\tbinDir := filepath.Join(tmpDir, \"bin\")\n\trequire.NoError(t, os.MkdirAll(binDir, 0o755))\n\n\topencodePath := filepath.Join(binDir, \"opencode\")\n\tscript := `#!/bin/sh\nif [ \"$1\" = \"export\" ]; then\n  # Simulate truncated/invalid JSON only when stdout is a pipe.\n  if [ -p /dev/fd/1 ]; then\n    printf '{\"info\":'\n    exit 0\n  fi\n\n  # Redirection path should return full valid JSON.\n  printf '{\"info\":{\"id\":\"%s\"},\"messages\":[]}\\n' \"$2\"\n  exit 0\nfi\n\necho \"unexpected args\" >&2\nexit 1\n`\n\trequire.NoError(t, os.WriteFile(opencodePath, []byte(script), 0o755))\n\tt.Setenv(\"PATH\", binDir+string(os.PathListSeparator)+os.Getenv(\"PATH\"))\n\n\tag := &OpenCodeAgent{}\n\ttranscriptPath, err := ag.fetchAndCacheExport(context.Background(), \"ses_abc123\")\n\trequire.NoError(t, err)\n\n\tcontent, err := os.ReadFile(transcriptPath)\n\trequire.NoError(t, err)\n\trequire.True(t, json.Valid(content), \"expected cached transcript to be valid JSON\")\n\trequire.Contains(t, string(content), \"\\\"ses_abc123\\\"\")\n}\n",
+                  "after": "package opencode\n\nimport (\n\t\"context\"\n\t\"encoding/json\"\n\t\"os\"\n\t\"os/exec\"\n\t\"path/filepath\"\n\t\"runtime\"\n\t\"strings\"\n\t\"testing\"\n\n\t\"github.com/entireio/cli/cmd/entire/cli/agent\"\n\t\"github.com/entireio/cli/cmd/entire/cli/paths\"\n\t\"github.com/stretchr/testify/require\"\n)\n\nfunc TestParseHookEvent_SessionStart(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\t// Plugin now only sends session_id, not transcript_path\n\tinput := `{\"session_id\": \"sess-abc123\"}`\n\n\tevent, err := ag.ParseHookEvent(context.Background(), HookNameSessionStart, strings.NewReader(input))\n\n\tif err != nil {\n\t\tt.Fatalf(\"unexpected error: %v\", err)\n\t}\n\trequire.NotNil(t, event, \"expected event, got nil\")\n\tif event.Type != agent.SessionStart {\n\t\tt.Errorf(\"expected SessionStart, got %v\", event.Type)\n\t}\n\tif event.SessionID != \"sess-abc123\" {\n\t\tt.Errorf(\"expected session_id 'sess-abc123', got %q\", event.SessionID)\n\t}\n\t// SessionRef is now empty for session-start (no transcript path from plugin)\n\tif event.SessionRef != \"\" {\n\t\tt.Errorf(\"expected empty session ref, got %q\", event.SessionRef)\n\t}\n}\n\nfunc TestParseHookEvent_TurnStart(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\t// Plugin now only sends session_id and prompt, not transcript_path\n\tinput := `{\"session_id\": \"sess-1\", \"prompt\": \"Fix the bug in login.ts\"}`\n\n\tevent, err := ag.ParseHookEvent(context.Background(), HookNameTurnStart, strings.NewReader(input))\n\n\tif err != nil {\n\t\tt.Fatalf(\"unexpected error: %v\", err)\n\t}\n\trequire.NotNil(t, event, \"expected event, got nil\")\n\tif event.Type != agent.TurnStart {\n\t\tt.Errorf(\"expected TurnStart, got %v\", event.Type)\n\t}\n\tif event.Prompt != \"Fix the bug in login.ts\" {\n\t\tt.Errorf(\"expected prompt 'Fix the bug in login.ts', got %q\", event.Prompt)\n\t}\n\tif event.SessionID != \"sess-1\" {\n\t\tt.Errorf(\"expected session_id 'sess-1', got %q\", event.SessionID)\n\t}\n\t// SessionRef is computed from session_id, should end with .json\n\tif !strings.HasSuffix(event.SessionRef, \"sess-1.json\") {\n\t\tt.Errorf(\"expected session ref to end with 'sess-1.json', got %q\", event.SessionRef)\n\t}\n}\n\nfunc TestParseHookEvent_TurnStart_IncludesModel(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\tinput := `{\"session_id\": \"sess-model\", \"prompt\": \"hello\", \"model\": \"claude-sonnet-4-20250514\"}`\n\n\tevent, err := ag.ParseHookEvent(context.Background(), HookNameTurnStart, strings.NewReader(input))\n\n\tif err != nil {\n\t\tt.Fatalf(\"unexpected error: %v\", err)\n\t}\n\tif event.Model != \"claude-sonnet-4-20250514\" {\n\t\tt.Errorf(\"expected model 'claude-sonnet-4-20250514', got %q\", event.Model)\n\t}\n}\n\nfunc TestParseHookEvent_TurnStart_EmptyModel(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\t// Model field absent — should parse as empty string\n\tinput := `{\"session_id\": \"sess-no-model\", \"prompt\": \"hello\"}`\n\n\tevent, err := ag.ParseHookEvent(context.Background(), HookNameTurnStart, strings.NewReader(input))\n\n\tif err != nil {\n\t\tt.Fatalf(\"unexpected error: %v\", err)\n\t}\n\tif event.Model != \"\" {\n\t\tt.Errorf(\"expected empty model, got %q\", event.Model)\n\t}\n}\n\nfunc TestParseHookEvent_TurnEnd(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\tinput := `{\"session_id\": \"sess-2\"}`\n\n\tevent, err := ag.ParseHookEvent(context.Background(), HookNameTurnEnd, strings.NewReader(input))\n\n\tif err != nil {\n\t\tt.Fatalf(\"unexpected error: %v\", err)\n\t}\n\trequire.NotNil(t, event, \"expected event, got nil\")\n\tif event.Type != agent.TurnEnd {\n\t\tt.Errorf(\"expected TurnEnd, got %v\", event.Type)\n\t}\n\tif event.SessionID != \"sess-2\" {\n\t\tt.Errorf(\"expected session_id 'sess-2', got %q\", event.SessionID)\n\t}\n\t// SessionRef is computed from session_id, should end with .json (same pattern as TurnStart)\n\tif !strings.HasSuffix(event.SessionRef, \"sess-2.json\") {\n\t\tt.Errorf(\"expected session ref to end with 'sess-2.json', got %q\", event.SessionRef)\n\t}\n}\n\nfunc TestParseHookEvent_Compaction(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\tinput := `{\"session_id\": \"sess-3\"}`\n\n\tevent, err := ag.ParseHookEvent(context.Background(), HookNameCompaction, strings.NewReader(input))\n\n\tif err != nil {\n\t\tt.Fatalf(\"unexpected error: %v\", err)\n\t}\n\trequire.NotNil(t, event, \"expected event, got nil\")\n\tif event.Type != agent.Compaction {\n\t\tt.Errorf(\"expected Compaction, got %v\", event.Type)\n\t}\n\tif event.SessionID != \"sess-3\" {\n\t\tt.Errorf(\"expected session_id 'sess-3', got %q\", event.SessionID)\n\t}\n}\n\nfunc TestParseHookEvent_SessionEnd(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\t// Plugin now only sends session_id\n\tinput := `{\"session_id\": \"sess-4\"}`\n\n\tevent, err := ag.ParseHookEvent(context.Background(), HookNameSessionEnd, strings.NewReader(input))\n\n\tif err != nil {\n\t\tt.Fatalf(\"unexpected error: %v\", err)\n\t}\n\trequire.NotNil(t, event, \"expected event, got nil\")\n\tif event.Type != agent.SessionEnd {\n\t\tt.Errorf(\"expected SessionEnd, got %v\", event.Type)\n\t}\n}\n\nfunc TestParseHookEvent_UnknownHook(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\tevent, err := ag.ParseHookEvent(context.Background(), \"unknown-hook\", strings.NewReader(`{}`))\n\n\tif err != nil {\n\t\tt.Fatalf(\"unexpected error: %v\", err)\n\t}\n\tif event != nil {\n\t\tt.Errorf(\"expected nil event for unknown hook, got %+v\", event)\n\t}\n}\n\nfunc TestParseHookEvent_EmptyInput(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\t_, err := ag.ParseHookEvent(context.Background(), HookNameSessionStart, strings.NewReader(\"\"))\n\n\tif err == nil {\n\t\tt.Fatal(\"expected error for empty input\")\n\t}\n\tif !strings.Contains(err.Error(), \"empty hook input\") {\n\t\tt.Errorf(\"expected 'empty hook input' error, got: %v\", err)\n\t}\n}\n\nfunc TestParseHookEvent_MalformedJSON(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\t_, err := ag.ParseHookEvent(context.Background(), HookNameSessionStart, strings.NewReader(\"not json\"))\n\n\tif err == nil {\n\t\tt.Fatal(\"expected error for malformed JSON\")\n\t}\n}\n\nfunc TestFormatResumeCommand(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\tcmd := ag.FormatResumeCommand(\"sess-abc123\")\n\n\texpected := \"opencode -s sess-abc123\"\n\tif cmd != expected {\n\t\tt.Errorf(\"expected %q, got %q\", expected, cmd)\n\t}\n}\n\nfunc TestFormatResumeCommand_Empty(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\tcmd := ag.FormatResumeCommand(\"\")\n\n\tif cmd != \"opencode\" {\n\t\tt.Errorf(\"expected %q, got %q\", \"opencode\", cmd)\n\t}\n}\n\nfunc TestHookNames(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\tnames := ag.HookNames()\n\n\texpected := []string{\n\t\tHookNameSessionStart,\n\t\tHookNameSessionEnd,\n\t\tHookNameTurnStart,\n\t\tHookNameTurnEnd,\n\t\tHookNameCompaction,\n\t}\n\n\tif len(names) != len(expected) {\n\t\tt.Fatalf(\"expected %d hook names, got %d\", len(expected), len(names))\n\t}\n\n\tnameSet := make(map[string]bool)\n\tfor _, n := range names {\n\t\tnameSet[n] = true\n\t}\n\tfor _, e := range expected {\n\t\tif !nameSet[e] {\n\t\t\tt.Errorf(\"missing expected hook name: %s\", e)\n\t\t}\n\t}\n}\n\nfunc TestPrepareTranscript_AlwaysRefreshesTranscript(t *testing.T) {\n\tt.Parallel()\n\n\t// PrepareTranscript should always attempt to refresh via fetchAndCacheExport,\n\t// even when the file already exists. Without opencode CLI or mock mode,\n\t// this means it must return an error (proving it tried to refresh).\n\ttmpDir := t.TempDir()\n\ttranscriptPath := filepath.Join(tmpDir, \"sess-123.json\")\n\n\t// Create an existing file with stale data\n\tif err := os.WriteFile(transcriptPath, []byte(`{\"info\":{},\"messages\":[]}`), 0o600); err != nil {\n\t\tt.Fatalf(\"failed to create test file: %v\", err)\n\t}\n\n\tag := &OpenCodeAgent{}\n\terr := ag.PrepareTranscript(context.Background(), transcriptPath)\n\n\t// Without opencode CLI, fetchAndCacheExport must fail — proving it attempted a refresh\n\t// rather than short-circuiting because the file exists.\n\tif err == nil {\n\t\tt.Fatal(\"expected error (refresh attempt should fail without opencode CLI), got nil\")\n\t}\n\tif !strings.Contains(err.Error(), \"opencode export failed\") {\n\t\tt.Errorf(\"expected 'opencode export failed' error, got: %v\", err)\n\t}\n}\n\nfunc TestPrepareTranscript_ErrorOnInvalidPath(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\n\t// Path without .json extension\n\terr := ag.PrepareTranscript(context.Background(), \"/tmp/not-a-json-file\")\n\tif err == nil {\n\t\tt.Fatal(\"expected error for path without .json extension\")\n\t}\n\tif !strings.Contains(err.Error(), \"invalid OpenCode transcript path\") {\n\t\tt.Errorf(\"expected 'invalid OpenCode transcript path' error, got: %v\", err)\n\t}\n}\n\nfunc TestPrepareTranscript_ErrorOnBrokenSymlink(t *testing.T) {\n\tt.Parallel()\n\n\t// Broken symlinks cause os.Stat to return a non-IsNotExist error.\n\t// PrepareTranscript should surface this as a stat error.\n\ttmpDir := t.TempDir()\n\ttranscriptPath := filepath.Join(tmpDir, \"broken-link.json\")\n\n\tif err := os.Symlink(\"/nonexistent/target\", transcriptPath); err != nil {\n\t\tt.Skipf(\"cannot create symlink (permission denied?): %v\", err)\n\t}\n\n\tag := &OpenCodeAgent{}\n\terr := ag.PrepareTranscript(context.Background(), transcriptPath)\n\n\tif err == nil {\n\t\tt.Fatal(\"expected error for broken symlink, got nil\")\n\t}\n}\n\nfunc TestPrepareTranscript_ErrorOnEmptySessionID(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\n\t// Path with empty session ID (.json with no basename)\n\terr := ag.PrepareTranscript(context.Background(), \"/tmp/.json\")\n\tif err == nil {\n\t\tt.Fatal(\"expected error for empty session ID\")\n\t}\n\tif !strings.Contains(err.Error(), \"empty session ID\") {\n\t\tt.Errorf(\"expected 'empty session ID' error, got: %v\", err)\n\t}\n}\n\nfunc TestParseHookEvent_TurnStart_InvalidSessionID(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\tinput := `{\"session_id\": \"../escape\", \"prompt\": \"hello\"}`\n\n\t_, err := ag.ParseHookEvent(context.Background(), HookNameTurnStart, strings.NewReader(input))\n\n\tif err == nil {\n\t\tt.Fatal(\"expected error for path-traversal session ID\")\n\t}\n\tif !strings.Contains(err.Error(), \"contains path separators\") {\n\t\tt.Errorf(\"expected 'contains path separators' error, got: %v\", err)\n\t}\n}\n\nfunc TestParseHookEvent_TurnEnd_InvalidSessionID(t *testing.T) {\n\tt.Parallel()\n\n\tag := &OpenCodeAgent{}\n\tinput := `{\"session_id\": \"../escape\"}`\n\n\t_, err := ag.ParseHookEvent(context.Background(), HookNameTurnEnd, strings.NewReader(input))\n\n\tif err == nil {\n\t\tt.Fatal(\"expected error for path-traversal session ID\")\n\t}\n\tif !strings.Contains(err.Error(), \"contains path separators\") {\n\t\tt.Errorf(\"expected 'contains path separators' error, got: %v\", err)\n\t}\n}\n\nfunc TestFetchAndCacheExport_UsesRedirectedExportWhenPipeOutputWouldBeInvalid(t *testing.T) {\n\tif runtime.GOOS == \"windows\" {\n\t\tt.Skip(\"shell script mock uses POSIX sh semantics\")\n\t}\n\tif _, err := exec.LookPath(\"sh\"); err != nil {\n\t\tt.Skip(\"sh not available\")\n\t}\n\n\ttmpDir := t.TempDir()\n\tt.Chdir(tmpDir)\n\n\tpaths.ClearWorktreeRootCache()\n\tt.Cleanup(paths.ClearWorktreeRootCache)\n\n\tbinDir := filepath.Join(tmpDir, \"bin\")\n\trequire.NoError(t, os.MkdirAll(binDir, 0o755))\n\n\topencodePath := filepath.Join(binDir, \"opencode\")\n\tscript := `#!/bin/sh\nif [ \"$1\" = \"export\" ]; then\n  # Simulate truncated/invalid JSON only when stdout is a pipe.\n  if [ -p /dev/fd/1 ]; then\n    printf '{\"info\":'\n    exit 0\n  fi\n\n  # Redirection path should return full valid JSON.\n  printf '{\"info\":{\"id\":\"%s\"},\"messages\":[]}\\n' \"$2\"\n  exit 0\nfi\n\necho \"unexpected args\" >&2\nexit 1\n`\n\trequire.NoError(t, os.WriteFile(opencodePath, []byte(script), 0o755))\n\tt.Setenv(\"PATH\", binDir+string(os.PathListSeparator)+os.Getenv(\"PATH\"))\n\n\tag := &OpenCodeAgent{}\n\ttranscriptPath, err := ag.fetchAndCacheExport(context.Background(), \"ses_abc123\")\n\trequire.NoError(t, err)\n\n\tcontent, err := os.ReadFile(transcriptPath)\n\trequire.NoError(t, err)\n\trequire.True(t, json.Valid(content), \"expected cached transcript to be valid JSON\")\n\trequire.Contains(t, string(content), \"\\\"ses_abc123\\\"\")\n}\n",
+                  "additions": 9,
+                  "deletions": 0
+                }
+              ],
+              "diagnostics": {
+                "/Users/pfleidi/entire/cli/cmd/entire/cli/strategy/manual_commit_hooks.go": [
+                  {
+                    "range": {
+                      "start": {
+                        "line": 228,
+                        "character": 22
+                      },
+                      "end": {
+                        "line": 228,
+                        "character": 35
+                      }
+                    },
+                    "severity": 4,
+                    "code": "default",
+                    "codeDescription": {
+                      "href": "https://pkg.go.dev/golang.org/x/tools/go/analysis/passes/modernize#stringsseq"
+                    },
+                    "source": "stringsseq",
+                    "message": "Ranging over SplitSeq is more efficient"
+                  },
+                  {
+                    "range": {
+                      "start": {
+                        "line": 252,
+                        "character": 22
+                      },
+                      "end": {
+                        "line": 252,
+                        "character": 35
+                      }
+                    },
+                    "severity": 4,
+                    "code": "default",
+                    "codeDescription": {
+                      "href": "https://pkg.go.dev/golang.org/x/tools/go/analysis/passes/modernize#stringsseq"
+                    },
+                    "source": "stringsseq",
+                    "message": "Ranging over SplitSeq is more efficient"
+                  },
+                  {
+                    "range": {
+                      "start": {
+                        "line": 2120,
+                        "character": 22
+                      },
+                      "end": {
+                        "line": 2120,
+                        "character": 35
+                      }
+                    },
+                    "severity": 4,
+                    "code": "default",
+                    "codeDescription": {
+                      "href": "https://pkg.go.dev/golang.org/x/tools/go/analysis/passes/modernize#stringsseq"
+                    },
+                    "source": "stringsseq",
+                    "message": "Ranging over SplitSeq is more efficient"
+                  }
+                ],
+                "/Users/pfleidi/entire/cli/cmd/entire/cli/strategy/common_helpers_test.go": [
+                  {
+                    "range": {
+                      "start": {
+                        "line": 21,
+                        "character": 5
+                      },
+                      "end": {
+                        "line": 21,
+                        "character": 31
+                      }
+                    },
+                    "severity": 3,
+                    "code": "default",
+                    "codeDescription": {
+                      "href": "https://pkg.go.dev/golang.org/x/tools/gopls/internal/analysis/unusedfunc"
+                    },
+                    "source": "unusedfunc",
+                    "message": "function \"readCheckpointMetadataFull\" is unused",
+                    "tags": [
+                      1
+                    ]
+                  }
+                ],
+                "/Users/pfleidi/entire/cli/cmd/entire/cli/strategy/common_test.go": [
+                  {
+                    "range": {
+                      "start": {
+                        "line": 852,
+                        "character": 5
+                      },
+                      "end": {
+                        "line": 852,
+                        "character": 30
+                      }
+                    },
+                    "severity": 3,
+                    "code": "default",
+                    "codeDescription": {
+                      "href": "https://pkg.go.dev/golang.org/x/tools/gopls/internal/analysis/unusedfunc"
+                    },
+                    "source": "unusedfunc",
+                    "message": "function \"resetProtectedDirsForTest\" is unused",
+                    "tags": [
+                      1
+                    ]
+                  }
+                ],
+                "/Users/pfleidi/entire/cli/cmd/entire/cli/agent/opencode/lifecycle.go": [],
+                "/Users/pfleidi/entire/cli/cmd/entire/cli/agent/opencode/opencode.go": [],
+                "/Users/pfleidi/entire/cli/cmd/entire/cli/lifecycle.go": [],
+                "/Users/pfleidi/entire/cli/cmd/entire/cli/checkpoint/committed.go": [],
+                "/Users/pfleidi/entire/cli/cmd/entire/cli/agent/opencode/cli_commands.go": [],
+                "/Users/pfleidi/entire/cli/cmd/entire/cli/strategy/resolve_transcript.go": [],
+                "/Users/pfleidi/entire/cli/cmd/entire/cli/agent/opencode/lifecycle_test.go": [],
+                "/Users/pfleidi/entire/cli/cmd/entire/cli/agent/external/discovery_test.go": [],
+                "/Users/pfleidi/entire/cli/cmd/entire/cli/paths/paths.go": [
+                  {
+                    "range": {
+                      "start": {
+                        "line": 213,
+                        "character": 6
+                      },
+                      "end": {
+                        "line": 213,
+                        "character": 43
+                      }
+                    },
+                    "severity": 4,
+                    "code": "default",
+                    "codeDescription": {
+                      "href": "https://pkg.go.dev/golang.org/x/tools/go/analysis/passes/modernize#stringscutprefix"
+                    },
+                    "source": "stringscutprefix",
+                    "message": "HasSuffix + TrimSuffix can be simplified to CutSuffix"
+                  }
+                ],
+                "/Users/pfleidi/entire/cli/cmd/entire/cli/testutil/testutil.go": [],
+                "/Users/pfleidi/entire/cli/cmd/entire/cli/agent/testutil/hooks.go": [],
+                "/Users/pfleidi/entire/cli/cmd/entire/cli/agent/testutil/git.go": []
+              },
+              "truncated": false
+            },
+            "title": "Success. Updated the following files:\nM cmd/entire/cli/agent/opencode/lifecycle_test.go",
+            "time": {
+              "start": 1775088417778,
+              "end": 1775088418164
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_06be1fb54a6ac8440169cdb31dbb508197a7d88a1757fa3f48"
+            }
+          },
+          "id": "prt_d4b83ac7300103QrI6BTYk3EzB",
+          "sessionID": "ses_2b4d43b12ffeAiKhp1wmvaMqHT",
+          "messageID": "msg_d4b8393bd001DZJMBfyHoEoqoS"
+        },
+        {
+          "reason": "tool-calls",
+          "snapshot": "5e16b1476ab4cf62fcd4b4e9b18396c4b2174a03",
+          "type": "step-finish",
+          "tokens": {
+            "total": 109486,
+            "input": 183,
+            "output": 247,
+            "reasoning": 16,
+            "cache": {
+              "write": 0,
+              "read": 109056
+            }
+          },
+          "cost": 0,
+          "id": "prt_d4b83bd75001QC18frUvaHWXvz",
+          "sessionID": "ses_2b4d43b12ffeAiKhp1wmvaMqHT",
+          "messageID": "msg_d4b8393bd001DZJMBfyHoEoqoS"
+        },
+        {
+          "type": "patch",
+          "hash": "798658439841dc85cc610c56177ce99db9d0ccfe",
+          "files": [
+            "/Users/pfleidi/entire/cli/cmd/entire/cli/agent/opencode/lifecycle_test.go"
+          ],
+          "id": "prt_d4b83bdb5001fe0v3rU4DeDX3F",
+          "sessionID": "ses_2b4d43b12ffeAiKhp1wmvaMqHT",
+          "messageID": "msg_d4b8393bd001DZJMBfyHoEoqoS"
+        }
+      ]
+    },
+    {
+      "info": {
+        "parentID": "msg_d4b83457e001K6B3qrItZP686D",
+        "role": "assistant",
+        "mode": "build",
+        "agent": "build",
+        "path": {
+          "cwd": "/Users/pfleidi/entire/cli",
+          "root": "/Users/pfleidi/entire/cli"
+        },
+        "cost": 0,
+        "tokens": {
+          "total": 109689,
+          "input": 207,
+          "output": 170,
+          "reasoning": 45,
+          "cache": {
+            "write": 0,
+            "read": 109312
+          }
+        },
+        "modelID": "gpt-5.3-codex",
+        "providerID": "openai",
+        "time": {
+          "created": 1775088418244,
+          "completed": 1775088428268
+        },
+        "finish": "tool-calls",
+        "id": "msg_d4b83bdc4001UYJJC4Jq33g10e",
+        "sessionID": "ses_2b4d43b12ffeAiKhp1wmvaMqHT"
+      },
+      "parts": [
+        {
+          "snapshot": "5e16b1476ab4cf62fcd4b4e9b18396c4b2174a03",
+          "type": "step-start",
+          "id": "prt_d4b83c212001yT2w6bbhqkwp39",
+          "sessionID": "ses_2b4d43b12ffeAiKhp1wmvaMqHT",
+          "messageID": "msg_d4b83bdc4001UYJJC4Jq33g10e"
+        },
+        {
+          "type": "reasoning",
+          "text": "",
+          "time": {
+            "start": 1775088421213,
+            "end": 1775088424388
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "rs_06be77593661d09d0169cdb3251b2c8197bdb5e4dfd0b40b3a",
+              "reasoningEncryptedContent": "REDACTED"
+            }
+          },
+          "id": "prt_d4b83c95d0016mR1FOXYrzzeXa",
+          "sessionID": "ses_2b4d43b12ffeAiKhp1wmvaMqHT",
+          "messageID": "msg_d4b83bdc4001UYJJC4Jq33g10e"
+        },
+        {
+          "type": "tool",
+          "tool": "bash",
+          "callID": "call_7DOqcTGTf0fiTiXTjxwzUY1T",
+          "state": {
+            "status": "completed",
+            "input": {
+              "command": "go test ./cmd/entire/cli/agent/opencode -count=1",
+              "timeout": 120000,
+              "workdir": "/Users/pfleidi/entire/cli",
+              "description": "Run opencode tests after portability fix"
+            },
+            "output": "ok  \tgithub.com/entireio/cli/cmd/entire/cli/agent/opencode\t1.606s\n",
+            "metadata": {
+              "output": "ok  \tgithub.com/entireio/cli/cmd/entire/cli/agent/opencode\t1.606s\n",
+              "exit": 0,
+              "description": "Run opencode tests after portability fix",
+              "truncated": false
+            },
+            "title": "Run opencode tests after portability fix",
+            "time": {
+              "start": 1775088424404,
+              "end": 1775088426584
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_06be77593661d09d0169cdb32852b08197be02aa498450321e"
+            }
+          },
+          "id": "prt_d4b83d5c6001pQEM6hhvwYtgHR",
+          "sessionID": "ses_2b4d43b12ffeAiKhp1wmvaMqHT",
+          "messageID": "msg_d4b83bdc4001UYJJC4Jq33g10e"
+        },
+        {
+          "type": "tool",
+          "tool": "bash",
+          "callID": "call_FULCa519WL9tpzV0thL7YSMH",
+          "state": {
+            "status": "completed",
+            "input": {
+              "command": "mise run lint",
+              "timeout": 1200000,
+              "workdir": "/Users/pfleidi/entire/cli",
+              "description": "Run lint after portability fix"
+            },
+            "output": "[lint:gofmt] $ ~/entire/cli/mise-tasks/lint/gofmt\n[lint:shellcheck] $ ~/entire/cli/mise-tasks/lint/shellcheck\n[lint:go] $ ~/entire/cli/mise-tasks/lint/go\n[lint:gomod] $ ~/entire/cli/mise-tasks/lint/gomod\n[lint:mise] $ ~/entire/cli/mise-tasks/lint/mise\n[lint:go] golangci-lint has version 2.11.3 built with go1.26.1 from 6008b81b on 2026-03-10T10:25:44Z\n[lint:mise] Finished in 403.2ms\n[lint:shellcheck] Finished in 403.2ms\n[lint:gofmt] Finished in 1.07s\n[lint:gomod] Finished in 1.15s\n[lint:go] 0 issues.\n[lint:go] Finished in 3.76s\n[lint] $ ~/entire/cli/mise-tasks/lint/_default\n[lint] Finished in 3.4ms\nFinished in 3.76s\n",
+            "metadata": {
+              "output": "[lint:gofmt] $ ~/entire/cli/mise-tasks/lint/gofmt\n[lint:shellcheck] $ ~/entire/cli/mise-tasks/lint/shellcheck\n[lint:go] $ ~/entire/cli/mise-tasks/lint/go\n[lint:gomod] $ ~/entire/cli/mise-tasks/lint/gomod\n[lint:mise] $ ~/entire/cli/mise-tasks/lint/mise\n[lint:go] golangci-lint has version 2.11.3 built with go1.26.1 from 6008b81b on 2026-03-10T10:25:44Z\n[lint:mise] Finished in 403.2ms\n[lint:shellcheck] Finished in 403.2ms\n[lint:gofmt] Finished in 1.07s\n[lint:gomod] Finished in 1.15s\n[lint:go] 0 issues.\n[lint:go] Finished in 3.76s\n[lint] $ ~/entire/cli/mise-tasks/lint/_default\n[lint] Finished in 3.4ms\nFinished in 3.76s\n",
+              "exit": 0,
+              "description": "Run lint after portability fix",
+              "truncated": false
+            },
+            "title": "Run lint after portability fix",
+            "time": {
+              "start": 1775088424409,
+              "end": 1775088428219
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_06be77593661d09d0169cdb328555c819784bc4e1126ca47a1"
+            }
+          },
+          "id": "prt_d4b83d5d8001YSDC5phzcOjTF2",
+          "sessionID": "ses_2b4d43b12ffeAiKhp1wmvaMqHT",
+          "messageID": "msg_d4b83bdc4001UYJJC4Jq33g10e"
+        },
+        {
+          "reason": "tool-calls",
+          "snapshot": "5e16b1476ab4cf62fcd4b4e9b18396c4b2174a03",
+          "type": "step-finish",
+          "tokens": {
+            "total": 109689,
+            "input": 207,
+            "output": 170,
+            "reasoning": 45,
+            "cache": {
+              "write": 0,
+              "read": 109312
+            }
+          },
+          "cost": 0,
+          "id": "prt_d4b83e4bc001JWr7i9WvmxlFvj",
+          "sessionID": "ses_2b4d43b12ffeAiKhp1wmvaMqHT",
+          "messageID": "msg_d4b83bdc4001UYJJC4Jq33g10e"
+        }
+      ]
+    },
+    {
+      "info": {
+        "parentID": "msg_d4b83457e001K6B3qrItZP686D",
+        "role": "assistant",
+        "mode": "build",
+        "agent": "build",
+        "path": {
+          "cwd": "/Users/pfleidi/entire/cli",
+          "root": "/Users/pfleidi/entire/cli"
+        },
+        "cost": 0,
+        "tokens": {
+          "total": 110074,
+          "input": 436,
+          "output": 70,
+          "reasoning": 18,
+          "cache": {
+            "write": 0,
+            "read": 109568
+          }
+        },
+        "modelID": "gpt-5.3-codex",
+        "providerID": "openai",
+        "time": {
+          "created": 1775088428279,
+          "completed": 1775088460539
+        },
+        "finish": "tool-calls",
+        "id": "msg_d4b83e4f7001CgThTUdN7ib7rG",
+        "sessionID": "ses_2b4d43b12ffeAiKhp1wmvaMqHT"
+      },
+      "parts": [
+        {
+          "snapshot": "5e16b1476ab4cf62fcd4b4e9b18396c4b2174a03",
+          "type": "step-start",
+          "id": "prt_d4b83e9ef0011unuwjUgHcnki6",
+          "sessionID": "ses_2b4d43b12ffeAiKhp1wmvaMqHT",
+          "messageID": "msg_d4b83e4f7001CgThTUdN7ib7rG"
+        },
+        {
+          "type": "reasoning",
+          "text": "",
+          "time": {
+            "start": 1775088433091,
+            "end": 1775088434291
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "rs_029b7ee653a72cca0169cdb33112b081959081dbf303cf5063",
+              "reasoningEncryptedContent": "REDACTED"
+            }
+          },
+          "id": "prt_d4b83f7c3001QoOiKBHvdObT8Q",
+          "sessionID": "ses_2b4d43b12ffeAiKhp1wmvaMqHT",
+          "messageID": "msg_d4b83e4f7001CgThTUdN7ib7rG"
+        },
+        {
+          "type": "tool",
+          "tool": "bash",
+          "callID": "call_nKPTGK0D4OPQ0mLpLIp0YVPa",
+          "state": {
+            "status": "completed",
+            "input": {
+              "command": "mise run test",
+              "timeout": 1200000,
+              "workdir": "/Users/pfleidi/entire/cli",
+              "description": "Run full test suite after portability fix"
+            },
+            "output": "[test] $ go test ./...\n?   \tgithub.com/entireio/cli/cmd/entire\t[no test files]\nok  \tgithub.com/entireio/cli/cmd/entire/cli\t4.605s\nok  \tgithub.com/entireio/cli/cmd/entire/cli/agent\t0.511s\nok  \tgithub.com/entireio/cli/cmd/entire/cli/agent/claudecode\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/agent/codex\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/agent/copilotcli\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/agent/cursor\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/agent/external\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/agent/factoryaidroid\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/agent/geminicli\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/agent/opencode\t1.803s\n?   \tgithub.com/entireio/cli/cmd/entire/cli/agent/testutil\t[no test files]\n?   \tgithub.com/entireio/cli/cmd/entire/cli/agent/types\t[no test files]\n?   \tgithub.com/entireio/cli/cmd/entire/cli/agent/vogon\t[no test files]\nok  \tgithub.com/entireio/cli/cmd/entire/cli/api\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/auth\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/benchutil\t(cached) [no tests to run]\nok  \tgithub.com/entireio/cli/cmd/entire/cli/checkpoint\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/checkpoint/id\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/gitops\t(cached)\n?   \tgithub.com/entireio/cli/cmd/entire/cli/jsonutil\t[no test files]\nok  \tgithub.com/entireio/cli/cmd/entire/cli/logging\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/osroot\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/paths\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/session\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/settings\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/strategy\t13.210s\nok  \tgithub.com/entireio/cli/cmd/entire/cli/stringutil\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/summarize\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/telemetry\t(cached)\n?   \tgithub.com/entireio/cli/cmd/entire/cli/testutil\t[no test files]\nok  \tgithub.com/entireio/cli/cmd/entire/cli/textutil\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/trail\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/trailers\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/transcript\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/transcript/compact\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/validation\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/versioncheck\t(cached)\n?   \tgithub.com/entireio/cli/cmd/entire/cli/versioninfo\t[no test files]\nok  \tgithub.com/entireio/cli/e2e/agents\t(cached)\n?   \tgithub.com/entireio/cli/e2e/bootstrap\t[no test files]\n?   \tgithub.com/entireio/cli/e2e/cmd/testreport\t[no test files]\n?   \tgithub.com/entireio/cli/e2e/entire\t[no test files]\n?   \tgithub.com/entireio/cli/e2e/testutil\t[no test files]\n?   \tgithub.com/entireio/cli/e2e/vogon\t[no test files]\nok  \tgithub.com/entireio/cli/perf\t(cached)\nok  \tgithub.com/entireio/cli/redact\t(cached)\n",
+            "metadata": {
+              "output": "[test] $ go test ./...\n?   \tgithub.com/entireio/cli/cmd/entire\t[no test files]\nok  \tgithub.com/entireio/cli/cmd/entire/cli\t4.605s\nok  \tgithub.com/entireio/cli/cmd/entire/cli/agent\t0.511s\nok  \tgithub.com/entireio/cli/cmd/entire/cli/agent/claudecode\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/agent/codex\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/agent/copilotcli\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/agent/cursor\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/agent/external\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/agent/factoryaidroid\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/agent/geminicli\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/agent/opencode\t1.803s\n?   \tgithub.com/entireio/cli/cmd/entire/cli/agent/testutil\t[no test files]\n?   \tgithub.com/entireio/cli/cmd/entire/cli/agent/types\t[no test files]\n?   \tgithub.com/entireio/cli/cmd/entire/cli/agent/vogon\t[no test files]\nok  \tgithub.com/entireio/cli/cmd/entire/cli/api\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/auth\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/benchutil\t(cached) [no tests to run]\nok  \tgithub.com/entireio/cli/cmd/entire/cli/checkpoint\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/checkpoint/id\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/gitops\t(cached)\n?   \tgithub.com/entireio/cli/cmd/entire/cli/jsonutil\t[no test files]\nok  \tgithub.com/entireio/cli/cmd/entire/cli/logging\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/osroot\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/paths\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/session\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/settings\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/strategy\t13.210s\nok  \tgithub.com/entireio/cli/cmd/entire/cli/stringutil\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/summarize\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/telemetry\t(cached)\n?   \tgithub.com/entireio/cli/cmd/entire/cli/testutil\t[no test files]\nok  \tgithub.com/entireio/cli/cmd/entire/cli/textutil\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/trail\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/trailers\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/transcript\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/transcript/compact\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/validation\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/versioncheck\t(cached)\n?   \tgithub.com/entireio/cli/cmd/entire/cli/versioninfo\t[no test files]\nok  \tgithub.com/entireio/cli/e2e/agents\t(cached)\n?   \tgithub.com/entireio/cli/e2e/bootstrap\t[no test files]\n?   \tgithub.com/entireio/cli/e2e/cmd/testreport\t[no test files]\n?   \tgithub.com/entireio/cli/e2e/entire\t[no test files]\n?   \tgithub.com/entireio/cli/e2e/testutil\t[no test files]\n?   \tgithub.com/entireio/cli/e2e/vogon\t[no test files]\nok  \tgithub.com/entireio/cli/perf\t(cached)\nok  \tgithub.com/entireio/cli/redact\t(cached)\n",
+              "exit": 0,
+              "description": "Run full test suite after portability fix",
+              "truncated": false
+            },
+            "title": "Run full test suite after portability fix",
+            "time": {
+              "start": 1775088434613,
+              "end": 1775088460497
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_029b7ee653a72cca0169cdb3323c74819594e24f7c559b6fb7"
+            }
+          },
+          "id": "prt_d4b83fc740026DcQ6nbz4mgX6e",
+          "sessionID": "ses_2b4d43b12ffeAiKhp1wmvaMqHT",
+          "messageID": "msg_d4b83e4f7001CgThTUdN7ib7rG"
+        },
+        {
+          "reason": "tool-calls",
+          "snapshot": "5e16b1476ab4cf62fcd4b4e9b18396c4b2174a03",
+          "type": "step-finish",
+          "tokens": {
+            "total": 110074,
+            "input": 436,
+            "output": 70,
+            "reasoning": 18,
+            "cache": {
+              "write": 0,
+              "read": 109568
+            }
+          },
+          "cost": 0,
+          "id": "prt_d4b8462d2001pZ0NibwpeRhXyX",
+          "sessionID": "ses_2b4d43b12ffeAiKhp1wmvaMqHT",
+          "messageID": "msg_d4b83e4f7001CgThTUdN7ib7rG"
+        }
+      ]
+    },
+    {
+      "info": {
+        "parentID": "msg_d4b83457e001K6B3qrItZP686D",
+        "role": "assistant",
+        "mode": "build",
+        "agent": "build",
+        "path": {
+          "cwd": "/Users/pfleidi/entire/cli",
+          "root": "/Users/pfleidi/entire/cli"
+        },
+        "cost": 0,
+        "tokens": {
+          "total": 111535,
+          "input": 1296,
+          "output": 287,
+          "reasoning": 97,
+          "cache": {
+            "write": 0,
+            "read": 109952
+          }
+        },
+        "modelID": "gpt-5.3-codex",
+        "providerID": "openai",
+        "time": {
+          "created": 1775088460550,
+          "completed": 1775088468737
+        },
+        "finish": "stop",
+        "id": "msg_d4b846306001I1miWt6UC2c6tq",
+        "sessionID": "ses_2b4d43b12ffeAiKhp1wmvaMqHT"
+      },
+      "parts": [
+        {
+          "snapshot": "5e16b1476ab4cf62fcd4b4e9b18396c4b2174a03",
+          "type": "step-start",
+          "id": "prt_d4b8467cb001PxubwxdQgkV1Bj",
+          "sessionID": "ses_2b4d43b12ffeAiKhp1wmvaMqHT",
+          "messageID": "msg_d4b846306001I1miWt6UC2c6tq"
+        },
+        {
+          "type": "reasoning",
+          "text": "",
+          "time": {
+            "start": 1775088463196,
+            "end": 1775088465240
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "rs_0820adc6096a82e50169cdb34f2d5c8197bb83ccdd8e5685cc",
+              "reasoningEncryptedContent": "REDACTED"
+            }
+          },
+          "id": "prt_d4b846d5c001dmzOhnlV80TvBC",
+          "sessionID": "ses_2b4d43b12ffeAiKhp1wmvaMqHT",
+          "messageID": "msg_d4b846306001I1miWt6UC2c6tq"
+        },
+        {
+          "type": "text",
+          "text": "Committed the previous fix and moved to the next finding.\n\nCommitted:\n- `22209b21` — `fix: avoid logging opencode transcript content`\n  - removes transcript `prefix`/`suffix` from debug logs\n  - logs only non-content metadata (`bytes`, `path`)\n\nThen I addressed finding #3 (cross-platform test robustness), **not committed yet**:\n- `cmd/entire/cli/agent/opencode/lifecycle_test.go`\n  - added early skips for unsupported environments:\n    - skip on `windows`\n    - skip when `sh` is unavailable\n\nVerification for this in-progress change:\n- `go test ./cmd/entire/cli/agent/opencode -count=1` ✅\n- `mise run lint` ✅\n- `mise run test` ✅\n\nNo push performed.\n\nIf this looks good, I’ll commit this test portability fix next.",
+          "time": {
+            "start": 1775088468596,
+            "end": 1775088468596
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "msg_0820adc6096a82e50169cdb35137e48197a878b7275e58bbf8",
+              "phase": "final_answer"
+            }
+          },
+          "id": "prt_d4b847559001CEF8D1LRD3JZbU",
+          "sessionID": "ses_2b4d43b12ffeAiKhp1wmvaMqHT",
+          "messageID": "msg_d4b846306001I1miWt6UC2c6tq"
+        },
+        {
+          "reason": "stop",
+          "snapshot": "5e16b1476ab4cf62fcd4b4e9b18396c4b2174a03",
+          "type": "step-finish",
+          "tokens": {
+            "total": 111535,
+            "input": 1296,
+            "output": 287,
+            "reasoning": 97,
+            "cache": {
+              "write": 0,
+              "read": 109952
+            }
+          },
+          "cost": 0,
+          "id": "prt_d4b8482c70017JJ6r2FUxwpjRp",
+          "sessionID": "ses_2b4d43b12ffeAiKhp1wmvaMqHT",
+          "messageID": "msg_d4b846306001I1miWt6UC2c6tq"
         }
       ]
     }
