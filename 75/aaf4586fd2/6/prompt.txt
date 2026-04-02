@@ -1,0 +1,17 @@
+hmm for summarization we can't rely on the live injection flag. older sessions may have the insights and the toggle could be off
+
+---
+
+new top level summary fields
+
+---
+
+yes
+
+---
+
+yes
+
+---
+
+approve
