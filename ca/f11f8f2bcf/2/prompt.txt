@@ -35,3 +35,7 @@ to the summary tui [Image #5] for the session box add more info especially the f
 ---
 
 this returns nothing even tho I see it in the tui  /tmp/entire summary e0df7f6dd790
+
+---
+
+commit all staged files
