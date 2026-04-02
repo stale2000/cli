@@ -13,7 +13,3 @@ fix lint and fix bugbot comments https://github.com/entireio/cli/pull/833
 <status>completed</status>
 <summary>Background command "Run all tests" completed (exit code 0)</summary>
 </task-notification>
-
----
-
-commit and push
