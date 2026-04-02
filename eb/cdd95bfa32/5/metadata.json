@@ -1,0 +1,18 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "ebcdd95bfa32",
+  "session_id": "019d4f2c-d686-7be2-be93-3f7617272bb4",
+  "strategy": "manual-commit",
+  "created_at": "2026-04-02T18:13:17.042713Z",
+  "branch": "agent-improvements",
+  "checkpoints_count": 0,
+  "files_touched": [],
+  "agent": "Codex",
+  "model": "gpt-5.4",
+  "owner_name": "Alisha Kawaguchi",
+  "owner_id": "alishakawaguchi",
+  "owner_email": "alisha@entire.io",
+  "turn_id": "cad094ab9ce4",
+  "checkpoint_transcript_start": 913,
+  "transcript_lines_at_start": 913
+}
