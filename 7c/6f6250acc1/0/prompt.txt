@@ -49,3 +49,7 @@ check the e2e artifacts and find out why the test is failing, if I run this test
 <status>failed</status>
 <summary>Background command "Run strategy package tests" failed with exit code 1</summary>
 </task-notification>
+
+---
+
+can you commit those changes but, be careful because I have checked that git marks as modified all the repo files. Have they been saved in a different format? Do not mess the repo please
