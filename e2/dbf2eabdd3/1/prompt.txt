@@ -7,3 +7,7 @@ rename subagents for search to entire-search
 ---
 
 no the code that actually creates the subagents and the file name should also be entire-search.md update for cluade codex and gemini
+
+---
+
+commit and push
