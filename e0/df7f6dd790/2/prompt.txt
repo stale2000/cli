@@ -19,3 +19,7 @@ no should be able to use arrows for left nav but the details pane should scroll 
 ---
 
 [Image #4] there is overflow in details pane but I can't scroll down
+
+---
+
+commit
