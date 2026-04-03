@@ -207,3 +207,7 @@ commit
 ---
 
 I noticed when running memory loop refresh there was no skill patches found. is that a bug? before there were many skill patches
+
+---
+
+why on summary command do I not see any for repo filter and can you make the default branch filter to current
