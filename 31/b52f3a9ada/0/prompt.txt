@@ -597,7 +597,3 @@ For #1 and #1: We're currently duplicating the fallback for methods that call Ne
 ---
 
 Can you check other reduncancies for code calling resolveV2FetchRemote?
-
----
-
-Okay, commit and continue.
