@@ -39,3 +39,15 @@ Yes
 ---
 
 /e2e https://github.com/entireio/cli/actions/runs/23960825496/job/69889969013
+
+---
+
+The scope of this branch isn't to only fix a single test. The scope is to get CI back to green. Ignore the copilot failures since I'm working on them on a different branch, though. Try fixing the first two issues, though.
+
+---
+
+/review
+
+---
+
+Ywa
