@@ -35,3 +35,7 @@ Yes
 ---
 
 /simplify
+
+---
+
+/e2e https://github.com/entireio/cli/actions/runs/23960825496/job/69889969013
