@@ -191,3 +191,7 @@ what is happening on first load of summary command. it takes forever
 ---
 
 why is it running backfill?
+
+---
+
+backfill should not be auto or lazy. only backfill if user requests it. leave facets in
