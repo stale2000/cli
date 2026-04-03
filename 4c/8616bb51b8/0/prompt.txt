@@ -17,3 +17,7 @@ The logic for collecting display names from GetAgentsWithHooksInstalled(ctx) d
 ---
 
 These tests reimplement the Claude Code hook fixture inline. There is already a writeClaudeHooksFixture(t) helper in setup_test.go (same package) that writes the minimal .claude/settings.json shape expected by AreHooksInstalled(). Reusing the shared fixture will reduce duplication and make future hook-detection changes less likely to break only one test.
+
+---
+
+The new “Hooks installed” line is implemented via formatSettingsStatusShort, which is used by both entire status and entire status --detailed, but the new assertions only cover the non-detailed path. Add a unit test that runs runStatus(..., detailed=true) and asserts the hooks-installed line is present/absent to prevent regressions specific to the detailed output formatting.
