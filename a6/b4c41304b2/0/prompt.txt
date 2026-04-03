@@ -219,3 +219,7 @@ why is repo on summary view still empty?
 ---
 
 also why are facets missing from detail pane
+
+---
+
+I generated it and still no facets
