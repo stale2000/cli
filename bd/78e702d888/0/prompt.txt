@@ -165,3 +165,8 @@ okay doc is good to go. please implement
 ---
 
 commit
+
+---
+
+Distilling memories...
+generate memory snapshot: parse memory-loop JSON: invalid character 'n' after top-level value
