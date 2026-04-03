@@ -29,8 +29,3 @@ Side question: Why do i first need to get external reviews for all those issues 
 ---
 
 Given what we know now, review this PR
-
----
-
-check 3
-Implement 4
