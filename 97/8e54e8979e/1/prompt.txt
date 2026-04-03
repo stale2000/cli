@@ -94,3 +94,7 @@ commit
   enter confirm · esc back
 
 invalid wizard intent: edit
+
+---
+
+for now make edit a simple tui form
