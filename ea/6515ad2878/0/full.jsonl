@@ -13,7 +13,7 @@
     },
     "time": {
       "created": 1775170832947,
-      "updated": 1775177611237
+      "updated": 1775177595039
     }
   },
   "messages": [
@@ -16431,22 +16431,19 @@
         },
         "cost": 0,
         "tokens": {
-          "total": 125364,
-          "input": 102233,
-          "output": 91,
+          "input": 0,
+          "output": 0,
           "reasoning": 0,
           "cache": {
-            "write": 0,
-            "read": 23040
+            "read": 0,
+            "write": 0
           }
         },
         "modelID": "gpt-5.3-codex",
         "providerID": "openai",
         "time": {
-          "created": 1775177594956,
-          "completed": 1775177611170
+          "created": 1775177594956
         },
-        "finish": "tool-calls",
         "id": "msg_d50d4784c001yqyPJGfc14kgYe",
         "sessionID": "ses_2af92b5ccffeEgvePq7MCsDUMo"
       },
@@ -16463,24 +16460,19 @@
           "tool": "bash",
           "callID": "call_MYWbYUdzBndX4wZLOSyvey2h",
           "state": {
-            "status": "completed",
+            "metadata": {
+              "output": "",
+              "description": "Commits attach section update and pushes branch"
+            },
+            "status": "running",
             "input": {
               "command": "git add \"docs/guides/checkpoints-v2-manual-test-plan.md\" && git commit -m \"review: add attach command validation section\" && git push",
               "timeout": 120000,
               "workdir": "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-validation",
               "description": "Commits attach section update and pushes branch"
             },
-            "output": "[feat/checkpoints-v2-validation 69380cce8] review: add attach command validation section\n 1 file changed, 77 insertions(+), 3 deletions(-)\n[entire] Pushing entire/checkpoints/v1 to checkpoint remote.... done\nTo github.com:entireio/cli.git\n   f4a1695a8..69380cce8  feat/checkpoints-v2-validation -> feat/checkpoints-v2-validation\n",
-            "metadata": {
-              "output": "[feat/checkpoints-v2-validation 69380cce8] review: add attach command validation section\n 1 file changed, 77 insertions(+), 3 deletions(-)\n[entire] Pushing entire/checkpoints/v1 to checkpoint remote.... done\nTo github.com:entireio/cli.git\n   f4a1695a8..69380cce8  feat/checkpoints-v2-validation -> feat/checkpoints-v2-validation\n",
-              "exit": 0,
-              "description": "Commits attach section update and pushes branch",
-              "truncated": false
-            },
-            "title": "Commits attach section update and pushes branch",
             "time": {
-              "start": 1775177599790,
-              "end": 1775177611108
+              "start": 1775177599797
             }
           },
           "metadata": {
@@ -16491,102 +16483,6 @@
           "id": "prt_d50d48539001UU0XgbTGrp4g8M",
           "sessionID": "ses_2af92b5ccffeEgvePq7MCsDUMo",
           "messageID": "msg_d50d4784c001yqyPJGfc14kgYe"
-        },
-        {
-          "reason": "tool-calls",
-          "snapshot": "975d5c12f62bff62514f4fe5986aed29b3914eda",
-          "type": "step-finish",
-          "tokens": {
-            "total": 125364,
-            "input": 102233,
-            "output": 91,
-            "reasoning": 0,
-            "cache": {
-              "write": 0,
-              "read": 23040
-            }
-          },
-          "cost": 0,
-          "id": "prt_d50d4b765002DpSqDk7naMqmnF",
-          "sessionID": "ses_2af92b5ccffeEgvePq7MCsDUMo",
-          "messageID": "msg_d50d4784c001yqyPJGfc14kgYe"
-        }
-      ]
-    },
-    {
-      "info": {
-        "parentID": "msg_d50d4783b001ZmR96ka6Y1sLYc",
-        "role": "assistant",
-        "mode": "build",
-        "agent": "build",
-        "path": {
-          "cwd": "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-validation",
-          "root": "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-validation"
-        },
-        "cost": 0,
-        "tokens": {
-          "total": 125517,
-          "input": 287,
-          "output": 46,
-          "reasoning": 0,
-          "cache": {
-            "write": 0,
-            "read": 125184
-          }
-        },
-        "modelID": "gpt-5.3-codex",
-        "providerID": "openai",
-        "time": {
-          "created": 1775177611179,
-          "completed": 1775177614486
-        },
-        "finish": "stop",
-        "id": "msg_d50d4b7ab001Wd56prorWCd0us",
-        "sessionID": "ses_2af92b5ccffeEgvePq7MCsDUMo"
-      },
-      "parts": [
-        {
-          "snapshot": "975d5c12f62bff62514f4fe5986aed29b3914eda",
-          "type": "step-start",
-          "id": "prt_d50d4bd39001zCyHnFKu1707QE",
-          "sessionID": "ses_2af92b5ccffeEgvePq7MCsDUMo",
-          "messageID": "msg_d50d4b7ab001Wd56prorWCd0us"
-        },
-        {
-          "type": "text",
-          "text": "Done — committed and pushed.\n\n- Commit: `69380cce8`\n- Message: `review: add attach command validation section`\n- Branch: `feat/checkpoints-v2-validation` pushed to origin",
-          "time": {
-            "start": 1775177614370,
-            "end": 1775177614370
-          },
-          "metadata": {
-            "openai": {
-              "itemId": "msg_077402f180d710e40169cf0f8d46b08193a1c3fe33734e8f16",
-              "phase": "final_answer"
-            }
-          },
-          "id": "prt_d50d4bfed001pBI54yitSRI4Dp",
-          "sessionID": "ses_2af92b5ccffeEgvePq7MCsDUMo",
-          "messageID": "msg_d50d4b7ab001Wd56prorWCd0us"
-        },
-        {
-          "reason": "stop",
-          "snapshot": "975d5c12f62bff62514f4fe5986aed29b3914eda",
-          "type": "step-finish",
-          "tokens": {
-            "total": 125517,
-            "input": 287,
-            "output": 46,
-            "reasoning": 0,
-            "cache": {
-              "write": 0,
-              "read": 125184
-            }
-          },
-          "cost": 0,
-          "id": "prt_d50d4c455001qm34Lkqn8T2Tax",
-          "sessionID": "ses_2af92b5ccffeEgvePq7MCsDUMo",
-          "messageID": "msg_d50d4b7ab001Wd56prorWCd0us"
         }
       ]
     }
