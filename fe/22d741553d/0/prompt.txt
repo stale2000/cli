@@ -122,3 +122,7 @@ hmm no I want highlight copy not copy the entire thing
 ---
 
 but now scroll doesn't work. how to handle this. I need a way to navigate on left nav. to handle overflow of details page so users can scroll down  and highlight copy
+
+---
+
+commit
