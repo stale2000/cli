@@ -130,3 +130,7 @@ commit
 ---
 
 in memory-loop tui table what is the outcome column
+
+---
+
+all the injected memories are considered ineffective and you verify that the outcome is being tracked correctly or why the injected memories aren't being used?
