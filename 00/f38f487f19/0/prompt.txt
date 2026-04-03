@@ -18,3 +18,7 @@ In debug mode, it should also show what URL is being fetched and whether it is S
 ---
 
 The debug lines are not showing. Let's amend the debug so that it shows the <org_user>/<repo>. And domain, as opposed to URL.
+
+---
+
+commit the staged changes
