@@ -223,3 +223,7 @@ also why are facets missing from detail pane
 ---
 
 I generated it and still no facets
+
+---
+
+add back in the repo filter. my point was that it shouldnt be empty because I just did memory loop refresh for repo
