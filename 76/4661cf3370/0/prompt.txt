@@ -114,3 +114,11 @@ no option and shift don't work
 ---
 
 no but now scroll doesn't work. need scroll on detail pane to work and have a way to copy
+
+---
+
+hmm no I want highlight copy not copy the entire thing
+
+---
+
+but now scroll doesn't work. how to handle this. I need a way to navigate on left nav. to handle overflow of details page so users can scroll down  and highlight copy
