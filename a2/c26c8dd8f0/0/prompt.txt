@@ -106,3 +106,11 @@ why can I copy things in summary tui?
 ---
 
 why can't I copy things in summary tui?
+
+---
+
+no option and shift don't work
+
+---
+
+no but now scroll doesn't work. need scroll on detail pane to work and have a way to copy
