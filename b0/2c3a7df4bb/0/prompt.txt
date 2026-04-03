@@ -11,3 +11,7 @@ also right now it give score but doesn't tell me if it would be injected or not.
 ---
 
 commit
+
+---
+
+Remove skill, insights, improve and permissions command and related code. I only want to keep summary and memory-loop
