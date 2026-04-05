@@ -1,0 +1,25 @@
+{
+  "cli_version": "0.5.1",
+  "checkpoint_id": "a1da9ee335bc",
+  "session_id": "019d451d-f26e-71c0-8573-9b96aff3f6bb",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-31T19:54:12.892387Z",
+  "branch": "cli_search",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/search/search.go",
+    "cmd/entire/cli/search_tui.go"
+  ],
+  "agent": "Codex",
+  "model": "gpt-5.4",
+  "turn_id": "caef6e73101a",
+  "initial_attribution": {
+    "calculated_at": "2026-03-31T19:54:12.889615Z",
+    "agent_lines": 7,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 7,
+    "agent_percentage": 100
+  }
+}
