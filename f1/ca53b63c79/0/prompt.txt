@@ -108,3 +108,7 @@ can you run full suite of tests, lint, integration, mise, etc.
 ---
 
 can you also resolve merge conficts please
+
+---
+
+linting failed, https://github.com/entireio/cli/actions/runs/24098186126/job/70302226183?pr=840
