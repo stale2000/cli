@@ -1,0 +1,19 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "20e4ee566aef",
+  "strategy": "manual-commit",
+  "branch": "feat/checkpoints-v2-explain",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/explain.go",
+    "cmd/entire/cli/explain_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/20/e4ee566aef/0/metadata.json",
+      "transcript": "/20/e4ee566aef/0/full.jsonl",
+      "content_hash": "/20/e4ee566aef/0/content_hash.txt",
+      "prompt": ""
+    }
+  ]
+}
