@@ -828,3 +828,11 @@ As far as I can tell, this code wasn't updated in this branch and should therefo
 ---
 
 That's plain wrong! updateCombinedAttributionForCheckpoint was added to the `main` branch 17h ago and isn't part of the changes to this branch.
+
+---
+
+Commit and continue
+
+---
+
+When writing commits, ONLY describe the changes going into the commit. Don't describe the changes made based on input between commits.
