@@ -104,3 +104,7 @@ evaluate test failure /using-superpowers https://github.com/entireio/cli/actions
 ---
 
 can you run full suite of tests, lint, integration, mise, etc.
+
+---
+
+can you also resolve merge conficts please
