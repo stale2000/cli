@@ -22,6 +22,12 @@
       "transcript": "/d9/2141715d60/1/full.jsonl",
       "content_hash": "/d9/2141715d60/1/content_hash.txt",
       "prompt": ""
+    },
+    {
+      "metadata": "/d9/2141715d60/2/metadata.json",
+      "transcript": "/d9/2141715d60/2/full.jsonl",
+      "content_hash": "/d9/2141715d60/2/content_hash.txt",
+      "prompt": ""
     }
   ]
 }
