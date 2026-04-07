@@ -321,3 +321,7 @@ You didn't understand: summaries should be written to both stores. v2 doesn't wr
 ---
 
 Is this test name still accurate? TestRunExplainCheckpoint_V2PreferredGenerateUsesV1Store
+
+---
+
+Commit and continue
