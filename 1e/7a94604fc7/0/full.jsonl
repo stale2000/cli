@@ -13,7 +13,7 @@
     },
     "time": {
       "created": 1775170832947,
-      "updated": 1775513827474
+      "updated": 1775513806687
     }
   },
   "messages": [
@@ -26387,22 +26387,19 @@
         },
         "cost": 0,
         "tokens": {
-          "total": 144790,
-          "input": 182,
-          "output": 96,
+          "input": 0,
+          "output": 0,
           "reasoning": 0,
           "cache": {
-            "write": 0,
-            "read": 144512
+            "read": 0,
+            "write": 0
           }
         },
         "modelID": "gpt-5.3-codex",
         "providerID": "openai",
         "time": {
-          "created": 1775513806135,
-          "completed": 1775513827025
+          "created": 1775513806135
         },
-        "finish": "tool-calls",
         "id": "msg_d64dea537001b362ooEj70DHTY",
         "sessionID": "ses_2af92b5ccffeEgvePq7MCsDUMo"
       },
@@ -26419,24 +26416,19 @@
           "tool": "bash",
           "callID": "call_xUzSN02cjif0Z7RWjKH3XOkL",
           "state": {
-            "status": "completed",
+            "metadata": {
+              "output": "",
+              "description": "Commits final doc consistency updates and pushes branch"
+            },
+            "status": "running",
             "input": {
               "command": "git add \"docs/guides/checkpoints-v2-manual-test-plan.md\" && git commit -m \"docs: tighten v2 test guide wording and rollout gates\" && git push",
               "timeout": 120000,
               "workdir": "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-validation",
               "description": "Commits final doc consistency updates and pushes branch"
             },
-            "output": "[feat/checkpoints-v2-validation cb64327a0] docs: tighten v2 test guide wording and rollout gates\n 1 file changed, 36 insertions(+), 30 deletions(-)\n[entire] Pushing entire/checkpoints/v1 to checkpoint remote...\n[entire] Syncing entire/checkpoints/v1 with remote...... done\n[entire] Pushing entire/checkpoints/v1 to checkpoint remote.... done\nTo github.com:entireio/cli.git\n   0441abdfe..cb64327a0  feat/checkpoints-v2-validation -> feat/checkpoints-v2-validation\n",
-            "metadata": {
-              "output": "[feat/checkpoints-v2-validation cb64327a0] docs: tighten v2 test guide wording and rollout gates\n 1 file changed, 36 insertions(+), 30 deletions(-)\n[entire] Pushing entire/checkpoints/v1 to checkpoint remote...\n[entire] Syncing entire/checkpoints/v1 with remote...... done\n[entire] Pushing entire/checkpoints/v1 to checkpoint remote.... done\nTo github.com:entireio/cli.git\n   0441abdfe..cb64327a0  feat/checkpoints-v2-validation -> feat/checkpoints-v2-validation\n",
-              "exit": 0,
-              "description": "Commits final doc consistency updates and pushes branch",
-              "truncated": false
-            },
-            "title": "Commits final doc consistency updates and pushes branch",
             "time": {
-              "start": 1775513810614,
-              "end": 1775513826970
+              "start": 1775513810615
             }
           },
           "metadata": {
@@ -26447,102 +26439,6 @@
           "id": "prt_d64deaf3100163ONVMoDlC4veO",
           "sessionID": "ses_2af92b5ccffeEgvePq7MCsDUMo",
           "messageID": "msg_d64dea537001b362ooEj70DHTY"
-        },
-        {
-          "reason": "tool-calls",
-          "snapshot": "2a4f8c4962aa7c7116ad9785095882e9cb4907b3",
-          "type": "step-finish",
-          "tokens": {
-            "total": 144790,
-            "input": 182,
-            "output": 96,
-            "reasoning": 0,
-            "cache": {
-              "write": 0,
-              "read": 144512
-            }
-          },
-          "cost": 0,
-          "id": "prt_d64def69b001JaLoSXvmlMIZOO",
-          "sessionID": "ses_2af92b5ccffeEgvePq7MCsDUMo",
-          "messageID": "msg_d64dea537001b362ooEj70DHTY"
-        }
-      ]
-    },
-    {
-      "info": {
-        "parentID": "msg_d64dea519001VIUF4SyFLtqgQ7",
-        "role": "assistant",
-        "mode": "build",
-        "agent": "build",
-        "path": {
-          "cwd": "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-validation",
-          "root": "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-validation"
-        },
-        "cost": 0,
-        "tokens": {
-          "total": 144979,
-          "input": 417,
-          "output": 50,
-          "reasoning": 0,
-          "cache": {
-            "write": 0,
-            "read": 144512
-          }
-        },
-        "modelID": "gpt-5.3-codex",
-        "providerID": "openai",
-        "time": {
-          "created": 1775513827042,
-          "completed": 1775513829897
-        },
-        "finish": "stop",
-        "id": "msg_d64def6e20015neJ4BYycGc4LA",
-        "sessionID": "ses_2af92b5ccffeEgvePq7MCsDUMo"
-      },
-      "parts": [
-        {
-          "snapshot": "2a4f8c4962aa7c7116ad9785095882e9cb4907b3",
-          "type": "step-start",
-          "id": "prt_d64defc75001FfSgsS4X3D7qhh",
-          "sessionID": "ses_2af92b5ccffeEgvePq7MCsDUMo",
-          "messageID": "msg_d64def6e20015neJ4BYycGc4LA"
-        },
-        {
-          "type": "text",
-          "text": "Done — committed and pushed.\n\n- Commit: `cb64327a0`\n- Message: `docs: tighten v2 test guide wording and rollout gates`\n- Branch updated: `origin/feat/checkpoints-v2-validation`",
-          "time": {
-            "start": 1775513829790,
-            "end": 1775513829790
-          },
-          "metadata": {
-            "openai": {
-              "itemId": "msg_07a11c33c5e185800169d430e4a1cc8193a61ec88da617f90f",
-              "phase": "final_answer"
-            }
-          },
-          "id": "prt_d64defd6b001DVd69E1FBqzHv0",
-          "sessionID": "ses_2af92b5ccffeEgvePq7MCsDUMo",
-          "messageID": "msg_d64def6e20015neJ4BYycGc4LA"
-        },
-        {
-          "reason": "stop",
-          "snapshot": "2a4f8c4962aa7c7116ad9785095882e9cb4907b3",
-          "type": "step-finish",
-          "tokens": {
-            "total": 144979,
-            "input": 417,
-            "output": 50,
-            "reasoning": 0,
-            "cache": {
-              "write": 0,
-              "read": 144512
-            }
-          },
-          "cost": 0,
-          "id": "prt_d64df01d5001hLVUcBzYp6U1qv",
-          "sessionID": "ses_2af92b5ccffeEgvePq7MCsDUMo",
-          "messageID": "msg_d64def6e20015neJ4BYycGc4LA"
         }
       ]
     }
