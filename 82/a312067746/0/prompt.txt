@@ -73,3 +73,7 @@ To clarify: The behavior should be to read from v2 checkpoints and only fall bac
 ---
 
 I think REDACTED is redundant now. This situation should never happen since a user either has dual writes enabled or not.
+
+---
+
+Commit and continue
