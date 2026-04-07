@@ -1,0 +1,61 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "a5d50321aaee",
+  "session_id": "94e9b5d5-deae-47b7-8ee1-b3c7da08a5b2",
+  "strategy": "manual-commit",
+  "created_at": "2026-04-07T22:25:05.915706Z",
+  "branch": "update-attach-no-tty-case",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/attach.go",
+    "cmd/entire/cli/integration_test/attach_test.go"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-6[1m]",
+  "turn_id": "ecfbf0439f14",
+  "token_usage": {
+    "input_tokens": 37,
+    "cache_creation_tokens": 79537,
+    "cache_read_tokens": 1462641,
+    "output_tokens": 8892,
+    "api_call_count": 28
+  },
+  "session_metrics": {
+    "turn_count": 2
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-04-07T22:25:05.683513Z",
+    "agent_lines": 6,
+    "agent_removed": 3,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 6,
+    "total_lines_changed": 9,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 1580,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".cursor/hooks.json": 40,
+        ".factory/settings.json": 93,
+        ".github/hooks/entire.json": 61,
+        ".opencode/package-lock.json": 115,
+        "cmd/compact-debug/main.go": 41,
+        "entire-checkpoints-playground.html": 698,
+        "full-example.jsonl": 129,
+        "metadata-example.json": 32,
+        "review-01.md": 95,
+        "review-02.md": 82,
+        "review-03.md": 77,
+        "transcript-output.jsonl": 117
+      }
+    }
+  ]
+}
