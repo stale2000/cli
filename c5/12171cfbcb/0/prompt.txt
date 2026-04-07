@@ -53,3 +53,7 @@ Please keep calling it `TranscriptLine` since `Line` is very ambiguous and could
 ---
 
 On a quick glance I don't see `TranscriptLine` used outside the compact package. Is it really necessary to export it?
+
+---
+
+commit and continue to the next step

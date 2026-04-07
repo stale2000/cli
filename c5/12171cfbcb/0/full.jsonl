@@ -7,13 +7,13 @@
     "title": "Plan port entire explain to checkpoints v2",
     "version": "1.3.17",
     "summary": {
-      "additions": 1790,
+      "additions": 1830,
       "deletions": 104,
-      "files": 19
+      "files": 20
     },
     "time": {
       "created": 1775509975224,
-      "updated": 1775594334091
+      "updated": 1775594447028
     }
   },
   "messages": [
@@ -36158,7 +36158,16 @@
           "modelID": "gpt-5.3-codex"
         },
         "summary": {
-          "diffs": []
+          "diffs": [
+            {
+              "file": "cmd/entire/cli/integration_test/explain_test.go",
+              "before": "//go:build integration\n\npackage integration\n\nimport (\n\t\"strings\"\n\t\"testing\"\n)\n\nfunc TestExplain_NoCurrentSession(t *testing.T) {\n\tt.Parallel()\n\tenv := NewFeatureBranchEnv(t)\n\t// Without any flags, explain shows the branch view (not an error)\n\toutput, err := env.RunCLIWithError(\"explain\")\n\n\tif err != nil {\n\t\tt.Errorf(\"expected success for branch view, got error: %v, output: %s\", err, output)\n\t\treturn\n\t}\n\n\t// Should show branch information and checkpoint count\n\tif !strings.Contains(output, \"Branch:\") {\n\t\tt.Errorf(\"expected 'Branch:' header in output, got: %s\", output)\n\t}\n\tif !strings.Contains(output, \"Checkpoints:\") {\n\t\tt.Errorf(\"expected 'Checkpoints:' in output, got: %s\", output)\n\t}\n}\n\nfunc TestExplain_SessionFilter(t *testing.T) {\n\tt.Parallel()\n\tenv := NewFeatureBranchEnv(t)\n\t// --session now filters the list view instead of showing session details\n\t// A nonexistent session ID should show an empty list, not an error\n\toutput, err := env.RunCLIWithError(\"explain\", \"--session\", \"nonexistent-session-id\")\n\n\tif err != nil {\n\t\tt.Errorf(\"expected success (empty list) for session filter, got error: %v, output: %s\", err, output)\n\t\treturn\n\t}\n\n\t// Should show branch header\n\tif !strings.Contains(output, \"Branch:\") {\n\t\tt.Errorf(\"expected 'Branch:' header in output, got: %s\", output)\n\t}\n\n\t// Should show 0 checkpoints (filter found no matches)\n\tif !strings.Contains(output, \"Checkpoints: 0\") {\n\t\tt.Errorf(\"expected 'Checkpoints: 0' for nonexistent session filter, got: %s\", output)\n\t}\n\n\t// Should show filter info\n\tif !strings.Contains(output, \"Filtered by session:\") {\n\t\tt.Errorf(\"expected 'Filtered by session:' in output, got: %s\", output)\n\t}\n}\n\nfunc TestExplain_MutualExclusivity(t *testing.T) {\n\tt.Parallel()\n\tenv := NewFeatureBranchEnv(t)\n\t// Try to provide both --session and --commit flags\n\toutput, err := env.RunCLIWithError(\"explain\", \"--session\", \"test-session\", \"--commit\", \"abc123\")\n\n\tif err == nil {\n\t\tt.Errorf(\"expected error when both flags provided, got output: %s\", output)\n\t\treturn\n\t}\n\n\tif !strings.Contains(strings.ToLower(output), \"cannot specify multiple\") {\n\t\tt.Errorf(\"expected 'cannot specify multiple' error, got: %s\", output)\n\t}\n}\n\nfunc TestExplain_CheckpointNotFound(t *testing.T) {\n\tt.Parallel()\n\tenv := NewFeatureBranchEnv(t)\n\t// Try to explain a non-existent checkpoint\n\toutput, err := env.RunCLIWithError(\"explain\", \"--checkpoint\", \"nonexistent123\")\n\n\tif err == nil {\n\t\tt.Errorf(\"expected error for nonexistent checkpoint, got output: %s\", output)\n\t\treturn\n\t}\n\n\tif !strings.Contains(output, \"checkpoint not found\") {\n\t\tt.Errorf(\"expected 'checkpoint not found' error, got: %s\", output)\n\t}\n}\n\nfunc TestExplain_CheckpointMutualExclusivity(t *testing.T) {\n\tt.Parallel()\n\tenv := NewFeatureBranchEnv(t)\n\t// Try to provide --checkpoint with --session\n\toutput, err := env.RunCLIWithError(\"explain\", \"--session\", \"test-session\", \"--checkpoint\", \"abc123\")\n\n\tif err == nil {\n\t\tt.Errorf(\"expected error when both flags provided, got output: %s\", output)\n\t\treturn\n\t}\n\n\tif !strings.Contains(strings.ToLower(output), \"cannot specify multiple\") {\n\t\tt.Errorf(\"expected 'cannot specify multiple' error, got: %s\", output)\n\t}\n}\n\nfunc TestExplain_CommitWithoutCheckpoint(t *testing.T) {\n\tt.Parallel()\n\tenv := NewFeatureBranchEnv(t)\n\t// Create a regular commit without Entire-Checkpoint trailer\n\tenv.WriteFile(\"test.txt\", \"content\")\n\tenv.GitAdd(\"test.txt\")\n\tenv.GitCommit(\"Regular commit without Entire trailer\")\n\n\t// Get the commit hash\n\tcommitHash := env.GetHeadHash()\n\n\t// Run explain --commit\n\toutput, err := env.RunCLIWithError(\"explain\", \"--commit\", commitHash[:7])\n\tif err != nil {\n\t\tt.Fatalf(\"unexpected error: %v, output: %s\", err, output)\n\t}\n\n\t// Should show \"No associated Entire checkpoint\" message\n\tif !strings.Contains(output, \"No associated Entire checkpoint\") {\n\t\tt.Errorf(\"expected 'No associated Entire checkpoint' message, got: %s\", output)\n\t}\n}\n\nfunc TestExplain_CommitWithCheckpointTrailer(t *testing.T) {\n\tt.Parallel()\n\tenv := NewFeatureBranchEnv(t)\n\t// Create a commit with Entire-Checkpoint trailer\n\tenv.WriteFile(\"test.txt\", \"content\")\n\tenv.GitAdd(\"test.txt\")\n\tenv.GitCommitWithCheckpointID(\"Commit with checkpoint\", \"abc123def456\")\n\n\t// Get the commit hash\n\tcommitHash := env.GetHeadHash()\n\n\t// Run explain --commit - it should try to look up the checkpoint\n\t// Since the checkpoint doesn't actually exist in the store, it should error\n\toutput, err := env.RunCLIWithError(\"explain\", \"--commit\", commitHash[:7])\n\n\t// We expect an error because the checkpoint abc123def456 doesn't exist\n\tif err == nil {\n\t\t// If it succeeded, check if it found the checkpoint (it shouldn't)\n\t\tif strings.Contains(output, \"Checkpoint:\") {\n\t\t\tt.Logf(\"checkpoint was found (unexpected but ok if test created one)\")\n\t\t}\n\t} else {\n\t\t// Expected: checkpoint not found error\n\t\tif !strings.Contains(output, \"checkpoint not found\") {\n\t\t\tt.Errorf(\"expected 'checkpoint not found' error, got: %s\", output)\n\t\t}\n\t}\n}\n",
+              "after": "//go:build integration\n\npackage integration\n\nimport (\n\t\"strings\"\n\t\"testing\"\n\n\t\"github.com/stretchr/testify/require\"\n)\n\nfunc TestExplain_NoCurrentSession(t *testing.T) {\n\tt.Parallel()\n\tenv := NewFeatureBranchEnv(t)\n\t// Without any flags, explain shows the branch view (not an error)\n\toutput, err := env.RunCLIWithError(\"explain\")\n\n\tif err != nil {\n\t\tt.Errorf(\"expected success for branch view, got error: %v, output: %s\", err, output)\n\t\treturn\n\t}\n\n\t// Should show branch information and checkpoint count\n\tif !strings.Contains(output, \"Branch:\") {\n\t\tt.Errorf(\"expected 'Branch:' header in output, got: %s\", output)\n\t}\n\tif !strings.Contains(output, \"Checkpoints:\") {\n\t\tt.Errorf(\"expected 'Checkpoints:' in output, got: %s\", output)\n\t}\n}\n\nfunc TestExplain_SessionFilter(t *testing.T) {\n\tt.Parallel()\n\tenv := NewFeatureBranchEnv(t)\n\t// --session now filters the list view instead of showing session details\n\t// A nonexistent session ID should show an empty list, not an error\n\toutput, err := env.RunCLIWithError(\"explain\", \"--session\", \"nonexistent-session-id\")\n\n\tif err != nil {\n\t\tt.Errorf(\"expected success (empty list) for session filter, got error: %v, output: %s\", err, output)\n\t\treturn\n\t}\n\n\t// Should show branch header\n\tif !strings.Contains(output, \"Branch:\") {\n\t\tt.Errorf(\"expected 'Branch:' header in output, got: %s\", output)\n\t}\n\n\t// Should show 0 checkpoints (filter found no matches)\n\tif !strings.Contains(output, \"Checkpoints: 0\") {\n\t\tt.Errorf(\"expected 'Checkpoints: 0' for nonexistent session filter, got: %s\", output)\n\t}\n\n\t// Should show filter info\n\tif !strings.Contains(output, \"Filtered by session:\") {\n\t\tt.Errorf(\"expected 'Filtered by session:' in output, got: %s\", output)\n\t}\n}\n\nfunc TestExplain_MutualExclusivity(t *testing.T) {\n\tt.Parallel()\n\tenv := NewFeatureBranchEnv(t)\n\t// Try to provide both --session and --commit flags\n\toutput, err := env.RunCLIWithError(\"explain\", \"--session\", \"test-session\", \"--commit\", \"abc123\")\n\n\tif err == nil {\n\t\tt.Errorf(\"expected error when both flags provided, got output: %s\", output)\n\t\treturn\n\t}\n\n\tif !strings.Contains(strings.ToLower(output), \"cannot specify multiple\") {\n\t\tt.Errorf(\"expected 'cannot specify multiple' error, got: %s\", output)\n\t}\n}\n\nfunc TestExplain_CheckpointNotFound(t *testing.T) {\n\tt.Parallel()\n\tenv := NewFeatureBranchEnv(t)\n\t// Try to explain a non-existent checkpoint\n\toutput, err := env.RunCLIWithError(\"explain\", \"--checkpoint\", \"nonexistent123\")\n\n\tif err == nil {\n\t\tt.Errorf(\"expected error for nonexistent checkpoint, got output: %s\", output)\n\t\treturn\n\t}\n\n\tif !strings.Contains(output, \"checkpoint not found\") {\n\t\tt.Errorf(\"expected 'checkpoint not found' error, got: %s\", output)\n\t}\n}\n\nfunc TestExplain_CheckpointMutualExclusivity(t *testing.T) {\n\tt.Parallel()\n\tenv := NewFeatureBranchEnv(t)\n\t// Try to provide --checkpoint with --session\n\toutput, err := env.RunCLIWithError(\"explain\", \"--session\", \"test-session\", \"--checkpoint\", \"abc123\")\n\n\tif err == nil {\n\t\tt.Errorf(\"expected error when both flags provided, got output: %s\", output)\n\t\treturn\n\t}\n\n\tif !strings.Contains(strings.ToLower(output), \"cannot specify multiple\") {\n\t\tt.Errorf(\"expected 'cannot specify multiple' error, got: %s\", output)\n\t}\n}\n\nfunc TestExplain_CommitWithoutCheckpoint(t *testing.T) {\n\tt.Parallel()\n\tenv := NewFeatureBranchEnv(t)\n\t// Create a regular commit without Entire-Checkpoint trailer\n\tenv.WriteFile(\"test.txt\", \"content\")\n\tenv.GitAdd(\"test.txt\")\n\tenv.GitCommit(\"Regular commit without Entire trailer\")\n\n\t// Get the commit hash\n\tcommitHash := env.GetHeadHash()\n\n\t// Run explain --commit\n\toutput, err := env.RunCLIWithError(\"explain\", \"--commit\", commitHash[:7])\n\tif err != nil {\n\t\tt.Fatalf(\"unexpected error: %v, output: %s\", err, output)\n\t}\n\n\t// Should show \"No associated Entire checkpoint\" message\n\tif !strings.Contains(output, \"No associated Entire checkpoint\") {\n\t\tt.Errorf(\"expected 'No associated Entire checkpoint' message, got: %s\", output)\n\t}\n}\n\nfunc TestExplain_CommitWithCheckpointTrailer(t *testing.T) {\n\tt.Parallel()\n\tenv := NewFeatureBranchEnv(t)\n\t// Create a commit with Entire-Checkpoint trailer\n\tenv.WriteFile(\"test.txt\", \"content\")\n\tenv.GitAdd(\"test.txt\")\n\tenv.GitCommitWithCheckpointID(\"Commit with checkpoint\", \"abc123def456\")\n\n\t// Get the commit hash\n\tcommitHash := env.GetHeadHash()\n\n\t// Run explain --commit - it should try to look up the checkpoint\n\t// Since the checkpoint doesn't actually exist in the store, it should error\n\toutput, err := env.RunCLIWithError(\"explain\", \"--commit\", commitHash[:7])\n\n\t// We expect an error because the checkpoint abc123def456 doesn't exist\n\tif err == nil {\n\t\t// If it succeeded, check if it found the checkpoint (it shouldn't)\n\t\tif strings.Contains(output, \"Checkpoint:\") {\n\t\t\tt.Logf(\"checkpoint was found (unexpected but ok if test created one)\")\n\t\t}\n\t} else {\n\t\t// Expected: checkpoint not found error\n\t\tif !strings.Contains(output, \"checkpoint not found\") {\n\t\t\tt.Errorf(\"expected 'checkpoint not found' error, got: %s\", output)\n\t\t}\n\t}\n}\n\nfunc TestExplain_CheckpointV2EnabledFallsBackToV1(t *testing.T) {\n\tt.Parallel()\n\tenv := NewFeatureBranchEnv(t)\n\n\t// Create a v1-only checkpoint (checkpoints_v2 disabled by default).\n\tsession := env.NewSession()\n\terr := env.SimulateUserPromptSubmitWithPrompt(session.ID, \"Create v1 fallback file\")\n\trequire.NoError(t, err)\n\n\tcontent := \"v1 fallback content\"\n\tenv.WriteFile(\"fallback.txt\", content)\n\n\tsession.CreateTranscript(\n\t\t\"Create v1 fallback file\",\n\t\t[]FileChange{{Path: \"fallback.txt\", Content: content}},\n\t)\n\terr = env.SimulateStop(session.ID, session.TranscriptPath)\n\trequire.NoError(t, err)\n\n\tenv.GitCommitWithShadowHooks(\"Create v1 fallback file\", \"fallback.txt\")\n\tcheckpointID := env.GetLatestCheckpointIDFromHistory()\n\n\t// Simulate enabling checkpoints_v2 after the v1-only checkpoint already exists.\n\tenv.PatchSettings(map[string]any{\n\t\t\"strategy_options\": map[string]any{\"checkpoints_v2\": true},\n\t})\n\n\toutput, err := env.RunCLIWithError(\"explain\", \"--checkpoint\", checkpointID[:6])\n\trequire.NoError(t, err, \"expected explain checkpoint fallback to v1 to succeed: %s\", output)\n\n\tif !strings.Contains(output, \"Checkpoint: \"+checkpointID) {\n\t\tt.Errorf(\"expected checkpoint ID in output, got: %s\", output)\n\t}\n\tif !strings.Contains(output, \"Intent: Create v1 fallback file\") {\n\t\tt.Errorf(\"expected intent from v1 transcript in output, got: %s\", output)\n\t}\n}\n",
+              "additions": 40,
+              "deletions": 0,
+              "status": "modified"
+            }
+          ]
         },
         "id": "msg_d69ab3002001nZjLS8w6oOCmQD",
         "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2"
@@ -36364,19 +36373,22 @@
         },
         "cost": 0,
         "tokens": {
-          "input": 0,
-          "output": 0,
-          "reasoning": 0,
+          "total": 136749,
+          "input": 4548,
+          "output": 218,
+          "reasoning": 143,
           "cache": {
-            "read": 0,
-            "write": 0
+            "write": 0,
+            "read": 131840
           }
         },
         "modelID": "gpt-5.3-codex",
         "providerID": "openai",
         "time": {
-          "created": 1775594334061
+          "created": 1775594334061,
+          "completed": 1775594372534
         },
+        "finish": "tool-calls",
         "id": "msg_d69ab676d0013K7iyp7j9Lea0m",
         "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2"
       },
@@ -36410,19 +36422,24 @@
           "tool": "bash",
           "callID": "call_xEqA2abdRWEKwjCtVsv9b6Wy",
           "state": {
-            "metadata": {
-              "output": "",
-              "description": "Commits compact parsing and explain integration changes"
-            },
-            "status": "running",
+            "status": "completed",
             "input": {
               "command": "git add \"cmd/entire/cli/checkpoint/v2_read.go\" \"cmd/entire/cli/checkpoint/v2_read_test.go\" \"cmd/entire/cli/explain.go\" \"cmd/entire/cli/explain_test.go\" \"cmd/entire/cli/transcript/compact/compact.go\" \"cmd/entire/cli/transcript/compact/parse.go\" \"cmd/entire/cli/transcript/compact/parse_test.go\" && git commit -m \"feat: centralize compact transcript parsing\" -m \"Move compact transcript read parsing into transcript/compact and reuse it from explain output formatting. Add direct v2 compact transcript read tests and compact parser tests while keeping raw transcript behavior unchanged.\" && git status --short",
               "timeout": 120000,
               "workdir": "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain",
               "description": "Commits compact parsing and explain integration changes"
             },
+            "output": "[feat/checkpoints-v2-explain 85ee0dcaa] feat: centralize compact transcript parsing\n 6 files changed, 433 insertions(+), 1 deletion(-)\n create mode 100644 cmd/entire/cli/transcript/compact/parse.go\n create mode 100644 cmd/entire/cli/transcript/compact/parse_test.go\n",
+            "metadata": {
+              "output": "[feat/checkpoints-v2-explain 85ee0dcaa] feat: centralize compact transcript parsing\n 6 files changed, 433 insertions(+), 1 deletion(-)\n create mode 100644 cmd/entire/cli/transcript/compact/parse.go\n create mode 100644 cmd/entire/cli/transcript/compact/parse_test.go\n",
+              "exit": 0,
+              "description": "Commits compact parsing and explain integration changes",
+              "truncated": false
+            },
+            "title": "Commits compact parsing and explain integration changes",
             "time": {
-              "start": 1775594346154
+              "start": 1775594346152,
+              "end": 1775594372472
             }
           },
           "metadata": {
@@ -36433,6 +36450,1526 @@
           "id": "prt_d69ab8832001ch4b0cfhLB9nSk",
           "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2",
           "messageID": "msg_d69ab676d0013K7iyp7j9Lea0m"
+        },
+        {
+          "reason": "tool-calls",
+          "snapshot": "b930166bb69a869f193a9e186f647b3d2da0a5f7",
+          "type": "step-finish",
+          "tokens": {
+            "total": 136749,
+            "input": 4548,
+            "output": 218,
+            "reasoning": 143,
+            "cache": {
+              "write": 0,
+              "read": 131840
+            }
+          },
+          "cost": 0,
+          "id": "prt_d69abfd79001Y5o0cHvHCyevpu",
+          "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2",
+          "messageID": "msg_d69ab676d0013K7iyp7j9Lea0m"
+        }
+      ]
+    },
+    {
+      "info": {
+        "parentID": "msg_d69ab3002001nZjLS8w6oOCmQD",
+        "role": "assistant",
+        "mode": "build",
+        "agent": "build",
+        "path": {
+          "cwd": "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain",
+          "root": "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain"
+        },
+        "cost": 0,
+        "tokens": {
+          "total": 136952,
+          "input": 518,
+          "output": 62,
+          "reasoning": 52,
+          "cache": {
+            "write": 0,
+            "read": 136320
+          }
+        },
+        "modelID": "gpt-5.3-codex",
+        "providerID": "openai",
+        "time": {
+          "created": 1775594372549,
+          "completed": 1775594377547
+        },
+        "finish": "tool-calls",
+        "id": "msg_d69abfdc5001G4v6q1yKHgach0",
+        "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2"
+      },
+      "parts": [
+        {
+          "snapshot": "b930166bb69a869f193a9e186f647b3d2da0a5f7",
+          "type": "step-start",
+          "id": "prt_d69ac069b0014j7TaVvBEu9tee",
+          "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2",
+          "messageID": "msg_d69abfdc5001G4v6q1yKHgach0"
+        },
+        {
+          "type": "reasoning",
+          "text": "",
+          "time": {
+            "start": 1775594374982,
+            "end": 1775594376382
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "rs_05b50f5bc3c8945b0169d56b86f2e48197a8b23a85f39ef62a",
+              "reasoningEncryptedContent": "REDACTED"
+            }
+          },
+          "id": "prt_d69ac0746001FWQT121H2nEUNN",
+          "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2",
+          "messageID": "msg_d69abfdc5001G4v6q1yKHgach0"
+        },
+        {
+          "type": "tool",
+          "tool": "read",
+          "callID": "call_FBkAv3FxSp7NsCtHhPSFHv2w",
+          "state": {
+            "status": "completed",
+            "input": {
+              "filePath": "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/integration_test/explain_test.go",
+              "offset": 1,
+              "limit": 320
+            },
+            "output": "<path>/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/integration_test/explain_test.go</path>\n<type>file</type>\n<content>\n1: //go:build integration\n2: \n3: package integration\n4: \n5: import (\n6: \t\"strings\"\n7: \t\"testing\"\n8: )\n9: \n10: func TestExplain_NoCurrentSession(t *testing.T) {\n11: \tt.Parallel()\n12: \tenv := NewFeatureBranchEnv(t)\n13: \t// Without any flags, explain shows the branch view (not an error)\n14: \toutput, err := env.RunCLIWithError(\"explain\")\n15: \n16: \tif err != nil {\n17: \t\tt.Errorf(\"expected success for branch view, got error: %v, output: %s\", err, output)\n18: \t\treturn\n19: \t}\n20: \n21: \t// Should show branch information and checkpoint count\n22: \tif !strings.Contains(output, \"Branch:\") {\n23: \t\tt.Errorf(\"expected 'Branch:' header in output, got: %s\", output)\n24: \t}\n25: \tif !strings.Contains(output, \"Checkpoints:\") {\n26: \t\tt.Errorf(\"expected 'Checkpoints:' in output, got: %s\", output)\n27: \t}\n28: }\n29: \n30: func TestExplain_SessionFilter(t *testing.T) {\n31: \tt.Parallel()\n32: \tenv := NewFeatureBranchEnv(t)\n33: \t// --session now filters the list view instead of showing session details\n34: \t// A nonexistent session ID should show an empty list, not an error\n35: \toutput, err := env.RunCLIWithError(\"explain\", \"--session\", \"nonexistent-session-id\")\n36: \n37: \tif err != nil {\n38: \t\tt.Errorf(\"expected success (empty list) for session filter, got error: %v, output: %s\", err, output)\n39: \t\treturn\n40: \t}\n41: \n42: \t// Should show branch header\n43: \tif !strings.Contains(output, \"Branch:\") {\n44: \t\tt.Errorf(\"expected 'Branch:' header in output, got: %s\", output)\n45: \t}\n46: \n47: \t// Should show 0 checkpoints (filter found no matches)\n48: \tif !strings.Contains(output, \"Checkpoints: 0\") {\n49: \t\tt.Errorf(\"expected 'Checkpoints: 0' for nonexistent session filter, got: %s\", output)\n50: \t}\n51: \n52: \t// Should show filter info\n53: \tif !strings.Contains(output, \"Filtered by session:\") {\n54: \t\tt.Errorf(\"expected 'Filtered by session:' in output, got: %s\", output)\n55: \t}\n56: }\n57: \n58: func TestExplain_MutualExclusivity(t *testing.T) {\n59: \tt.Parallel()\n60: \tenv := NewFeatureBranchEnv(t)\n61: \t// Try to provide both --session and --commit flags\n62: \toutput, err := env.RunCLIWithError(\"explain\", \"--session\", \"test-session\", \"--commit\", \"abc123\")\n63: \n64: \tif err == nil {\n65: \t\tt.Errorf(\"expected error when both flags provided, got output: %s\", output)\n66: \t\treturn\n67: \t}\n68: \n69: \tif !strings.Contains(strings.ToLower(output), \"cannot specify multiple\") {\n70: \t\tt.Errorf(\"expected 'cannot specify multiple' error, got: %s\", output)\n71: \t}\n72: }\n73: \n74: func TestExplain_CheckpointNotFound(t *testing.T) {\n75: \tt.Parallel()\n76: \tenv := NewFeatureBranchEnv(t)\n77: \t// Try to explain a non-existent checkpoint\n78: \toutput, err := env.RunCLIWithError(\"explain\", \"--checkpoint\", \"nonexistent123\")\n79: \n80: \tif err == nil {\n81: \t\tt.Errorf(\"expected error for nonexistent checkpoint, got output: %s\", output)\n82: \t\treturn\n83: \t}\n84: \n85: \tif !strings.Contains(output, \"checkpoint not found\") {\n86: \t\tt.Errorf(\"expected 'checkpoint not found' error, got: %s\", output)\n87: \t}\n88: }\n89: \n90: func TestExplain_CheckpointMutualExclusivity(t *testing.T) {\n91: \tt.Parallel()\n92: \tenv := NewFeatureBranchEnv(t)\n93: \t// Try to provide --checkpoint with --session\n94: \toutput, err := env.RunCLIWithError(\"explain\", \"--session\", \"test-session\", \"--checkpoint\", \"abc123\")\n95: \n96: \tif err == nil {\n97: \t\tt.Errorf(\"expected error when both flags provided, got output: %s\", output)\n98: \t\treturn\n99: \t}\n100: \n101: \tif !strings.Contains(strings.ToLower(output), \"cannot specify multiple\") {\n102: \t\tt.Errorf(\"expected 'cannot specify multiple' error, got: %s\", output)\n103: \t}\n104: }\n105: \n106: func TestExplain_CommitWithoutCheckpoint(t *testing.T) {\n107: \tt.Parallel()\n108: \tenv := NewFeatureBranchEnv(t)\n109: \t// Create a regular commit without Entire-Checkpoint trailer\n110: \tenv.WriteFile(\"test.txt\", \"content\")\n111: \tenv.GitAdd(\"test.txt\")\n112: \tenv.GitCommit(\"Regular commit without Entire trailer\")\n113: \n114: \t// Get the commit hash\n115: \tcommitHash := env.GetHeadHash()\n116: \n117: \t// Run explain --commit\n118: \toutput, err := env.RunCLIWithError(\"explain\", \"--commit\", commitHash[:7])\n119: \tif err != nil {\n120: \t\tt.Fatalf(\"unexpected error: %v, output: %s\", err, output)\n121: \t}\n122: \n123: \t// Should show \"No associated Entire checkpoint\" message\n124: \tif !strings.Contains(output, \"No associated Entire checkpoint\") {\n125: \t\tt.Errorf(\"expected 'No associated Entire checkpoint' message, got: %s\", output)\n126: \t}\n127: }\n128: \n129: func TestExplain_CommitWithCheckpointTrailer(t *testing.T) {\n130: \tt.Parallel()\n131: \tenv := NewFeatureBranchEnv(t)\n132: \t// Create a commit with Entire-Checkpoint trailer\n133: \tenv.WriteFile(\"test.txt\", \"content\")\n134: \tenv.GitAdd(\"test.txt\")\n135: \tenv.GitCommitWithCheckpointID(\"Commit with checkpoint\", \"abc123def456\")\n136: \n137: \t// Get the commit hash\n138: \tcommitHash := env.GetHeadHash()\n139: \n140: \t// Run explain --commit - it should try to look up the checkpoint\n141: \t// Since the checkpoint doesn't actually exist in the store, it should error\n142: \toutput, err := env.RunCLIWithError(\"explain\", \"--commit\", commitHash[:7])\n143: \n144: \t// We expect an error because the checkpoint abc123def456 doesn't exist\n145: \tif err == nil {\n146: \t\t// If it succeeded, check if it found the checkpoint (it shouldn't)\n147: \t\tif strings.Contains(output, \"Checkpoint:\") {\n148: \t\t\tt.Logf(\"checkpoint was found (unexpected but ok if test created one)\")\n149: \t\t}\n150: \t} else {\n151: \t\t// Expected: checkpoint not found error\n152: \t\tif !strings.Contains(output, \"checkpoint not found\") {\n153: \t\t\tt.Errorf(\"expected 'checkpoint not found' error, got: %s\", output)\n154: \t\t}\n155: \t}\n156: }\n\n(End of file - total 156 lines)\n</content>",
+            "metadata": {
+              "preview": "//go:build integration\n\npackage integration\n\nimport (\n\t\"strings\"\n\t\"testing\"\n)\n\nfunc TestExplain_NoCurrentSession(t *testing.T) {\n\tt.Parallel()\n\tenv := NewFeatureBranchEnv(t)\n\t// Without any flags, explain shows the branch view (not an error)\n\toutput, err := env.RunCLIWithError(\"explain\")\n\n\tif err != nil {\n\t\tt.Errorf(\"expected success for branch view, got error: %v, output: %s\", err, output)\n\t\treturn\n\t}\n",
+              "truncated": false,
+              "loaded": []
+            },
+            "title": "cmd/entire/cli/integration_test/explain_test.go",
+            "time": {
+              "start": 1775594377434,
+              "end": 1775594377447
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_05b50f5bc3c8945b0169d56b884c748197955c1ae5db33d705"
+            }
+          },
+          "id": "prt_d69ac0cc0001bSsTuojiWDWgzq",
+          "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2",
+          "messageID": "msg_d69abfdc5001G4v6q1yKHgach0"
+        },
+        {
+          "reason": "tool-calls",
+          "snapshot": "b930166bb69a869f193a9e186f647b3d2da0a5f7",
+          "type": "step-finish",
+          "tokens": {
+            "total": 136952,
+            "input": 518,
+            "output": 62,
+            "reasoning": 52,
+            "cache": {
+              "write": 0,
+              "read": 136320
+            }
+          },
+          "cost": 0,
+          "id": "prt_d69ac1108001z5jG4OiWqU3ReW",
+          "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2",
+          "messageID": "msg_d69abfdc5001G4v6q1yKHgach0"
+        }
+      ]
+    },
+    {
+      "info": {
+        "parentID": "msg_d69ab3002001nZjLS8w6oOCmQD",
+        "role": "assistant",
+        "mode": "build",
+        "agent": "build",
+        "path": {
+          "cwd": "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain",
+          "root": "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain"
+        },
+        "cost": 0,
+        "tokens": {
+          "total": 138820,
+          "input": 1878,
+          "output": 76,
+          "reasoning": 34,
+          "cache": {
+            "write": 0,
+            "read": 136832
+          }
+        },
+        "modelID": "gpt-5.3-codex",
+        "providerID": "openai",
+        "time": {
+          "created": 1775594377558,
+          "completed": 1775594382216
+        },
+        "finish": "tool-calls",
+        "id": "msg_d69ac1156001H8dCpMCu71PeKn",
+        "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2"
+      },
+      "parts": [
+        {
+          "snapshot": "b930166bb69a869f193a9e186f647b3d2da0a5f7",
+          "type": "step-start",
+          "id": "prt_d69ac17eb001hztTyi7ev1dubM",
+          "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2",
+          "messageID": "msg_d69ac1156001H8dCpMCu71PeKn"
+        },
+        {
+          "type": "reasoning",
+          "text": "",
+          "time": {
+            "start": 1775594379572,
+            "end": 1775594380648
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "rs_04d1bd7fdc326c5f0169d56b8b8c4481958c95cfbb350ddfc3",
+              "reasoningEncryptedContent": "REDACTED"
+            }
+          },
+          "id": "prt_d69ac1934001T5RC1jxFQX32f5",
+          "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2",
+          "messageID": "msg_d69ac1156001H8dCpMCu71PeKn"
+        },
+        {
+          "type": "tool",
+          "tool": "grep",
+          "callID": "call_3srFfSd3J0AYt4PWWrFp12Jz",
+          "state": {
+            "status": "completed",
+            "input": {
+              "pattern": "SetSettings|settings.json|strategy_options|checkpoints_v2|RunCLIWithError",
+              "path": "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/integration_test",
+              "include": "*.go"
+            },
+            "output": "Found 130 matches (showing first 100)\n/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/integration_test/v2_dual_write_test.go:\n  Line 17: // TestV2DualWrite_FullWorkflow verifies that when checkpoints_v2 is enabled,\n  Line 33: \t// Initialize with checkpoints_v2 enabled\n  Line 35: \t\t\"checkpoints_v2\": true,\n  Line 134: // TestV2DualWrite_Disabled verifies that when checkpoints_v2 is NOT enabled,\n  Line 149: \t// Initialize WITHOUT checkpoints_v2\n  Line 178: // finalization also updates v2 refs when checkpoints_v2 is enabled.\n  Line 193: \t\t\"checkpoints_v2\": true,\n\n/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/integration_test/v2_push_test.go:\n  Line 41: \t// Initialize with both checkpoints_v2 and push_v2_refs enabled\n  Line 43: \t\t\"checkpoints_v2\": true,\n  Line 92: \t// Enable checkpoints_v2 but NOT push_v2_refs\n  Line 94: \t\t\"checkpoints_v2\": true,\n\n/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/integration_test/v2_resume_test.go:\n  Line 17: // checkpoints_v2 is enabled. The session transcript should be read from\n  Line 33: \t// Initialize with checkpoints_v2 enabled\n  Line 35: \t\t\"checkpoints_v2\": true,\n  Line 80: // when checkpoints_v2 is enabled.\n  Line 95: \t\t\"checkpoints_v2\": true,\n  Line 124: // TestV2Resume_FallsBackToV1 verifies that when checkpoints_v2 is enabled but\n  Line 164: \tstratOpts, _ := settings[\"strategy_options\"].(map[string]any)\n  Line 168: \tstratOpts[\"checkpoints_v2\"] = true\n  Line 169: \tsettings[\"strategy_options\"] = stratOpts\n\n/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/integration_test/testenv_test.go:\n  Line 67: \t\tt.Errorf(\"settings.json should contain enabled field, got: %s\", settingsContent)\n\n/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/integration_test/setup_gemini_hooks_test.go:\n  Line 23: \tenv.InitEntire() // Sets up .entire/settings.json\n  Line 31: \toutput, err := env.RunCLIWithError(\"enable\", \"--agent\", \"gemini\")\n  Line 36: \t// Read the generated settings.json\n  Line 115: \toutput, err := env.RunCLIWithError(\"enable\", \"--agent\", \"gemini\")\n  Line 123: \t\tt.Fatalf(\"failed to read settings.json: %v\", err)\n  Line 128: \t\tt.Fatalf(\"failed to parse settings.json: %v\", err)\n  Line 174: \t\tt.Fatalf(\"failed to parse settings.json: %v\", err)\n\n/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/integration_test/setup_factoryai_hooks_test.go:\n  Line 24: \tenv.InitEntire() // Sets up .entire/settings.json\n  Line 32: \toutput, err := env.RunCLIWithError(\"enable\", \"--agent\", \"factoryai-droid\")\n  Line 37: \t// Read the generated settings.json\n  Line 67: \t\tt.Fatalf(\"failed to read settings.json: %v\", err)\n  Line 71: \t\tt.Error(\"settings.json should contain permissions.deny rule for .entire/metadata/**\")\n  Line 110: \toutput, err := env.RunCLIWithError(\"enable\", \"--agent\", \"factoryai-droid\")\n  Line 118: \t\tt.Fatalf(\"failed to read settings.json: %v\", err)\n  Line 123: \t\tt.Fatalf(\"failed to parse settings.json: %v\", err)\n  Line 167: \t\tt.Fatalf(\"failed to parse settings.json: %v\", err)\n\n/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/integration_test/testenv.go:\n  Line 144: \toutput, err := env.RunCLIWithError(args...)\n  Line 151: // RunCLIWithError runs the entire CLI and returns output and error.\n  Line 152: func (env *TestEnv) RunCLIWithError(args ...string) (string, error) {\n  Line 259: // hook commands and checkpoint metadata, not from settings.json.\n  Line 287: \t// Write settings.json\n  Line 288: \t// Note: The agent name is NOT stored in settings.json — the CLI determines\n  Line 296: \t\tsettings[\"strategy_options\"] = strategyOptions\n  Line 1829: // PatchSettings merges extra keys into .entire/settings.json.\n\n/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/integration_test/setup_cmd_test.go:\n  Line 107: \tstdout, err := env.RunCLIWithError(\"rewind\", \"--list\")\n\n/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/integration_test/setup_claude_hooks_test.go:\n  Line 42: \tenv.InitEntire() // Sets up .entire/settings.json\n  Line 50: \toutput, err := env.RunCLIWithError(\"enable\", \"--agent\", \"claude-code\")\n  Line 55: \t// Read the generated settings.json\n  Line 119: \toutput, err := env.RunCLIWithError(\"enable\", \"--agent\", \"claude-code\")\n  Line 127: \t\tt.Fatalf(\"failed to read settings.json: %v\", err)\n  Line 132: \t\tt.Fatalf(\"failed to parse settings.json: %v\", err)\n  Line 171: \t\tt.Fatalf(\"failed to parse settings.json: %v\", err)\n\n/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/integration_test/remote_operations_test.go:\n  Line 149: \t\t\"strategy_options\": map[string]any{\n  Line 242: \t\t\"strategy_options\": map[string]any{\n  Line 546: \t\t\"strategy_options\": map[string]any{\n  Line 593: \t\t\"strategy_options\": map[string]any{\n\n/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/integration_test/manual_commit_workflow_test.go:\n  Line 1009: \t// This simulates files like .claude/settings.json created by \"entire setup\"\n  Line 1011: \tenv.WriteFile(\".claude/settings.json\", untrackedContent)\n  Line 1073: \tif !env.FileExists(\".claude/settings.json\") {\n  Line 1074: \t\tt.Fatal(\"Untracked file .claude/settings.json should exist before rewind\")\n  Line 1084: \tif !env.FileExists(\".claude/settings.json\") {\n  Line 1085: \t\tt.Error(\"CRITICAL: .claude/settings.json was deleted during rewind but it existed before the session started!\")\n  Line 1087: \t\trestoredContent := env.ReadFile(\".claude/settings.json\")\n  Line 1091: \t\t\tt.Log(\"✓ Untracked file .claude/settings.json was preserved correctly\")\n  Line 1400: \tenv.WriteFile(\".claude/settings.json\", untrackedContent)\n  Line 1442: \t// Second checkpoint of session - should capture .claude/settings.json\n  Line 1496: \t// Since .claude/settings.json was created before checkpoint 1, it's in checkpoint 1's tree\n  Line 1498: \tif !env.FileExists(\".claude/settings.json\") {\n  Line 1499: \t\tt.Error(\".claude/settings.json should have been preserved during rewind\")\n  Line 1501: \t\trestoredContent := env.ReadFile(\".claude/settings.json\")\n  Line 1505: \t\t\tt.Log(\"✓ .claude/settings.json was preserved correctly\")\n\n/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/integration_test/explain_test.go:\n  Line 14: \toutput, err := env.RunCLIWithError(\"explain\")\n  Line 35: \toutput, err := env.RunCLIWithError(\"explain\", \"--session\", \"nonexistent-session-id\")\n  Line 62: \toutput, err := env.RunCLIWithError(\"explain\", \"--session\", \"test-session\", \"--commit\", \"abc123\")\n  Line 78: \toutput, err := env.RunCLIWithError(\"explain\", \"--checkpoint\", \"nonexistent123\")\n  Line 94: \toutput, err := env.RunCLIWithError(\"explain\", \"--session\", \"test-session\", \"--checkpoint\", \"abc123\")\n  Line 118: \toutput, err := env.RunCLIWithError(\"explain\", \"--commit\", commitHash[:7])\n  Line 142: \toutput, err := env.RunCLIWithError(\"explain\", \"--commit\", commitHash[:7])\n\n/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/integration_test/deferred_finalization_test.go:\n  Line 1031: \toutput, resetErr := env.RunCLIWithError(\"reset\", \"--session\", sess.ID, \"--force\")\n\n/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/integration_test/attach_test.go:\n  Line 314: \t_, err := env.RunCLIWithError(\"attach\", \"../path-traversal\", \"-a\", \"claude-code\")\n\n/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/integration_test/agent_test.go:\n  Line 44: \t\t// Create .claude/settings.json\n  Line 51: \t\t\tt.Fatalf(\"failed to write settings.json: %v\", err)\n  Line 134: \t\t// Verify settings.json was created\n  Line 137: \t\t\tt.Error(\"settings.json was not created\")\n  Line 143: \t\t\tt.Fatalf(\"failed to read settings.json: %v\", err)\n  Line 147: \t\t\tt.Error(\"settings.json should contain permissions.deny rule for .entire/metadata/**\")\n  Line 204: \t\t\tt.Fatalf(\"failed to read settings.json: %v\", err)\n  Line 209: \t\t\tt.Error(\"localDev hooks should use 'go run', but settings.json doesn't contain it\")\n  Line 416: \t\t// Create .gemini/settings.json\n  Line 423: \t\t\tt.Fatalf(\"failed to write settings.json: %v\", err)\n  Line 491: \t\t// Verify settings.json was created\n  Line 494: \t\t\tt.Error(\"settings.json was not created\")\n  Line 497: \t\t// Verify hooks structure in settings.json\n  Line 500: \t\t\tt.Fatalf(\"failed to read settings.json: %v\", err)\n  Line 506: \t\t\tt.Error(\"settings.json should contain SessionStart hook\")\n  Line 509: \t\t\tt.Error(\"settings.json should contain SessionEnd hook\")\n  Line 512: \t\t\tt.Error(\"settings.json should contain BeforeAgent hook\")\n  Line 515: \t\t\tt.Error(\"settings.json should contain AfterAgent hook\")\n  Line 518: \t\t\tt.Error(\"settings.json should contain BeforeModel hook\")\n\n(Results truncated: showing 100 of 130 matches (30 hidden). Consider using a more specific path or pattern.)",
+            "metadata": {
+              "matches": 130,
+              "truncated": true
+            },
+            "title": "SetSettings|settings.json|strategy_options|checkpoints_v2|RunCLIWithError",
+            "time": {
+              "start": 1775594382007,
+              "end": 1775594382032
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_04d1bd7fdc326c5f0169d56b8c9cec8195a8ba01c779e636ea"
+            }
+          },
+          "id": "prt_d69ac1d6a001i85hcMzzM7noL7",
+          "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2",
+          "messageID": "msg_d69ac1156001H8dCpMCu71PeKn"
+        },
+        {
+          "reason": "tool-calls",
+          "snapshot": "b930166bb69a869f193a9e186f647b3d2da0a5f7",
+          "type": "step-finish",
+          "tokens": {
+            "total": 138820,
+            "input": 1878,
+            "output": 76,
+            "reasoning": 34,
+            "cache": {
+              "write": 0,
+              "read": 136832
+            }
+          },
+          "cost": 0,
+          "id": "prt_d69ac2345001sbmp43By94QXVN",
+          "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2",
+          "messageID": "msg_d69ac1156001H8dCpMCu71PeKn"
+        }
+      ]
+    },
+    {
+      "info": {
+        "parentID": "msg_d69ab3002001nZjLS8w6oOCmQD",
+        "role": "assistant",
+        "mode": "build",
+        "agent": "build",
+        "path": {
+          "cwd": "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain",
+          "root": "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain"
+        },
+        "cost": 0,
+        "tokens": {
+          "total": 141515,
+          "input": 2688,
+          "output": 62,
+          "reasoning": 13,
+          "cache": {
+            "write": 0,
+            "read": 138752
+          }
+        },
+        "modelID": "gpt-5.3-codex",
+        "providerID": "openai",
+        "time": {
+          "created": 1775594382228,
+          "completed": 1775594387739
+        },
+        "finish": "tool-calls",
+        "id": "msg_d69ac2394001KDvwcUqFy2ZiO5",
+        "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2"
+      },
+      "parts": [
+        {
+          "snapshot": "b930166bb69a869f193a9e186f647b3d2da0a5f7",
+          "type": "step-start",
+          "id": "prt_d69ac29e40018vsnges0w1mhuq",
+          "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2",
+          "messageID": "msg_d69ac2394001KDvwcUqFy2ZiO5"
+        },
+        {
+          "type": "reasoning",
+          "text": "",
+          "time": {
+            "start": 1775594384265,
+            "end": 1775594387094
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "rs_08cacfbec88b9e920169d56b90237081939eed41fc0861a211",
+              "reasoningEncryptedContent": "REDACTED"
+            }
+          },
+          "id": "prt_d69ac2b8900121Y09lK8QXJK3w",
+          "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2",
+          "messageID": "msg_d69ac2394001KDvwcUqFy2ZiO5"
+        },
+        {
+          "type": "tool",
+          "tool": "read",
+          "callID": "call_CugT3UxlsHiSYHL8fmfxvm1M",
+          "state": {
+            "status": "completed",
+            "input": {
+              "filePath": "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/integration_test/testenv.go",
+              "offset": 1800,
+              "limit": 120
+            },
+            "output": "<path>/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/integration_test/testenv.go</path>\n<type>file</type>\n<content>\n1800: \topenCodeProjectDir := env.T.TempDir()\n1801: \tif resolved, err := filepath.EvalSymlinks(openCodeProjectDir); err == nil {\n1802: \t\topenCodeProjectDir = resolved\n1803: \t}\n1804: \n1805: \tcloneEnv := &TestEnv{\n1806: \t\tT:                  env.T,\n1807: \t\tRepoDir:            cloneDir,\n1808: \t\tClaudeProjectDir:   claudeProjectDir,\n1809: \t\tGeminiProjectDir:   geminiProjectDir,\n1810: \t\tOpenCodeProjectDir: openCodeProjectDir,\n1811: \t}\n1812: \n1813: \t// Initialize Entire in the clone\n1814: \tcloneEnv.InitEntire()\n1815: \n1816: \treturn cloneEnv\n1817: }\n1818: \n1819: // BranchExistsOnRemote checks if a branch exists on a bare remote by inspecting its refs.\n1820: func (env *TestEnv) BranchExistsOnRemote(bareDir, branchName string) bool {\n1821: \tenv.T.Helper()\n1822: \n1823: \tcmd := exec.CommandContext(env.T.Context(), \"git\", \"show-ref\", \"--verify\", \"--quiet\", \"refs/heads/\"+branchName)\n1824: \tcmd.Dir = bareDir\n1825: \tcmd.Env = testutil.GitIsolatedEnv()\n1826: \treturn cmd.Run() == nil\n1827: }\n1828: \n1829: // PatchSettings merges extra keys into .entire/settings.json.\n1830: func (env *TestEnv) PatchSettings(extra map[string]any) {\n1831: \tenv.T.Helper()\n1832: \n1833: \tsettingsPath := filepath.Join(env.RepoDir, \".entire\", paths.SettingsFileName)\n1834: \tdata, err := os.ReadFile(settingsPath) //nolint:gosec // G304: path is constructed from test env, not user input\n1835: \tif err != nil {\n1836: \t\tenv.T.Fatalf(\"failed to read settings: %v\", err)\n1837: \t}\n1838: \n1839: \tvar settings map[string]any\n1840: \tif err := json.Unmarshal(data, &settings); err != nil {\n1841: \t\tenv.T.Fatalf(\"failed to parse settings: %v\", err)\n1842: \t}\n1843: \n1844: \tfor k, v := range extra {\n1845: \t\tsettings[k] = v\n1846: \t}\n1847: \n1848: \tout, err := json.MarshalIndent(settings, \"\", \"  \")\n1849: \tif err != nil {\n1850: \t\tenv.T.Fatalf(\"failed to marshal settings: %v\", err)\n1851: \t}\n1852: \tout = append(out, '\\n')\n1853: \n1854: \tif err := os.WriteFile(settingsPath, out, 0o644); err != nil { //nolint:gosec // G306: consistent with other settings writes in testenv.go\n1855: \t\tenv.T.Fatalf(\"failed to write settings: %v\", err)\n1856: \t}\n1857: }\n1858: \n1859: // GitPush pushes a branch to a remote. Fails the test on error.\n1860: func (env *TestEnv) GitPush(remote, refSpec string) {\n1861: \tenv.T.Helper()\n1862: \n1863: \tcmd := exec.CommandContext(env.T.Context(), \"git\", \"push\", \"--no-verify\", remote, refSpec)\n1864: \tcmd.Dir = env.RepoDir\n1865: \tcmd.Env = testutil.GitIsolatedEnv()\n1866: \tif output, err := cmd.CombinedOutput(); err != nil {\n1867: \t\tenv.T.Fatalf(\"git push %s %s failed: %v\\n%s\", remote, refSpec, err, output)\n1868: \t}\n1869: }\n1870: \n1871: // RunPrePush runs the pre-push hook via the CLI binary, consistent with how\n1872: // other CLI invocations (GitCommitWithShadowHooks, RunCLI) use env.cliEnv().\n1873: func (env *TestEnv) RunPrePush(remote string) {\n1874: \tenv.T.Helper()\n1875: \tif err := env.RunPrePushWithError(remote); err != nil {\n1876: \t\tenv.T.Fatalf(\"PrePush failed: %v\", err)\n1877: \t}\n1878: }\n1879: \n1880: // RunPrePushWithError runs the pre-push hook and returns any error instead of failing.\n1881: func (env *TestEnv) RunPrePushWithError(remote string) error {\n1882: \tenv.T.Helper()\n1883: \n1884: \tcmd := exec.CommandContext(env.T.Context(), getTestBinary(), \"hooks\", \"git\", \"pre-push\", remote)\n1885: \tcmd.Dir = env.RepoDir\n1886: \tcmd.Env = env.cliEnv()\n1887: \tcmd.Stdin = nil\n1888: \n1889: \toutput, err := cmd.CombinedOutput()\n1890: \tenv.T.Logf(\"pre-push output: %s\", output)\n1891: \tif err != nil {\n1892: \t\treturn fmt.Errorf(\"pre-push hook failed: %w\", err)\n1893: \t}\n1894: \treturn nil\n1895: }\n1896: \n1897: // FetchMetadataBranch fetches the entire/checkpoints/v1 branch from a remote URL.\n1898: // Fails the test on error. Use this for clone-and-resume tests that need metadata.\n1899: func (env *TestEnv) FetchMetadataBranch(remoteURL string) {\n1900: \tenv.T.Helper()\n1901: \n1902: \tbranchName := paths.MetadataBranchName\n1903: \trefSpec := \"+refs/heads/\" + branchName + \":refs/heads/\" + branchName\n1904: \tcmd := exec.CommandContext(env.T.Context(), \"git\", \"fetch\", \"--no-tags\", remoteURL, refSpec)\n1905: \tcmd.Dir = env.RepoDir\n1906: \tcmd.Env = testutil.GitIsolatedEnv()\n1907: \n1908: \toutput, err := cmd.CombinedOutput()\n1909: \tif err != nil {\n1910: \t\tenv.T.Fatalf(\"fetch metadata branch failed: %v\\n%s\", err, output)\n1911: \t}\n1912: }\n1913: \n1914: // GetBranchTipParentCount returns the number of parents for the tip commit of a branch.\n1915: func (env *TestEnv) GetBranchTipParentCount(branchName string) int {\n1916: \tenv.T.Helper()\n1917: \n1918: \trepo, err := git.PlainOpen(env.RepoDir)\n1919: \tif err != nil {\n\n(Showing lines 1800-1919 of 1954. Use offset=1920 to continue.)\n</content>",
+            "metadata": {
+              "preview": "\topenCodeProjectDir := env.T.TempDir()\n\tif resolved, err := filepath.EvalSymlinks(openCodeProjectDir); err == nil {\n\t\topenCodeProjectDir = resolved\n\t}\n\n\tcloneEnv := &TestEnv{\n\t\tT:                  env.T,\n\t\tRepoDir:            cloneDir,\n\t\tClaudeProjectDir:   claudeProjectDir,\n\t\tGeminiProjectDir:   geminiProjectDir,\n\t\tOpenCodeProjectDir: openCodeProjectDir,\n\t}\n\n\t// Initialize Entire in the clone\n\tcloneEnv.InitEntire()\n\n\treturn cloneEnv\n}\n\n// BranchExistsOnRemote checks if a branch exists on a bare remote by inspecting its refs.",
+              "truncated": true,
+              "loaded": []
+            },
+            "title": "cmd/entire/cli/integration_test/testenv.go",
+            "time": {
+              "start": 1775594387567,
+              "end": 1775594387573
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_08cacfbec88b9e920169d56b930c688193a349f8f0da4db1f6"
+            }
+          },
+          "id": "prt_d69ac3697001Q3jtHK72ih6Qkq",
+          "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2",
+          "messageID": "msg_d69ac2394001KDvwcUqFy2ZiO5"
+        },
+        {
+          "reason": "tool-calls",
+          "snapshot": "b930166bb69a869f193a9e186f647b3d2da0a5f7",
+          "type": "step-finish",
+          "tokens": {
+            "total": 141515,
+            "input": 2688,
+            "output": 62,
+            "reasoning": 13,
+            "cache": {
+              "write": 0,
+              "read": 138752
+            }
+          },
+          "cost": 0,
+          "id": "prt_d69ac38e4001vsP5z61U0leqoI",
+          "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2",
+          "messageID": "msg_d69ac2394001KDvwcUqFy2ZiO5"
+        }
+      ]
+    },
+    {
+      "info": {
+        "parentID": "msg_d69ab3002001nZjLS8w6oOCmQD",
+        "role": "assistant",
+        "mode": "build",
+        "agent": "build",
+        "path": {
+          "cwd": "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain",
+          "root": "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain"
+        },
+        "cost": 0,
+        "tokens": {
+          "total": 143239,
+          "input": 1663,
+          "output": 63,
+          "reasoning": 73,
+          "cache": {
+            "write": 0,
+            "read": 141440
+          }
+        },
+        "modelID": "gpt-5.3-codex",
+        "providerID": "openai",
+        "time": {
+          "created": 1775594387753,
+          "completed": 1775594392578
+        },
+        "finish": "tool-calls",
+        "id": "msg_d69ac3929001orpGMovvvnEBol",
+        "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2"
+      },
+      "parts": [
+        {
+          "snapshot": "b930166bb69a869f193a9e186f647b3d2da0a5f7",
+          "type": "step-start",
+          "id": "prt_d69ac3f8a001aZ2ePvZEupTlqE",
+          "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2",
+          "messageID": "msg_d69ac3929001orpGMovvvnEBol"
+        },
+        {
+          "type": "reasoning",
+          "text": "",
+          "time": {
+            "start": 1775594389659,
+            "end": 1775594391386
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "rs_0ecacdf903f37e0e0169d56b95a0a48197a57631a5e0b4dc76",
+              "reasoningEncryptedContent": "REDACTED"
+            }
+          },
+          "id": "prt_d69ac409b001emO3snPla7SwJu",
+          "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2",
+          "messageID": "msg_d69ac3929001orpGMovvvnEBol"
+        },
+        {
+          "type": "tool",
+          "tool": "read",
+          "callID": "call_1ZA3edVk70eBsY7cwKvsaCqZ",
+          "state": {
+            "status": "completed",
+            "input": {
+              "filePath": "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/integration_test/v2_resume_test.go",
+              "offset": 1,
+              "limit": 260
+            },
+            "output": "<path>/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/integration_test/v2_resume_test.go</path>\n<type>file</type>\n<content>\n1: //go:build integration\n2: \n3: package integration\n4: \n5: import (\n6: \t\"encoding/json\"\n7: \t\"os\"\n8: \t\"path/filepath\"\n9: \t\"testing\"\n10: \n11: \t\"github.com/entireio/cli/cmd/entire/cli/paths\"\n12: \t\"github.com/stretchr/testify/assert\"\n13: \t\"github.com/stretchr/testify/require\"\n14: )\n15: \n16: // TestV2Resume_SwitchBranchWithSession verifies that resume works when\n17: // checkpoints_v2 is enabled. The session transcript should be read from\n18: // v2 refs (/main for metadata, /full/* for raw transcript).\n19: func TestV2Resume_SwitchBranchWithSession(t *testing.T) {\n20: \tt.Parallel()\n21: \tenv := NewTestEnv(t)\n22: \tdefer env.Cleanup()\n23: \n24: \t// Setup repo with feature branch\n25: \tenv.InitRepo()\n26: \tenv.WriteFile(\"README.md\", \"# Test\")\n27: \tenv.WriteFile(\".gitignore\", \".entire/\\n\")\n28: \tenv.GitAdd(\"README.md\")\n29: \tenv.GitAdd(\".gitignore\")\n30: \tenv.GitCommit(\"Initial commit\")\n31: \tenv.GitCheckoutNewBranch(\"feature/v2-resume-test\")\n32: \n33: \t// Initialize with checkpoints_v2 enabled\n34: \tenv.InitEntireWithOptions(map[string]any{\n35: \t\t\"checkpoints_v2\": true,\n36: \t})\n37: \n38: \t// Create a session\n39: \tsession := env.NewSession()\n40: \terr := env.SimulateUserPromptSubmitWithPrompt(session.ID, \"Create hello script\")\n41: \trequire.NoError(t, err)\n42: \n43: \tcontent := \"puts 'Hello from v2 session'\"\n44: \tenv.WriteFile(\"hello.rb\", content)\n45: \n46: \tsession.CreateTranscript(\n47: \t\t\"Create hello script\",\n48: \t\t[]FileChange{{Path: \"hello.rb\", Content: content}},\n49: \t)\n50: \terr = env.SimulateStop(session.ID, session.TranscriptPath)\n51: \trequire.NoError(t, err)\n52: \n53: \t// Commit (triggers dual-write to v1 + v2)\n54: \tenv.GitCommitWithShadowHooks(\"Create hello script\", \"hello.rb\")\n55: \n56: \tfeatureBranch := env.GetCurrentBranch()\n57: \n58: \t// Switch to master\n59: \tenv.GitCheckoutBranch(\"master\")\n60: \tassert.Equal(t, \"master\", env.GetCurrentBranch())\n61: \n62: \t// Run resume to switch back to feature branch\n63: \toutput, err := env.RunResume(featureBranch)\n64: \trequire.NoError(t, err, \"resume failed: %s\", output)\n65: \n66: \t// Verify we switched back\n67: \tassert.Equal(t, featureBranch, env.GetCurrentBranch())\n68: \n69: \t// Verify output contains session info and resume command\n70: \tassert.Contains(t, output, \"Restored session\", \"output should contain 'Restored session'\")\n71: \tassert.Contains(t, output, \"claude -r\", \"output should contain resume command\")\n72: \n73: \t// Verify transcript was restored\n74: \ttranscriptFiles, err := filepath.Glob(filepath.Join(env.ClaudeProjectDir, \"*.jsonl\"))\n75: \trequire.NoError(t, err)\n76: \tassert.NotEmpty(t, transcriptFiles, \"transcript should be restored to Claude project dir\")\n77: }\n78: \n79: // TestV2Resume_AlreadyOnBranch verifies that resume works on the current branch\n80: // when checkpoints_v2 is enabled.\n81: func TestV2Resume_AlreadyOnBranch(t *testing.T) {\n82: \tt.Parallel()\n83: \tenv := NewTestEnv(t)\n84: \tdefer env.Cleanup()\n85: \n86: \tenv.InitRepo()\n87: \tenv.WriteFile(\"README.md\", \"# Test\")\n88: \tenv.WriteFile(\".gitignore\", \".entire/\\n\")\n89: \tenv.GitAdd(\"README.md\")\n90: \tenv.GitAdd(\".gitignore\")\n91: \tenv.GitCommit(\"Initial commit\")\n92: \tenv.GitCheckoutNewBranch(\"feature/v2-resume-same-branch\")\n93: \n94: \tenv.InitEntireWithOptions(map[string]any{\n95: \t\t\"checkpoints_v2\": true,\n96: \t})\n97: \n98: \tsession := env.NewSession()\n99: \terr := env.SimulateUserPromptSubmitWithPrompt(session.ID, \"Create test file\")\n100: \trequire.NoError(t, err)\n101: \n102: \tcontent := \"console.log('test')\"\n103: \tenv.WriteFile(\"test.js\", content)\n104: \n105: \tsession.CreateTranscript(\n106: \t\t\"Create test file\",\n107: \t\t[]FileChange{{Path: \"test.js\", Content: content}},\n108: \t)\n109: \terr = env.SimulateStop(session.ID, session.TranscriptPath)\n110: \trequire.NoError(t, err)\n111: \n112: \tenv.GitCommitWithShadowHooks(\"Create test file\", \"test.js\")\n113: \n114: \tcurrentBranch := env.GetCurrentBranch()\n115: \n116: \t// Run resume on the branch we're already on\n117: \toutput, err := env.RunResume(currentBranch)\n118: \trequire.NoError(t, err, \"resume failed: %s\", output)\n119: \n120: \tassert.Contains(t, output, \"Restored session\")\n121: \tassert.Contains(t, output, \"claude -r\")\n122: }\n123: \n124: // TestV2Resume_FallsBackToV1 verifies that when checkpoints_v2 is enabled but\n125: // checkpoint data only exists on v1, resume falls back to reading from v1.\n126: func TestV2Resume_FallsBackToV1(t *testing.T) {\n127: \tt.Parallel()\n128: \tenv := NewTestEnv(t)\n129: \tdefer env.Cleanup()\n130: \n131: \tenv.InitRepo()\n132: \tenv.WriteFile(\"README.md\", \"# Test\")\n133: \tenv.WriteFile(\".gitignore\", \".entire/\\n\")\n134: \tenv.GitAdd(\"README.md\")\n135: \tenv.GitAdd(\".gitignore\")\n136: \tenv.GitCommit(\"Initial commit\")\n137: \tenv.GitCheckoutNewBranch(\"feature/v2-fallback-test\")\n138: \n139: \t// First commit WITHOUT v2 (v1 only)\n140: \tenv.InitEntire()\n141: \n142: \tsession := env.NewSession()\n143: \terr := env.SimulateUserPromptSubmitWithPrompt(session.ID, \"Create initial file\")\n144: \trequire.NoError(t, err)\n145: \n146: \tcontent := \"# v1 only content\"\n147: \tenv.WriteFile(\"v1file.md\", content)\n148: \n149: \tsession.CreateTranscript(\n150: \t\t\"Create initial file\",\n151: \t\t[]FileChange{{Path: \"v1file.md\", Content: content}},\n152: \t)\n153: \terr = env.SimulateStop(session.ID, session.TranscriptPath)\n154: \trequire.NoError(t, err)\n155: \n156: \tenv.GitCommitWithShadowHooks(\"Create initial file\", \"v1file.md\")\n157: \n158: \t// Now enable v2 in settings (simulates upgrade)\n159: \tsettingsPath := filepath.Join(env.RepoDir, \".entire\", paths.SettingsFileName)\n160: \tsettingsData, err := os.ReadFile(settingsPath)\n161: \trequire.NoError(t, err)\n162: \tvar settings map[string]any\n163: \trequire.NoError(t, json.Unmarshal(settingsData, &settings))\n164: \tstratOpts, _ := settings[\"strategy_options\"].(map[string]any)\n165: \tif stratOpts == nil {\n166: \t\tstratOpts = make(map[string]any)\n167: \t}\n168: \tstratOpts[\"checkpoints_v2\"] = true\n169: \tsettings[\"strategy_options\"] = stratOpts\n170: \tupdatedData, err := json.MarshalIndent(settings, \"\", \"  \")\n171: \trequire.NoError(t, err)\n172: \trequire.NoError(t, os.WriteFile(settingsPath, updatedData, 0o644))\n173: \n174: \tfeatureBranch := env.GetCurrentBranch()\n175: \tenv.GitCheckoutBranch(\"master\")\n176: \n177: \t// Resume should fall back to v1 since data was written before v2 was enabled\n178: \toutput, err := env.RunResume(featureBranch)\n179: \trequire.NoError(t, err, \"resume failed: %s\", output)\n180: \n181: \tassert.Equal(t, featureBranch, env.GetCurrentBranch())\n182: \tassert.Contains(t, output, \"Restored session\")\n183: \tassert.Contains(t, output, \"claude -r\")\n184: }\n\n(End of file - total 184 lines)\n</content>",
+            "metadata": {
+              "preview": "//go:build integration\n\npackage integration\n\nimport (\n\t\"encoding/json\"\n\t\"os\"\n\t\"path/filepath\"\n\t\"testing\"\n\n\t\"github.com/entireio/cli/cmd/entire/cli/paths\"\n\t\"github.com/stretchr/testify/assert\"\n\t\"github.com/stretchr/testify/require\"\n)\n\n// TestV2Resume_SwitchBranchWithSession verifies that resume works when\n// checkpoints_v2 is enabled. The session transcript should be read from\n// v2 refs (/main for metadata, /full/* for raw transcript).\nfunc TestV2Resume_SwitchBranchWithSession(t *testing.T) {\n\tt.Parallel()",
+              "truncated": false,
+              "loaded": []
+            },
+            "title": "cmd/entire/cli/integration_test/v2_resume_test.go",
+            "time": {
+              "start": 1775594392397,
+              "end": 1775594392401
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_0ecacdf903f37e0e0169d56b975bac8197b073e52bf9b6d677"
+            }
+          },
+          "id": "prt_d69ac475b001Ybnpv3NLGpAPeW",
+          "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2",
+          "messageID": "msg_d69ac3929001orpGMovvvnEBol"
+        },
+        {
+          "reason": "tool-calls",
+          "snapshot": "b930166bb69a869f193a9e186f647b3d2da0a5f7",
+          "type": "step-finish",
+          "tokens": {
+            "total": 143239,
+            "input": 1663,
+            "output": 63,
+            "reasoning": 73,
+            "cache": {
+              "write": 0,
+              "read": 141440
+            }
+          },
+          "cost": 0,
+          "id": "prt_d69ac4bba001TzrINYSFWYLNdz",
+          "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2",
+          "messageID": "msg_d69ac3929001orpGMovvvnEBol"
+        }
+      ]
+    },
+    {
+      "info": {
+        "parentID": "msg_d69ab3002001nZjLS8w6oOCmQD",
+        "role": "assistant",
+        "mode": "build",
+        "agent": "build",
+        "path": {
+          "cwd": "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain",
+          "root": "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain"
+        },
+        "cost": 0,
+        "tokens": {
+          "total": 145466,
+          "input": 2190,
+          "output": 87,
+          "reasoning": 85,
+          "cache": {
+            "write": 0,
+            "read": 143104
+          }
+        },
+        "modelID": "gpt-5.3-codex",
+        "providerID": "openai",
+        "time": {
+          "created": 1775594392590,
+          "completed": 1775594398226
+        },
+        "finish": "tool-calls",
+        "id": "msg_d69ac4c0e001c0VYQvruhwYuKA",
+        "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2"
+      },
+      "parts": [
+        {
+          "snapshot": "b930166bb69a869f193a9e186f647b3d2da0a5f7",
+          "type": "step-start",
+          "id": "prt_d69ac5183001bOcVSw4mDB6McK",
+          "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2",
+          "messageID": "msg_d69ac4c0e001c0VYQvruhwYuKA"
+        },
+        {
+          "type": "reasoning",
+          "text": "",
+          "time": {
+            "start": 1775594394730,
+            "end": 1775594396626
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "rs_085841a1455ccdc20169d56b9aa74c8193b45248cd3892fe4a",
+              "reasoningEncryptedContent": "REDACTED"
+            }
+          },
+          "id": "prt_d69ac546a001h0oKslWwtsC0Zt",
+          "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2",
+          "messageID": "msg_d69ac4c0e001c0VYQvruhwYuKA"
+        },
+        {
+          "type": "tool",
+          "tool": "grep",
+          "callID": "call_S5OxuCAnEgLirZP2Y14dH5Fp",
+          "state": {
+            "status": "completed",
+            "input": {
+              "pattern": "GetHead|Trailer|Checkpoint|GitCommitWithShadowHooks|RunResume|GitShow|GetCommitMessage|git log",
+              "path": "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/integration_test/testenv.go",
+              "include": "testenv.go"
+            },
+            "output": "Found 88 matches\n/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/integration_test/testenv.go:\n  Line 435: // GitCommitWithCheckpointID creates a commit with Entire-Checkpoint trailer.\n  Line 437: func (env *TestEnv) GitCommitWithCheckpointID(message, checkpointID string) {\n  Line 441: \tfullMessage := message + \"\\n\\nEntire-Checkpoint: \" + checkpointID + \"\\n\"\n  Line 500: // GitCommitWithMultipleCheckpoints creates a commit with multiple Entire-Checkpoint trailers.\n  Line 503: func (env *TestEnv) GitCommitWithMultipleCheckpoints(message string, checkpointIDs []string) {\n  Line 511: \t\tsb.WriteString(\"Entire-Checkpoint: \" + cpID + \"\\n\")\n  Line 536: // GetHeadHash returns the current HEAD commit hash.\n  Line 537: func (env *TestEnv) GetHeadHash() string {\n  Line 558: \theadHash := env.GetHeadHash()\n  Line 650: \tIsTaskCheckpoint bool\n  Line 676: \t\tIsTaskCheckpoint bool   `json:\"is_task_checkpoint\"`\n  Line 694: \t\t\tIsTaskCheckpoint: jp.IsTaskCheckpoint,\n  Line 773: // GetCommitMessage returns the commit message for the given commit hash.\n  Line 774: func (env *TestEnv) GetCommitMessage(hash string) string {\n  Line 951: // GitCommitWithShadowHooks stages and commits files, simulating the prepare-commit-msg\n  Line 953: func (env *TestEnv) GitCommitWithShadowHooks(message string, files ...string) {\n  Line 958: // GitCommitWithShadowHooksAsAgent is like GitCommitWithShadowHooks but simulates\n  Line 961: func (env *TestEnv) GitCommitWithShadowHooksAsAgent(message string, files ...string) {\n  Line 1030: \t// This triggers condensation if the commit has an Entire-Checkpoint trailer\n  Line 1112: // GitCommitWithTrailerRemoved stages and commits files, simulating what happens when\n  Line 1113: // a user removes the Entire-Checkpoint trailer during commit message editing.\n  Line 1115: func (env *TestEnv) GitCommitWithTrailerRemoved(message string, files ...string) {\n  Line 1145: \t// REMOVE the Entire-Checkpoint trailer (simulating user editing the message)\n  Line 1150: \t\tif strings.HasPrefix(line, \"Entire-Checkpoint:\") {\n  Line 1153: \t\tif strings.Contains(line, \"Remove the Entire-Checkpoint trailer\") {\n  Line 1300: // GetLatestCheckpointID returns the most recent checkpoint ID from the entire/checkpoints/v1 branch.\n  Line 1304: func (env *TestEnv) GetLatestCheckpointID() string {\n  Line 1325: \t// Format: \"Checkpoint: <12-hex-char-id>\\n\\nSession: ...\\nStrategy: ...\"\n  Line 1328: \t\tif strings.HasPrefix(line, \"Checkpoint: \") {\n  Line 1329: \t\t\treturn strings.TrimPrefix(line, \"Checkpoint: \")\n  Line 1338: // TryGetLatestCheckpointID returns the most recent checkpoint ID from the entire/checkpoints/v1 branch.\n  Line 1341: func (env *TestEnv) TryGetLatestCheckpointID() string {\n  Line 1362: \t// Format: \"Checkpoint: <12-hex-char-id>\\n\\nSession: ...\\nStrategy: ...\"\n  Line 1365: \t\tif strings.HasPrefix(line, \"Checkpoint: \") {\n  Line 1366: \t\t\treturn strings.TrimPrefix(line, \"Checkpoint: \")\n  Line 1373: // GetLatestCondensationID is an alias for GetLatestCheckpointID for backwards compatibility.\n  Line 1375: \treturn env.GetLatestCheckpointID()\n  Line 1378: // GetCheckpointIDFromCommitMessage extracts the Entire-Checkpoint trailer from a commit message.\n  Line 1380: func (env *TestEnv) GetCheckpointIDFromCommitMessage(commitSHA string) string {\n  Line 1383: \tmsg := env.GetCommitMessage(commitSHA)\n  Line 1384: \tcpID, found := trailers.ParseCheckpoint(msg)\n  Line 1391: // GetLatestCheckpointIDFromHistory walks backwards from HEAD on the active branch\n  Line 1392: // and returns the checkpoint ID from the first commit that has an Entire-Checkpoint trailer.\n  Line 1395: func (env *TestEnv) GetLatestCheckpointIDFromHistory() string {\n  Line 1416: \t\tif cpID, found := trailers.ParseCheckpoint(c.Message); found {\n  Line 1424: \t\tenv.T.Fatalf(\"no commit with Entire-Checkpoint trailer found in history\")\n  Line 1430: // ShardedCheckpointPath returns the sharded path for a checkpoint ID.\n  Line 1432: // Delegates to id.CheckpointID.Path() for consistency.\n  Line 1433: func ShardedCheckpointPath(checkpointID string) string {\n  Line 1434: \treturn id.CheckpointID(checkpointID).Path()\n  Line 1441: \treturn id.CheckpointID(checkpointID).Path() + \"/0/\" + fileName\n  Line 1444: // CheckpointSummaryPath returns the path to the root metadata.json (CheckpointSummary) for a checkpoint.\n  Line 1445: func CheckpointSummaryPath(checkpointID string) string {\n  Line 1446: \treturn id.CheckpointID(checkpointID).Path() + \"/\" + paths.MetadataFileName\n  Line 1454: // CheckpointValidation contains expected values for checkpoint validation.\n  Line 1455: type CheckpointValidation struct {\n  Line 1456: \t// CheckpointID is the expected checkpoint ID\n  Line 1457: \tCheckpointID string\n  Line 1474: \t// CheckpointsCount is the expected checkpoint count (0 means don't validate)\n  Line 1475: \tCheckpointsCount int\n  Line 1478: // ValidateCheckpoint performs comprehensive validation of a checkpoint on the metadata branch.\n  Line 1480: // - Root metadata.json (CheckpointSummary) structure and expected fields\n  Line 1485: func (env *TestEnv) ValidateCheckpoint(v CheckpointValidation) {\n  Line 1488: \t// Validate root metadata.json (CheckpointSummary)\n  Line 1489: \tenv.validateCheckpointSummary(v)\n  Line 1495: \tenv.validateTranscriptJSONL(v.CheckpointID, v.ExpectedTranscriptContent)\n  Line 1498: \tenv.validateContentHash(v.CheckpointID)\n  Line 1502: \t\tenv.validatePromptContent(v.CheckpointID, v.ExpectedPrompts)\n  Line 1506: // validateCheckpointSummary validates the root metadata.json (CheckpointSummary).\n  Line 1507: func (env *TestEnv) validateCheckpointSummary(v CheckpointValidation) {\n  Line 1510: \tsummaryPath := CheckpointSummaryPath(v.CheckpointID)\n  Line 1513: \t\tenv.T.Fatalf(\"CheckpointSummary not found at %s\", summaryPath)\n  Line 1516: \tvar summary checkpoint.CheckpointSummary\n  Line 1518: \t\tenv.T.Fatalf(\"Failed to parse CheckpointSummary: %v\\nContent: %s\", err, content)\n  Line 1522: \tif summary.CheckpointID.String() != v.CheckpointID {\n  Line 1523: \t\tenv.T.Errorf(\"CheckpointSummary.CheckpointID = %q, want %q\", summary.CheckpointID, v.CheckpointID)\n  Line 1528: \t\tenv.T.Errorf(\"CheckpointSummary.Strategy = %q, want %q\", summary.Strategy, v.Strategy)\n  Line 1533: \t\tenv.T.Error(\"CheckpointSummary.Sessions should have at least one entry\")\n  Line 1544: \t\t\t\tenv.T.Errorf(\"CheckpointSummary.FilesTouched missing %q, got %v\", expected, summary.FilesTouched)\n  Line 1550: \tif v.CheckpointsCount > 0 && summary.CheckpointsCount != v.CheckpointsCount {\n  Line 1551: \t\tenv.T.Errorf(\"CheckpointSummary.CheckpointsCount = %d, want %d\", summary.CheckpointsCount, v.CheckpointsCount)\n  Line 1556: func (env *TestEnv) validateSessionMetadata(v CheckpointValidation) {\n  Line 1559: \tmetadataPath := SessionMetadataPath(v.CheckpointID)\n  Line 1571: \tif metadata.CheckpointID.String() != v.CheckpointID {\n  Line 1572: \t\tenv.T.Errorf(\"CommittedMetadata.CheckpointID = %q, want %q\", metadata.CheckpointID, v.CheckpointID)\n  Line 1604: \tif v.CheckpointsCount > 0 && metadata.CheckpointsCount != v.CheckpointsCount {\n  Line 1605: \t\tenv.T.Errorf(\"CommittedMetadata.CheckpointsCount = %d, want %d\", metadata.CheckpointsCount, v.CheckpointsCount)\n  Line 1872: // other CLI invocations (GitCommitWithShadowHooks, RunCLI) use env.cliEnv().",
+            "metadata": {
+              "matches": 88,
+              "truncated": false
+            },
+            "title": "GetHead|Trailer|Checkpoint|GitCommitWithShadowHooks|RunResume|GitShow|GetCommitMessage|git log",
+            "time": {
+              "start": 1775594398059,
+              "end": 1775594398067
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_085841a1455ccdc20169d56b9c99fc8193a4ebc8a28f728ac4"
+            }
+          },
+          "id": "prt_d69ac5bd4001nqPpx2O6ZRGbhS",
+          "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2",
+          "messageID": "msg_d69ac4c0e001c0VYQvruhwYuKA"
+        },
+        {
+          "reason": "tool-calls",
+          "snapshot": "b930166bb69a869f193a9e186f647b3d2da0a5f7",
+          "type": "step-finish",
+          "tokens": {
+            "total": 145466,
+            "input": 2190,
+            "output": 87,
+            "reasoning": 85,
+            "cache": {
+              "write": 0,
+              "read": 143104
+            }
+          },
+          "cost": 0,
+          "id": "prt_d69ac61d4001bQxBKWccAUqiNd",
+          "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2",
+          "messageID": "msg_d69ac4c0e001c0VYQvruhwYuKA"
+        }
+      ]
+    },
+    {
+      "info": {
+        "parentID": "msg_d69ab3002001nZjLS8w6oOCmQD",
+        "role": "assistant",
+        "mode": "build",
+        "agent": "build",
+        "path": {
+          "cwd": "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain",
+          "root": "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain"
+        },
+        "cost": 0,
+        "tokens": {
+          "total": 147760,
+          "input": 2142,
+          "output": 76,
+          "reasoning": 262,
+          "cache": {
+            "write": 0,
+            "read": 145280
+          }
+        },
+        "modelID": "gpt-5.3-codex",
+        "providerID": "openai",
+        "time": {
+          "created": 1775594398239,
+          "completed": 1775594408633
+        },
+        "finish": "tool-calls",
+        "id": "msg_d69ac621f001K9Lf55HdhD4hZC",
+        "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2"
+      },
+      "parts": [
+        {
+          "snapshot": "b930166bb69a869f193a9e186f647b3d2da0a5f7",
+          "type": "step-start",
+          "id": "prt_d69ac7436001vP12jRhsZ5xuRW",
+          "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2",
+          "messageID": "msg_d69ac621f001K9Lf55HdhD4hZC"
+        },
+        {
+          "type": "reasoning",
+          "text": "",
+          "time": {
+            "start": 1775594402927,
+            "end": 1775594406609
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "rs_0dd7306ba82aadc30169d56ba153c48195ab1d6612ee20ccb5",
+              "reasoningEncryptedContent": "REDACTED"
+            }
+          },
+          "id": "prt_d69ac746f001kvDpekqRCTspHp",
+          "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2",
+          "messageID": "msg_d69ac621f001K9Lf55HdhD4hZC"
+        },
+        {
+          "type": "tool",
+          "tool": "grep",
+          "callID": "call_8gcmPQFAOH7SvHUFVIVtryEN",
+          "state": {
+            "status": "completed",
+            "input": {
+              "pattern": "func NewFeatureBranchEnv|InitEntire\\(|InitEntireWithOptions",
+              "path": "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/integration_test/testenv.go",
+              "include": "testenv.go"
+            },
+            "output": "Found 7 matches\n/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/integration_test/testenv.go:\n  Line 187: \tenv.InitEntire()\n  Line 208: func NewFeatureBranchEnv(t *testing.T) *TestEnv {\n  Line 247: func (env *TestEnv) InitEntire() {\n  Line 248: \tenv.InitEntireWithOptions(nil)\n  Line 251: // InitEntireWithOptions initializes the .entire directory with the specified strategy and options.\n  Line 252: func (env *TestEnv) InitEntireWithOptions(strategyOptions map[string]any) {\n  Line 1814: \tcloneEnv.InitEntire()",
+            "metadata": {
+              "matches": 7,
+              "truncated": false
+            },
+            "title": "func NewFeatureBranchEnv|InitEntire\\(|InitEntireWithOptions",
+            "time": {
+              "start": 1775594408440,
+              "end": 1775594408449
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_0dd7306ba82aadc30169d56ba67ad481959087a872375e3314"
+            }
+          },
+          "id": "prt_d69ac82fc001ahi3fy3LDgtda7",
+          "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2",
+          "messageID": "msg_d69ac621f001K9Lf55HdhD4hZC"
+        },
+        {
+          "reason": "tool-calls",
+          "snapshot": "b930166bb69a869f193a9e186f647b3d2da0a5f7",
+          "type": "step-finish",
+          "tokens": {
+            "total": 147760,
+            "input": 2142,
+            "output": 76,
+            "reasoning": 262,
+            "cache": {
+              "write": 0,
+              "read": 145280
+            }
+          },
+          "cost": 0,
+          "id": "prt_d69ac8a73001rFDx0hdzZvg5a2",
+          "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2",
+          "messageID": "msg_d69ac621f001K9Lf55HdhD4hZC"
+        }
+      ]
+    },
+    {
+      "info": {
+        "parentID": "msg_d69ab3002001nZjLS8w6oOCmQD",
+        "role": "assistant",
+        "mode": "build",
+        "agent": "build",
+        "path": {
+          "cwd": "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain",
+          "root": "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain"
+        },
+        "cost": 0,
+        "tokens": {
+          "total": 147988,
+          "input": 601,
+          "output": 59,
+          "reasoning": 0,
+          "cache": {
+            "write": 0,
+            "read": 147328
+          }
+        },
+        "modelID": "gpt-5.3-codex",
+        "providerID": "openai",
+        "time": {
+          "created": 1775594408645,
+          "completed": 1775594412369
+        },
+        "finish": "tool-calls",
+        "id": "msg_d69ac8ac5001TW0Wh2ChFh9R5G",
+        "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2"
+      },
+      "parts": [
+        {
+          "snapshot": "b930166bb69a869f193a9e186f647b3d2da0a5f7",
+          "type": "step-start",
+          "id": "prt_d69ac9281001dozRnpbt7wzWMc",
+          "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2",
+          "messageID": "msg_d69ac8ac5001TW0Wh2ChFh9R5G"
+        },
+        {
+          "type": "tool",
+          "tool": "read",
+          "callID": "call_U2nJZLNqxzXOtWVeM6xeDcFX",
+          "state": {
+            "status": "completed",
+            "input": {
+              "filePath": "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/integration_test/testenv.go",
+              "offset": 160,
+              "limit": 120
+            },
+            "output": "<path>/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/integration_test/testenv.go</path>\n<type>file</type>\n<content>\n160: \toutput, err := cmd.CombinedOutput()\n161: \treturn string(output), err\n162: }\n163: \n164: // RunCLIWithStdin runs the CLI with stdin input.\n165: func (env *TestEnv) RunCLIWithStdin(stdin string, args ...string) string {\n166: \tenv.T.Helper()\n167: \n168: \t// Run CLI with stdin using the shared binary\n169: \tcmd := exec.Command(getTestBinary(), args...)\n170: \tcmd.Dir = env.RepoDir\n171: \tcmd.Env = env.cliEnv()\n172: \tcmd.Stdin = strings.NewReader(stdin)\n173: \n174: \toutput, err := cmd.CombinedOutput()\n175: \tif err != nil {\n176: \t\tenv.T.Fatalf(\"CLI command failed: %v\\nArgs: %v\\nOutput: %s\", err, args, output)\n177: \t}\n178: \treturn string(output)\n179: }\n180: \n181: // NewRepoEnv creates a TestEnv with an initialized git repo and Entire.\n182: // This is a convenience factory for tests that need a basic repo setup.\n183: func NewRepoEnv(t *testing.T) *TestEnv {\n184: \tt.Helper()\n185: \tenv := NewTestEnv(t)\n186: \tenv.InitRepo()\n187: \tenv.InitEntire()\n188: \treturn env\n189: }\n190: \n191: // NewRepoWithCommit creates a TestEnv with a git repo, Entire, and an initial commit.\n192: // The initial commit contains a README.md and .gitignore (excluding .entire/).\n193: func NewRepoWithCommit(t *testing.T) *TestEnv {\n194: \tt.Helper()\n195: \tenv := NewRepoEnv(t)\n196: \tenv.WriteFile(\".gitignore\", \".entire/\\n\")\n197: \tenv.WriteFile(\"README.md\", \"# Test Repository\")\n198: \tenv.GitAdd(\".gitignore\")\n199: \tenv.GitAdd(\"README.md\")\n200: \tenv.GitCommit(\"Initial commit\")\n201: \treturn env\n202: }\n203: \n204: // NewFeatureBranchEnv creates a TestEnv ready for session testing.\n205: // It initializes the repo, creates an initial commit on main,\n206: // and checks out a feature branch. This is the most common setup\n207: // for session and rewind tests since Entire tracking skips main/master.\n208: func NewFeatureBranchEnv(t *testing.T) *TestEnv {\n209: \tt.Helper()\n210: \tenv := NewRepoWithCommit(t)\n211: \tenv.GitCheckoutNewBranch(\"feature/test-branch\")\n212: \treturn env\n213: }\n214: \n215: // InitRepo initializes a git repository in the test environment.\n216: func (env *TestEnv) InitRepo() {\n217: \tenv.T.Helper()\n218: \n219: \trepo, err := git.PlainInit(env.RepoDir, false)\n220: \tif err != nil {\n221: \t\tenv.T.Fatalf(\"failed to init git repo: %v\", err)\n222: \t}\n223: \n224: \t// Configure git user for commits\n225: \tcfg, err := repo.Config()\n226: \tif err != nil {\n227: \t\tenv.T.Fatalf(\"failed to get repo config: %v\", err)\n228: \t}\n229: \tcfg.User.Name = \"Test User\"\n230: \tcfg.User.Email = \"test@example.com\"\n231: \n232: \t// Disable GPG signing for test commits (prevents failures if user has commit.gpgsign=true globally)\n233: \tif cfg.Raw == nil {\n234: \t\tcfg.Raw = config.New()\n235: \t}\n236: \tcfg.Raw.Section(\"commit\").SetOption(\"gpgsign\", \"false\")\n237: \n238: \t// Override any global core.hooksPath so tests use the repo-local hooks directory.\n239: \tcfg.Raw.Section(\"core\").SetOption(\"hooksPath\", filepath.Join(env.RepoDir, \".git\", \"hooks\"))\n240: \n241: \tif err := repo.SetConfig(cfg); err != nil {\n242: \t\tenv.T.Fatalf(\"failed to set repo config: %v\", err)\n243: \t}\n244: }\n245: \n246: // InitEntire initializes the .entire directory with the specified strategy.\n247: func (env *TestEnv) InitEntire() {\n248: \tenv.InitEntireWithOptions(nil)\n249: }\n250: \n251: // InitEntireWithOptions initializes the .entire directory with the specified strategy and options.\n252: func (env *TestEnv) InitEntireWithOptions(strategyOptions map[string]any) {\n253: \tenv.T.Helper()\n254: \tenv.initEntireInternal(strategyOptions)\n255: }\n256: \n257: // InitEntireWithAgent initializes an Entire test environment with a specific agent.\n258: // The agent name is for test documentation only — the CLI resolves the agent from\n259: // hook commands and checkpoint metadata, not from settings.json.\n260: func (env *TestEnv) InitEntireWithAgent(_ types.AgentName) {\n261: \tenv.T.Helper()\n262: \tenv.initEntireInternal(nil)\n263: }\n264: \n265: // InitEntireWithAgentAndOptions initializes Entire with the specified strategy, agent, and options.\n266: func (env *TestEnv) InitEntireWithAgentAndOptions(_ types.AgentName, strategyOptions map[string]any) {\n267: \tenv.T.Helper()\n268: \tenv.initEntireInternal(strategyOptions)\n269: }\n270: \n271: // initEntireInternal is the common implementation for InitEntire variants.\n272: func (env *TestEnv) initEntireInternal(strategyOptions map[string]any) {\n273: \tenv.T.Helper()\n274: \n275: \t// Create .entire directory structure\n276: \tentireDir := filepath.Join(env.RepoDir, \".entire\")\n277: \tif err := os.MkdirAll(entireDir, 0o755); err != nil {\n278: \t\tenv.T.Fatalf(\"failed to create .entire directory: %v\", err)\n279: \t}\n\n(Showing lines 160-279 of 1954. Use offset=280 to continue.)\n</content>",
+            "metadata": {
+              "preview": "\toutput, err := cmd.CombinedOutput()\n\treturn string(output), err\n}\n\n// RunCLIWithStdin runs the CLI with stdin input.\nfunc (env *TestEnv) RunCLIWithStdin(stdin string, args ...string) string {\n\tenv.T.Helper()\n\n\t// Run CLI with stdin using the shared binary\n\tcmd := exec.Command(getTestBinary(), args...)\n\tcmd.Dir = env.RepoDir\n\tcmd.Env = env.cliEnv()\n\tcmd.Stdin = strings.NewReader(stdin)\n\n\toutput, err := cmd.CombinedOutput()\n\tif err != nil {\n\t\tenv.T.Fatalf(\"CLI command failed: %v\\nArgs: %v\\nOutput: %s\", err, args, output)\n\t}\n\treturn string(output)\n}",
+              "truncated": true,
+              "loaded": []
+            },
+            "title": "cmd/entire/cli/integration_test/testenv.go",
+            "time": {
+              "start": 1775594412205,
+              "end": 1775594412209
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_05b166b5152957520169d56bab0f9c81959554695259c769b3"
+            }
+          },
+          "id": "prt_d69ac9523001uTD8cUfox0GBKM",
+          "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2",
+          "messageID": "msg_d69ac8ac5001TW0Wh2ChFh9R5G"
+        },
+        {
+          "reason": "tool-calls",
+          "snapshot": "b930166bb69a869f193a9e186f647b3d2da0a5f7",
+          "type": "step-finish",
+          "tokens": {
+            "total": 147988,
+            "input": 601,
+            "output": 59,
+            "reasoning": 0,
+            "cache": {
+              "write": 0,
+              "read": 147328
+            }
+          },
+          "cost": 0,
+          "id": "prt_d69ac9914001eGCnKT4itnzBBY",
+          "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2",
+          "messageID": "msg_d69ac8ac5001TW0Wh2ChFh9R5G"
+        }
+      ]
+    },
+    {
+      "info": {
+        "parentID": "msg_d69ab3002001nZjLS8w6oOCmQD",
+        "role": "assistant",
+        "mode": "build",
+        "agent": "build",
+        "path": {
+          "cwd": "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain",
+          "root": "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain"
+        },
+        "cost": 0,
+        "tokens": {
+          "total": 150244,
+          "input": 1531,
+          "output": 567,
+          "reasoning": 306,
+          "cache": {
+            "write": 0,
+            "read": 147840
+          }
+        },
+        "modelID": "gpt-5.3-codex",
+        "providerID": "openai",
+        "time": {
+          "created": 1775594412382,
+          "completed": 1775594436838
+        },
+        "finish": "tool-calls",
+        "id": "msg_d69ac995e0015dQ3sIVAOByChT",
+        "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2"
+      },
+      "parts": [
+        {
+          "snapshot": "b930166bb69a869f193a9e186f647b3d2da0a5f7",
+          "type": "step-start",
+          "id": "prt_d69acaf2d001BFLARe4OBYO6q4",
+          "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2",
+          "messageID": "msg_d69ac995e0015dQ3sIVAOByChT"
+        },
+        {
+          "type": "reasoning",
+          "text": "",
+          "time": {
+            "start": 1775594419372,
+            "end": 1775594425302
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "rs_044e1da39951c7f70169d56bb32fcc819686c92b5a260cac65",
+              "reasoningEncryptedContent": "REDACTED"
+            }
+          },
+          "id": "prt_d69acb4ac001l856gbdGTInG2a",
+          "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2",
+          "messageID": "msg_d69ac995e0015dQ3sIVAOByChT"
+        },
+        {
+          "type": "tool",
+          "tool": "apply_patch",
+          "callID": "call_i8FfvItc2ag9K6Mw08trtowW",
+          "state": {
+            "status": "completed",
+            "input": {
+              "patchText": "*** Begin Patch\n*** Update File: /Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/integration_test/explain_test.go\n@@\n import (\n \t\"strings\"\n \t\"testing\"\n+\n+\t\"github.com/stretchr/testify/require\"\n )\n@@\n func TestExplain_CommitWithCheckpointTrailer(t *testing.T) {\n@@\n }\n+\n+func TestExplain_CheckpointV2EnabledFallsBackToV1(t *testing.T) {\n+\tt.Parallel()\n+\tenv := NewFeatureBranchEnv(t)\n+\n+\t// Create a v1-only checkpoint (checkpoints_v2 disabled by default).\n+\tsession := env.NewSession()\n+\terr := env.SimulateUserPromptSubmitWithPrompt(session.ID, \"Create v1 fallback file\")\n+\trequire.NoError(t, err)\n+\n+\tcontent := \"v1 fallback content\"\n+\tenv.WriteFile(\"fallback.txt\", content)\n+\n+\tsession.CreateTranscript(\n+\t\t\"Create v1 fallback file\",\n+\t\t[]FileChange{{Path: \"fallback.txt\", Content: content}},\n+\t)\n+\terr = env.SimulateStop(session.ID, session.TranscriptPath)\n+\trequire.NoError(t, err)\n+\n+\tenv.GitCommitWithShadowHooks(\"Create v1 fallback file\", \"fallback.txt\")\n+\tcheckpointID := env.GetLatestCheckpointIDFromHistory()\n+\n+\t// Simulate enabling checkpoints_v2 after the v1-only checkpoint already exists.\n+\tenv.PatchSettings(map[string]any{\n+\t\t\"strategy_options\": map[string]any{\"checkpoints_v2\": true},\n+\t})\n+\n+\toutput, err := env.RunCLIWithError(\"explain\", \"--checkpoint\", checkpointID[:6])\n+\trequire.NoError(t, err, \"expected explain checkpoint fallback to v1 to succeed: %s\", output)\n+\n+\tif !strings.Contains(output, \"Checkpoint: \"+checkpointID) {\n+\t\tt.Errorf(\"expected checkpoint ID in output, got: %s\", output)\n+\t}\n+\tif !strings.Contains(output, \"Intent: Create v1 fallback file\") {\n+\t\tt.Errorf(\"expected intent from v1 transcript in output, got: %s\", output)\n+\t}\n+}\n*** End Patch"
+            },
+            "output": "Success. Updated the following files:\nM cmd/entire/cli/integration_test/explain_test.go",
+            "metadata": {
+              "diff": "Index: /Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/integration_test/explain_test.go\n===================================================================\n--- /Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/integration_test/explain_test.go\n+++ /Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/integration_test/explain_test.go\n@@ -4,8 +4,10 @@\n \n import (\n \t\"strings\"\n \t\"testing\"\n+\n+\t\"github.com/stretchr/testify/require\"\n )\n \n func TestExplain_NoCurrentSession(t *testing.T) {\n \tt.Parallel()\n@@ -153,4 +155,42 @@\n \t\t\tt.Errorf(\"expected 'checkpoint not found' error, got: %s\", output)\n \t\t}\n \t}\n }\n+\n+func TestExplain_CheckpointV2EnabledFallsBackToV1(t *testing.T) {\n+\tt.Parallel()\n+\tenv := NewFeatureBranchEnv(t)\n+\n+\t// Create a v1-only checkpoint (checkpoints_v2 disabled by default).\n+\tsession := env.NewSession()\n+\terr := env.SimulateUserPromptSubmitWithPrompt(session.ID, \"Create v1 fallback file\")\n+\trequire.NoError(t, err)\n+\n+\tcontent := \"v1 fallback content\"\n+\tenv.WriteFile(\"fallback.txt\", content)\n+\n+\tsession.CreateTranscript(\n+\t\t\"Create v1 fallback file\",\n+\t\t[]FileChange{{Path: \"fallback.txt\", Content: content}},\n+\t)\n+\terr = env.SimulateStop(session.ID, session.TranscriptPath)\n+\trequire.NoError(t, err)\n+\n+\tenv.GitCommitWithShadowHooks(\"Create v1 fallback file\", \"fallback.txt\")\n+\tcheckpointID := env.GetLatestCheckpointIDFromHistory()\n+\n+\t// Simulate enabling checkpoints_v2 after the v1-only checkpoint already exists.\n+\tenv.PatchSettings(map[string]any{\n+\t\t\"strategy_options\": map[string]any{\"checkpoints_v2\": true},\n+\t})\n+\n+\toutput, err := env.RunCLIWithError(\"explain\", \"--checkpoint\", checkpointID[:6])\n+\trequire.NoError(t, err, \"expected explain checkpoint fallback to v1 to succeed: %s\", output)\n+\n+\tif !strings.Contains(output, \"Checkpoint: \"+checkpointID) {\n+\t\tt.Errorf(\"expected checkpoint ID in output, got: %s\", output)\n+\t}\n+\tif !strings.Contains(output, \"Intent: Create v1 fallback file\") {\n+\t\tt.Errorf(\"expected intent from v1 transcript in output, got: %s\", output)\n+\t}\n+}\n\n",
+              "files": [
+                {
+                  "filePath": "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/integration_test/explain_test.go",
+                  "relativePath": "cmd/entire/cli/integration_test/explain_test.go",
+                  "type": "update",
+                  "diff": "Index: /Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/integration_test/explain_test.go\n===================================================================\n--- /Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/integration_test/explain_test.go\n+++ /Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/integration_test/explain_test.go\n@@ -4,8 +4,10 @@\n \n import (\n \t\"strings\"\n \t\"testing\"\n+\n+\t\"github.com/stretchr/testify/require\"\n )\n \n func TestExplain_NoCurrentSession(t *testing.T) {\n \tt.Parallel()\n@@ -153,4 +155,42 @@\n \t\t\tt.Errorf(\"expected 'checkpoint not found' error, got: %s\", output)\n \t\t}\n \t}\n }\n+\n+func TestExplain_CheckpointV2EnabledFallsBackToV1(t *testing.T) {\n+\tt.Parallel()\n+\tenv := NewFeatureBranchEnv(t)\n+\n+\t// Create a v1-only checkpoint (checkpoints_v2 disabled by default).\n+\tsession := env.NewSession()\n+\terr := env.SimulateUserPromptSubmitWithPrompt(session.ID, \"Create v1 fallback file\")\n+\trequire.NoError(t, err)\n+\n+\tcontent := \"v1 fallback content\"\n+\tenv.WriteFile(\"fallback.txt\", content)\n+\n+\tsession.CreateTranscript(\n+\t\t\"Create v1 fallback file\",\n+\t\t[]FileChange{{Path: \"fallback.txt\", Content: content}},\n+\t)\n+\terr = env.SimulateStop(session.ID, session.TranscriptPath)\n+\trequire.NoError(t, err)\n+\n+\tenv.GitCommitWithShadowHooks(\"Create v1 fallback file\", \"fallback.txt\")\n+\tcheckpointID := env.GetLatestCheckpointIDFromHistory()\n+\n+\t// Simulate enabling checkpoints_v2 after the v1-only checkpoint already exists.\n+\tenv.PatchSettings(map[string]any{\n+\t\t\"strategy_options\": map[string]any{\"checkpoints_v2\": true},\n+\t})\n+\n+\toutput, err := env.RunCLIWithError(\"explain\", \"--checkpoint\", checkpointID[:6])\n+\trequire.NoError(t, err, \"expected explain checkpoint fallback to v1 to succeed: %s\", output)\n+\n+\tif !strings.Contains(output, \"Checkpoint: \"+checkpointID) {\n+\t\tt.Errorf(\"expected checkpoint ID in output, got: %s\", output)\n+\t}\n+\tif !strings.Contains(output, \"Intent: Create v1 fallback file\") {\n+\t\tt.Errorf(\"expected intent from v1 transcript in output, got: %s\", output)\n+\t}\n+}\n",
+                  "before": "//go:build integration\n\npackage integration\n\nimport (\n\t\"strings\"\n\t\"testing\"\n)\n\nfunc TestExplain_NoCurrentSession(t *testing.T) {\n\tt.Parallel()\n\tenv := NewFeatureBranchEnv(t)\n\t// Without any flags, explain shows the branch view (not an error)\n\toutput, err := env.RunCLIWithError(\"explain\")\n\n\tif err != nil {\n\t\tt.Errorf(\"expected success for branch view, got error: %v, output: %s\", err, output)\n\t\treturn\n\t}\n\n\t// Should show branch information and checkpoint count\n\tif !strings.Contains(output, \"Branch:\") {\n\t\tt.Errorf(\"expected 'Branch:' header in output, got: %s\", output)\n\t}\n\tif !strings.Contains(output, \"Checkpoints:\") {\n\t\tt.Errorf(\"expected 'Checkpoints:' in output, got: %s\", output)\n\t}\n}\n\nfunc TestExplain_SessionFilter(t *testing.T) {\n\tt.Parallel()\n\tenv := NewFeatureBranchEnv(t)\n\t// --session now filters the list view instead of showing session details\n\t// A nonexistent session ID should show an empty list, not an error\n\toutput, err := env.RunCLIWithError(\"explain\", \"--session\", \"nonexistent-session-id\")\n\n\tif err != nil {\n\t\tt.Errorf(\"expected success (empty list) for session filter, got error: %v, output: %s\", err, output)\n\t\treturn\n\t}\n\n\t// Should show branch header\n\tif !strings.Contains(output, \"Branch:\") {\n\t\tt.Errorf(\"expected 'Branch:' header in output, got: %s\", output)\n\t}\n\n\t// Should show 0 checkpoints (filter found no matches)\n\tif !strings.Contains(output, \"Checkpoints: 0\") {\n\t\tt.Errorf(\"expected 'Checkpoints: 0' for nonexistent session filter, got: %s\", output)\n\t}\n\n\t// Should show filter info\n\tif !strings.Contains(output, \"Filtered by session:\") {\n\t\tt.Errorf(\"expected 'Filtered by session:' in output, got: %s\", output)\n\t}\n}\n\nfunc TestExplain_MutualExclusivity(t *testing.T) {\n\tt.Parallel()\n\tenv := NewFeatureBranchEnv(t)\n\t// Try to provide both --session and --commit flags\n\toutput, err := env.RunCLIWithError(\"explain\", \"--session\", \"test-session\", \"--commit\", \"abc123\")\n\n\tif err == nil {\n\t\tt.Errorf(\"expected error when both flags provided, got output: %s\", output)\n\t\treturn\n\t}\n\n\tif !strings.Contains(strings.ToLower(output), \"cannot specify multiple\") {\n\t\tt.Errorf(\"expected 'cannot specify multiple' error, got: %s\", output)\n\t}\n}\n\nfunc TestExplain_CheckpointNotFound(t *testing.T) {\n\tt.Parallel()\n\tenv := NewFeatureBranchEnv(t)\n\t// Try to explain a non-existent checkpoint\n\toutput, err := env.RunCLIWithError(\"explain\", \"--checkpoint\", \"nonexistent123\")\n\n\tif err == nil {\n\t\tt.Errorf(\"expected error for nonexistent checkpoint, got output: %s\", output)\n\t\treturn\n\t}\n\n\tif !strings.Contains(output, \"checkpoint not found\") {\n\t\tt.Errorf(\"expected 'checkpoint not found' error, got: %s\", output)\n\t}\n}\n\nfunc TestExplain_CheckpointMutualExclusivity(t *testing.T) {\n\tt.Parallel()\n\tenv := NewFeatureBranchEnv(t)\n\t// Try to provide --checkpoint with --session\n\toutput, err := env.RunCLIWithError(\"explain\", \"--session\", \"test-session\", \"--checkpoint\", \"abc123\")\n\n\tif err == nil {\n\t\tt.Errorf(\"expected error when both flags provided, got output: %s\", output)\n\t\treturn\n\t}\n\n\tif !strings.Contains(strings.ToLower(output), \"cannot specify multiple\") {\n\t\tt.Errorf(\"expected 'cannot specify multiple' error, got: %s\", output)\n\t}\n}\n\nfunc TestExplain_CommitWithoutCheckpoint(t *testing.T) {\n\tt.Parallel()\n\tenv := NewFeatureBranchEnv(t)\n\t// Create a regular commit without Entire-Checkpoint trailer\n\tenv.WriteFile(\"test.txt\", \"content\")\n\tenv.GitAdd(\"test.txt\")\n\tenv.GitCommit(\"Regular commit without Entire trailer\")\n\n\t// Get the commit hash\n\tcommitHash := env.GetHeadHash()\n\n\t// Run explain --commit\n\toutput, err := env.RunCLIWithError(\"explain\", \"--commit\", commitHash[:7])\n\tif err != nil {\n\t\tt.Fatalf(\"unexpected error: %v, output: %s\", err, output)\n\t}\n\n\t// Should show \"No associated Entire checkpoint\" message\n\tif !strings.Contains(output, \"No associated Entire checkpoint\") {\n\t\tt.Errorf(\"expected 'No associated Entire checkpoint' message, got: %s\", output)\n\t}\n}\n\nfunc TestExplain_CommitWithCheckpointTrailer(t *testing.T) {\n\tt.Parallel()\n\tenv := NewFeatureBranchEnv(t)\n\t// Create a commit with Entire-Checkpoint trailer\n\tenv.WriteFile(\"test.txt\", \"content\")\n\tenv.GitAdd(\"test.txt\")\n\tenv.GitCommitWithCheckpointID(\"Commit with checkpoint\", \"abc123def456\")\n\n\t// Get the commit hash\n\tcommitHash := env.GetHeadHash()\n\n\t// Run explain --commit - it should try to look up the checkpoint\n\t// Since the checkpoint doesn't actually exist in the store, it should error\n\toutput, err := env.RunCLIWithError(\"explain\", \"--commit\", commitHash[:7])\n\n\t// We expect an error because the checkpoint abc123def456 doesn't exist\n\tif err == nil {\n\t\t// If it succeeded, check if it found the checkpoint (it shouldn't)\n\t\tif strings.Contains(output, \"Checkpoint:\") {\n\t\t\tt.Logf(\"checkpoint was found (unexpected but ok if test created one)\")\n\t\t}\n\t} else {\n\t\t// Expected: checkpoint not found error\n\t\tif !strings.Contains(output, \"checkpoint not found\") {\n\t\t\tt.Errorf(\"expected 'checkpoint not found' error, got: %s\", output)\n\t\t}\n\t}\n}\n",
+                  "after": "//go:build integration\n\npackage integration\n\nimport (\n\t\"strings\"\n\t\"testing\"\n\n\t\"github.com/stretchr/testify/require\"\n)\n\nfunc TestExplain_NoCurrentSession(t *testing.T) {\n\tt.Parallel()\n\tenv := NewFeatureBranchEnv(t)\n\t// Without any flags, explain shows the branch view (not an error)\n\toutput, err := env.RunCLIWithError(\"explain\")\n\n\tif err != nil {\n\t\tt.Errorf(\"expected success for branch view, got error: %v, output: %s\", err, output)\n\t\treturn\n\t}\n\n\t// Should show branch information and checkpoint count\n\tif !strings.Contains(output, \"Branch:\") {\n\t\tt.Errorf(\"expected 'Branch:' header in output, got: %s\", output)\n\t}\n\tif !strings.Contains(output, \"Checkpoints:\") {\n\t\tt.Errorf(\"expected 'Checkpoints:' in output, got: %s\", output)\n\t}\n}\n\nfunc TestExplain_SessionFilter(t *testing.T) {\n\tt.Parallel()\n\tenv := NewFeatureBranchEnv(t)\n\t// --session now filters the list view instead of showing session details\n\t// A nonexistent session ID should show an empty list, not an error\n\toutput, err := env.RunCLIWithError(\"explain\", \"--session\", \"nonexistent-session-id\")\n\n\tif err != nil {\n\t\tt.Errorf(\"expected success (empty list) for session filter, got error: %v, output: %s\", err, output)\n\t\treturn\n\t}\n\n\t// Should show branch header\n\tif !strings.Contains(output, \"Branch:\") {\n\t\tt.Errorf(\"expected 'Branch:' header in output, got: %s\", output)\n\t}\n\n\t// Should show 0 checkpoints (filter found no matches)\n\tif !strings.Contains(output, \"Checkpoints: 0\") {\n\t\tt.Errorf(\"expected 'Checkpoints: 0' for nonexistent session filter, got: %s\", output)\n\t}\n\n\t// Should show filter info\n\tif !strings.Contains(output, \"Filtered by session:\") {\n\t\tt.Errorf(\"expected 'Filtered by session:' in output, got: %s\", output)\n\t}\n}\n\nfunc TestExplain_MutualExclusivity(t *testing.T) {\n\tt.Parallel()\n\tenv := NewFeatureBranchEnv(t)\n\t// Try to provide both --session and --commit flags\n\toutput, err := env.RunCLIWithError(\"explain\", \"--session\", \"test-session\", \"--commit\", \"abc123\")\n\n\tif err == nil {\n\t\tt.Errorf(\"expected error when both flags provided, got output: %s\", output)\n\t\treturn\n\t}\n\n\tif !strings.Contains(strings.ToLower(output), \"cannot specify multiple\") {\n\t\tt.Errorf(\"expected 'cannot specify multiple' error, got: %s\", output)\n\t}\n}\n\nfunc TestExplain_CheckpointNotFound(t *testing.T) {\n\tt.Parallel()\n\tenv := NewFeatureBranchEnv(t)\n\t// Try to explain a non-existent checkpoint\n\toutput, err := env.RunCLIWithError(\"explain\", \"--checkpoint\", \"nonexistent123\")\n\n\tif err == nil {\n\t\tt.Errorf(\"expected error for nonexistent checkpoint, got output: %s\", output)\n\t\treturn\n\t}\n\n\tif !strings.Contains(output, \"checkpoint not found\") {\n\t\tt.Errorf(\"expected 'checkpoint not found' error, got: %s\", output)\n\t}\n}\n\nfunc TestExplain_CheckpointMutualExclusivity(t *testing.T) {\n\tt.Parallel()\n\tenv := NewFeatureBranchEnv(t)\n\t// Try to provide --checkpoint with --session\n\toutput, err := env.RunCLIWithError(\"explain\", \"--session\", \"test-session\", \"--checkpoint\", \"abc123\")\n\n\tif err == nil {\n\t\tt.Errorf(\"expected error when both flags provided, got output: %s\", output)\n\t\treturn\n\t}\n\n\tif !strings.Contains(strings.ToLower(output), \"cannot specify multiple\") {\n\t\tt.Errorf(\"expected 'cannot specify multiple' error, got: %s\", output)\n\t}\n}\n\nfunc TestExplain_CommitWithoutCheckpoint(t *testing.T) {\n\tt.Parallel()\n\tenv := NewFeatureBranchEnv(t)\n\t// Create a regular commit without Entire-Checkpoint trailer\n\tenv.WriteFile(\"test.txt\", \"content\")\n\tenv.GitAdd(\"test.txt\")\n\tenv.GitCommit(\"Regular commit without Entire trailer\")\n\n\t// Get the commit hash\n\tcommitHash := env.GetHeadHash()\n\n\t// Run explain --commit\n\toutput, err := env.RunCLIWithError(\"explain\", \"--commit\", commitHash[:7])\n\tif err != nil {\n\t\tt.Fatalf(\"unexpected error: %v, output: %s\", err, output)\n\t}\n\n\t// Should show \"No associated Entire checkpoint\" message\n\tif !strings.Contains(output, \"No associated Entire checkpoint\") {\n\t\tt.Errorf(\"expected 'No associated Entire checkpoint' message, got: %s\", output)\n\t}\n}\n\nfunc TestExplain_CommitWithCheckpointTrailer(t *testing.T) {\n\tt.Parallel()\n\tenv := NewFeatureBranchEnv(t)\n\t// Create a commit with Entire-Checkpoint trailer\n\tenv.WriteFile(\"test.txt\", \"content\")\n\tenv.GitAdd(\"test.txt\")\n\tenv.GitCommitWithCheckpointID(\"Commit with checkpoint\", \"abc123def456\")\n\n\t// Get the commit hash\n\tcommitHash := env.GetHeadHash()\n\n\t// Run explain --commit - it should try to look up the checkpoint\n\t// Since the checkpoint doesn't actually exist in the store, it should error\n\toutput, err := env.RunCLIWithError(\"explain\", \"--commit\", commitHash[:7])\n\n\t// We expect an error because the checkpoint abc123def456 doesn't exist\n\tif err == nil {\n\t\t// If it succeeded, check if it found the checkpoint (it shouldn't)\n\t\tif strings.Contains(output, \"Checkpoint:\") {\n\t\t\tt.Logf(\"checkpoint was found (unexpected but ok if test created one)\")\n\t\t}\n\t} else {\n\t\t// Expected: checkpoint not found error\n\t\tif !strings.Contains(output, \"checkpoint not found\") {\n\t\t\tt.Errorf(\"expected 'checkpoint not found' error, got: %s\", output)\n\t\t}\n\t}\n}\n\nfunc TestExplain_CheckpointV2EnabledFallsBackToV1(t *testing.T) {\n\tt.Parallel()\n\tenv := NewFeatureBranchEnv(t)\n\n\t// Create a v1-only checkpoint (checkpoints_v2 disabled by default).\n\tsession := env.NewSession()\n\terr := env.SimulateUserPromptSubmitWithPrompt(session.ID, \"Create v1 fallback file\")\n\trequire.NoError(t, err)\n\n\tcontent := \"v1 fallback content\"\n\tenv.WriteFile(\"fallback.txt\", content)\n\n\tsession.CreateTranscript(\n\t\t\"Create v1 fallback file\",\n\t\t[]FileChange{{Path: \"fallback.txt\", Content: content}},\n\t)\n\terr = env.SimulateStop(session.ID, session.TranscriptPath)\n\trequire.NoError(t, err)\n\n\tenv.GitCommitWithShadowHooks(\"Create v1 fallback file\", \"fallback.txt\")\n\tcheckpointID := env.GetLatestCheckpointIDFromHistory()\n\n\t// Simulate enabling checkpoints_v2 after the v1-only checkpoint already exists.\n\tenv.PatchSettings(map[string]any{\n\t\t\"strategy_options\": map[string]any{\"checkpoints_v2\": true},\n\t})\n\n\toutput, err := env.RunCLIWithError(\"explain\", \"--checkpoint\", checkpointID[:6])\n\trequire.NoError(t, err, \"expected explain checkpoint fallback to v1 to succeed: %s\", output)\n\n\tif !strings.Contains(output, \"Checkpoint: \"+checkpointID) {\n\t\tt.Errorf(\"expected checkpoint ID in output, got: %s\", output)\n\t}\n\tif !strings.Contains(output, \"Intent: Create v1 fallback file\") {\n\t\tt.Errorf(\"expected intent from v1 transcript in output, got: %s\", output)\n\t}\n}\n",
+                  "additions": 40,
+                  "deletions": 0
+                }
+              ],
+              "diagnostics": {
+                "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/explain.go": [
+                  {
+                    "range": {
+                      "start": {
+                        "line": 287,
+                        "character": 4
+                      },
+                      "end": {
+                        "line": 287,
+                        "character": 43
+                      }
+                    },
+                    "severity": 4,
+                    "code": "default",
+                    "codeDescription": {
+                      "href": "https://pkg.go.dev/golang.org/x/tools/gopls/internal/analysis/deprecated"
+                    },
+                    "source": "deprecated",
+                    "message": "content.Metadata.TranscriptLinesAtStart is deprecated: Use CheckpointTranscriptStart instead. Written for backward compatibility with older CLI versions.",
+                    "tags": [
+                      2
+                    ]
+                  }
+                ],
+                "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/checkpoint/v2_resolve.go": [],
+                "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/checkpoint/v2_store.go": [],
+                "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/checkpoint/v2_committed.go": [],
+                "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/checkpoint/v2_read.go": [
+                  {
+                    "range": {
+                      "start": {
+                        "line": 315,
+                        "character": 22
+                      },
+                      "end": {
+                        "line": 315,
+                        "character": 35
+                      }
+                    },
+                    "severity": 4,
+                    "code": "default",
+                    "codeDescription": {
+                      "href": "https://pkg.go.dev/golang.org/x/tools/go/analysis/passes/modernize#stringsseq"
+                    },
+                    "source": "stringsseq",
+                    "message": "Ranging over SplitSeq is more efficient"
+                  }
+                ],
+                "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/checkpoint/committed.go": [],
+                "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/checkpoint/checkpoint.go": [],
+                "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/resume.go": [],
+                "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/strategy/manual_commit_rewind.go": [
+                  {
+                    "range": {
+                      "start": {
+                        "line": 222,
+                        "character": 21
+                      },
+                      "end": {
+                        "line": 222,
+                        "character": 41
+                      }
+                    },
+                    "severity": 4,
+                    "code": "default",
+                    "codeDescription": {
+                      "href": "https://pkg.go.dev/golang.org/x/tools/gopls/internal/analysis/deprecated"
+                    },
+                    "source": "deprecated",
+                    "message": "paths.CheckpointPath is deprecated: Use checkpointID.Path() directly instead.",
+                    "tags": [
+                      2
+                    ]
+                  }
+                ],
+                "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/strategy/common_helpers_test.go": [
+                  {
+                    "range": {
+                      "start": {
+                        "line": 21,
+                        "character": 5
+                      },
+                      "end": {
+                        "line": 21,
+                        "character": 31
+                      }
+                    },
+                    "severity": 3,
+                    "code": "default",
+                    "codeDescription": {
+                      "href": "https://pkg.go.dev/golang.org/x/tools/gopls/internal/analysis/unusedfunc"
+                    },
+                    "source": "unusedfunc",
+                    "message": "function \"readCheckpointMetadataFull\" is unused",
+                    "tags": [
+                      1
+                    ]
+                  }
+                ],
+                "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/strategy/common_test.go": [
+                  {
+                    "range": {
+                      "start": {
+                        "line": 856,
+                        "character": 5
+                      },
+                      "end": {
+                        "line": 856,
+                        "character": 30
+                      }
+                    },
+                    "severity": 3,
+                    "code": "default",
+                    "codeDescription": {
+                      "href": "https://pkg.go.dev/golang.org/x/tools/gopls/internal/analysis/unusedfunc"
+                    },
+                    "source": "unusedfunc",
+                    "message": "function \"resetProtectedDirsForTest\" is unused",
+                    "tags": [
+                      1
+                    ]
+                  }
+                ],
+                "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/integration_test/explain_test.go": [
+                  {
+                    "range": {
+                      "start": {
+                        "line": 2,
+                        "character": 8
+                      },
+                      "end": {
+                        "line": 2,
+                        "character": 19
+                      }
+                    },
+                    "severity": 2,
+                    "source": "go list",
+                    "message": "No packages found for open file /Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/integration_test/explain_test.go."
+                  }
+                ],
+                "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/summarize/summarize.go": [
+                  {
+                    "range": {
+                      "start": {
+                        "line": 230,
+                        "character": 48
+                      },
+                      "end": {
+                        "line": 230,
+                        "character": 59
+                      }
+                    },
+                    "severity": 4,
+                    "code": "default",
+                    "codeDescription": {
+                      "href": "https://pkg.go.dev/golang.org/x/tools/go/analysis/passes/modernize#any"
+                    },
+                    "source": "any",
+                    "message": "interface{} can be replaced by any"
+                  },
+                  {
+                    "range": {
+                      "start": {
+                        "line": 241,
+                        "character": 47
+                      },
+                      "end": {
+                        "line": 241,
+                        "character": 58
+                      }
+                    },
+                    "severity": 4,
+                    "code": "default",
+                    "codeDescription": {
+                      "href": "https://pkg.go.dev/golang.org/x/tools/go/analysis/passes/modernize#any"
+                    },
+                    "source": "any",
+                    "message": "interface{} can be replaced by any"
+                  }
+                ],
+                "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/transcript/compact/compact.go": [],
+                "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/strategy/manual_commit_condensation.go": [
+                  {
+                    "range": {
+                      "start": {
+                        "line": 731,
+                        "character": 23
+                      },
+                      "end": {
+                        "line": 731,
+                        "character": 34
+                      }
+                    },
+                    "severity": 4,
+                    "code": "default",
+                    "codeDescription": {
+                      "href": "https://pkg.go.dev/golang.org/x/tools/go/analysis/passes/modernize#any"
+                    },
+                    "source": "any",
+                    "message": "interface{} can be replaced by any"
+                  },
+                  {
+                    "range": {
+                      "start": {
+                        "line": 747,
+                        "character": 46
+                      },
+                      "end": {
+                        "line": 747,
+                        "character": 57
+                      }
+                    },
+                    "severity": 4,
+                    "code": "default",
+                    "codeDescription": {
+                      "href": "https://pkg.go.dev/golang.org/x/tools/go/analysis/passes/modernize#any"
+                    },
+                    "source": "any",
+                    "message": "interface{} can be replaced by any"
+                  },
+                  {
+                    "range": {
+                      "start": {
+                        "line": 762,
+                        "character": 38
+                      },
+                      "end": {
+                        "line": 762,
+                        "character": 49
+                      }
+                    },
+                    "severity": 4,
+                    "code": "default",
+                    "codeDescription": {
+                      "href": "https://pkg.go.dev/golang.org/x/tools/go/analysis/passes/modernize#any"
+                    },
+                    "source": "any",
+                    "message": "interface{} can be replaced by any"
+                  },
+                  {
+                    "range": {
+                      "start": {
+                        "line": 765,
+                        "character": 33
+                      },
+                      "end": {
+                        "line": 765,
+                        "character": 44
+                      }
+                    },
+                    "severity": 4,
+                    "code": "default",
+                    "codeDescription": {
+                      "href": "https://pkg.go.dev/golang.org/x/tools/go/analysis/passes/modernize#any"
+                    },
+                    "source": "any",
+                    "message": "interface{} can be replaced by any"
+                  }
+                ],
+                "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/checkpoint/v2_resolve_test.go": [],
+                "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/checkpoint/global_test.go": [],
+                "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/checkpoint/v2_store_test.go": [
+                  {
+                    "range": {
+                      "start": {
+                        "line": 855,
+                        "character": 17
+                      },
+                      "end": {
+                        "line": 855,
+                        "character": 52
+                      }
+                    },
+                    "severity": 4,
+                    "code": "default",
+                    "codeDescription": {
+                      "href": "https://pkg.go.dev/golang.org/x/tools/go/analysis/passes/modernize#fmtappendf"
+                    },
+                    "source": "fmtappendf",
+                    "message": "Replace []byte(fmt.Sprintf...) with fmt.Appendf"
+                  },
+                  {
+                    "range": {
+                      "start": {
+                        "line": 916,
+                        "character": 17
+                      },
+                      "end": {
+                        "line": 916,
+                        "character": 52
+                      }
+                    },
+                    "severity": 4,
+                    "code": "default",
+                    "codeDescription": {
+                      "href": "https://pkg.go.dev/golang.org/x/tools/go/analysis/passes/modernize#fmtappendf"
+                    },
+                    "source": "fmtappendf",
+                    "message": "Replace []byte(fmt.Sprintf...) with fmt.Appendf"
+                  }
+                ],
+                "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/checkpoint/committed_reader_resolve_test.go": [],
+                "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/checkpoint/committed_reader_resolve.go": [],
+                "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/explain_test.go": [
+                  {
+                    "range": {
+                      "start": {
+                        "line": 1646,
+                        "character": 10
+                      },
+                      "end": {
+                        "line": 1646,
+                        "character": 23
+                      }
+                    },
+                    "severity": 4,
+                    "code": "default",
+                    "codeDescription": {
+                      "href": "https://pkg.go.dev/golang.org/x/tools/go/analysis/passes/modernize#stringsseq"
+                    },
+                    "source": "stringsseq",
+                    "message": "Ranging over SplitSeq is more efficient"
+                  }
+                ],
+                "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/paths/paths.go": [
+                  {
+                    "range": {
+                      "start": {
+                        "line": 245,
+                        "character": 6
+                      },
+                      "end": {
+                        "line": 245,
+                        "character": 43
+                      }
+                    },
+                    "severity": 4,
+                    "code": "default",
+                    "codeDescription": {
+                      "href": "https://pkg.go.dev/golang.org/x/tools/go/analysis/passes/modernize#stringscutprefix"
+                    },
+                    "source": "stringscutprefix",
+                    "message": "HasSuffix + TrimSuffix can be simplified to CutSuffix"
+                  }
+                ],
+                "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/checkpoint/v2_read_test.go": [],
+                "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/transcript/compact/parse_test.go": [],
+                "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/transcript/compact/parse.go": [
+                  {
+                    "range": {
+                      "start": {
+                        "line": 87,
+                        "character": 26
+                      },
+                      "end": {
+                        "line": 87,
+                        "character": 37
+                      }
+                    },
+                    "severity": 4,
+                    "code": "default",
+                    "codeDescription": {
+                      "href": "https://pkg.go.dev/golang.org/x/tools/go/analysis/passes/modernize#any"
+                    },
+                    "source": "any",
+                    "message": "interface{} can be replaced by any"
+                  },
+                  {
+                    "range": {
+                      "start": {
+                        "line": 109,
+                        "character": 40
+                      },
+                      "end": {
+                        "line": 109,
+                        "character": 51
+                      }
+                    },
+                    "severity": 4,
+                    "code": "default",
+                    "codeDescription": {
+                      "href": "https://pkg.go.dev/golang.org/x/tools/go/analysis/passes/modernize#any"
+                    },
+                    "source": "any",
+                    "message": "interface{} can be replaced by any"
+                  }
+                ],
+                "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/transcript/compact/gemini.go": [],
+                "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/transcript/compact/opencode.go": [],
+                "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/integration_test/testenv.go": [
+                  {
+                    "range": {
+                      "start": {
+                        "line": 2,
+                        "character": 8
+                      },
+                      "end": {
+                        "line": 2,
+                        "character": 19
+                      }
+                    },
+                    "severity": 2,
+                    "source": "go list",
+                    "message": "No packages found for open file /Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/integration_test/testenv.go."
+                  }
+                ],
+                "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/integration_test/v2_resume_test.go": [
+                  {
+                    "range": {
+                      "start": {
+                        "line": 2,
+                        "character": 8
+                      },
+                      "end": {
+                        "line": 2,
+                        "character": 19
+                      }
+                    },
+                    "severity": 2,
+                    "source": "go list",
+                    "message": "No packages found for open file /Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/integration_test/v2_resume_test.go."
+                  }
+                ]
+              },
+              "truncated": false
+            },
+            "title": "Success. Updated the following files:\nM cmd/entire/cli/integration_test/explain_test.go",
+            "time": {
+              "start": 1775594435330,
+              "end": 1775594436752
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_044e1da39951c7f70169d56bb921e08196a8223b9b02c3071b"
+            }
+          },
+          "id": "prt_d69accc01001nDUS8hGMJiPXrl",
+          "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2",
+          "messageID": "msg_d69ac995e0015dQ3sIVAOByChT"
+        },
+        {
+          "reason": "tool-calls",
+          "snapshot": "6d9235aac550fb6ce51407d3caa2bf0fbe02029e",
+          "type": "step-finish",
+          "tokens": {
+            "total": 150244,
+            "input": 1531,
+            "output": 567,
+            "reasoning": 306,
+            "cache": {
+              "write": 0,
+              "read": 147840
+            }
+          },
+          "cost": 0,
+          "id": "prt_d69acf891001J3AV53IjEHA5qW",
+          "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2",
+          "messageID": "msg_d69ac995e0015dQ3sIVAOByChT"
+        },
+        {
+          "type": "patch",
+          "hash": "b930166bb69a869f193a9e186f647b3d2da0a5f7",
+          "files": [
+            "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain/cmd/entire/cli/integration_test/explain_test.go"
+          ],
+          "id": "prt_d69acf8d70010TxJ9XskuunJA9",
+          "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2",
+          "messageID": "msg_d69ac995e0015dQ3sIVAOByChT"
+        }
+      ]
+    },
+    {
+      "info": {
+        "parentID": "msg_d69ab3002001nZjLS8w6oOCmQD",
+        "role": "assistant",
+        "mode": "build",
+        "agent": "build",
+        "path": {
+          "cwd": "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain",
+          "root": "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain"
+        },
+        "cost": 0,
+        "tokens": {
+          "total": 150375,
+          "input": 1028,
+          "output": 88,
+          "reasoning": 11,
+          "cache": {
+            "write": 0,
+            "read": 149248
+          }
+        },
+        "modelID": "gpt-5.3-codex",
+        "providerID": "openai",
+        "time": {
+          "created": 1775594436851,
+          "completed": 1775594446988
+        },
+        "finish": "tool-calls",
+        "id": "msg_d69acf8f3001SLYNcWcscPq7Rx",
+        "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2"
+      },
+      "parts": [
+        {
+          "snapshot": "6d9235aac550fb6ce51407d3caa2bf0fbe02029e",
+          "type": "step-start",
+          "id": "prt_d69ad00b1001O912DxWONs2zEI",
+          "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2",
+          "messageID": "msg_d69acf8f3001SLYNcWcscPq7Rx"
+        },
+        {
+          "type": "reasoning",
+          "text": "",
+          "time": {
+            "start": 1775594439088,
+            "end": 1775594439661
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "rs_0acf1e78777147b60169d56bc70ce88193a7fff21110331fbc",
+              "reasoningEncryptedContent": "REDACTED"
+            }
+          },
+          "id": "prt_d69ad01b0001NOQL5yf4yocVmv",
+          "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2",
+          "messageID": "msg_d69acf8f3001SLYNcWcscPq7Rx"
+        },
+        {
+          "type": "tool",
+          "tool": "bash",
+          "callID": "call_pD1HZLNvvtwG1iUbK21vhNiF",
+          "state": {
+            "status": "completed",
+            "input": {
+              "command": "go test -tags=integration ./cmd/entire/cli/integration_test -run TestExplain_CheckpointV2EnabledFallsBackToV1",
+              "timeout": 120000,
+              "workdir": "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain",
+              "description": "Runs new integration explain fallback test"
+            },
+            "output": "ok  \tgithub.com/entireio/cli/cmd/entire/cli/integration_test\t4.655s\n",
+            "metadata": {
+              "output": "ok  \tgithub.com/entireio/cli/cmd/entire/cli/integration_test\t4.655s\n",
+              "exit": 0,
+              "description": "Runs new integration explain fallback test",
+              "truncated": false
+            },
+            "title": "Runs new integration explain fallback test",
+            "time": {
+              "start": 1775594441248,
+              "end": 1775594446932
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_0acf1e78777147b60169d56bc79660819394f491cf17e165ea"
+            }
+          },
+          "id": "prt_d69ad050e001F8jYXvrxkkaa0b",
+          "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2",
+          "messageID": "msg_d69acf8f3001SLYNcWcscPq7Rx"
+        },
+        {
+          "reason": "tool-calls",
+          "snapshot": "6d9235aac550fb6ce51407d3caa2bf0fbe02029e",
+          "type": "step-finish",
+          "tokens": {
+            "total": 150375,
+            "input": 1028,
+            "output": 88,
+            "reasoning": 11,
+            "cache": {
+              "write": 0,
+              "read": 149248
+            }
+          },
+          "cost": 0,
+          "id": "prt_d69ad2055001gfB0Se6Sd7ffYg",
+          "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2",
+          "messageID": "msg_d69acf8f3001SLYNcWcscPq7Rx"
+        }
+      ]
+    },
+    {
+      "info": {
+        "parentID": "msg_d69ab3002001nZjLS8w6oOCmQD",
+        "role": "assistant",
+        "mode": "build",
+        "agent": "build",
+        "path": {
+          "cwd": "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain",
+          "root": "/Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-explain"
+        },
+        "cost": 0,
+        "tokens": {
+          "total": 150681,
+          "input": 269,
+          "output": 185,
+          "reasoning": 83,
+          "cache": {
+            "write": 0,
+            "read": 150144
+          }
+        },
+        "modelID": "gpt-5.3-codex",
+        "providerID": "openai",
+        "time": {
+          "created": 1775594447001,
+          "completed": 1775594455131
+        },
+        "finish": "stop",
+        "id": "msg_d69ad2099001Y0RZygX8frJRCH",
+        "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2"
+      },
+      "parts": [
+        {
+          "snapshot": "6d9235aac550fb6ce51407d3caa2bf0fbe02029e",
+          "type": "step-start",
+          "id": "prt_d69ad26b8001gAwNJRKvCGYSYC",
+          "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2",
+          "messageID": "msg_d69ad2099001Y0RZygX8frJRCH"
+        },
+        {
+          "type": "reasoning",
+          "text": "",
+          "time": {
+            "start": 1775594449839,
+            "end": 1775594451574
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "rs_0f5f02054b48c40a0169d56bd1cfec8195aa378b020431ff1a",
+              "reasoningEncryptedContent": "REDACTED"
+            }
+          },
+          "id": "prt_d69ad2baf00137BR0oXU1Cm5rj",
+          "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2",
+          "messageID": "msg_d69ad2099001Y0RZygX8frJRCH"
+        },
+        {
+          "type": "text",
+          "text": "Committed, then continued to the next step.\n\nCommitted:\n- `85ee0dcaa` — `feat: centralize compact transcript parsing`\n\nNext step completed (uncommitted):\n- Added integration coverage for v2-enabled fallback to v1 checkpoint data:\n  - `cmd/entire/cli/integration_test/explain_test.go`\n  - New test: `TestExplain_CheckpointV2EnabledFallsBackToV1`\n    - creates a v1-only checkpoint\n    - enables `checkpoints_v2`\n    - verifies `entire explain --checkpoint <prefix>` still resolves and renders the v1 checkpoint\n\nVerification:\n- `go test -tags=integration ./cmd/entire/cli/integration_test -run TestExplain_CheckpointV2EnabledFallsBackToV1` ✅\n\nI’m paused. Say `commit` if you want this step committed.",
+          "time": {
+            "start": 1775594455024,
+            "end": 1775594455024
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "msg_0f5f02054b48c40a0169d56bd38b2c8195b388a130be3939bc",
+              "phase": "final_answer"
+            }
+          },
+          "id": "prt_d69ad3277001pFqyKVkqnWbYXI",
+          "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2",
+          "messageID": "msg_d69ad2099001Y0RZygX8frJRCH"
+        },
+        {
+          "reason": "stop",
+          "snapshot": "6d9235aac550fb6ce51407d3caa2bf0fbe02029e",
+          "type": "step-finish",
+          "tokens": {
+            "total": 150681,
+            "input": 269,
+            "output": 185,
+            "reasoning": 83,
+            "cache": {
+              "write": 0,
+              "read": 150144
+            }
+          },
+          "cost": 0,
+          "id": "prt_d69ad4017001II9cxtUe583XFz",
+          "sessionID": "ses_29b5bcf47ffeomWfkY2fNw7Gw2",
+          "messageID": "msg_d69ad2099001Y0RZygX8frJRCH"
         }
       ]
     }
