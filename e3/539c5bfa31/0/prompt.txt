@@ -716,3 +716,7 @@ Successfully rebased and updated refs/heads/feature.
 peytonmontei@Peytons-MacBook-Pro /t/linkage-test (feature)> git diff-tree -p HEAD~1 HEAD | git patch-id --stable
 7a94b75ae87dd1f572f2df0d9f476051ff637c7d 0000000000000000000000000000000000000000
 peytonmontei@Peytons-MacBook-Pro /t/linkage-test (feature)>
+
+---
+
+okay go ahead
