@@ -840,3 +840,7 @@ When writing commits, ONLY describe the changes going into the commit. Don't des
 ---
 
 Can you run all pre-push checks and ensure tests, linting, etc. still works?
+
+---
+
+Commit
