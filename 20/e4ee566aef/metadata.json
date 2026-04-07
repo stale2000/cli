@@ -3,7 +3,7 @@
   "checkpoint_id": "20e4ee566aef",
   "strategy": "manual-commit",
   "branch": "feat/checkpoints-v2-explain",
-  "checkpoints_count": 0,
+  "checkpoints_count": 6,
   "files_touched": [
     "cmd/entire/cli/explain.go",
     "cmd/entire/cli/explain_test.go"
@@ -26,6 +26,19 @@
       "transcript": "/20/e4ee566aef/2/full.jsonl",
       "content_hash": "/20/e4ee566aef/2/content_hash.txt",
       "prompt": ""
+    },
+    {
+      "metadata": "/20/e4ee566aef/3/metadata.json",
+      "transcript": "/20/e4ee566aef/3/full.jsonl",
+      "content_hash": "/20/e4ee566aef/3/content_hash.txt",
+      "prompt": "/20/e4ee566aef/3/prompt.txt"
     }
-  ]
+  ],
+  "token_usage": {
+    "input_tokens": 273,
+    "cache_creation_tokens": 340663,
+    "cache_read_tokens": 32034871,
+    "output_tokens": 61351,
+    "api_call_count": 208
+  }
 }
