@@ -72,3 +72,7 @@ linkage metadata is just a nested array in metadata right? do we need to specify
 ---
 
 can we make this shorter "Yes, the tree hash doesn't work for rebase. I moved back to draft and am going to add patchID and files_changed_hash with tree_hash in a linkage block in the checkpoint metadata to track through checkpoints across rebase. Mostly the PR was to make sure we don't lose linkage from git commands, not just through checkpoints. "
+
+---
+
+no, you can continue
