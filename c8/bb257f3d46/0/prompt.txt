@@ -48,3 +48,7 @@ ________________________________________________________
 Executed in   34.22 secs    fish           external
    usr time    0.95 secs  148.00 micros    0.95 secs
    sys time    6.35 secs  619.00 micros    6.35 secs
+
+---
+
+okay sounds good, go ahead commit and push what we have on this branch
