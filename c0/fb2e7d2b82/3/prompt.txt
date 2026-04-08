@@ -869,3 +869,7 @@ Error: not a git repository
             Error:          "failed to generate summary: failed to generate summary: claude CLI not found: exec: \"claude\": executable file not found in $PATH" does not contain "failed to save summary"
             Test:           REDACTED
             Messages:       v2-only checkpoint should fail --generate because v1 store is required
+
+---
+
+Commit and push
