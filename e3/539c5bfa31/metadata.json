@@ -1,0 +1,34 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "e3539c5bfa31",
+  "strategy": "manual-commit",
+  "branch": "peyton/ent-834-tree-hash-checkpoint-linkage",
+  "checkpoints_count": 17,
+  "files_touched": [
+    "cmd/entire/cli/checkpoint/checkpoint.go",
+    "cmd/entire/cli/gitops/diff.go",
+    "cmd/entire/cli/strategy/manual_commit_hooks.go",
+    "cmd/entire/cli/strategy/manual_commit_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/e3/539c5bfa31/0/metadata.json",
+      "transcript": "/e3/539c5bfa31/0/full.jsonl",
+      "content_hash": "/e3/539c5bfa31/0/content_hash.txt",
+      "prompt": "/e3/539c5bfa31/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 2224,
+    "cache_creation_tokens": 1003844,
+    "cache_read_tokens": 53195220,
+    "output_tokens": 107810,
+    "api_call_count": 297
+  },
+  "linkage": {
+    "tree_hash": "0aa6776893944d58e60d198d6a7bfc466f2ebf77",
+    "patch_id": "b113d41ee0a3f7531697b3de2831121394629240",
+    "files_changed_hash": "b02353ca557e6305d2f6c2b440ae23cf02207606afe9465b8dfcf4d44d5b3381",
+    "session_files_hash": "aa190ed9238df483fd5b14e5be559ec387b27f28f38faabff2930957ed7ba1a6"
+  }
+}
