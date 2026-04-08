@@ -1,0 +1,22 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "92926498c799",
+  "strategy": "manual-commit",
+  "branch": "transcript-start-at-metadata",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "cmd/entire/cli/migrate_test.go",
+    "cmd/entire/cli/session/state.go",
+    "cmd/entire/cli/session/state_test.go",
+    "cmd/entire/cli/strategy/manual_commit_condensation.go",
+    "cmd/entire/cli/strategy/manual_commit_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/92/926498c799/0/metadata.json",
+      "transcript": "/92/926498c799/0/full.jsonl",
+      "content_hash": "/92/926498c799/0/content_hash.txt",
+      "prompt": "/92/926498c799/0/prompt.txt"
+    }
+  ]
+}
