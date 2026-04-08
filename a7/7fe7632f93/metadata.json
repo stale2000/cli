@@ -2,7 +2,7 @@
   "cli_version": "dev",
   "checkpoint_id": "a77fe7632f93",
   "strategy": "manual-commit",
-  "branch": "soph/codex-resume",
+  "branch": "codex-resume-rewrite",
   "checkpoints_count": 6,
   "files_touched": [
     "cmd/entire/cli/agent/codex/transcript.go",
@@ -18,6 +18,12 @@
       "transcript": "/a7/7fe7632f93/0/full.jsonl",
       "content_hash": "/a7/7fe7632f93/0/content_hash.txt",
       "prompt": "/a7/7fe7632f93/0/prompt.txt"
+    },
+    {
+      "metadata": "/a7/7fe7632f93/1/metadata.json",
+      "transcript": "/a7/7fe7632f93/1/full.jsonl",
+      "content_hash": "/a7/7fe7632f93/1/content_hash.txt",
+      "prompt": ""
     }
   ],
   "token_usage": {
