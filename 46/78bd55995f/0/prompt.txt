@@ -1,0 +1,13 @@
+Review changes on transcript-start-at-metadata to ensure that transcript.jsonl files have the appropriate started_at lines so we keep track of where we're at for each new checkpoint in the transcript.jsonl file. It should be a line start offset for where we should start reading to read and display only new information for that particular checkpoint.
+
+---
+
+Fix any issues found
+
+---
+
+Review all changes on `transcript-start-at-metadata` for idiomatic go standards
+
+---
+
+Now review and condense any comments added to this branch
