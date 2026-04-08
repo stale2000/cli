@@ -5,7 +5,6 @@
   "branch": "codex-resume-rewrite",
   "checkpoints_count": 6,
   "files_touched": [
-    "cmd/entire/cli/strategy/manual_commit_condensation.go",
     "cmd/entire/cli/strategy/manual_commit_hooks.go",
     "e2e/agents/codex.go",
     "e2e/entire/entire.go",
