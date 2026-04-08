@@ -1,0 +1,62 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "a1c5ef641832",
+  "session_id": "019d6e43-564e-7453-bdf7-6763388969d9",
+  "strategy": "manual-commit",
+  "created_at": "2026-04-08T18:52:53.457212Z",
+  "branch": "codex-explain-generate",
+  "checkpoints_count": 3,
+  "files_touched": [
+    "cmd/entire/cli/agent/codex/transcript.go",
+    "cmd/entire/cli/explain.go",
+    "cmd/entire/cli/explain_test.go",
+    "cmd/entire/cli/transcript/compact/codex.go"
+  ],
+  "agent": "Codex",
+  "turn_id": "5a7074e28020",
+  "token_usage": {
+    "input_tokens": 11315798,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 10757504,
+    "output_tokens": 42646,
+    "api_call_count": 101
+  },
+  "session_metrics": {
+    "turn_count": 3
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-04-08T18:52:52.30303Z",
+    "agent_lines": 9,
+    "agent_removed": 40,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 9,
+    "total_lines_changed": 49,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 6,
+      "agent_lines_removed": 38
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 9,
+      "agent_lines_removed": 40
+    }
+  ]
+}
