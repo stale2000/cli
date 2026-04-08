@@ -13,7 +13,7 @@
     },
     "time": {
       "created": 1775679920444,
-      "updated": 1775692414990
+      "updated": 1775692426750
     }
   },
   "messages": [
@@ -17815,19 +17815,22 @@
         },
         "cost": 0,
         "tokens": {
-          "input": 0,
-          "output": 0,
-          "reasoning": 0,
+          "total": 135479,
+          "input": 704,
+          "output": 100,
+          "reasoning": 19,
           "cache": {
-            "read": 0,
-            "write": 0
+            "write": 0,
+            "read": 134656
           }
         },
         "modelID": "gpt-5.3-codex",
         "providerID": "openai",
         "time": {
-          "created": 1775692414968
+          "created": 1775692414968,
+          "completed": 1775692426726
         },
+        "finish": "tool-calls",
         "id": "msg_d6f83fff8001xe323QMrWuQkkX",
         "sessionID": "ses_2913aa6c3fferpm7VPxOALxTQy"
       },
@@ -17861,19 +17864,24 @@
           "tool": "bash",
           "callID": "call_LoVVRc45gUAYP0efi7WBB0Xx",
           "state": {
-            "metadata": {
-              "output": "",
-              "description": "Stages testenv change, creates commit, and verifies clean status"
-            },
-            "status": "running",
+            "status": "completed",
             "input": {
               "command": "git add \"cmd/entire/cli/integration_test/testenv.go\" && git commit -m \"test: force accessible mode in CLI integration env\" && git status --short",
               "timeout": 120000,
               "workdir": "/Users/pfleidi/entire/cli/.worktrees/fix/slow-integration-tests",
               "description": "Stages testenv change, creates commit, and verifies clean status"
             },
+            "output": "[fix/slow-integration-tests 60d2526fa] test: force accessible mode in CLI integration env\n 1 file changed, 1 insertion(+)\n",
+            "metadata": {
+              "output": "[fix/slow-integration-tests 60d2526fa] test: force accessible mode in CLI integration env\n 1 file changed, 1 insertion(+)\n",
+              "exit": 0,
+              "description": "Stages testenv change, creates commit, and verifies clean status",
+              "truncated": false
+            },
+            "title": "Stages testenv change, creates commit, and verifies clean status",
             "time": {
-              "start": 1775692419120
+              "start": 1775692419119,
+              "end": 1775692426679
             }
           },
           "metadata": {
@@ -17884,6 +17892,102 @@
           "id": "prt_d6f8409a2001txqZAGx0sjQIIM",
           "sessionID": "ses_2913aa6c3fferpm7VPxOALxTQy",
           "messageID": "msg_d6f83fff8001xe323QMrWuQkkX"
+        },
+        {
+          "reason": "tool-calls",
+          "snapshot": "77d01ccc111d4fe0997f13957650ff1e5a2eadda",
+          "type": "step-finish",
+          "tokens": {
+            "total": 135479,
+            "input": 704,
+            "output": 100,
+            "reasoning": 19,
+            "cache": {
+              "write": 0,
+              "read": 134656
+            }
+          },
+          "cost": 0,
+          "id": "prt_d6f842db7002OiF5taiHC3mp5P",
+          "sessionID": "ses_2913aa6c3fferpm7VPxOALxTQy",
+          "messageID": "msg_d6f83fff8001xe323QMrWuQkkX"
+        }
+      ]
+    },
+    {
+      "info": {
+        "parentID": "msg_d6f83e2d8001Xxoxg7wGJBAGPn",
+        "role": "assistant",
+        "mode": "build",
+        "agent": "build",
+        "path": {
+          "cwd": "/Users/pfleidi/entire/cli/.worktrees/fix/slow-integration-tests",
+          "root": "/Users/pfleidi/entire/cli/.worktrees/fix/slow-integration-tests"
+        },
+        "cost": 0,
+        "tokens": {
+          "total": 135602,
+          "input": 228,
+          "output": 78,
+          "reasoning": 0,
+          "cache": {
+            "write": 0,
+            "read": 135296
+          }
+        },
+        "modelID": "gpt-5.3-codex",
+        "providerID": "openai",
+        "time": {
+          "created": 1775692426730,
+          "completed": 1775692430051
+        },
+        "finish": "stop",
+        "id": "msg_d6f842dea001yUlZrB7SjZhOs8",
+        "sessionID": "ses_2913aa6c3fferpm7VPxOALxTQy"
+      },
+      "parts": [
+        {
+          "snapshot": "77d01ccc111d4fe0997f13957650ff1e5a2eadda",
+          "type": "step-start",
+          "id": "prt_d6f843269001PcqRgHFqnNrl9W",
+          "sessionID": "ses_2913aa6c3fferpm7VPxOALxTQy",
+          "messageID": "msg_d6f842dea001yUlZrB7SjZhOs8"
+        },
+        {
+          "type": "text",
+          "text": "Committed.\n\n- Commit: `60d2526fa`\n- Message: `test: force accessible mode in CLI integration env`\n- File: `cmd/entire/cli/integration_test/testenv.go`\n\nThis is the minimal fix that prevents `attach` prompt hangs in integration tests by forcing `huh` to use stdin rather than `/dev/tty`.",
+          "time": {
+            "start": 1775692429953,
+            "end": 1775692429953
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "msg_030f49109afde67d0169d6ea8c489c8197af234e380058a960",
+              "phase": "final_answer"
+            }
+          },
+          "id": "prt_d6f843472001glHf10FX1YOs9B",
+          "sessionID": "ses_2913aa6c3fferpm7VPxOALxTQy",
+          "messageID": "msg_d6f842dea001yUlZrB7SjZhOs8"
+        },
+        {
+          "reason": "stop",
+          "snapshot": "77d01ccc111d4fe0997f13957650ff1e5a2eadda",
+          "type": "step-finish",
+          "tokens": {
+            "total": 135602,
+            "input": 228,
+            "output": 78,
+            "reasoning": 0,
+            "cache": {
+              "write": 0,
+              "read": 135296
+            }
+          },
+          "cost": 0,
+          "id": "prt_d6f843aa0001VjJ26bzI17zora",
+          "sessionID": "ses_2913aa6c3fferpm7VPxOALxTQy",
+          "messageID": "msg_d6f842dea001yUlZrB7SjZhOs8"
         }
       ]
     }
