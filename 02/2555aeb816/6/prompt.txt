@@ -1416,11 +1416,3 @@ Full transcript available at: /private/tmp/claude-501/-Users-pfleidi-entire-cli-
 ---
 
 Continue
-
----
-
-Commit and push
-
----
-
-Fix the remaining lint error, commit and push
