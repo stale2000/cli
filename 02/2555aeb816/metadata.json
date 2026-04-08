@@ -1,0 +1,20 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "022555aeb816",
+  "strategy": "manual-commit",
+  "branch": "feat/checkpoints-v2-explain",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/checkpoint/committed_reader_resolve.go",
+    "cmd/entire/cli/checkpoint/v2_read.go",
+    "cmd/entire/cli/explain.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/02/2555aeb816/0/metadata.json",
+      "transcript": "/02/2555aeb816/0/full.jsonl",
+      "content_hash": "/02/2555aeb816/0/content_hash.txt",
+      "prompt": ""
+    }
+  ]
+}
