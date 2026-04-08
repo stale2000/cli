@@ -3,7 +3,7 @@
   "checkpoint_id": "a77fe7632f93",
   "strategy": "manual-commit",
   "branch": "codex-resume-rewrite",
-  "checkpoints_count": 6,
+  "checkpoints_count": 1,
   "files_touched": [
     "cmd/entire/cli/agent/codex/transcript.go",
     "cmd/entire/cli/checkpoint/checkpoint_test.go",
@@ -27,10 +27,10 @@
     }
   ],
   "token_usage": {
-    "input_tokens": 23323825,
+    "input_tokens": 34743979,
     "cache_creation_tokens": 0,
-    "cache_read_tokens": 21892096,
-    "output_tokens": 87610,
-    "api_call_count": 211
+    "cache_read_tokens": 32734848,
+    "output_tokens": 112262,
+    "api_call_count": 311
   }
 }
