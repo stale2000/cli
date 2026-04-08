@@ -206,3 +206,7 @@ should both changes in b/cmd/entire/cli/strategy/manual_commit_condensation.go a
 ---
 
 can you trace back in this session how they came to be?
+
+---
+
+can we edit 3bd745cf82b349e2d5d5d8e275ce8b12b6a5d4f5 and take out the two unrelated changes?
