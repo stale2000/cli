@@ -3,7 +3,7 @@
   "checkpoint_id": "947ee58c91ad",
   "strategy": "manual-commit",
   "branch": "feat/checkpoints-v2-explain",
-  "checkpoints_count": 0,
+  "checkpoints_count": 1,
   "files_touched": [
     "cmd/entire/cli/checkpoint/committed_reader_resolve.go"
   ],
@@ -31,6 +31,19 @@
       "transcript": "/94/7ee58c91ad/3/full.jsonl",
       "content_hash": "/94/7ee58c91ad/3/content_hash.txt",
       "prompt": ""
+    },
+    {
+      "metadata": "/94/7ee58c91ad/4/metadata.json",
+      "transcript": "/94/7ee58c91ad/4/full.jsonl",
+      "content_hash": "/94/7ee58c91ad/4/content_hash.txt",
+      "prompt": "/94/7ee58c91ad/4/prompt.txt"
     }
-  ]
+  ],
+  "token_usage": {
+    "input_tokens": 8,
+    "cache_creation_tokens": 37293,
+    "cache_read_tokens": 136218,
+    "output_tokens": 1163,
+    "api_call_count": 5
+  }
 }
