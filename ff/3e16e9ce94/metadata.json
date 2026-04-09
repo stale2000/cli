@@ -3,7 +3,7 @@
   "checkpoint_id": "ff3e16e9ce94",
   "strategy": "manual-commit",
   "branch": "soph/always-respect-gitignore",
-  "checkpoints_count": 0,
+  "checkpoints_count": 1,
   "files_touched": [
     "cmd/entire/cli/checkpoint/temporary.go"
   ],
@@ -19,6 +19,19 @@
       "transcript": "/ff/3e16e9ce94/1/full.jsonl",
       "content_hash": "/ff/3e16e9ce94/1/content_hash.txt",
       "prompt": ""
+    },
+    {
+      "metadata": "/ff/3e16e9ce94/2/metadata.json",
+      "transcript": "/ff/3e16e9ce94/2/full.jsonl",
+      "content_hash": "/ff/3e16e9ce94/2/content_hash.txt",
+      "prompt": "/ff/3e16e9ce94/2/prompt.txt"
     }
-  ]
+  ],
+  "token_usage": {
+    "input_tokens": 124,
+    "cache_creation_tokens": 209908,
+    "cache_read_tokens": 7458379,
+    "output_tokens": 30930,
+    "api_call_count": 106
+  }
 }
