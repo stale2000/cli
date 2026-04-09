@@ -1,7 +1,3 @@
-https://github.com/entireio/cli/actions/runs/24195895598/job/70625686142 doesn't look like it worked, right?
+can you do this change for copilot in e2e.yml:
 
----
-
-1. this is a GitHub insider feature it works.
-
-Yeah we should set COPILOT_GITHUB_TOKEN to github.token, and remove GITHUB_TOKEN again
+now you should be able to add copilot-requests: write to the permissions block, and then you'll be able to pass ${{ github.token }} as the GITHUB_TOKEN env var to copilot

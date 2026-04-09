@@ -1,36 +1,37 @@
 {
   "cli_version": "dev",
-  "checkpoint_id": "98cf12e97696",
-  "session_id": "019d72a7-6b6e-7c31-906a-7275fa0683c7",
+  "checkpoint_id": "02acec3af4db",
+  "session_id": "019d7267-9aeb-7181-bed1-d387b9bd2023",
   "strategy": "manual-commit",
-  "created_at": "2026-04-09T14:32:34.6141Z",
-  "branch": "soph/fix-copilot-token",
+  "created_at": "2026-04-09T14:33:50.11595Z",
+  "branch": "nodo/ext-agents-detection",
   "checkpoints_count": 1,
   "files_touched": [
-    ".github/workflows/e2e.yml"
+    "cmd/entire/cli/global_test.go",
+    "cmd/entire/cli/setup_test.go"
   ],
   "agent": "Codex",
   "model": "gpt-5.4",
-  "turn_id": "a43118790e03",
+  "turn_id": "0379b74e1329",
   "token_usage": {
-    "input_tokens": 122543,
+    "input_tokens": 2196441,
     "cache_creation_tokens": 0,
-    "cache_read_tokens": 104064,
-    "output_tokens": 1546,
-    "api_call_count": 5
+    "cache_read_tokens": 1994240,
+    "output_tokens": 31449,
+    "api_call_count": 36
   },
   "session_metrics": {
-    "turn_count": 1
+    "turn_count": 2
   },
   "initial_attribution": {
-    "calculated_at": "2026-04-09T14:32:34.567635Z",
-    "agent_lines": 3,
-    "agent_removed": 0,
+    "calculated_at": "2026-04-09T14:33:49.872204Z",
+    "agent_lines": 49,
+    "agent_removed": 47,
     "human_added": 0,
     "human_modified": 0,
     "human_removed": 0,
-    "total_committed": 3,
-    "total_lines_changed": 3,
+    "total_committed": 49,
+    "total_lines_changed": 96,
     "agent_percentage": 100,
     "metric_version": 2
   },
