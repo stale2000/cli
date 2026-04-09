@@ -1,0 +1,42 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "26c8742742a0",
+  "session_id": "019d7456-fdbb-7fb3-b490-8fafc2d44958",
+  "strategy": "manual-commit",
+  "created_at": "2026-04-09T22:30:24.14076Z",
+  "branch": "feat/checkpoints-v2-explain",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/explain.go"
+  ],
+  "agent": "Codex",
+  "model": "gpt-5.4",
+  "turn_id": "f503c3d9f200",
+  "initial_attribution": {
+    "calculated_at": "2026-04-09T22:30:24.139933Z",
+    "agent_lines": 1,
+    "agent_removed": 1,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 1,
+    "total_lines_changed": 2,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 9,
+      "user_lines_removed": 9,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        "cmd/entire/cli/agent/capabilities.go": 9
+      },
+      "user_removed_per_file": {
+        "cmd/entire/cli/agent/capabilities.go": 9
+      }
+    }
+  ]
+}
