@@ -1,0 +1,29 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "10dae87903d7",
+  "strategy": "manual-commit",
+  "branch": "peyton/ent-834-tree-hash-checkpoint-linkage",
+  "checkpoints_count": 1,
+  "files_touched": null,
+  "sessions": [
+    {
+      "metadata": "/10/dae87903d7/0/metadata.json",
+      "transcript": "/10/dae87903d7/0/full.jsonl",
+      "content_hash": "/10/dae87903d7/0/content_hash.txt",
+      "prompt": "/10/dae87903d7/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 1981,
+    "cache_creation_tokens": 255624,
+    "cache_read_tokens": 12393913,
+    "output_tokens": 65367,
+    "api_call_count": 110
+  },
+  "linkage": {
+    "tree_hash": "eb3c6f5b10aed70769bd57347cefa6494efa41cc",
+    "patch_id": "4624cbbbdebd9b64288e35b6706f86ac8ba3dd1a",
+    "files_changed_hash": "a8b26a7c71750f875e97d25aa7d342a089661c1c53ebab7e4ceca8bdd6fd0629",
+    "session_files_hash": "f0a0117e302d7c42c7bfd7ea0ea67f0c1860b0330f33188e59d5e671f3e36cd0"
+  }
+}

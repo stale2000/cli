@@ -1,0 +1,45 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "022555aeb816",
+  "session_id": "019d6edb-687f-7fa2-80a7-5f61633856d9",
+  "strategy": "manual-commit",
+  "created_at": "2026-04-08T20:55:20.241142Z",
+  "branch": "feat/checkpoints-v2-explain",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/checkpoint/committed_reader_resolve.go",
+    "cmd/entire/cli/checkpoint/v2_read.go",
+    "cmd/entire/cli/explain.go"
+  ],
+  "agent": "Codex",
+  "model": "gpt-5.4",
+  "turn_id": "9e90f1375bfc",
+  "initial_attribution": {
+    "calculated_at": "2026-04-08T20:55:20.24052Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 1,
+    "human_removed": 3,
+    "total_committed": 0,
+    "total_lines_changed": 4,
+    "agent_percentage": 0,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 10,
+      "user_lines_removed": 3,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        "cmd/entire/cli/checkpoint/v2_read.go": 7,
+        "cmd/entire/cli/explain.go": 3
+      },
+      "user_removed_per_file": {
+        "cmd/entire/cli/explain.go": 3
+      }
+    }
+  ]
+}
