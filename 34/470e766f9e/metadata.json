@@ -1,0 +1,19 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "34470e766f9e",
+  "strategy": "manual-commit",
+  "branch": "soph/codex-resume",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/agent/codex/codex.go",
+    "cmd/entire/cli/strategy/manual_commit_rewind.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/34/470e766f9e/0/metadata.json",
+      "transcript": "/34/470e766f9e/0/full.jsonl",
+      "content_hash": "/34/470e766f9e/0/content_hash.txt",
+      "prompt": ""
+    }
+  ]
+}
