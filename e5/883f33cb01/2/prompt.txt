@@ -49,3 +49,7 @@ update-attach-no-tty-case
 ---
 
 some of them were already fixed upstream though
+
+---
+
+is CompactTranscriptStart being used anywhere for checkpoint or manual commit types? it wasn't failing before the main merge..
