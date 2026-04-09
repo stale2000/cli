@@ -1,0 +1,13 @@
+can you do a deep review of our test infra from the point of view of runtime? the `test:ci` takes a significant amount of time in actions, you can also look at the latest runs
+
+---
+
+yeah let's do this
+
+---
+
+instead of having scripts we could also just put them into mise-tasks?
+
+---
+
+running mise run test:ci:integration:shard a failed
