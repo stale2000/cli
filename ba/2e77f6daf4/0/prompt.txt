@@ -1,9 +1,1 @@
-can you commit
-
----
-
-would migrate work now? could I migrate a v1 checkpoints branch to gmeta?
-
----
-
 let's add a dedicate migrate mode
