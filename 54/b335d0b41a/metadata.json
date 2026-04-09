@@ -5,10 +5,7 @@
   "branch": "soph/test-improvements",
   "checkpoints_count": 3,
   "files_touched": [
-    ".github/workflows/ci.yml",
-    "cmd/entire/cli/testutil/testutil.go",
-    "mise-tasks/test/ci/core",
-    "mise-tasks/test/ci/integration/shard"
+    "mise-tasks/test/ci/core"
   ],
   "sessions": [
     {
@@ -19,10 +16,10 @@
     }
   ],
   "token_usage": {
-    "input_tokens": 11301814,
+    "input_tokens": 13242764,
     "cache_creation_tokens": 0,
-    "cache_read_tokens": 10761984,
-    "output_tokens": 36520,
-    "api_call_count": 82
+    "cache_read_tokens": 12275584,
+    "output_tokens": 38242,
+    "api_call_count": 96
   }
 }
