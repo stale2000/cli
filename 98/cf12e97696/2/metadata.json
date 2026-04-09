@@ -3,7 +3,7 @@
   "checkpoint_id": "98cf12e97696",
   "session_id": "019d72a7-6b6e-7c31-906a-7275fa0683c7",
   "strategy": "manual-commit",
-  "created_at": "2026-04-09T14:32:34.6141Z",
+  "created_at": "2026-04-09T14:42:29.516431Z",
   "branch": "soph/fix-copilot-token",
   "checkpoints_count": 1,
   "files_touched": [
@@ -11,26 +11,28 @@
   ],
   "agent": "Codex",
   "model": "gpt-5.4",
-  "turn_id": "a43118790e03",
+  "turn_id": "e5547974d1ec",
+  "checkpoint_transcript_start": 50,
+  "transcript_lines_at_start": 50,
   "token_usage": {
-    "input_tokens": 122543,
+    "input_tokens": 171856,
     "cache_creation_tokens": 0,
-    "cache_read_tokens": 104064,
-    "output_tokens": 1546,
-    "api_call_count": 5
+    "cache_read_tokens": 134784,
+    "output_tokens": 2666,
+    "api_call_count": 7
   },
   "session_metrics": {
-    "turn_count": 1
+    "turn_count": 3
   },
   "initial_attribution": {
-    "calculated_at": "2026-04-09T14:32:34.567635Z",
-    "agent_lines": 3,
-    "agent_removed": 0,
+    "calculated_at": "2026-04-09T14:42:29.440666Z",
+    "agent_lines": 2,
+    "agent_removed": 4,
     "human_added": 0,
     "human_modified": 0,
     "human_removed": 0,
-    "total_committed": 3,
-    "total_lines_changed": 3,
+    "total_committed": 2,
+    "total_lines_changed": 6,
     "agent_percentage": 100,
     "metric_version": 2
   },
