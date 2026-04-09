@@ -1565,3 +1565,7 @@ Use option 2
 ---
 
 That additional list seems excessive considering that we didn't have any issues with most of these packages. Can you try to stick to only the ones that kept getting touched automatically and ignore the rest?
+
+---
+
+Commit and push the changes
