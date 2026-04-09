@@ -1,0 +1,28 @@
+• 1. Medium: fetchAndRebaseSessionsCommon supports non-origin targets, but reconciliation is still pinned to origin, so the safety check can silently inspect the wrong ref. cmd/entire/cli/
+     strategy/push_common.go:141 fetches either to refs/remotes/<target>/... or to a temp ref for URL targets, then unconditionally calls cmd/entire/cli/strategy/metadata_reconcile.go:103,
+     which always compares the local metadata branch against refs/remotes/origin/entire/checkpoints/v1. If target != "origin" or target is a URL, reconciliation can become a no-op against
+     stale or unrelated origin state, and the later cmd/entire/cli/strategy/push_common.go:260 runs against the actually fetched ref without having had the disconnected-history repair
+     applied to that ref. That makes the feedback reasonable.
+
+  Open questions / assumptions:
+
+  - For URL targets, the current code fetches to a temp ref and then still relies on origin-based reconciliation; that is structurally inconsistent, not just a wording issue.
+  - I did not find tests covering non-origin remotes or URL targets for fetchAndRebaseSessionsCommon; the existing coverage in cmd/entire/cli/strategy/push_common_test.go only exercises
+    "origin".
+
+  Change summary:
+
+  - The suggestion to pass the fetched ref or remote name into reconciliation is the right fix.
+  - The fallback suggestion to skip reconciliation/rebase with a clear message when the target is not origin would be safer than the current behavior, but it is a weaker workaround than
+    making reconciliation target-aware.
+
+---
+
+Actually, is there any point supporting other origins and URL? Across the codebase where is that used? Given that this is a CLI we have a bit more control over the execution paths.
+
+---
+
+Let's:
+- Keep URL and arbitrary remote support.
+- Ensure that the execution path from hooks don't hard code origin anywhere.
+- Remove duplicate signature for methos with and without the origin - we don't need to keep backwards compatibility, just update the caller.
