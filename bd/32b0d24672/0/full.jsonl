@@ -1,0 +1,41 @@
+{
+  "sessionId": "e1360192-5182-40fb-85b5-5d9e6f6e28bd",
+  "projectHash": "6aa73b88dc7bead88bb1e0f65ffe0be9c2bfb35be0a86ea4cd8d461b925abbb6",
+  "startTime": "2026-03-13T17:47:50.040Z",
+  "lastUpdated": "2026-03-13T17:47:51.987Z",
+  "messages": [
+    {
+      "id": "b2e7b9e2-c54f-4139-b9f4-4a879f6286be",
+      "timestamp": "2026-03-13T17:47:50.040Z",
+      "type": "user",
+      "content": [
+        {
+          "text": "just say \"test\""
+        }
+      ]
+    },
+    {
+      "id": "5f05c7c6-9cca-4bc3-94fb-0634f2db46c4",
+      "timestamp": "2026-03-13T17:47:51.987Z",
+      "type": "gemini",
+      "content": "test",
+      "thoughts": [
+        {
+          "subject": "Comprehending the Request",
+          "description": "I'm focused on precisely following the user's instructions. The core task appears straightforward: to output a specific string. I have identified the directive and the required response.\ntest",
+          "timestamp": "2026-03-13T17:47:51.948Z"
+        }
+      ],
+      "tokens": {
+        "input": 6532,
+        "output": 1,
+        "cached": 2893,
+        "thoughts": 31,
+        "tool": 0,
+        "total": 6564
+      },
+      "model": "gemini-3-flash-preview"
+    }
+  ],
+  "kind": "main"
+}

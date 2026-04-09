@@ -1,0 +1,26 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "6978d1332bfb",
+  "session_id": "test-123",
+  "strategy": "manual-commit",
+  "created_at": "2026-04-02T22:22:16.266376Z",
+  "branch": "agent-improvements",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/memory_loop_cmd.go"
+  ],
+  "agent": "Claude Code",
+  "owner_name": "Alisha Kawaguchi",
+  "owner_id": "alishakawaguchi",
+  "owner_email": "alisha@entire.io",
+  "turn_id": "0d1fd8558f15",
+  "initial_attribution": {
+    "calculated_at": "2026-04-02T22:22:16.265116Z",
+    "agent_lines": 7,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 7,
+    "agent_percentage": 100
+  }
+}
