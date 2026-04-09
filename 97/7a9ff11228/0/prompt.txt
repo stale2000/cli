@@ -1486,3 +1486,7 @@ Commit
 ---
 
 Can you also add an integration test for this behavior to ensure `entire explain` works as expected when checkpoints v2 is enabled? Would it be possible to repurpose some of our v1 integration or e2e tests and run them with v2 enabled as well?
+
+---
+
+commit
