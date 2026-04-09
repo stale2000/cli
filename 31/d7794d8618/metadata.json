@@ -3,7 +3,7 @@
   "checkpoint_id": "31d7794d8618",
   "strategy": "manual-commit",
   "branch": "codex-explain-generate",
-  "checkpoints_count": 0,
+  "checkpoints_count": 4,
   "files_touched": [
     "cmd/entire/cli/strategy/manual_commit_condensation.go",
     "cmd/entire/cli/summarize/summarize.go",
@@ -23,6 +23,19 @@
       "transcript": "/31/d7794d8618/1/full.jsonl",
       "content_hash": "/31/d7794d8618/1/content_hash.txt",
       "prompt": ""
+    },
+    {
+      "metadata": "/31/d7794d8618/2/metadata.json",
+      "transcript": "/31/d7794d8618/2/full.jsonl",
+      "content_hash": "/31/d7794d8618/2/content_hash.txt",
+      "prompt": "/31/d7794d8618/2/prompt.txt"
     }
-  ]
+  ],
+  "token_usage": {
+    "input_tokens": 168,
+    "cache_creation_tokens": 307554,
+    "cache_read_tokens": 19115949,
+    "output_tokens": 64856,
+    "api_call_count": 138
+  }
 }
