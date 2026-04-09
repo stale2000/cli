@@ -3,7 +3,7 @@
   "checkpoint_id": "98cf12e97696",
   "strategy": "manual-commit",
   "branch": "soph/fix-copilot-token",
-  "checkpoints_count": 1,
+  "checkpoints_count": 2,
   "files_touched": [
     ".github/workflows/e2e.yml"
   ],
@@ -19,13 +19,19 @@
       "transcript": "/98/cf12e97696/1/full.jsonl",
       "content_hash": "/98/cf12e97696/1/content_hash.txt",
       "prompt": "/98/cf12e97696/1/prompt.txt"
+    },
+    {
+      "metadata": "/98/cf12e97696/2/metadata.json",
+      "transcript": "/98/cf12e97696/2/full.jsonl",
+      "content_hash": "/98/cf12e97696/2/content_hash.txt",
+      "prompt": "/98/cf12e97696/2/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 1575712,
+    "input_tokens": 1698255,
     "cache_creation_tokens": 0,
-    "cache_read_tokens": 1246976,
-    "output_tokens": 20990,
-    "api_call_count": 43
+    "cache_read_tokens": 1351040,
+    "output_tokens": 22536,
+    "api_call_count": 48
   }
 }
