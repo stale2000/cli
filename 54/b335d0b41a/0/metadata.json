@@ -1,0 +1,63 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "54b335d0b41a",
+  "session_id": "019d7247-b345-7180-a5d6-e3ee222e89fb",
+  "strategy": "manual-commit",
+  "created_at": "2026-04-09T14:25:46.320584Z",
+  "branch": "soph/test-improvements",
+  "checkpoints_count": 3,
+  "files_touched": [
+    ".github/workflows/ci.yml",
+    "cmd/entire/cli/testutil/testutil.go",
+    "mise-tasks/test/ci/core",
+    "mise-tasks/test/ci/integration/shard"
+  ],
+  "agent": "Codex",
+  "model": "gpt-5.4",
+  "turn_id": "c2463d1e7336",
+  "token_usage": {
+    "input_tokens": 11301814,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 10761984,
+    "output_tokens": 36520,
+    "api_call_count": 82
+  },
+  "session_metrics": {
+    "turn_count": 4
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-04-09T14:25:46.004394Z",
+    "agent_lines": 151,
+    "agent_removed": 5,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 151,
+    "total_lines_changed": 156,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 169,
+      "agent_lines_removed": 3
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 147,
+      "agent_lines_removed": 3
+    }
+  ]
+}

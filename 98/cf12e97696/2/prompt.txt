@@ -1,0 +1,3 @@
+can you do this change for copilot in e2e.yml:
+
+now you should be able to add copilot-requests: write to the permissions block, and then you'll be able to pass ${{ github.token }} as the GITHUB_TOKEN env var to copilot
