@@ -1,0 +1,13 @@
+yes commit, keep the plan uncommited
+
+---
+
+what's next in the plan?
+
+---
+
+token usage / attribution schema in gmeta
+
+---
+
+add the schema to the plan, and implement and do commits
