@@ -1,0 +1,9 @@
+can you address 1 + 2 and commit the changes meaingful
+
+---
+
+what's next according to plan?
+
+---
+
+I installed the cli, so we can do the interop test
