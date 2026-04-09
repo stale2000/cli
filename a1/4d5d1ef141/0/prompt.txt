@@ -1494,3 +1494,7 @@ commit
 ---
 
 When running `entire explain --checkpoint 8322117253a1 --generate` in my test repository, I get: `failed to save summary: checkpoint not found`. That's happening even though the `entire explain --checkpoint 8322117253a1` and `entire explain --checkpoint 8322117253a1 --full` succeed so the checkpoints seems to be there.
+
+---
+
+commit
