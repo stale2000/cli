@@ -1529,3 +1529,7 @@ Yes, that was user error.
 ---
 
 I found another small issue with the v2 code path: When `transcript.jsonl` doesn't exist in the `/main` ref, we are falling back to `prompt.txt` and not `/full/current` we should do the latter to display the most accurate data before falling back to `prompt.txt`.
+
+---
+
+commit
