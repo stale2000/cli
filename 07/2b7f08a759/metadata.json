@@ -3,7 +3,7 @@
   "checkpoint_id": "072b7f08a759",
   "strategy": "manual-commit",
   "branch": "soph/codex-resume",
-  "checkpoints_count": 0,
+  "checkpoints_count": 3,
   "files_touched": [
     "CLAUDE.md",
     "cmd/entire/cli/checkpoint/committed.go",
@@ -16,6 +16,19 @@
       "transcript": "/07/2b7f08a759/0/full.jsonl",
       "content_hash": "/07/2b7f08a759/0/content_hash.txt",
       "prompt": ""
+    },
+    {
+      "metadata": "/07/2b7f08a759/1/metadata.json",
+      "transcript": "/07/2b7f08a759/1/full.jsonl",
+      "content_hash": "/07/2b7f08a759/1/content_hash.txt",
+      "prompt": "/07/2b7f08a759/1/prompt.txt"
     }
-  ]
+  ],
+  "token_usage": {
+    "input_tokens": 43569649,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 39385472,
+    "output_tokens": 134739,
+    "api_call_count": 383
+  }
 }
