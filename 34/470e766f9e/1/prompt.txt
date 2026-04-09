@@ -218,3 +218,7 @@ can you look at the PR comments https://github.com/entireio/cli/pull/878 can you
 ---
 
 let's do this then
+
+---
+
+can you commit this in meaningful commits?
