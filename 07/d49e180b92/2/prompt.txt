@@ -1545,3 +1545,15 @@ Yes
 ---
 
 /simplify
+
+---
+
+Something keeps removing `//nolint:ireturn` comments from this codebase and it's driving me nuts. How can I stop that?
+
+---
+
+Can you ensure that there's always an explanation? I'm pretty sure the code I saw being removed had an explantation.
+
+---
+
+I'm not interested in the simplest fix for this situation. I want to know exactly which formatter/linter is responsible and why!
