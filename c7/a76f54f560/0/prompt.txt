@@ -1,0 +1,13 @@
+add the schema to the plan, and implement and do commits
+
+---
+
+what's next
+
+---
+
+how do we handle combined attribution now?
+
+---
+
+let's do that
