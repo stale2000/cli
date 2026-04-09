@@ -3,7 +3,7 @@
   "checkpoint_id": "5a4998e91de2",
   "strategy": "manual-commit",
   "branch": "soph/codex-resume",
-  "checkpoints_count": 0,
+  "checkpoints_count": 1,
   "files_touched": [
     "cmd/entire/cli/resume_test.go"
   ],
@@ -13,6 +13,19 @@
       "transcript": "/5a/4998e91de2/0/full.jsonl",
       "content_hash": "/5a/4998e91de2/0/content_hash.txt",
       "prompt": ""
+    },
+    {
+      "metadata": "/5a/4998e91de2/1/metadata.json",
+      "transcript": "/5a/4998e91de2/1/full.jsonl",
+      "content_hash": "/5a/4998e91de2/1/content_hash.txt",
+      "prompt": "/5a/4998e91de2/1/prompt.txt"
     }
-  ]
+  ],
+  "token_usage": {
+    "input_tokens": 38100864,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 35153792,
+    "output_tokens": 120216,
+    "api_call_count": 343
+  }
 }
