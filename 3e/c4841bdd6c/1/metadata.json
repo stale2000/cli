@@ -1,0 +1,28 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "3ec4841bdd6c",
+  "session_id": "019d7459-f87c-7de3-8c55-5a64e75fc0f7",
+  "strategy": "manual-commit",
+  "created_at": "2026-04-09T23:14:45.776493Z",
+  "branch": "feat/checkpoints-v2-explain",
+  "checkpoints_count": 0,
+  "files_touched": [
+    ".golangci.yaml",
+    "cmd/entire/cli/checkpoint/committed_reader_resolve.go"
+  ],
+  "agent": "Codex",
+  "model": "gpt-5.4",
+  "turn_id": "ac4e308a4852",
+  "initial_attribution": {
+    "calculated_at": "2026-04-09T23:14:45.775924Z",
+    "agent_lines": 2,
+    "agent_removed": 1,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 2,
+    "total_lines_changed": 3,
+    "agent_percentage": 100,
+    "metric_version": 2
+  }
+}
