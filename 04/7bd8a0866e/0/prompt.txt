@@ -71,3 +71,7 @@ but, now using the local install.sh
 ---
 
 I do want to build a entire binary with the following version 0.5.4-nightly.202604090645.7b0903ac
+
+---
+
+great, commit, push, and create a pr.
