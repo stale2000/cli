@@ -91,3 +91,7 @@ commit these changes
 ---
 
 /simplify
+
+---
+
+Commit and continue
