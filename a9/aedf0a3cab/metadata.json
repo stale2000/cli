@@ -3,7 +3,7 @@
   "checkpoint_id": "a9aedf0a3cab",
   "strategy": "manual-commit",
   "branch": "feat/unhide-search-command",
-  "checkpoints_count": 1,
+  "checkpoints_count": 0,
   "files_touched": [
     "cmd/entire/cli/search_cmd.go"
   ],
@@ -16,10 +16,10 @@
     }
   ],
   "token_usage": {
-    "input_tokens": 13,
-    "cache_creation_tokens": 31568,
-    "cache_read_tokens": 235987,
-    "output_tokens": 1616,
-    "api_call_count": 9
+    "input_tokens": 6,
+    "cache_creation_tokens": 1147,
+    "cache_read_tokens": 126547,
+    "output_tokens": 453,
+    "api_call_count": 4
   }
 }

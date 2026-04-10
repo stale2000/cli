@@ -3,51 +3,52 @@
   "checkpoint_id": "a9aedf0a3cab",
   "session_id": "c139f8a9-b048-4724-995c-a5f5cd5e274c",
   "strategy": "manual-commit",
-  "created_at": "2026-04-10T01:28:02.844452Z",
+  "created_at": "2026-04-10T01:34:56.795544Z",
   "branch": "feat/unhide-search-command",
-  "checkpoints_count": 1,
+  "checkpoints_count": 0,
   "files_touched": [
     "cmd/entire/cli/search_cmd.go"
   ],
   "agent": "Claude Code",
   "model": "claude-opus-4-6",
-  "turn_id": "ddc2408b206b",
+  "turn_id": "b1f02c9c9d3c",
+  "checkpoint_transcript_start": 47,
+  "transcript_lines_at_start": 47,
   "token_usage": {
-    "input_tokens": 13,
-    "cache_creation_tokens": 31568,
-    "cache_read_tokens": 235987,
-    "output_tokens": 1616,
-    "api_call_count": 9
+    "input_tokens": 6,
+    "cache_creation_tokens": 1147,
+    "cache_read_tokens": 126547,
+    "output_tokens": 453,
+    "api_call_count": 4
   },
   "session_metrics": {
-    "turn_count": 1
+    "turn_count": 2
   },
   "initial_attribution": {
-    "calculated_at": "2026-04-10T01:28:02.823345Z",
-    "agent_lines": 1,
-    "agent_removed": 1,
+    "calculated_at": "2026-04-10T01:34:56.770338Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
     "human_added": 0,
     "human_modified": 0,
-    "human_removed": 0,
-    "total_committed": 1,
-    "total_lines_changed": 2,
-    "agent_percentage": 100,
+    "human_removed": 3,
+    "total_committed": 0,
+    "total_lines_changed": 3,
+    "agent_percentage": 0,
     "metric_version": 2
   },
   "prompt_attributions": [
     {
       "checkpoint_number": 1,
-      "user_lines_added": 0,
-      "user_lines_removed": 0,
+      "user_lines_added": 2,
+      "user_lines_removed": 3,
       "agent_lines_added": 0,
-      "agent_lines_removed": 0
-    },
-    {
-      "checkpoint_number": 2,
-      "user_lines_added": 0,
-      "user_lines_removed": 0,
-      "agent_lines_added": 1,
-      "agent_lines_removed": 1
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        "cmd/entire/cli/search_cmd.go": 2
+      },
+      "user_removed_per_file": {
+        "cmd/entire/cli/search_cmd.go": 3
+      }
     }
   ]
 }
