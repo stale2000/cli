@@ -3,27 +3,21 @@
   "checkpoint_id": "1fcf1a279124",
   "strategy": "manual-commit",
   "branch": "fix/issue-750-claude-json-compat",
-  "checkpoints_count": 0,
-  "files_touched": [
-    "cmd/entire/cli/agent/claude_response.go",
-    "cmd/entire/cli/agent/claudecode/claude_test.go",
-    "cmd/entire/cli/agent/claudecode/generate.go",
-    "cmd/entire/cli/summarize/claude.go",
-    "cmd/entire/cli/summarize/claude_test.go"
-  ],
+  "checkpoints_count": 1,
+  "files_touched": null,
   "sessions": [
     {
       "metadata": "/1f/cf1a279124/0/metadata.json",
       "transcript": "/1f/cf1a279124/0/full.jsonl",
       "content_hash": "/1f/cf1a279124/0/content_hash.txt",
-      "prompt": ""
+      "prompt": "/1f/cf1a279124/0/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 607476,
+    "input_tokens": 3089463,
     "cache_creation_tokens": 0,
-    "cache_read_tokens": 606080,
-    "output_tokens": 670,
-    "api_call_count": 3
+    "cache_read_tokens": 3074304,
+    "output_tokens": 3758,
+    "api_call_count": 19
   }
 }
