@@ -7,3 +7,11 @@ how goreleaser uses the previous version
 ---
 
 let's add that change
+
+---
+
+gst
+
+---
+
+ship it
