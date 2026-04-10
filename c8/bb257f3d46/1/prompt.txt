@@ -1132,3 +1132,7 @@ When no `SummaryGeneration.Provider` is configured, `resolveCheckpointSummaryPro
 | **Low** | #6/#7: Validation and discovery do redundant agent loads | Only on first-run or explicit configure |</result>
 <usage><total_tokens>53662</total_tokens><tool_uses>25</tool_uses><duration_ms>112553</duration_ms></usage>
 </task-notification>
+
+---
+
+kay can you rebase cleanly reset the branch to main (pull first and make sure you really have the latest one) and run the cherry-pick on top for 876 from me and are only in this branch compared to backup/main-before-drop-8ebb9299a as a cherry-pick command and check if c30039be2588e6af57dfa34bad72963c210b2bfa is in your branch, and then make sure to not merge this !
