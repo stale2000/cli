@@ -1,17 +1,1 @@
-can you check the latest e2e run and figure out if the issues are real issues or flakes
-
----
-
-can you check codex first, can you find a reason in todays merges?
-
----
-
-can you check if https://github.com/entireio/cli/pull/908 would address some of the issues with cursor and others
-
----
-
-but it's good to merge
-
----
-
-can you look at the comments on 908? and we also need to fix conflicts
+can you commit
