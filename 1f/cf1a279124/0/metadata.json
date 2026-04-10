@@ -3,67 +3,41 @@
   "checkpoint_id": "1fcf1a279124",
   "session_id": "019d75b7-7fe1-7863-8599-57cab558b6ab",
   "strategy": "manual-commit",
-  "created_at": "2026-04-10T19:47:36.398089Z",
+  "created_at": "2026-04-10T19:47:59.717142Z",
   "branch": "fix/issue-750-claude-json-compat",
-  "checkpoints_count": 2,
+  "checkpoints_count": 0,
   "files_touched": [
+    "cmd/entire/cli/agent/claude_response.go",
     "cmd/entire/cli/agent/claudecode/claude_test.go",
-    "cmd/entire/cli/agent/claudecode/generate_test.go"
+    "cmd/entire/cli/agent/claudecode/generate.go",
+    "cmd/entire/cli/summarize/claude.go",
+    "cmd/entire/cli/summarize/claude_test.go"
   ],
   "agent": "Codex",
   "model": "gpt-5.4",
   "turn_id": "eae88d68ca46",
-  "checkpoint_transcript_start": 886,
-  "transcript_lines_at_start": 886,
+  "checkpoint_transcript_start": 1063,
+  "transcript_lines_at_start": 1063,
   "token_usage": {
-    "input_tokens": 4273694,
+    "input_tokens": 607476,
     "cache_creation_tokens": 0,
-    "cache_read_tokens": 4055296,
-    "output_tokens": 7176,
-    "api_call_count": 33
+    "cache_read_tokens": 606080,
+    "output_tokens": 670,
+    "api_call_count": 3
   },
   "session_metrics": {
     "turn_count": 27
   },
   "initial_attribution": {
-    "calculated_at": "2026-04-10T19:47:34.360144Z",
+    "calculated_at": "2026-04-10T19:47:57.647325Z",
     "agent_lines": 0,
     "agent_removed": 0,
-    "human_added": 99,
-    "human_modified": 31,
+    "human_added": 0,
+    "human_modified": 0,
     "human_removed": 0,
-    "total_committed": 99,
-    "total_lines_changed": 149,
+    "total_committed": 0,
+    "total_lines_changed": 0,
     "agent_percentage": 0,
     "metric_version": 2
-  },
-  "prompt_attributions": [
-    {
-      "checkpoint_number": 1,
-      "user_lines_added": 26,
-      "user_lines_removed": 31,
-      "agent_lines_added": 0,
-      "agent_lines_removed": 0,
-      "user_added_per_file": {
-        "cmd/entire/cli/agent/claudecode/claude_test.go": 26
-      },
-      "user_removed_per_file": {
-        "cmd/entire/cli/agent/claudecode/generate_test.go": 31
-      }
-    },
-    {
-      "checkpoint_number": 2,
-      "user_lines_added": 0,
-      "user_lines_removed": 0,
-      "agent_lines_added": 26,
-      "agent_lines_removed": 31
-    },
-    {
-      "checkpoint_number": 3,
-      "user_lines_added": 0,
-      "user_lines_removed": 0,
-      "agent_lines_added": 26,
-      "agent_lines_removed": 31
-    }
-  ]
+  }
 }
