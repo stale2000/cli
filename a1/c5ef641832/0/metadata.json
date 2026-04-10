@@ -26,57 +26,84 @@
     "turn_count": 3
   },
   "summary": {
-    "intent": "Debug and fix two issues with the `explain --generate` command: Codex checkpoints failing with 'transcript has no content to summarize' and Claude CLI failing with exit -1. The user wanted to address Codex support first.",
-    "outcome": "Added first-class Codex support to the `explain --generate` path by implementing Codex-aware transcript scoping and reusing existing Codex compact-transcript normalization. Fixed a semantic bug where offsets were incorrectly interpreted as response-item counts instead of raw line offsets, addressed Copilot/Bugbot review feedback, and pushed the changes to branch `codex-explain-generate`.",
+    "intent": "Fix two bugs in `entire explain --generate`: (1) Codex sessions producing 'transcript has no content to summarize', and (2) Claude CLI subprocess hanging/canceling with an opaque double-wrapped error message.",
+    "outcome": "Codex support for `explain --generate` was fully implemented, reviewed, lint-fixed, and pushed to PR #875 on branch `codex-explain-generate`. The Claude-side timeout/cancellation issue was diagnosed but deferred to a follow-up.",
     "learnings": {
       "repo": [
-        "Transcript handling is agent-specific: Claude/Cursor uses line-JSONL, Gemini/OpenCode use message-based JSON, Codex uses rollout event streams with session_meta/response_item/event_msg rows",
-        "CheckpointTranscriptStart is stored as a raw line offset, not a response-item or message count",
-        "The --generate path has two distinct phases: scope the checkpoint transcript, then normalize it into summary input shape",
-        "Codex compact-transcript logic already exists and should be reused rather than creating parallel parsers",
-        "Codex format detection needed widening to recognize scoped Codex transcript suffixes after session_meta is removed"
+        "The `summarize.BuildCondensedTranscriptFromBytes` switch handles Gemini, Droid, OpenCode, Claude/Cursor but was missing `AgentTypeCodex`, causing silent empty-transcript fallback.",
+        "Codex raw transcripts are rollout event streams (`session_meta`, `response_item`, `event_msg`) — structurally incompatible with the Claude/Cursor JSONL parser that expects `user`/`assistant` lines with a `message` payload.",
+        "Existing Codex normalization logic already existed in `transcript/compact/codex.go` but was never wired into the `--generate` / summarization path.",
+        "`CheckpointTranscriptStart` stores a raw JSONL line offset, not a response-item count — an easy semantic mismatch when writing Codex-specific scoping helpers.",
+        "Scoped Codex checkpoint transcripts start at `response_item` (after `session_meta` is sliced off), so format detection in `compact/codex.go` needed to accept that suffix as valid Codex.",
+        "`ClaudeGenerator` shells out to the user's local `claude` binary via `exec.CommandContext`; Entire does not call Anthropic's API directly for summary generation.",
+        "The double-wrapped error `failed to generate summary: failed to generate summary: ...` comes from independent wrapping in both `summarize.go` and `explain.go`.",
+        "The same Codex summarization gap exists in the auto-summarization path during condensation (`strategy/manual_commit_condensation.go`), not just in `explain --generate`."
       ],
       "code": [
         {
-          "path": "cmd/entire/cli/explain.go",
-          "line": 345,
-          "finding": "explain --generate delegates to ClaudeGenerator which shells out to local claude CLI, not an API call from Entire's side"
+          "path": "cmd/entire/cli/summarize/summarize.go",
+          "line": 118,
+          "end_line": 118,
+          "finding": "Agent-type switch for transcript parsing omits AgentTypeCodex, causing fallback to Claude/Cursor parser which produces empty output for Codex rollout JSONL."
+        },
+        {
+          "path": "cmd/entire/cli/summarize/summarize.go",
+          "line": 41,
+          "end_line": 41,
+          "finding": "Empty condensed transcript triggers 'transcript has no content to summarize' error — this is the exact error seen for Codex sessions."
         },
         {
           "path": "cmd/entire/cli/summarize/summarize.go",
           "line": 51,
-          "finding": "ClaudeGenerator defaults to the summarization path; lacks explicit timeout handling around subprocess invocation"
+          "end_line": 57,
+          "finding": "Default generator is ClaudeGenerator; error from it gets wrapped here, contributing to double-wrapped error message."
+        },
+        {
+          "path": "cmd/entire/cli/explain.go",
+          "line": 345,
+          "end_line": 347,
+          "finding": "Calls summarizer and wraps error a second time, producing the double 'failed to generate summary' prefix seen in Claude cancellation case."
+        },
+        {
+          "path": "cmd/entire/cli/summarize/claude.go",
+          "line": 101,
+          "end_line": 119,
+          "finding": "ClaudeGenerator runs `claude --print` via exec.CommandContext with no timeout wrapper; can block indefinitely and produces exit -1 on Ctrl-C."
         },
         {
           "path": "cmd/entire/cli/transcript/compact/codex.go",
           "line": 63,
-          "finding": "Existing Codex compact-transcript normalization logic was not being used by --generate path; needed to be called explicitly for Codex summarization"
+          "end_line": 63,
+          "finding": "Existing Codex normalization logic; reused in the fix rather than creating a parallel parser. Format detection also needed widening to accept scoped (post-session_meta) Codex suffixes."
         },
         {
-          "path": "cmd/entire/cli/explain.go",
-          "finding": "Original implementation incorrectly scoped Codex checkpoints using response-item offsets instead of stored raw line offsets, causing mis-scoping on transcripts with event_msg/turn_context rows"
+          "path": "cmd/entire/cli/strategy/manual_commit_condensation.go",
+          "line": 276,
+          "end_line": 276,
+          "finding": "Same Codex AgentType omission exists in auto-summarization during condensation — Codex summaries broken in both the explicit --generate path and the automatic condensation path."
         }
       ],
       "workflow": [
-        "Test-driven development pattern: wrote failing tests first, then implemented to make them pass",
-        "Static code review before implementation identified the two-phase architecture needed (scope + normalize)",
-        "CI/linting failures were caught by Actions and Bugbot/Copilot, providing actionable feedback",
-        "Local builds were tested against real checkpoints before pushing; user ran the binary themselves",
-        "Multiple commit rounds were needed due to review feedback and lint failures; separated concerns cleanly"
+        "Worktree sandbox blocked direct branch creation on the parent repo `.git`; required escalation or alternate approach.",
+        "Red-green-refactor: failing tests were written first to confirm the broken state before implementing the fix.",
+        "Go build cache restrictions in the sandbox required escalation flags on `go test` invocations.",
+        "Bugbot and Copilot PR review caught a real semantic bug (offset unit mismatch), not just style issues — worth reviewing bot comments before pushing follow-ups.",
+        "CI lint (`golangci-lint` with `goconst`) flagged a repeated string literal that was easily fixed by introducing a named constant.",
+        "Local binary built to `/tmp/entire-codex-explain-fix` for manual end-to-end verification by the user against real checkpoints before committing."
       ]
     },
     "friction": [
-      "Worktree sandbox blocked direct git branch creation; required escalation to create codex-explain-generate branch",
-      "Go build cache limitations required escalation for running targeted tests",
-      "Initial implementation had semantic bug (response-item vs line-offset mismatch) caught by review, requiring rework",
-      "Lint failure (goconst) in Actions run required investigation and second commit to fix",
-      "Multiple test/lint iterations needed before PR was clean",
-      "PR #875 was created in draft state with failures; required investigation of both semantic bugs and lint issues"
+      "Worktree sandbox blocked branch creation, requiring a workaround.",
+      "Go build cache restrictions in the sandbox forced escalation flags on every `go test` run.",
+      "First Codex implementation attempt used wrong offset semantics (response-item count vs. raw line offset), requiring a follow-up fix after PR review.",
+      "Double-wrapped error message (`failed to generate summary: failed to generate summary: ...`) made the Claude-side failure harder to diagnose from user output alone.",
+      "No progress indicator during `explain --generate` — a hung Claude subprocess gives the user no feedback before they Ctrl-C."
     ],
     "open_items": [
-      "Claude-side --generate timeout issue deferred for separate work (no timeout around subprocess, weak error handling on Ctrl-C)",
-      "User will manually test the Codex fix against demo-repository checkpoints (f8e8674105da, 84c774a39830) before full validation",
-      "Decision pending on whether to move PR #875 out of draft status and request full review"
+      "Claude-side `--generate` issue: add timeout around ClaudeGenerator subprocess, detect context.Canceled/DeadlineExceeded explicitly, and collapse the double-wrapped error message into a single clean error.",
+      "Fix the same Codex AgentType omission in `strategy/manual_commit_condensation.go` so auto-summarization during condensation also works for Codex sessions.",
+      "Droid agent scoping in `explain` is less explicit than Gemini/OpenCode — noted as a potential follow-up to standardize.",
+      "PR #875 still needs CI to pass after the follow-up commit before it can be merged."
     ]
   },
   "initial_attribution": {
