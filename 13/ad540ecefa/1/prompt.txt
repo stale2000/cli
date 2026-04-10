@@ -15,3 +15,7 @@ Can you also try to run the affected e2e tests locally and help me to set up an 
 ---
 
 Yes
+
+---
+
+commit these changes
