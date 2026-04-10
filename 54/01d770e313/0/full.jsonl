@@ -13,7 +13,7 @@
     },
     "time": {
       "created": 1775778320478,
-      "updated": 1775784738303
+      "updated": 1775784820619
     }
   },
   "messages": [
@@ -23302,19 +23302,22 @@
         },
         "cost": 0,
         "tokens": {
-          "input": 0,
-          "output": 0,
-          "reasoning": 0,
+          "total": 112615,
+          "input": 494,
+          "output": 104,
+          "reasoning": 17,
           "cache": {
-            "read": 0,
-            "write": 0
+            "write": 0,
+            "read": 112000
           }
         },
         "modelID": "gpt-5.3-codex",
         "providerID": "openai",
         "time": {
-          "created": 1775784738279
+          "created": 1775784738279,
+          "completed": 1775784749373
         },
+        "finish": "tool-calls",
         "id": "msg_d7504bde7001RUiizTqeyS2yNn",
         "sessionID": "ses_28b5d2fa1ffeWXDlKK0pI5yUi3"
       },
@@ -23348,19 +23351,24 @@
           "tool": "bash",
           "callID": "call_9yH6eY5g5RJv3IZtVHDUlV3I",
           "state": {
-            "metadata": {
-              "output": "",
-              "description": "Commit Gemini acknowledgment and startup handling changes"
-            },
-            "status": "running",
+            "status": "completed",
             "input": {
               "command": "git add \"e2e/agents/gemini.go\" \"e2e/testutil/repo.go\" && git commit -m \"fix: pre-acknowledge Gemini search agent in e2e setup\"",
               "timeout": 120000,
               "workdir": "/Users/pfleidi/entire/cli/.worktrees/fix/flaky-e2e-tests",
               "description": "Commit Gemini acknowledgment and startup handling changes"
             },
+            "output": "[fix/flaky-e2e-tests fce79c5e5] fix: pre-acknowledge Gemini search agent in e2e setup\n 2 files changed, 61 insertions(+), 1 deletion(-)\n",
+            "metadata": {
+              "output": "[fix/flaky-e2e-tests fce79c5e5] fix: pre-acknowledge Gemini search agent in e2e setup\n 2 files changed, 61 insertions(+), 1 deletion(-)\n",
+              "exit": 0,
+              "description": "Commit Gemini acknowledgment and startup handling changes",
+              "truncated": false
+            },
+            "title": "Commit Gemini acknowledgment and startup handling changes",
             "time": {
-              "start": 1775784742441
+              "start": 1775784742440,
+              "end": 1775784749319
             }
           },
           "metadata": {
@@ -23371,6 +23379,665 @@
           "id": "prt_d7504c801001quPwkZaMtb01lX",
           "sessionID": "ses_28b5d2fa1ffeWXDlKK0pI5yUi3",
           "messageID": "msg_d7504bde7001RUiizTqeyS2yNn"
+        },
+        {
+          "reason": "tool-calls",
+          "snapshot": "500381a23e708358525225ff56d5be501245f90b",
+          "type": "step-finish",
+          "tokens": {
+            "total": 112615,
+            "input": 494,
+            "output": 104,
+            "reasoning": 17,
+            "cache": {
+              "write": 0,
+              "read": 112000
+            }
+          },
+          "cost": 0,
+          "id": "prt_d7504e907002GhXqItSYMRJExj",
+          "sessionID": "ses_28b5d2fa1ffeWXDlKK0pI5yUi3",
+          "messageID": "msg_d7504bde7001RUiizTqeyS2yNn"
+        }
+      ]
+    },
+    {
+      "info": {
+        "parentID": "msg_d7501d777001BxSS2sYy26uEvO",
+        "role": "assistant",
+        "mode": "build",
+        "agent": "build",
+        "path": {
+          "cwd": "/Users/pfleidi/entire/cli/.worktrees/fix/flaky-e2e-tests",
+          "root": "/Users/pfleidi/entire/cli/.worktrees/fix/flaky-e2e-tests"
+        },
+        "cost": 0,
+        "tokens": {
+          "total": 112790,
+          "input": 546,
+          "output": 106,
+          "reasoning": 10,
+          "cache": {
+            "write": 0,
+            "read": 112128
+          }
+        },
+        "modelID": "gpt-5.3-codex",
+        "providerID": "openai",
+        "time": {
+          "created": 1775784749380,
+          "completed": 1775784760267
+        },
+        "finish": "tool-calls",
+        "id": "msg_d7504e944001EdKDUf2fd5mWyX",
+        "sessionID": "ses_28b5d2fa1ffeWXDlKK0pI5yUi3"
+      },
+      "parts": [
+        {
+          "snapshot": "500381a23e708358525225ff56d5be501245f90b",
+          "type": "step-start",
+          "id": "prt_d7504eda5001lgQ1r3sGuQVHXy",
+          "sessionID": "ses_28b5d2fa1ffeWXDlKK0pI5yUi3",
+          "messageID": "msg_d7504e944001EdKDUf2fd5mWyX"
+        },
+        {
+          "type": "reasoning",
+          "text": "",
+          "time": {
+            "start": 1775784750911,
+            "end": 1775784751656
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "rs_0d14a89fdc1d0e3f0169d8532ee4388194b062e45a311078e4",
+              "reasoningEncryptedContent": "REDACTED"
+            }
+          },
+          "id": "prt_d7504ef3f001eEPyOv3XflYrVO",
+          "sessionID": "ses_28b5d2fa1ffeWXDlKK0pI5yUi3",
+          "messageID": "msg_d7504e944001EdKDUf2fd5mWyX"
+        },
+        {
+          "type": "tool",
+          "tool": "bash",
+          "callID": "call_7eY7zyVhSRgC06pA3DpM1KdZ",
+          "state": {
+            "status": "completed",
+            "input": {
+              "command": "git add \"cmd/entire/cli/strategy/manual_commit_condensation.go\" \"cmd/entire/cli/strategy/manual_commit_test.go\" && git commit -m \"fix: tolerate missing live transcript during active condensation\"",
+              "timeout": 120000,
+              "workdir": "/Users/pfleidi/entire/cli/.worktrees/fix/flaky-e2e-tests",
+              "description": "Commit active-phase missing transcript condensation fix"
+            },
+            "output": "[fix/flaky-e2e-tests f32af9ba6] fix: tolerate missing live transcript during active condensation\n 2 files changed, 72 insertions(+), 1 deletion(-)\n",
+            "metadata": {
+              "output": "[fix/flaky-e2e-tests f32af9ba6] fix: tolerate missing live transcript during active condensation\n 2 files changed, 72 insertions(+), 1 deletion(-)\n",
+              "exit": 0,
+              "description": "Commit active-phase missing transcript condensation fix",
+              "truncated": false
+            },
+            "title": "Commit active-phase missing transcript condensation fix",
+            "time": {
+              "start": 1775784753220,
+              "end": 1775784760216
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_0d14a89fdc1d0e3f0169d8532f9f64819486cfaabda97a2d4b"
+            }
+          },
+          "id": "prt_d7504f22900171OmHKZNb6wKpp",
+          "sessionID": "ses_28b5d2fa1ffeWXDlKK0pI5yUi3",
+          "messageID": "msg_d7504e944001EdKDUf2fd5mWyX"
+        },
+        {
+          "reason": "tool-calls",
+          "snapshot": "500381a23e708358525225ff56d5be501245f90b",
+          "type": "step-finish",
+          "tokens": {
+            "total": 112790,
+            "input": 546,
+            "output": 106,
+            "reasoning": 10,
+            "cache": {
+              "write": 0,
+              "read": 112128
+            }
+          },
+          "cost": 0,
+          "id": "prt_d75051398002Z0pSJFYMUP51KK",
+          "sessionID": "ses_28b5d2fa1ffeWXDlKK0pI5yUi3",
+          "messageID": "msg_d7504e944001EdKDUf2fd5mWyX"
+        }
+      ]
+    },
+    {
+      "info": {
+        "parentID": "msg_d7501d777001BxSS2sYy26uEvO",
+        "role": "assistant",
+        "mode": "build",
+        "agent": "build",
+        "path": {
+          "cwd": "/Users/pfleidi/entire/cli/.worktrees/fix/flaky-e2e-tests",
+          "root": "/Users/pfleidi/entire/cli/.worktrees/fix/flaky-e2e-tests"
+        },
+        "cost": 0,
+        "tokens": {
+          "total": 113191,
+          "input": 458,
+          "output": 279,
+          "reasoning": 70,
+          "cache": {
+            "write": 0,
+            "read": 112384
+          }
+        },
+        "modelID": "gpt-5.3-codex",
+        "providerID": "openai",
+        "time": {
+          "created": 1775784760273,
+          "completed": 1775784770535
+        },
+        "finish": "tool-calls",
+        "id": "msg_d750513d1001bdTzXr8W3J4nSo",
+        "sessionID": "ses_28b5d2fa1ffeWXDlKK0pI5yUi3"
+      },
+      "parts": [
+        {
+          "snapshot": "500381a23e708358525225ff56d5be501245f90b",
+          "type": "step-start",
+          "id": "prt_d75051840001fpPSnvwjExMPBt",
+          "sessionID": "ses_28b5d2fa1ffeWXDlKK0pI5yUi3",
+          "messageID": "msg_d750513d1001bdTzXr8W3J4nSo"
+        },
+        {
+          "type": "reasoning",
+          "text": "",
+          "time": {
+            "start": 1775784763819,
+            "end": 1775784770210
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "rs_02f30f01bbed49560169d8533bbabc8193bac51b896e375d0b",
+              "reasoningEncryptedContent": "REDACTED"
+            }
+          },
+          "id": "prt_d750521ab001zTwcMkQfsubVpX",
+          "sessionID": "ses_28b5d2fa1ffeWXDlKK0pI5yUi3",
+          "messageID": "msg_d750513d1001bdTzXr8W3J4nSo"
+        },
+        {
+          "type": "tool",
+          "tool": "bash",
+          "callID": "call_nEUuiqRof8TLHOVMWP8jnSWb",
+          "state": {
+            "status": "completed",
+            "input": {
+              "command": "git status --short && git status -sb",
+              "timeout": 120000,
+              "workdir": "/Users/pfleidi/entire/cli/.worktrees/fix/flaky-e2e-tests",
+              "description": "Check clean working tree and branch status"
+            },
+            "output": "## fix/flaky-e2e-tests\n",
+            "metadata": {
+              "output": "## fix/flaky-e2e-tests\n",
+              "exit": 0,
+              "description": "Check clean working tree and branch status",
+              "truncated": false
+            },
+            "title": "Check clean working tree and branch status",
+            "time": {
+              "start": 1775784770219,
+              "end": 1775784770272
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_02f30f01bbed49560169d853422e748193a959c2d9be1bd1d7"
+            }
+          },
+          "id": "prt_d75053aa5001oCHNAYGYJXHOba",
+          "sessionID": "ses_28b5d2fa1ffeWXDlKK0pI5yUi3",
+          "messageID": "msg_d750513d1001bdTzXr8W3J4nSo"
+        },
+        {
+          "type": "tool",
+          "tool": "bash",
+          "callID": "call_vj4Jw6zhB9whGAhrPzUAkp0V",
+          "state": {
+            "status": "completed",
+            "input": {
+              "command": "git diff --stat && git diff",
+              "timeout": 120000,
+              "workdir": "/Users/pfleidi/entire/cli/.worktrees/fix/flaky-e2e-tests",
+              "description": "Confirm no uncommitted changes"
+            },
+            "output": "",
+            "metadata": {
+              "output": "",
+              "exit": 0,
+              "description": "Confirm no uncommitted changes",
+              "truncated": false
+            },
+            "title": "Confirm no uncommitted changes",
+            "time": {
+              "start": 1775784770225,
+              "end": 1775784770263
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_02f30f01bbed49560169d853422e848193a81f894310e89d66"
+            }
+          },
+          "id": "prt_d75053aae001a3abFUMSMJrgac",
+          "sessionID": "ses_28b5d2fa1ffeWXDlKK0pI5yUi3",
+          "messageID": "msg_d750513d1001bdTzXr8W3J4nSo"
+        },
+        {
+          "type": "tool",
+          "tool": "bash",
+          "callID": "call_9lwD1eeoxZI7cZcGIyHAHMcB",
+          "state": {
+            "status": "completed",
+            "input": {
+              "command": "git rev-parse --abbrev-ref --symbolic-full-name @{u}",
+              "timeout": 120000,
+              "workdir": "/Users/pfleidi/entire/cli/.worktrees/fix/flaky-e2e-tests",
+              "description": "Check upstream tracking branch"
+            },
+            "output": "fatal: no upstream configured for branch 'fix/flaky-e2e-tests'\n",
+            "metadata": {
+              "output": "fatal: no upstream configured for branch 'fix/flaky-e2e-tests'\n",
+              "exit": 128,
+              "description": "Check upstream tracking branch",
+              "truncated": false
+            },
+            "title": "Check upstream tracking branch",
+            "time": {
+              "start": 1775784770227,
+              "end": 1775784770251
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_02f30f01bbed49560169d853422e8c81938c4af4428bd708eb"
+            }
+          },
+          "id": "prt_d75053ab2002MzH2Gia7rUttvN",
+          "sessionID": "ses_28b5d2fa1ffeWXDlKK0pI5yUi3",
+          "messageID": "msg_d750513d1001bdTzXr8W3J4nSo"
+        },
+        {
+          "type": "tool",
+          "tool": "bash",
+          "callID": "call_YJGG8NQHB1j8KSgS9viaGGVp",
+          "state": {
+            "status": "completed",
+            "input": {
+              "command": "git log --oneline --decorate -8 && git diff main...HEAD --stat",
+              "timeout": 120000,
+              "workdir": "/Users/pfleidi/entire/cli/.worktrees/fix/flaky-e2e-tests",
+              "description": "Inspect branch commits and diff vs main"
+            },
+            "output": "f32af9ba6 (HEAD -> fix/flaky-e2e-tests) fix: tolerate missing live transcript during active condensation\nfce79c5e5 fix: pre-acknowledge Gemini search agent in e2e setup\ne43d8ccd4 fix: accept Cursor startup placeholder variants\nd25557761 (origin/main, origin/HEAD, main) Merge pull request #864 from entireio/feat/checkpoints-v2-explain\n8c8e72d6b Merge branch 'main' into feat/checkpoints-v2-explain\n24fca201d (origin/feat/checkpoints-v2-explain, feat/checkpoints-v2-explain) fix: add CommittedReader to ireturn allow list\n368d6a2ee fix: return error when v1 summary save fails and v2Store is nil\n6318e421f lint: use $w to format error\n .../cli/strategy/manual_commit_condensation.go     | 13 ++++-\n cmd/entire/cli/strategy/manual_commit_test.go      | 60 ++++++++++++++++++++++\n e2e/agents/cursor_cli.go                           |  4 +-\n e2e/agents/gemini.go                               |  2 +-\n e2e/testutil/repo.go                               | 60 ++++++++++++++++++++++\n 5 files changed, 135 insertions(+), 4 deletions(-)\n",
+            "metadata": {
+              "output": "f32af9ba6 (HEAD -> fix/flaky-e2e-tests) fix: tolerate missing live transcript during active condensation\nfce79c5e5 fix: pre-acknowledge Gemini search agent in e2e setup\ne43d8ccd4 fix: accept Cursor startup placeholder variants\nd25557761 (origin/main, origin/HEAD, main) Merge pull request #864 from entireio/feat/checkpoints-v2-explain\n8c8e72d6b Merge branch 'main' into feat/checkpoints-v2-explain\n24fca201d (origin/feat/checkpoints-v2-explain, feat/checkpoints-v2-explain) fix: add CommittedReader to ireturn allow list\n368d6a2ee fix: return error when v1 summary save fails and v2Store is nil\n6318e421f lint: use $w to format error\n .../cli/strategy/manual_commit_condensation.go     | 13 ++++-\n cmd/entire/cli/strategy/manual_commit_test.go      | 60 ++++++++++++++++++++++\n e2e/agents/cursor_cli.go                           |  4 +-\n e2e/agents/gemini.go                               |  2 +-\n e2e/testutil/repo.go                               | 60 ++++++++++++++++++++++\n 5 files changed, 135 insertions(+), 4 deletions(-)\n",
+              "exit": 0,
+              "description": "Inspect branch commits and diff vs main",
+              "truncated": false
+            },
+            "title": "Inspect branch commits and diff vs main",
+            "time": {
+              "start": 1775784770230,
+              "end": 1775784770275
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_02f30f01bbed49560169d853422e948193968acce163bda067"
+            }
+          },
+          "id": "prt_d75053ab5001oR2RO8VW5uBHgI",
+          "sessionID": "ses_28b5d2fa1ffeWXDlKK0pI5yUi3",
+          "messageID": "msg_d750513d1001bdTzXr8W3J4nSo"
+        },
+        {
+          "reason": "tool-calls",
+          "snapshot": "500381a23e708358525225ff56d5be501245f90b",
+          "type": "step-finish",
+          "tokens": {
+            "total": 113191,
+            "input": 458,
+            "output": 279,
+            "reasoning": 70,
+            "cache": {
+              "write": 0,
+              "read": 112384
+            }
+          },
+          "cost": 0,
+          "id": "prt_d75053ba7001b8lDV0TAFnsuuE",
+          "sessionID": "ses_28b5d2fa1ffeWXDlKK0pI5yUi3",
+          "messageID": "msg_d750513d1001bdTzXr8W3J4nSo"
+        }
+      ]
+    },
+    {
+      "info": {
+        "parentID": "msg_d7501d777001BxSS2sYy26uEvO",
+        "role": "assistant",
+        "mode": "build",
+        "agent": "build",
+        "path": {
+          "cwd": "/Users/pfleidi/entire/cli/.worktrees/fix/flaky-e2e-tests",
+          "root": "/Users/pfleidi/entire/cli/.worktrees/fix/flaky-e2e-tests"
+        },
+        "cost": 0,
+        "tokens": {
+          "total": 113674,
+          "input": 778,
+          "output": 69,
+          "reasoning": 59,
+          "cache": {
+            "write": 0,
+            "read": 112768
+          }
+        },
+        "modelID": "gpt-5.3-codex",
+        "providerID": "openai",
+        "time": {
+          "created": 1775784770542,
+          "completed": 1775784809526
+        },
+        "finish": "tool-calls",
+        "id": "msg_d75053bee001o0Z6HPJxFVrutR",
+        "sessionID": "ses_28b5d2fa1ffeWXDlKK0pI5yUi3"
+      },
+      "parts": [
+        {
+          "snapshot": "500381a23e708358525225ff56d5be501245f90b",
+          "type": "step-start",
+          "id": "prt_d750540e0001P6ogGyLQdSlLAD",
+          "sessionID": "ses_28b5d2fa1ffeWXDlKK0pI5yUi3",
+          "messageID": "msg_d75053bee001o0Z6HPJxFVrutR"
+        },
+        {
+          "type": "reasoning",
+          "text": "",
+          "time": {
+            "start": 1775784772465,
+            "end": 1775784774109
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "rs_08d1fe7c7afc71230169d8534471e08197b8f7e5fd4579a358",
+              "reasoningEncryptedContent": "REDACTED"
+            }
+          },
+          "id": "prt_d7505437100141tsQt5JqEti06",
+          "sessionID": "ses_28b5d2fa1ffeWXDlKK0pI5yUi3",
+          "messageID": "msg_d75053bee001o0Z6HPJxFVrutR"
+        },
+        {
+          "type": "tool",
+          "tool": "bash",
+          "callID": "call_6Luu46tt0HGTokBdomeTMyiw",
+          "state": {
+            "status": "completed",
+            "input": {
+              "command": "git push -u origin fix/flaky-e2e-tests",
+              "timeout": 120000,
+              "workdir": "/Users/pfleidi/entire/cli/.worktrees/fix/flaky-e2e-tests",
+              "description": "Push branch and set upstream"
+            },
+            "output": "[entire] Pushing entire/checkpoints/v1 to checkpoint remote...\n[entire] Syncing entire/checkpoints/v1 with remote............................... done\n[entire] Pushing entire/checkpoints/v1 to checkpoint remote..... done\nremote: \nremote: Create a pull request for 'fix/flaky-e2e-tests' on GitHub by visiting:        \nremote:      https://github.com/entireio/cli/pull/new/fix/flaky-e2e-tests        \nremote: \nTo github.com:entireio/cli.git\n * [new branch]          fix/flaky-e2e-tests -> fix/flaky-e2e-tests\nbranch 'fix/flaky-e2e-tests' set up to track 'origin/fix/flaky-e2e-tests'.\n",
+            "metadata": {
+              "output": "[entire] Pushing entire/checkpoints/v1 to checkpoint remote...\n[entire] Syncing entire/checkpoints/v1 with remote............................... done\n[entire] Pushing entire/checkpoints/v1 to checkpoint remote..... done\nremote: \nremote: Create a pull request for 'fix/flaky-e2e-tests' on GitHub by visiting:        \nremote:      https://github.com/entireio/cli/pull/new/fix/flaky-e2e-tests        \nremote: \nTo github.com:entireio/cli.git\n * [new branch]          fix/flaky-e2e-tests -> fix/flaky-e2e-tests\nbranch 'fix/flaky-e2e-tests' set up to track 'origin/fix/flaky-e2e-tests'.\n",
+              "exit": 0,
+              "description": "Push branch and set upstream",
+              "truncated": false
+            },
+            "title": "Push branch and set upstream",
+            "time": {
+              "start": 1775784775369,
+              "end": 1775784809465
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_08d1fe7c7afc71230169d85346155481978a4c4ee8c5b79f3c"
+            }
+          },
+          "id": "prt_d750549df001vcjPm2N8D8xOn2",
+          "sessionID": "ses_28b5d2fa1ffeWXDlKK0pI5yUi3",
+          "messageID": "msg_d75053bee001o0Z6HPJxFVrutR"
+        },
+        {
+          "reason": "tool-calls",
+          "snapshot": "500381a23e708358525225ff56d5be501245f90b",
+          "type": "step-finish",
+          "tokens": {
+            "total": 113674,
+            "input": 778,
+            "output": 69,
+            "reasoning": 59,
+            "cache": {
+              "write": 0,
+              "read": 112768
+            }
+          },
+          "cost": 0,
+          "id": "prt_d7505d3fa001PUhVKutUMT2gLn",
+          "sessionID": "ses_28b5d2fa1ffeWXDlKK0pI5yUi3",
+          "messageID": "msg_d75053bee001o0Z6HPJxFVrutR"
+        }
+      ]
+    },
+    {
+      "info": {
+        "parentID": "msg_d7501d777001BxSS2sYy26uEvO",
+        "role": "assistant",
+        "mode": "build",
+        "agent": "build",
+        "path": {
+          "cwd": "/Users/pfleidi/entire/cli/.worktrees/fix/flaky-e2e-tests",
+          "root": "/Users/pfleidi/entire/cli/.worktrees/fix/flaky-e2e-tests"
+        },
+        "cost": 0,
+        "tokens": {
+          "total": 114229,
+          "input": 566,
+          "output": 356,
+          "reasoning": 27,
+          "cache": {
+            "write": 0,
+            "read": 113280
+          }
+        },
+        "modelID": "gpt-5.3-codex",
+        "providerID": "openai",
+        "time": {
+          "created": 1775784809532,
+          "completed": 1775784820590
+        },
+        "finish": "tool-calls",
+        "id": "msg_d7505d43c0017FxVcti0zL4gc1",
+        "sessionID": "ses_28b5d2fa1ffeWXDlKK0pI5yUi3"
+      },
+      "parts": [
+        {
+          "snapshot": "500381a23e708358525225ff56d5be501245f90b",
+          "type": "step-start",
+          "id": "prt_d7505d9510013vS5jleUnnwFkS",
+          "sessionID": "ses_28b5d2fa1ffeWXDlKK0pI5yUi3",
+          "messageID": "msg_d7505d43c0017FxVcti0zL4gc1"
+        },
+        {
+          "type": "reasoning",
+          "text": "",
+          "time": {
+            "start": 1775784811412,
+            "end": 1775784812225
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "rs_086cbf27672443cb0169d8536b4d0c8194a7c3c5bb5d69fd12",
+              "reasoningEncryptedContent": "REDACTED"
+            }
+          },
+          "id": "prt_d7505db94001mAewVNALoJD4fZ",
+          "sessionID": "ses_28b5d2fa1ffeWXDlKK0pI5yUi3",
+          "messageID": "msg_d7505d43c0017FxVcti0zL4gc1"
+        },
+        {
+          "type": "tool",
+          "tool": "bash",
+          "callID": "call_m2hYuLuQNfWuSHsqRUKsrWV4",
+          "state": {
+            "status": "completed",
+            "input": {
+              "command": "gh pr create --base main --head fix/flaky-e2e-tests --title \"Fix flaky e2e startup and mid-turn condensation races\" --body \"$(cat <<'EOF'\n## Summary\n- Update Cursor e2e startup prompt detection to accept both legacy (`/ commands`) and current (`Plan, search, build anything`) placeholder text so interactive startup waits stop timing out across Cursor versions.\n- Stabilize Gemini e2e startup by pre-acknowledging the repo-managed `entire-search` agent in `~/.gemini/acknowledgments/agents.json` during test repo setup, and recognize the new discovery dialog strings during startup waits.\n- Fix a mid-turn post-commit condensation race by treating missing live transcript files (`ENOENT`) as a non-fatal ACTIVE-session condition and falling back to state/filesystem data; add a regression test for this path.\n\n## Why\nRecent CI failures were caused by startup/readiness drift in agent CLIs and a timing race where PostCommit can run before a live transcript path is materialized. These changes make startup and condensation behavior resilient without changing normal success paths.\n\n## Validation\n- `mise run fmt`\n- `mise run lint`\n- `mise run test:ci`\n- `go test ./e2e/...`\n- `go build ./...`\n- `go vet ./...`\nEOF\n)\"",
+              "timeout": 120000,
+              "workdir": "/Users/pfleidi/entire/cli/.worktrees/fix/flaky-e2e-tests",
+              "description": "Create GitHub pull request with summary and validation"
+            },
+            "output": "https://github.com/entireio/cli/pull/908\n",
+            "metadata": {
+              "output": "https://github.com/entireio/cli/pull/908\n",
+              "exit": 0,
+              "description": "Create GitHub pull request with summary and validation",
+              "truncated": false
+            },
+            "title": "Create GitHub pull request with summary and validation",
+            "time": {
+              "start": 1775784818465,
+              "end": 1775784820515
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_086cbf27672443cb0169d8536c3214819484be7a1a57c98271"
+            }
+          },
+          "id": "prt_d7505dec3001a2HWHBgMt2CKEj",
+          "sessionID": "ses_28b5d2fa1ffeWXDlKK0pI5yUi3",
+          "messageID": "msg_d7505d43c0017FxVcti0zL4gc1"
+        },
+        {
+          "reason": "tool-calls",
+          "snapshot": "500381a23e708358525225ff56d5be501245f90b",
+          "type": "step-finish",
+          "tokens": {
+            "total": 114229,
+            "input": 566,
+            "output": 356,
+            "reasoning": 27,
+            "cache": {
+              "write": 0,
+              "read": 113280
+            }
+          },
+          "cost": 0,
+          "id": "prt_d7505ff25001WIpjhrNC7q8tCx",
+          "sessionID": "ses_28b5d2fa1ffeWXDlKK0pI5yUi3",
+          "messageID": "msg_d7505d43c0017FxVcti0zL4gc1"
+        }
+      ]
+    },
+    {
+      "info": {
+        "parentID": "msg_d7501d777001BxSS2sYy26uEvO",
+        "role": "assistant",
+        "mode": "build",
+        "agent": "build",
+        "path": {
+          "cwd": "/Users/pfleidi/entire/cli/.worktrees/fix/flaky-e2e-tests",
+          "root": "/Users/pfleidi/entire/cli/.worktrees/fix/flaky-e2e-tests"
+        },
+        "cost": 0,
+        "tokens": {
+          "total": 114437,
+          "input": 463,
+          "output": 162,
+          "reasoning": 20,
+          "cache": {
+            "write": 0,
+            "read": 113792
+          }
+        },
+        "modelID": "gpt-5.3-codex",
+        "providerID": "openai",
+        "time": {
+          "created": 1775784820597,
+          "completed": 1775784826045
+        },
+        "finish": "stop",
+        "id": "msg_d7505ff75001cKLaAa5awyK602",
+        "sessionID": "ses_28b5d2fa1ffeWXDlKK0pI5yUi3"
+      },
+      "parts": [
+        {
+          "snapshot": "500381a23e708358525225ff56d5be501245f90b",
+          "type": "step-start",
+          "id": "prt_d750603fb0019X5bPKr1eljSzY",
+          "sessionID": "ses_28b5d2fa1ffeWXDlKK0pI5yUi3",
+          "messageID": "msg_d7505ff75001cKLaAa5awyK602"
+        },
+        {
+          "type": "reasoning",
+          "text": "",
+          "time": {
+            "start": 1775784822376,
+            "end": 1775784823110
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "rs_09bb044173f36a710169d853765aa48197b9d43d6d24cae598",
+              "reasoningEncryptedContent": "REDACTED"
+            }
+          },
+          "id": "prt_d75060668001xQ3sW0RhJp01A6",
+          "sessionID": "ses_28b5d2fa1ffeWXDlKK0pI5yUi3",
+          "messageID": "msg_d7505ff75001cKLaAa5awyK602"
+        },
+        {
+          "type": "text",
+          "text": "Done — I split the work into three commits and opened the PR.\n\nCommits:\n- `e43d8ccd4` — `fix: accept Cursor startup placeholder variants`\n- `fce79c5e5` — `fix: pre-acknowledge Gemini search agent in e2e setup`\n- `f32af9ba6` — `fix: tolerate missing live transcript during active condensation`\n\nPR:\n- https://github.com/entireio/cli/pull/908\n\nI also ran validation before opening the PR:\n- `mise run fmt`\n- `mise run lint`\n- `mise run test:ci`\n- `go test ./e2e/...`\n- `go build ./...`\n- `go vet ./...`",
+          "time": {
+            "start": 1775784825922,
+            "end": 1775784825922
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "msg_09bb044173f36a710169d8537714588197b9aa7a684ddad74f",
+              "phase": "final_answer"
+            }
+          },
+          "id": "prt_d75060947001O0ZZPaylwoO8Vq",
+          "sessionID": "ses_28b5d2fa1ffeWXDlKK0pI5yUi3",
+          "messageID": "msg_d7505ff75001cKLaAa5awyK602"
+        },
+        {
+          "reason": "stop",
+          "snapshot": "500381a23e708358525225ff56d5be501245f90b",
+          "type": "step-finish",
+          "tokens": {
+            "total": 114437,
+            "input": 463,
+            "output": 162,
+            "reasoning": 20,
+            "cache": {
+              "write": 0,
+              "read": 113792
+            }
+          },
+          "cost": 0,
+          "id": "prt_d75061469001OBakDuK9IaNUkm",
+          "sessionID": "ses_28b5d2fa1ffeWXDlKK0pI5yUi3",
+          "messageID": "msg_d7505ff75001cKLaAa5awyK602"
         }
       ]
     }
