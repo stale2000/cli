@@ -121,3 +121,7 @@ ship it
 ---
 
 now it's time to check for documentation changes. Where in the code we have references to install via brew/scoop or bash? We should also include, explain that we have a new release channel, meaning of that channel and how to use it.
+
+---
+
+great, ship it
