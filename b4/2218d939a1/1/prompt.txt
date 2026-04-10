@@ -215,3 +215,7 @@ can you run smoke test?
 ---
 
 and so the user should be able to use entire with copilot, as they normally do with vs code hooks enabled- is the expected behavior
+
+---
+
+okay now what is next
