@@ -177,3 +177,7 @@ Can you ensure that every redact.JSONLBytes() is instrumented and logged via our
 ---
 
 Let's focus on the hot paths for now
+
+---
+
+Commit and continue
