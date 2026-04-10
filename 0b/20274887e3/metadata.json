@@ -1,0 +1,27 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "0b20274887e3",
+  "strategy": "manual-commit",
+  "branch": "fix/clean-up-condensation-logic",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/checkpoint/checkpoint.go",
+    "cmd/entire/cli/checkpoint/v2_committed.go",
+    "cmd/entire/cli/transcript/compact/compact.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/0b/20274887e3/0/metadata.json",
+      "transcript": "/0b/20274887e3/0/full.jsonl",
+      "content_hash": "/0b/20274887e3/0/content_hash.txt",
+      "prompt": "/0b/20274887e3/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 17,
+    "cache_creation_tokens": 79478,
+    "cache_read_tokens": 633144,
+    "output_tokens": 3356,
+    "api_call_count": 12
+  }
+}
