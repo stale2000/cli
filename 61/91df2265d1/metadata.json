@@ -1,0 +1,23 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "6191df2265d1",
+  "strategy": "manual-commit",
+  "branch": "soph/opencode-grant-more-bootime",
+  "checkpoints_count": 1,
+  "files_touched": null,
+  "sessions": [
+    {
+      "metadata": "/61/91df2265d1/0/metadata.json",
+      "transcript": "/61/91df2265d1/0/full.jsonl",
+      "content_hash": "/61/91df2265d1/0/content_hash.txt",
+      "prompt": "/61/91df2265d1/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 14863736,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 13844224,
+    "output_tokens": 44169,
+    "api_call_count": 115
+  }
+}
