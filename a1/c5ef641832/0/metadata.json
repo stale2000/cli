@@ -26,69 +26,46 @@
     "turn_count": 3
   },
   "summary": {
-    "intent": "Fix `entire explain --generate` for Codex checkpoints (empty-summary error) and clarify/fix Claude-based summary generation failures, starting with Codex support on a new branch and leaving Claude behavior for a follow-up.",
-    "outcome": "Codex `--generate` support was implemented, tested, committed on `codex-explain-generate`, pushed, and opened as draft PR #875; a review/lint follow-up (correct line-offset scoping vs response-item semantics, `goconst` in `compact/codex.go`) was committed and pushed. Local binary path was given for manual checkpoint testing.",
+    "intent": "Add first-class support for Codex transcripts to the `entire explain --generate` command and resolve associated failures in Codex sessions.",
+    "outcome": "Implemented Codex-aware transcript scoping and summarization on branch `codex-explain-generate`, fixed a semantic offset bug identified in PR #875, and resolved CI linting errors.",
     "learnings": {
       "repo": [
-        "`AgentTypeCodex` was missing from summarizer dispatch; raw Codex JSONL (`session_meta`, `response_item`, `event_msg`) does not parse as Claude/Cursor `message` lines, so condensed transcripts were empty.",
-        "`CheckpointTranscriptStart` is stored as a raw JSONL line offset, not a response-item index—Codex scoping must not reinterpret it as response-item counts.",
-        "Existing Codex normalization lives in `transcript/compact/codex.go`; `--generate` should align with that rather than duplicating parsers.",
-        "`ClaudeGenerator` shells out to the user’s local `claude` CLI (`claude --print`); Entire does not call Anthropic’s API directly for summaries.",
-        "Scoped Codex transcripts may omit leading `session_meta`, so format detection must recognize Codex suffixes, not only full rollouts."
+        "The `CheckpointTranscriptStart` metadata field represents a raw JSONL line offset across all agent types, not an agent-specific message or item index.",
+        "Codex transcripts require normalization into a compact format before they can be processed by the shared summarizer pipeline."
       ],
       "code": [
         {
           "path": "cmd/entire/cli/summarize/summarize.go",
-          "line": 41,
-          "end_line": 57,
-          "finding": "`GenerateFromTranscript` errors on empty condensation; error wrapping can duplicate `failed to generate summary`."
-        },
-        {
-          "path": "cmd/entire/cli/summarize/summarize.go",
-          "line": 51,
+          "line": 118,
           "end_line": 118,
-          "finding": "Default generator is `ClaudeGenerator`; agent switch must include Codex alongside Gemini, Droid, OpenCode, Claude/Cursor."
+          "finding": "The summarizer switch lacked a case for AgentTypeCodex, causing it to fall back to an incompatible Claude/Cursor parser."
         },
         {
           "path": "cmd/entire/cli/explain.go",
           "line": 345,
-          "end_line": 347,
-          "finding": "`explain --generate` calls summarization from here; errors surface from summarize path."
-        },
-        {
-          "path": "cmd/entire/cli/summarize/claude.go",
-          "line": 101,
-          "end_line": 119,
-          "finding": "Uses `exec.CommandContext` with the CLI context but no dedicated timeout; subprocess can block until cancel."
+          "end_line": 345,
+          "finding": "ClaudeGenerator shells out to the local 'claude' CLI rather than calling the API directly, inheriting the user's local CLI configuration."
         },
         {
           "path": "cmd/entire/cli/transcript/compact/codex.go",
           "line": 63,
-          "end_line": 63,
-          "finding": "Codex compact normalization exists but must be wired into summarize path and detection updated for scoped transcripts."
-        },
-        {
-          "path": "cmd/entire/cli/strategy/manual_commit_condensation.go",
-          "line": 276,
-          "end_line": 276,
-          "finding": "Auto-summarization during condensation had the same Codex omission as `--generate`."
+          "end_line": 80,
+          "finding": "Codex format detection needed to be broadened to recognize scoped transcript suffixes that no longer contain the leading 'session_meta' line."
         }
       ],
       "workflow": [
-        "Red tests first, then implementation, then broader `go test` for affected packages.",
-        "CI lint (`golangci-lint`, e.g. `goconst`) can fail independently of review bots; pull exact Actions logs to fix the real rule.",
-        "GitHub PR review (Bugbot, Copilot) can catch semantic bugs (offset units) that unit tests might miss if scenarios are incomplete."
+        "Static code review and unit tests can fail to catch semantic mismatches in metadata units (e.g., lines vs. items) unless validated against real-world repository state.",
+        "Subprocess execution via exec.CommandContext requires explicit timeout wrapping to prevent indefinite hangs if the child process blocks."
       ]
     },
     "friction": [
-      "Initial Codex scoping used response-item semantics vs stored line offsets—Bugbot/Copilot flagged a real bug.",
-      "Sandbox/worktree blocked branch creation and Go build cache without escalation.",
-      "Claude path: misleading `claude CLI failed (exit -1)` especially after Ctrl+C; no summarization timeout in Entire.",
-      "First compact→summarize integration fed normalized JSONL into a parser expecting raw Claude-style envelopes, requiring an extra parsing step for compact lines."
+      "Misleading error message 'claude CLI failed (exit -1)' when the subprocess was manually interrupted or hung.",
+      "Go build cache restrictions in the sandbox environment required repeated use of execution escalation for testing."
     ],
     "open_items": [
-      "Claude-side `--generate`: timeouts, explicit cancel/`context.Canceled` handling, and clearer errors; reduce double-wrapped failure messages.",
-      "User manual verification of `/tmp/entire-codex-explain-fix` against demo-repo checkpoints `f8e8674105da` and `84c774a39830` (Claude checkpoint still expected to show old behavior until fixed)."
+      "Implement an explicit timeout for the summarization subprocess in ClaudeGenerator.",
+      "Improve error handling to distinguish between process hangs, cancellations, and actual transcript parsing failures.",
+      "Merge PR #875 once the final push passes CI."
     ]
   },
   "initial_attribution": {
