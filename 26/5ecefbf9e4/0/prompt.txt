@@ -47,3 +47,7 @@ Yes, continue
 ---
 
 Should we be using the raw transcript when redaction failed? That seems dangerous considering that we're dealing with potentially sensitive transcripts
+
+---
+
+Commit and continue
