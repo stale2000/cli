@@ -59,3 +59,7 @@ Continue
 ---
 
 continue but don't commit until I say so
+
+---
+
+commit
