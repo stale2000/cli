@@ -720,3 +720,226 @@ peytonmontei@Peytons-MacBook-Pro /t/linkage-test (feature)>
 ---
 
 okay go ahead
+
+---
+
+do you think we should update the pr summary with the testing we just did? and can you run code-simplifier on this again?
+
+---
+
+yes go ahead
+
+---
+
+can you resolve merge conflicts and update with main please
+
+---
+
+run a final /pr-review-toolkit:review-pr
+
+---
+
+<task-notification>
+<task-id>a3e1d389a62a1d3de</task-id>
+<tool-use-id>toolu_01HrWsARcomsm9UWoBbHJztj</tool-use-id>
+<output-file>/private/tmp/claude-501/-Users-peytonmontei-Documents-entire-devenv-entireio-cli--worktrees-checkout-834/f967aa01-7755-4ad2-9262-cc0296e3ccf6/tasks/a3e1d389a62a1d3de.output</output-file>
+<status>completed</status>
+<summary>Agent "Final error handling review" completed</summary>
+<result>Here is my focused audit of the remaining and newly introduced error handling patterns in this PR.
+
+---
+
+**ISSUE 1: `hasActiveSessionInWorktree` returns `false` on error, silently degrading behavior**
+
+**Location:** `/Users/peytonmontei/Documents/entire/devenv/entireio/cli/.worktrees/checkout-834/cmd/entire/cli/strategy/manual_commit_session.go`, lines 157-177
+
+**Severity:** MEDIUM
+
+**Issue:** When `WorktreeRoot()` or `findSessionsForWorktree()` fails, this function returns `false`, which causes PrepareCommitMsg to skip adding the checkpoint trailer during agent-initiated reverts/cherry-picks. The error is logged at `Debug` level only.
+
+**User Impact:** If there is a transient filesystem issue or git state corruption, an agent-initiated revert would silently not get checkpointed. The user would have no idea why that commit is missing from their session history.
+
+**Assessment:** This is actually a reasonable defensive default for a function called in a best-effort check during `prepare-commit-msg`. The existing behavior before this PR was to skip ALL sequence operations unconditionally, so returning `false` on error preserves the old behavior. The `Debug`-level logging is appropriate since this is a hook hot path. **No change needed** — flagging for awareness only.
+
+---
+
+**ISSUE 2: `computeBaseLinkage` and `linkageForSession` log errors at `Warn` and continue with partial linkage**
+
+**Location:** `/Users/peytonmontei/Documents/entire/devenv/entireio/cli/.worktrees/checkout-834/cmd/entire/cli/strategy/manual_commit_hooks.go`, lines 658-713
+
+**Severity:** LOW (appropriate design)
+
+**Assessment:** This is well-designed degradation. Linkage is explicitly a fallback chain (the doc comment says so: "TreeHash match -&gt; PatchID match -&gt; FilesChangedHash -&gt; SessionFilesHash"). If one signal fails to compute, the others still provide value. Each failure is logged at `Warn` with the commit hash and error message, which is sufficient for debugging. The `TreeHash` is always set (it comes from a go-git in-memory object, not a subprocess), so the minimum useful linkage is always present. **No issues.**
+
+---
+
+**ISSUE 3: `strings.Cut` result discarded without validation**
+
+**Location:** `/Users/peytonmontei/Documents/entire/devenv/entireio/cli/.worktrees/checkout-834/cmd/entire/cli/gitops/diff.go`, line 177
+
+**Severity:** LOW
+
+**Issue:** `patchID, _, _ := strings.Cut(output, " ")` discards the `found` boolean. If `git patch-id` returns output without a space (unexpected format), `patchID` would be the entire output string, which would still be a valid-looking hash. Since the output is already verified non-empty on line 173, and `git patch-id --stable` has a well-defined output format (`&lt;hash&gt; &lt;hash&gt;\n`), the only way this fails is if git fundamentally changes its output format — in which case the whole function's assumptions break anyway. **No change needed.**
+
+---
+
+**ISSUE 4: `ComputeFilesChangedHash` silently skips files not in `blobMap`**
+
+**Location:** `/Users/peytonmontei/Documents/entire/devenv/entireio/cli/.worktrees/checkout-834/cmd/entire/cli/gitops/diff.go`, lines 228-233
+
+**Severity:** MEDIUM
+
+**Issue:** When iterating `sorted` (from `filePaths`), files that are not in `blobMap` are silently skipped. This can happen for files that were deleted in the commit (deleted files have no tree entry). This is likely intentional — deleted files have no blob hash to include — but it is undocumented.
+
+**User Impact:** None functionally. If a file was deleted in the commit, it legitimately has no blob at that tree. The hash correctly reflects only the files that exist in the tree. However, a brief comment explaining why the skip is intentional would prevent future confusion.
+
+**Recommendation:** Add a comment at line 230:
+
+```go
+// Skip files not in the tree (e.g., deleted files have no blob at HEAD)
+if blobHash, ok := blobMap[fp]; ok {
+```
+
+---
+
+**Summary:** The fixes from the prior review are solid. The error handling in `computeBaseLinkage` / `linkageForSession` correctly uses `Warn`-level logging with context and degrades gracefully since linkage is inherently a best-effort fallback chain. The `ComputeFilesChangedHash` malformed-line fix (returning errors for bad `ls-tree` output) is properly implemented. The `hasActiveSessionInWorktree` default-to-false is defensible given the hook context. No critical or high-severity issues remain. The only actionable suggestion is the clarifying comment in Issue 4 for maintainability.</result>
+<usage><total_tokens>42334</total_tokens><tool_uses>9</tool_uses><duration_ms>57874</duration_ms></usage>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>a567c8e4e9ae25717</task-id>
+<tool-use-id>toolu_01Q2Q2efpw22m1rV35XGucQg</tool-use-id>
+<output-file>/private/tmp/claude-501/-Users-peytonmontei-Documents-entire-devenv-entireio-cli--worktrees-checkout-834/f967aa01-7755-4ad2-9262-cc0296e3ccf6/tasks/a567c8e4e9ae25717.output</output-file>
+<status>completed</status>
+<summary>Agent "Final code review of PR #840" completed</summary>
+<result>Here is my review.
+
+---
+
+## Files Reviewed
+
+All 10 changed files in the `git diff origin/main...HEAD`:
+- `/Users/peytonmontei/Documents/entire/devenv/entireio/cli/.worktrees/checkout-834/cmd/entire/cli/checkpoint/checkpoint.go`
+- `/Users/peytonmontei/Documents/entire/devenv/entireio/cli/.worktrees/checkout-834/cmd/entire/cli/checkpoint/checkpoint_test.go`
+- `/Users/peytonmontei/Documents/entire/devenv/entireio/cli/.worktrees/checkout-834/cmd/entire/cli/checkpoint/committed.go`
+- `/Users/peytonmontei/Documents/entire/devenv/entireio/cli/.worktrees/checkout-834/cmd/entire/cli/gitops/diff.go`
+- `/Users/peytonmontei/Documents/entire/devenv/entireio/cli/.worktrees/checkout-834/cmd/entire/cli/gitops/diff_test.go`
+- `/Users/peytonmontei/Documents/entire/devenv/entireio/cli/.worktrees/checkout-834/cmd/entire/cli/strategy/manual_commit_condensation.go`
+- `/Users/peytonmontei/Documents/entire/devenv/entireio/cli/.worktrees/checkout-834/cmd/entire/cli/strategy/manual_commit_hooks.go`
+- `/Users/peytonmontei/Documents/entire/devenv/entireio/cli/.worktrees/checkout-834/cmd/entire/cli/strategy/manual_commit_session.go`
+- `/Users/peytonmontei/Documents/entire/devenv/entireio/cli/.worktrees/checkout-834/cmd/entire/cli/strategy/manual_commit_test.go`
+- `/Users/peytonmontei/Documents/entire/devenv/entireio/cli/.worktrees/checkout-834/cmd/entire/cli/testutil/testutil.go`
+
+---
+
+## Verdict: No merge-blocking issues found.
+
+The code is well-structured. Type design, error handling, test coverage, and subprocess calls all look solid. Specific observations:
+
+**Correctness**: The linkage pipeline is correctly wired -- `computeBaseLinkage` is lazily computed once and cached, `linkageForSession` copies the struct value (not pointer) before adding the session-specific hash, and the linkage flows through `condenseOpts` to `WriteCommittedOptions` to `CheckpointSummary` serialization. The `hasActiveSessionInWorktree` check properly falls back to `false` on error, which is the safe default (skip checkpointing rather than crash).
+
+**Security of subprocess calls**: `ComputePatchID` and `ComputeFilesChangedHash` in `diff.go` use `exec.CommandContext` with hardcoded git subcommands. The `commitHash`, `parentHash`, and `filePaths` arguments come from internal git operations (rev-parse output, diff-tree output, session state), not user input. No injection risk.
+
+**CLAUDE.md compliance**: Tests use `t.Parallel()`, temp dirs, proper git config with `commit.gpgsign=false`. The `initTestRepo` in `diff_test.go` already had its own local test helpers before this PR; the new `revParse`/`gitCheckout`/`gitRebase` helpers follow that same pre-existing local pattern. The new `testutil.GitRevParse`/`GitCheckout`/`GitRebase` exports are properly added for use elsewhere. This duplication is a minor style inconsistency (not a new pattern introduced by this PR) and falls below the 80 confidence threshold.
+
+**Test coverage**: Round-trip test for `WriteCommitted` with and without linkage, patch-id stability across rebase, files-changed-hash stability across rebase and input-order independence, full pipeline test through `PostCommit`, and both agent-revert and user-revert PrepareCommitMsg scenarios. Coverage is thorough.
+
+**One observation below threshold** (confidence ~60, not flagging as blocking): The `gitCheckoutBranch` helper in `diff_test.go` (line 101, creates new branch with `-b`) is named differently from the `testutil.GitCheckout` export (checks out existing branch). They do different things, so this is not true duplication -- but the naming could be clearer.</result>
+<usage><total_tokens>46665</total_tokens><tool_uses>22</tool_uses><duration_ms>106793</duration_ms></usage>
+</task-notification>
+
+---
+
+okay also, in this PR i see web side, and we have this open, https://github.com/entirehq/entire.io/pull/1352, can we take a look
+
+---
+
+yes
+
+---
+
+yes use /superpowers:brainstorming
+
+---
+
+I think this sounds good, how do we currently get other values from CheckpointSummary? it should be consistent
+
+---
+
+right now, are lookups done on columns in metadata or json blobs?
+
+---
+
+yes, A
+
+---
+
+yes this looks correct
+
+---
+
+open it please
+
+---
+
+move to implementation
+
+---
+
+yes
+
+---
+
+while you're working on this, since pr 840 is ready, can you give me a short, less than one sentence summary I can send in chat with link to the pr
+
+---
+
+did you try git reset, revert for 840
+
+---
+
+can you just test them without adding test coverage?
+
+---
+
+so can you give me sentence again please
+
+---
+
+please proceed, do you recall where you are?
+
+---
+
+first we need to update this branch sinc we've done an update then we can commit give me the commits in this branch that are from me and are only in this branch compared to backup/main-before-drop-8ebb9299a as a cherry-pick command
+
+And then you can reset your branch to main (pull first and make sure you really have the latest one) and run the cherry-pick on top. MAKE SURE c30039be2588e6af57dfa34bad72963c210b2bfa is NOT on this branch
+
+---
+
+<task-notification>
+<task-id>bb66brblu</task-id>
+<tool-use-id>toolu_011vCJCcvmyqiykcv4gXQeMs</tool-use-id>
+<output-file>/private/tmp/claude-501/-Users-peytonmontei-Documents-entire-devenv-entireio-cli--worktrees-checkout-834/f967aa01-7755-4ad2-9262-cc0296e3ccf6/tasks/bb66brblu.output</output-file>
+<status>failed</status>
+<summary>Background command "Fetch all and find backup branch" failed with exit code 1</summary>
+</task-notification>
+
+---
+
+yes go ahead
+
+---
+
+branch/pr 840 still not clean
+
+---
+
+33 commits - said you need to first we need to update this branch sinc we've done an update then we can commit give me the commits in this branch that are from me and are only in this branch compared to backup/main-before-drop-8ebb9299a as a cherry-pick command
+
+And then you can reset your branch to main (pull first and make sure you really have the latest one) and run the cherry-pick on top. MAKE SURE c30039be2588e6af57dfa34bad72963c210b2bfa is NOT on this branch
+
+---
+
+yes and only include mine related to this fix then And then you can reset your branch to main (pull first and make sure you really have the latest one) and run the cherry-pick on top

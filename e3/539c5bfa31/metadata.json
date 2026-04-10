@@ -3,7 +3,7 @@
   "checkpoint_id": "e3539c5bfa31",
   "strategy": "manual-commit",
   "branch": "peyton/ent-834-tree-hash-checkpoint-linkage",
-  "checkpoints_count": 17,
+  "checkpoints_count": 1,
   "files_touched": [
     "cmd/entire/cli/checkpoint/checkpoint.go",
     "cmd/entire/cli/gitops/diff.go",
@@ -19,16 +19,16 @@
     }
   ],
   "token_usage": {
-    "input_tokens": 2224,
-    "cache_creation_tokens": 1003844,
-    "cache_read_tokens": 53195220,
-    "output_tokens": 107810,
-    "api_call_count": 297
+    "input_tokens": 2402,
+    "cache_creation_tokens": 1785798,
+    "cache_read_tokens": 91191964,
+    "output_tokens": 152150,
+    "api_call_count": 415
   },
   "linkage": {
-    "tree_hash": "0aa6776893944d58e60d198d6a7bfc466f2ebf77",
-    "patch_id": "b113d41ee0a3f7531697b3de2831121394629240",
-    "files_changed_hash": "b02353ca557e6305d2f6c2b440ae23cf02207606afe9465b8dfcf4d44d5b3381",
-    "session_files_hash": "aa190ed9238df483fd5b14e5be559ec387b27f28f38faabff2930957ed7ba1a6"
+    "tree_hash": "e5fe1557c50f605e74a3d7e2570cd4d6817da653",
+    "patch_id": "3c75d742032d03033f889a039a4fd498ea10a8c0",
+    "files_changed_hash": "9cf29e335fb95caa00ff32493d6455400a885aa49af4dc4d1c2d7b525201d4ab",
+    "session_files_hash": "ffa2b983fea044303df816d0e1b88754506976c6608b891510f0fe3bbe393f38"
   }
 }
