@@ -113,3 +113,7 @@ another PR feedback:
 ---
 
 updateCommand behavior now depends on both the install path and the current version’s channel, but the test table no longer covers the “unknown path + stable version” case (only the executable error case). Adding a stable unknown-path test would better exercise the installManagerUnknown path-detection branch independently of the os.Executable error path.
+
+---
+
+ship it
