@@ -35,3 +35,15 @@ Can you open a pull request for these changes?
 ---
 
 Use the pr-review skill
+
+---
+
+Continue
+
+---
+
+Include all the comments
+
+---
+
+Go ahead and fix #1
