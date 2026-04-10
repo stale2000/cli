@@ -161,3 +161,7 @@ The pattern in BuildCondensedTranscriptFromBytes is very inconsistent. We should
 ---
 
 We should ensure that every use of `AlreadyRedacted` has a short comment documenting why the content is already redacted.
+
+---
+
+Commit and continue
