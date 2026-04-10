@@ -3,13 +3,10 @@
   "checkpoint_id": "1fcf1a279124",
   "strategy": "manual-commit",
   "branch": "fix/issue-750-claude-json-compat",
-  "checkpoints_count": 4,
+  "checkpoints_count": 2,
   "files_touched": [
-    "cmd/entire/cli/agent/claudecode/generate.go",
-    "cmd/entire/cli/agent/claudecode/generate_test.go",
-    "cmd/entire/cli/claudecli/response.go",
-    "cmd/entire/cli/summarize/claude.go",
-    "cmd/entire/cli/summarize/claude_test.go"
+    "cmd/entire/cli/agent/claudecode/claude_test.go",
+    "cmd/entire/cli/agent/claudecode/generate_test.go"
   ],
   "sessions": [
     {
@@ -20,10 +17,10 @@
     }
   ],
   "token_usage": {
-    "input_tokens": 12835693,
+    "input_tokens": 4273694,
     "cache_creation_tokens": 0,
-    "cache_read_tokens": 11539712,
-    "output_tokens": 45103,
-    "api_call_count": 115
+    "cache_read_tokens": 4055296,
+    "output_tokens": 7176,
+    "api_call_count": 33
   }
 }
