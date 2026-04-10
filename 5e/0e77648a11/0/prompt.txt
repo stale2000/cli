@@ -1,5 +1,1 @@
-ok, back to the codex failure, can you investigate?
-
----
-
-yes, add the test first, then do the fix
+run lint and fmt and at all tests, if all green commit
