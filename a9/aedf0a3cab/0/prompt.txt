@@ -1,0 +1,1 @@
+we commented out or didn't add in the search command to the the CLI help menu, but now it's GA and ready. so can you make sure it's availavble for everyrone
