@@ -11,3 +11,7 @@ FromTrustedStorage looks redundant and unnecessary. Why would this be better tha
 ---
 
 I don't think TestAlreadyRedacted_TrustedSourceContract adds a lot of value here.
+
+---
+
+Okay, commit and continue
