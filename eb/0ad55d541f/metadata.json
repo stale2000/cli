@@ -3,7 +3,7 @@
   "checkpoint_id": "eb0ad55d541f",
   "strategy": "manual-commit",
   "branch": "soph/offset-fix",
-  "checkpoints_count": 0,
+  "checkpoints_count": 1,
   "files_touched": [
     "cmd/entire/cli/integration_test/transcript_offset_test.go",
     "cmd/entire/cli/strategy/manual_commit_hooks.go"
@@ -14,6 +14,19 @@
       "transcript": "/eb/0ad55d541f/0/full.jsonl",
       "content_hash": "/eb/0ad55d541f/0/content_hash.txt",
       "prompt": ""
+    },
+    {
+      "metadata": "/eb/0ad55d541f/1/metadata.json",
+      "transcript": "/eb/0ad55d541f/1/full.jsonl",
+      "content_hash": "/eb/0ad55d541f/1/content_hash.txt",
+      "prompt": "/eb/0ad55d541f/1/prompt.txt"
     }
-  ]
+  ],
+  "token_usage": {
+    "input_tokens": 695163,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 528512,
+    "output_tokens": 6126,
+    "api_call_count": 20
+  }
 }
