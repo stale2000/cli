@@ -101,3 +101,7 @@ Consider reintroducing a distinct install manager for mise (e.g. installManagerM
 ---
 
 sorry, let's add it back, the mise thing.
+
+---
+
+ship it
