@@ -21,8 +21,8 @@
     "turn_count": 15
   },
   "summary": {
-    "intent": "object intent",
-    "outcome": "object outcome",
+    "intent": "array intent",
+    "outcome": "array outcome",
     "learnings": {
       "repo": [],
       "code": [],
