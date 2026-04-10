@@ -215,3 +215,7 @@ What's the behavior curently implemented in main? I think for user-initiated com
 ---
 
 Yes make that change so the hooks are behaving consistently. Ensure this is concisely documented so the behavior is clear.
+
+---
+
+Commit it
