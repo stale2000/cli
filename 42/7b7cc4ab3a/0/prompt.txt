@@ -1,13 +1,1 @@
-what is the difference between: brew install entireio/tap/entire and brew install --cask entire@nightly why one is cask and not the other
-
----
-
-but entire is a cask as well as nightly
-
----
-
-being both casks, should we align both installation commands? nightly and stable hombrew ?
-
----
-
-yes, do that
+ship it
