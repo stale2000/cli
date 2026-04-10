@@ -1,0 +1,19 @@
+can you commit
+
+---
+
+can you review the changes in this new local branch
+
+---
+
+can you also look at this: https://github.com/entireio/cli/pull/873
+
+is there overlap then?
+
+---
+
+ok, then fix the review finding
+
+---
+
+any order we should merge these prs?
