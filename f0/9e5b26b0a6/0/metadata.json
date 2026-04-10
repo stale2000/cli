@@ -20,6 +20,17 @@
   "session_metrics": {
     "turn_count": 15
   },
+  "summary": {
+    "intent": "object intent",
+    "outcome": "object outcome",
+    "learnings": {
+      "repo": [],
+      "code": [],
+      "workflow": []
+    },
+    "friction": [],
+    "open_items": []
+  },
   "prompt_attributions": [
     {
       "checkpoint_number": 1,
