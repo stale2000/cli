@@ -1,0 +1,23 @@
+{
+  "cli_version": "0.5.4-nightly.202604100645.7b0903ab",
+  "checkpoint_id": "cf7894a93e60",
+  "strategy": "manual-commit",
+  "branch": "force-goreleaser-use-specific-tag",
+  "checkpoints_count": 1,
+  "files_touched": null,
+  "sessions": [
+    {
+      "metadata": "/cf/7894a93e60/0/metadata.json",
+      "transcript": "/cf/7894a93e60/0/full.jsonl",
+      "content_hash": "/cf/7894a93e60/0/content_hash.txt",
+      "prompt": "/cf/7894a93e60/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 29,
+    "cache_creation_tokens": 113187,
+    "cache_read_tokens": 661958,
+    "output_tokens": 3382,
+    "api_call_count": 19
+  }
+}
