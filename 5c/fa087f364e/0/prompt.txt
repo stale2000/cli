@@ -83,3 +83,7 @@ Commit and continue
 ---
 
 /simplify
+
+---
+
+commit these changes
