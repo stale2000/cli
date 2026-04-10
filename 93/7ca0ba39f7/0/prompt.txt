@@ -181,3 +181,7 @@ Let's focus on the hot paths for now
 ---
 
 Commit and continue
+
+---
+
+/codex:adversarial-review
