@@ -1,0 +1,25 @@
+{
+  "cli_version": "v0.5.4-dev-d729d612d",
+  "checkpoint_id": "e4ee6688a68c",
+  "strategy": "manual-commit",
+  "branch": "soph/codex-e2e-fix",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/strategy/content_overlap.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/e4/ee6688a68c/0/metadata.json",
+      "transcript": "/e4/ee6688a68c/0/full.jsonl",
+      "content_hash": "/e4/ee6688a68c/0/content_hash.txt",
+      "prompt": "/e4/ee6688a68c/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 31,
+    "cache_creation_tokens": 24324,
+    "cache_read_tokens": 1754504,
+    "output_tokens": 6626,
+    "api_call_count": 22
+  }
+}
