@@ -2,7 +2,6 @@
   "cli_version": "dev",
   "checkpoint_id": "0c5831ce0d53",
   "strategy": "manual-commit",
-  "branch": "main",
   "checkpoints_count": 3,
   "files_touched": [
     "cmd/entire/cli/strategy/manual_commit_hooks.go"
@@ -19,14 +18,20 @@
       "transcript": "/0c/5831ce0d53/1/full.jsonl",
       "content_hash": "/0c/5831ce0d53/1/content_hash.txt",
       "prompt": "/0c/5831ce0d53/1/prompt.txt"
+    },
+    {
+      "metadata": "/0c/5831ce0d53/2/metadata.json",
+      "transcript": "/0c/5831ce0d53/2/full.jsonl",
+      "content_hash": "/0c/5831ce0d53/2/content_hash.txt",
+      "prompt": ""
     }
   ],
   "token_usage": {
-    "input_tokens": 3549,
+    "input_tokens": 2503139,
     "cache_creation_tokens": 294795,
-    "cache_read_tokens": 41769895,
-    "output_tokens": 77216,
-    "api_call_count": 256
+    "cache_read_tokens": 43890855,
+    "output_tokens": 92413,
+    "api_call_count": 290
   },
   "combined_attribution": {
     "calculated_at": "2026-04-11T12:03:24.57192Z",
