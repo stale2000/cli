@@ -7,13 +7,13 @@
     "title": "Fixing flaky e2e tests",
     "version": "1.4.3",
     "summary": {
-      "additions": 31194,
-      "deletions": 19,
-      "files": 906
+      "additions": 31089,
+      "deletions": 17,
+      "files": 902
     },
     "time": {
       "created": 1775853126857,
-      "updated": 1775867647058
+      "updated": 1775867719819
     }
   },
   "messages": [
@@ -28839,19 +28839,22 @@
         },
         "cost": 0,
         "tokens": {
-          "input": 0,
-          "output": 0,
-          "reasoning": 0,
+          "total": 133099,
+          "input": 23815,
+          "output": 699,
+          "reasoning": 297,
           "cache": {
-            "read": 0,
-            "write": 0
+            "write": 0,
+            "read": 108288
           }
         },
         "modelID": "gpt-5.3-codex",
         "providerID": "openai",
         "time": {
-          "created": 1775867646446
+          "created": 1775867646446,
+          "completed": 1775867669336
         },
+        "finish": "tool-calls",
         "id": "msg_d79f5d1ee0016Qulu654731BSQ",
         "sessionID": "ses_286e7bb36ffeF2fUDdBOXF96Oq"
       },
@@ -28885,13 +28888,474 @@
           "tool": "bash",
           "callID": "call_cfcFFlPgo9rjpxfU9YVzxfiM",
           "state": {
-            "status": "pending",
-            "input": {},
-            "raw": ""
+            "status": "completed",
+            "input": {
+              "command": "python3 - <<'PY'\nimport json, re\nfrom pathlib import Path\nfrom collections import Counter, defaultdict\n\nruns=json.load(open('/tmp/e2e_runs_25.json'))['workflow_runs']\nrun_meta={str(r['id']):r for r in runs}\nbase=Path('/tmp/e2e_ci25')\n\npairs=[]\nper_run_agent_counts=defaultdict(Counter)\nfor r in runs:\n    rid=str(r['id'])\n    rdir=base/rid\n    report_files=list(rdir.rglob('report.nocolor.txt')) or list(rdir.rglob('report.txt'))\n    for rf in report_files:\n        cur=None\n        for ln in rf.read_text(errors='ignore').splitlines():\n            m=re.match(r'^✗\\s+(Test\\S+)', ln)\n            if m:\n                cur=m.group(1); continue\n            m2=re.match(r'^\\s+✗\\s+(\\S+)', ln)\n            if m2 and cur:\n                agent=m2.group(1)\n                pairs.append((rid,cur,agent))\n                per_run_agent_counts[rid][agent]+=1\n                cur=None\n\npair_counter=Counter((t,a) for _,t,a in pairs)\n\nprint('TOTAL_FAILED_PAIRS',len(pairs))\nprint('UNIQUE_PAIRS',len(pair_counter))\nprint('\\nTOP20_PAIRS')\nfor (t,a),n in pair_counter.most_common(20):\n    runs_with=len({rid for rid,tt,aa in pairs if tt==t and aa==a})\n    print(f'{n}\\t{t}\\t{a}\\truns={runs_with}')\n\nprint('\\nRUN_AGENT_BREADTH (top failed runs)')\n# show runs with most cursor failures\nfor rid,cnts in sorted(per_run_agent_counts.items(), key=lambda kv:sum(kv[1].values()), reverse=True)[:12]:\n    total=sum(cnts.values())\n    print(f\"{rid}\\ttotal={total}\\tcursor={cnts.get('cursor-cli',0)}\\topencode={cnts.get('opencode',0)}\\tgemini={cnts.get('gemini-cli',0)}\\tclaude={cnts.get('claude-code',0)}\")\n\n# focused opencode list\nprint('\\nOPENCODE_PAIRS')\nfor (t,a),n in sorted(((k,v) for k,v in pair_counter.items() if k[1]=='opencode'), key=lambda kv:(-kv[1],kv[0][0])):\n    runs_with=sorted({rid for rid,tt,aa in pairs if tt==t and aa==a})\n    print(f\"{n}\\t{t}\\truns={','.join(runs_with)}\")\nPY",
+              "timeout": 120000,
+              "workdir": "/Users/pfleidi/entire/cli/.worktrees/fix/flaky-e2e-tests",
+              "description": "Aggregate failure frequencies and run breadth from 25 workflow artifacts"
+            },
+            "output": "TOTAL_FAILED_PAIRS 843\nUNIQUE_PAIRS 70\n\nTOP20_PAIRS\n21\tTestInteractiveAttributionMultiCommitSameSession\tcursor-cli\truns=21\n21\tTestInteractiveAttributionOnAgentCommit\tcursor-cli\truns=21\n21\tTestInteractiveContentOverlapRevertNewFile\tcursor-cli\truns=21\n21\tTestInteractiveMultiStep\tcursor-cli\truns=21\n21\tTestInteractiveShadowBranchCleanedAfterAgentCommit\tcursor-cli\truns=21\n16\tTestAgentAmendsCommit\tcursor-cli\truns=16\n16\tTestAgentCommitsMidTurnUserCommitsRemainder\tcursor-cli\truns=16\n16\tTestAgentContinuesAfterCommit\tcursor-cli\truns=16\n16\tTestAttributionMixedHumanAndAgent\tcursor-cli\truns=16\n16\tTestCheckpointMetadataDeepValidation\tcursor-cli\truns=16\n16\tTestDeletedFilesCommitDeletion\tcursor-cli\truns=16\n16\tTestDirtyWorkingTree\tcursor-cli\truns=16\n16\tTestEndedSessionUserCommitsAfterExit\tcursor-cli\truns=16\n16\tTestExternalAgentDeepCheckpointValidation\tcursor-cli\truns=16\n16\tTestExternalAgentSessionMetadata\tcursor-cli\truns=16\n16\tTestExternalAgentSingleSessionManualCommit\tcursor-cli\truns=16\n16\tTestLineAttributionReasonable\tcursor-cli\truns=16\n16\tTestMidTurnCommit_DifferentFilesThanPreviousTurn\tcursor-cli\truns=16\n16\tTestMixedNewAndModifiedFiles\tcursor-cli\truns=16\n16\tTestModifiedFileAlwaysGetsCheckpoint\tcursor-cli\truns=16\n\nRUN_AGENT_BREADTH (top failed runs)\n24237829881\ttotal=54\tcursor=45\topencode=2\tgemini=5\tclaude=1\n24238702024\ttotal=53\tcursor=45\topencode=2\tgemini=5\tclaude=0\n24240957013\ttotal=52\tcursor=45\topencode=1\tgemini=5\tclaude=1\n24236851843\ttotal=52\tcursor=45\topencode=2\tgemini=5\tclaude=0\n24235519520\ttotal=52\tcursor=45\topencode=1\tgemini=5\tclaude=0\n24214992127\ttotal=52\tcursor=45\topencode=1\tgemini=5\tclaude=0\n24242413208\ttotal=51\tcursor=45\topencode=0\tgemini=5\tclaude=0\n24235994055\ttotal=51\tcursor=45\topencode=0\tgemini=5\tclaude=0\n24235170093\ttotal=51\tcursor=45\topencode=0\tgemini=6\tclaude=0\n24234401458\ttotal=51\tcursor=45\topencode=1\tgemini=5\tclaude=0\n24218464544\ttotal=51\tcursor=45\topencode=1\tgemini=5\tclaude=0\n24242900551\ttotal=50\tcursor=45\topencode=0\tgemini=5\tclaude=0\n\nOPENCODE_PAIRS\n4\tTestInteractiveAttributionMultiCommitSameSession\truns=24218464544,24235519520,24237829881,24240957013\n4\tTestInteractiveAttributionOnAgentCommit\truns=24211034482,24236851843,24237829881,24243273020\n3\tTestRewindSquashMergeMultipleCheckpoints\truns=24214992127,24243273020,24268494446\n1\tTestAgentContinuesAfterCommit\truns=24238702024\n1\tTestEndedSessionUserCommitsAfterExit\truns=24268494446\n1\tTestInteractiveContentOverlapRevertNewFile\truns=24238702024\n1\tTestInteractiveMultiStep\truns=24214538797\n1\tTestMultiSessionSequential\truns=24222118456\n1\tTestPartialStaging\truns=24234401458\n1\tTestResumeOlderCheckpointWithNewerCommits\truns=24236851843\n1\tTestRewindMultipleFiles\truns=24268494446\n",
+            "metadata": {
+              "output": "TOTAL_FAILED_PAIRS 843\nUNIQUE_PAIRS 70\n\nTOP20_PAIRS\n21\tTestInteractiveAttributionMultiCommitSameSession\tcursor-cli\truns=21\n21\tTestInteractiveAttributionOnAgentCommit\tcursor-cli\truns=21\n21\tTestInteractiveContentOverlapRevertNewFile\tcursor-cli\truns=21\n21\tTestInteractiveMultiStep\tcursor-cli\truns=21\n21\tTestInteractiveShadowBranchCleanedAfterAgentCommit\tcursor-cli\truns=21\n16\tTestAgentAmendsCommit\tcursor-cli\truns=16\n16\tTestAgentCommitsMidTurnUserCommitsRemainder\tcursor-cli\truns=16\n16\tTestAgentContinuesAfterCommit\tcursor-cli\truns=16\n16\tTestAttributionMixedHumanAndAgent\tcursor-cli\truns=16\n16\tTestCheckpointMetadataDeepValidation\tcursor-cli\truns=16\n16\tTestDeletedFilesCommitDeletion\tcursor-cli\truns=16\n16\tTestDirtyWorkingTree\tcursor-cli\truns=16\n16\tTestEndedSessionUserCommitsAfterExit\tcursor-cli\truns=16\n16\tTestExternalAgentDeepCheckpointValidation\tcursor-cli\truns=16\n16\tTestExternalAgentSessionMetadata\tcursor-cli\truns=16\n16\tTestExternalAgentSingleSessionManualCommit\tcursor-cli\truns=16\n16\tTestLineAttributionReasonable\tcursor-cli\truns=16\n16\tTestMidTurnCommit_DifferentFilesThanPreviousTurn\tcursor-cli\truns=16\n16\tTestMixedNewAndModifiedFiles\tcursor-cli\truns=16\n16\tTestModifiedFileAlwaysGetsCheckpoint\tcursor-cli\truns=16\n\nRUN_AGENT_BREADTH (top failed runs)\n24237829881\ttotal=54\tcursor=45\topencode=2\tgemini=5\tclaude=1\n24238702024\ttotal=53\tcursor=45\topencode=2\tgemini=5\tclaude=0\n24240957013\ttotal=52\tcursor=45\topencode=1\tgemini=5\tclaude=1\n24236851843\ttotal=52\tcursor=45\topencode=2\tgemini=5\tclaude=0\n24235519520\ttotal=52\tcursor=45\topencode=1\tgemini=5\tclaude=0\n24214992127\ttotal=52\tcursor=45\topencode=1\tgemini=5\tclaude=0\n24242413208\ttotal=51\tcursor=45\topencode=0\tgemini=5\tclaude=0\n24235994055\ttotal=51\tcursor=45\topencode=0\tgemini=5\tclaude=0\n24235170093\ttotal=51\tcursor=45\topencode=0\tgemini=6\tclaude=0\n24234401458\ttotal=51\tcursor=45\topencode=1\tgemini=5\tclaude=0\n24218464544\ttotal=51\tcursor=45\topencode=1\tgemini=5\tclaude=0\n24242900551\ttotal=50\tcursor=45\topencode=0\tgemini=5\tclaude=0\n\nOPENCODE_PAIRS\n4\tTestInteractiveAttributionMultiCommitSameSession\truns=24218464544,24235519520,24237829881,24240957013\n4\tTestInteractiveAttributionOnAgentCommit\truns=24211034482,24236851843,24237829881,24243273020\n3\tTestRewindSquashMergeMultipleCheckpoints\truns=24214992127,24243273020,24268494446\n1\tTestAgentContinuesAfterCommit\truns=24238702024\n1\tTestEndedSessionUserCommitsAfterExit\truns=24268494446\n1\tTestInteractiveContentOverlapRevertNewFile\truns=24238702024\n1\tTestInteractiveMultiStep\truns=24214538797\n1\tTestMultiSessionSequential\truns=24222118456\n1\tTestPartialStaging\truns=24234401458\n1\tTestResumeOlderCheckpointWithNewerCommits\truns=24236851843\n1\tTestRewindMultipleFiles\truns=24268494446\n",
+              "exit": 0,
+              "description": "Aggregate failure frequencies and run breadth from 25 workflow artifacts",
+              "truncated": false
+            },
+            "title": "Aggregate failure frequencies and run breadth from 25 workflow artifacts",
+            "time": {
+              "start": 1775867669246,
+              "end": 1775867669250
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_0e994e4e99f077320169d99707acc081969e7a3d01086b9540"
+            }
           },
           "id": "prt_d79f5f61d002o0wgi1VZbGTn0E",
           "sessionID": "ses_286e7bb36ffeF2fUDdBOXF96Oq",
           "messageID": "msg_d79f5d1ee0016Qulu654731BSQ"
+        },
+        {
+          "reason": "tool-calls",
+          "snapshot": "7198a4590603a9b3a344d26b90b5e2219acaf88a",
+          "type": "step-finish",
+          "tokens": {
+            "total": 133099,
+            "input": 23815,
+            "output": 699,
+            "reasoning": 297,
+            "cache": {
+              "write": 0,
+              "read": 108288
+            }
+          },
+          "cost": 0,
+          "id": "prt_d79f62b020021e7uXH5gcg98XC",
+          "sessionID": "ses_286e7bb36ffeF2fUDdBOXF96Oq",
+          "messageID": "msg_d79f5d1ee0016Qulu654731BSQ"
+        }
+      ]
+    },
+    {
+      "info": {
+        "parentID": "msg_d79f5d1d0001Jjs3ziCSOchrKc",
+        "role": "assistant",
+        "mode": "build",
+        "agent": "build",
+        "path": {
+          "cwd": "/Users/pfleidi/entire/cli/.worktrees/fix/flaky-e2e-tests",
+          "root": "/Users/pfleidi/entire/cli/.worktrees/fix/flaky-e2e-tests"
+        },
+        "cost": 0,
+        "tokens": {
+          "total": 134508,
+          "input": 1982,
+          "output": 356,
+          "reasoning": 202,
+          "cache": {
+            "write": 0,
+            "read": 131968
+          }
+        },
+        "modelID": "gpt-5.3-codex",
+        "providerID": "openai",
+        "time": {
+          "created": 1775867669348,
+          "completed": 1775867683031
+        },
+        "finish": "tool-calls",
+        "id": "msg_d79f62b64001ibviyspBRBumZj",
+        "sessionID": "ses_286e7bb36ffeF2fUDdBOXF96Oq"
+      },
+      "parts": [
+        {
+          "snapshot": "7198a4590603a9b3a344d26b90b5e2219acaf88a",
+          "type": "step-start",
+          "id": "prt_d79f631a5001I0xRInanTrosWQ",
+          "sessionID": "ses_286e7bb36ffeF2fUDdBOXF96Oq",
+          "messageID": "msg_d79f62b64001ibviyspBRBumZj"
+        },
+        {
+          "type": "reasoning",
+          "text": "",
+          "time": {
+            "start": 1775867671372,
+            "end": 1775867675459
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "rs_05e91b833992be760169d99717592081968ae7ecfb75cbea07",
+              "reasoningEncryptedContent": "REDACTED"
+            }
+          },
+          "id": "prt_d79f6334c001MK0AQ6KsVaghLo",
+          "sessionID": "ses_286e7bb36ffeF2fUDdBOXF96Oq",
+          "messageID": "msg_d79f62b64001ibviyspBRBumZj"
+        },
+        {
+          "type": "tool",
+          "tool": "bash",
+          "callID": "call_8lICuHwFO1HZuMtzjkefniLY",
+          "state": {
+            "status": "completed",
+            "input": {
+              "command": "python3 - <<'PY'\nimport json,re\nfrom pathlib import Path\nfrom collections import Counter\nruns=json.load(open('/tmp/e2e_runs_25.json'))['workflow_runs']\nbase=Path('/tmp/e2e_ci25')\npairs=[]\nfor r in runs:\n    rid=str(r['id'])\n    for rf in list((base/rid).rglob('report.nocolor.txt')) or list((base/rid).rglob('report.txt')):\n        cur=None\n        for ln in rf.read_text(errors='ignore').splitlines():\n            m=re.match(r'^✗\\s+(Test\\S+)', ln)\n            if m:\n                cur=m.group(1); continue\n            m2=re.match(r'^\\s+✗\\s+(\\S+)', ln)\n            if m2 and cur:\n                pairs.append((cur,m2.group(1)))\n                cur=None\nc=Counter(pairs)\nfor agent in ['gemini-cli','claude-code','copilot-cli','codex','factoryai-droid']:\n    print('\\n',agent)\n    for (t,a),n in sorted(((k,v) for k,v in c.items() if k[1]==agent), key=lambda kv:-kv[1])[:10]:\n        print(n,t)\nPY",
+              "timeout": 120000,
+              "workdir": "/Users/pfleidi/entire/cli/.worktrees/fix/flaky-e2e-tests",
+              "description": "Show top failures for non-cursor agents"
+            },
+            "output": "\n gemini-cli\n14 TestInteractiveMultiStep\n13 TestInteractiveAttributionMultiCommitSameSession\n13 TestInteractiveAttributionOnAgentCommit\n13 TestInteractiveContentOverlapRevertNewFile\n13 TestInteractiveShadowBranchCleanedAfterAgentCommit\n1 TestResumeFromClonedRepo\n\n claude-code\n2 TestRewindMultipleFiles\n1 TestSubagentCommitFlow\n1 TestMultiSessionSequential\n\n copilot-cli\n2 TestModifiedFileAlwaysGetsCheckpoint\n1 TestModifyExistingTrackedFile\n1 TestInteractiveMultiStep\n\n codex\n3 TestPartialStaging\n\n factoryai-droid\n1 TestSingleSessionSubagentCommitInTurn\n",
+            "metadata": {
+              "output": "\n gemini-cli\n14 TestInteractiveMultiStep\n13 TestInteractiveAttributionMultiCommitSameSession\n13 TestInteractiveAttributionOnAgentCommit\n13 TestInteractiveContentOverlapRevertNewFile\n13 TestInteractiveShadowBranchCleanedAfterAgentCommit\n1 TestResumeFromClonedRepo\n\n claude-code\n2 TestRewindMultipleFiles\n1 TestSubagentCommitFlow\n1 TestMultiSessionSequential\n\n copilot-cli\n2 TestModifiedFileAlwaysGetsCheckpoint\n1 TestModifyExistingTrackedFile\n1 TestInteractiveMultiStep\n\n codex\n3 TestPartialStaging\n\n factoryai-droid\n1 TestSingleSessionSubagentCommitInTurn\n",
+              "exit": 0,
+              "description": "Show top failures for non-cursor agents",
+              "truncated": false
+            },
+            "title": "Show top failures for non-cursor agents",
+            "time": {
+              "start": 1775867682943,
+              "end": 1775867682946
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_05e91b833992be760169d9971b6ea88196927bc2062788f3e0"
+            }
+          },
+          "id": "prt_d79f64344001rIxo3dymxHHvu1",
+          "sessionID": "ses_286e7bb36ffeF2fUDdBOXF96Oq",
+          "messageID": "msg_d79f62b64001ibviyspBRBumZj"
+        },
+        {
+          "reason": "tool-calls",
+          "snapshot": "7198a4590603a9b3a344d26b90b5e2219acaf88a",
+          "type": "step-finish",
+          "tokens": {
+            "total": 134508,
+            "input": 1982,
+            "output": 356,
+            "reasoning": 202,
+            "cache": {
+              "write": 0,
+              "read": 131968
+            }
+          },
+          "cost": 0,
+          "id": "prt_d79f660830018x1sfwNVqEyMYh",
+          "sessionID": "ses_286e7bb36ffeF2fUDdBOXF96Oq",
+          "messageID": "msg_d79f62b64001ibviyspBRBumZj"
+        }
+      ]
+    },
+    {
+      "info": {
+        "parentID": "msg_d79f5d1d0001Jjs3ziCSOchrKc",
+        "role": "assistant",
+        "mode": "build",
+        "agent": "build",
+        "path": {
+          "cwd": "/Users/pfleidi/entire/cli/.worktrees/fix/flaky-e2e-tests",
+          "root": "/Users/pfleidi/entire/cli/.worktrees/fix/flaky-e2e-tests"
+        },
+        "cost": 0,
+        "tokens": {
+          "total": 134851,
+          "input": 251,
+          "output": 60,
+          "reasoning": 140,
+          "cache": {
+            "write": 0,
+            "read": 134400
+          }
+        },
+        "modelID": "gpt-5.3-codex",
+        "providerID": "openai",
+        "time": {
+          "created": 1775867683042,
+          "completed": 1775867713872
+        },
+        "finish": "tool-calls",
+        "id": "msg_d79f660e2001x8KwMMIFGQyKdZ",
+        "sessionID": "ses_286e7bb36ffeF2fUDdBOXF96Oq"
+      },
+      "parts": [
+        {
+          "snapshot": "7198a4590603a9b3a344d26b90b5e2219acaf88a",
+          "type": "step-start",
+          "id": "prt_d79f666ac001s6lt72pbuEM7zu",
+          "sessionID": "ses_286e7bb36ffeF2fUDdBOXF96Oq",
+          "messageID": "msg_d79f660e2001x8KwMMIFGQyKdZ"
+        },
+        {
+          "type": "reasoning",
+          "text": "",
+          "time": {
+            "start": 1775867685202,
+            "end": 1775867687917
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "rs_0ccc7e17b48398670169d997250bf88193a522b58b7490f00a",
+              "reasoningEncryptedContent": "REDACTED"
+            }
+          },
+          "id": "prt_d79f66952001Z1pn68GSQkeWTE",
+          "sessionID": "ses_286e7bb36ffeF2fUDdBOXF96Oq",
+          "messageID": "msg_d79f660e2001x8KwMMIFGQyKdZ"
+        },
+        {
+          "type": "tool",
+          "tool": "grep",
+          "callID": "call_PfbuRAwudqYBnbKmuLQHRCGy",
+          "state": {
+            "status": "completed",
+            "input": {
+              "pattern": "waiting for startup prompt|duplicate session|nothing to commit, working tree clean|expected rewind points after first prompt|context deadline exceeded",
+              "path": "/tmp/e2e_ci25",
+              "include": "*.txt"
+            },
+            "output": "Found 1578 matches (showing first 100)\n/tmp/e2e_ci25/24207535791/e2e-artifacts-cursor-cli/2026-04-09T18-49-52/report.txt:\n  Line 8:       edge_cases_test.go:69: agent prompt 1 failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 33:       edge_cases_test.go:171: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 58:       edge_cases_test.go:26: agent prompt 1 failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 83:       attribution_test.go:150: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 108:       checkpoint_metadata_test.go:23: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 133:       deleted_files_test.go:34: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 158:       edge_cases_test.go:110: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 183:       session_lifecycle_test.go:27: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 211:       external_agent_test.go:94: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 239:       external_agent_test.go:122: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 264:       external_agent_test.go:23: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 292:       attribution_test.go:84: start session: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 317:       attribution_test.go:54: start session: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 342:       existing_files_test.go:101: start session: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 367:       interactive_test.go:17: start session: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 392:       attribution_test.go:124: start session: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 417:       attribution_test.go:25: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 442:       mid_turn_commit_test.go:34: agent prompt 1 (turn 1) failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 467:       existing_files_test.go:68: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 492:       existing_files_test.go:157: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 517:       existing_files_test.go:34: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 542:       multi_session_test.go:18: agent prompt 1 failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 567:       multi_session_test.go:47: agent prompt 1 failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 592:       stash_workflows_test.go:25: agent prompt 1 failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 617:       split_commits_test.go:71: agent prompt 1 failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 642:       edge_cases_test.go:140: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 667:       resume_remote_test.go:38: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 692:       resume_test.go:38: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 717:       resume_remote_test.go:106: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 745:       resume_test.go:212: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 770:       resume_test.go:84: prompt 1 failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 795:       rewind_test.go:67: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 820:       rewind_test.go:124: agent prompt 1 failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 845:       rewind_test.go:27: agent prompt 1 failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 870:       rewind_test.go:171: prompt 1 failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 895:       session_lifecycle_test.go:60: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 920:       single_session_test.go:74: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 945:       single_session_test.go:47: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 970:       single_session_test.go:101: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 995:       split_commits_test.go:121: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 1020:       stash_workflows_test.go:137: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 1045:       stash_workflows_test.go:72: agent prompt 1 failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 1070:       subagent_commit_flow_test.go:22: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 1095:       session_lifecycle_test.go:97: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 1120:       split_commits_test.go:24: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n\n/tmp/e2e_ci25/24207535791/e2e-artifacts-cursor-cli/2026-04-09T18-49-52/report.nocolor.txt:\n  Line 8:       edge_cases_test.go:69: agent prompt 1 failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 33:       edge_cases_test.go:171: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 58:       edge_cases_test.go:26: agent prompt 1 failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 83:       attribution_test.go:150: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 108:       checkpoint_metadata_test.go:23: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 133:       deleted_files_test.go:34: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 158:       edge_cases_test.go:110: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 183:       session_lifecycle_test.go:27: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 211:       external_agent_test.go:94: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 239:       external_agent_test.go:122: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 264:       external_agent_test.go:23: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 292:       attribution_test.go:84: start session: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 317:       attribution_test.go:54: start session: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 342:       existing_files_test.go:101: start session: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 367:       interactive_test.go:17: start session: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 392:       attribution_test.go:124: start session: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 417:       attribution_test.go:25: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 442:       mid_turn_commit_test.go:34: agent prompt 1 (turn 1) failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 467:       existing_files_test.go:68: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 492:       existing_files_test.go:157: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 517:       existing_files_test.go:34: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 542:       multi_session_test.go:18: agent prompt 1 failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 567:       multi_session_test.go:47: agent prompt 1 failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 592:       stash_workflows_test.go:25: agent prompt 1 failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 617:       split_commits_test.go:71: agent prompt 1 failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 642:       edge_cases_test.go:140: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 667:       resume_remote_test.go:38: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 692:       resume_test.go:38: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 717:       resume_remote_test.go:106: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 745:       resume_test.go:212: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 770:       resume_test.go:84: prompt 1 failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 795:       rewind_test.go:67: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 820:       rewind_test.go:124: agent prompt 1 failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 845:       rewind_test.go:27: agent prompt 1 failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 870:       rewind_test.go:171: prompt 1 failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 895:       session_lifecycle_test.go:60: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 920:       single_session_test.go:74: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 945:       single_session_test.go:47: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 970:       single_session_test.go:101: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 995:       split_commits_test.go:121: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 1020:       stash_workflows_test.go:137: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 1045:       stash_workflows_test.go:72: agent prompt 1 failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 1070:       subagent_commit_flow_test.go:22: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 1095:       session_lifecycle_test.go:97: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 1120:       split_commits_test.go:24: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n\n/tmp/e2e_ci25/24211034482/e2e-artifacts-cursor-cli/2026-04-09T20-12-43/report.txt:\n  Line 8:       edge_cases_test.go:69: agent prompt 1 failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 33:       edge_cases_test.go:171: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 58:       edge_cases_test.go:26: agent prompt 1 failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 83:       attribution_test.go:150: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 108:       checkpoint_metadata_test.go:23: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 133:       deleted_files_test.go:34: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 158:       edge_cases_test.go:110: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 183:       session_lifecycle_test.go:27: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 211:       external_agent_test.go:94: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n  Line 239:       external_agent_test.go:122: agent failed: waiting for startup prompt: timed out waiting for \"/ commands\" after 30s\n\n(Results truncated: showing 100 of 1578 matches (1478 hidden). Consider using a more specific path or pattern.)",
+            "metadata": {
+              "matches": 1578,
+              "truncated": true
+            },
+            "title": "waiting for startup prompt|duplicate session|nothing to commit, working tree clean|expected rewind points after first prompt|context deadline exceeded",
+            "time": {
+              "start": 1775867688874,
+              "end": 1775867713785
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_0ccc7e17b48398670169d99727e2f48193b6b00a433b951a6c"
+            }
+          },
+          "id": "prt_d79f673ef001JUPkiB04Cu0259",
+          "sessionID": "ses_286e7bb36ffeF2fUDdBOXF96Oq",
+          "messageID": "msg_d79f660e2001x8KwMMIFGQyKdZ"
+        },
+        {
+          "reason": "tool-calls",
+          "snapshot": "7198a4590603a9b3a344d26b90b5e2219acaf88a",
+          "type": "step-finish",
+          "tokens": {
+            "total": 134851,
+            "input": 251,
+            "output": 60,
+            "reasoning": 140,
+            "cache": {
+              "write": 0,
+              "read": 134400
+            }
+          },
+          "cost": 0,
+          "id": "prt_d79f6d8fa001kMAgoUSUdrs9g0",
+          "sessionID": "ses_286e7bb36ffeF2fUDdBOXF96Oq",
+          "messageID": "msg_d79f660e2001x8KwMMIFGQyKdZ"
+        }
+      ]
+    },
+    {
+      "info": {
+        "parentID": "msg_d79f5d1d0001Jjs3ziCSOchrKc",
+        "role": "assistant",
+        "mode": "build",
+        "agent": "build",
+        "path": {
+          "cwd": "/Users/pfleidi/entire/cli/.worktrees/fix/flaky-e2e-tests",
+          "root": "/Users/pfleidi/entire/cli/.worktrees/fix/flaky-e2e-tests"
+        },
+        "cost": 0,
+        "tokens": {
+          "total": 138490,
+          "input": 3616,
+          "output": 63,
+          "reasoning": 27,
+          "cache": {
+            "write": 0,
+            "read": 134784
+          }
+        },
+        "modelID": "gpt-5.3-codex",
+        "providerID": "openai",
+        "time": {
+          "created": 1775867713883,
+          "completed": 1775867719387
+        },
+        "finish": "tool-calls",
+        "id": "msg_d79f6d95b001MBszI42oZGRiCC",
+        "sessionID": "ses_286e7bb36ffeF2fUDdBOXF96Oq"
+      },
+      "parts": [
+        {
+          "snapshot": "7198a4590603a9b3a344d26b90b5e2219acaf88a",
+          "type": "step-start",
+          "id": "prt_d79f6e035001kjL6tN3uQ81AZk",
+          "sessionID": "ses_286e7bb36ffeF2fUDdBOXF96Oq",
+          "messageID": "msg_d79f6d95b001MBszI42oZGRiCC"
+        },
+        {
+          "type": "reasoning",
+          "text": "",
+          "time": {
+            "start": 1775867716005,
+            "end": 1775867716949
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "rs_010d1613eb51cc160169d99743f8988195b62be03630bc5771",
+              "reasoningEncryptedContent": "REDACTED"
+            }
+          },
+          "id": "prt_d79f6e1a50015QQcUJ4U3DI277",
+          "sessionID": "ses_286e7bb36ffeF2fUDdBOXF96Oq",
+          "messageID": "msg_d79f6d95b001MBszI42oZGRiCC"
+        },
+        {
+          "type": "tool",
+          "tool": "grep",
+          "callID": "call_RV5xkoFzYqX8kQWd7nmPVQrG",
+          "state": {
+            "status": "completed",
+            "input": {
+              "pattern": "timed out waiting|nothing to commit, working tree clean|deadline exceeded|context deadline exceeded",
+              "path": "/tmp/e2e_ci25",
+              "include": "*gemini-cli*/**/report.nocolor.txt"
+            },
+            "output": "No files found",
+            "metadata": {
+              "matches": 0,
+              "truncated": false
+            },
+            "title": "timed out waiting|nothing to commit, working tree clean|deadline exceeded|context deadline exceeded",
+            "time": {
+              "start": 1775867717907,
+              "end": 1775867719289
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_010d1613eb51cc160169d99744eb4c819596fc4595f55d9c86"
+            }
+          },
+          "id": "prt_d79f6e556001mokdosTwKM2AoE",
+          "sessionID": "ses_286e7bb36ffeF2fUDdBOXF96Oq",
+          "messageID": "msg_d79f6d95b001MBszI42oZGRiCC"
+        },
+        {
+          "reason": "tool-calls",
+          "snapshot": "7198a4590603a9b3a344d26b90b5e2219acaf88a",
+          "type": "step-finish",
+          "tokens": {
+            "total": 138490,
+            "input": 3616,
+            "output": 63,
+            "reasoning": 27,
+            "cache": {
+              "write": 0,
+              "read": 134784
+            }
+          },
+          "cost": 0,
+          "id": "prt_d79f6ee79002oE4WpoCzCH5P0H",
+          "sessionID": "ses_286e7bb36ffeF2fUDdBOXF96Oq",
+          "messageID": "msg_d79f6d95b001MBszI42oZGRiCC"
+        }
+      ]
+    },
+    {
+      "info": {
+        "parentID": "msg_d79f5d1d0001Jjs3ziCSOchrKc",
+        "role": "assistant",
+        "mode": "build",
+        "agent": "build",
+        "path": {
+          "cwd": "/Users/pfleidi/entire/cli/.worktrees/fix/flaky-e2e-tests",
+          "root": "/Users/pfleidi/entire/cli/.worktrees/fix/flaky-e2e-tests"
+        },
+        "cost": 0,
+        "tokens": {
+          "total": 140024,
+          "input": 136,
+          "output": 932,
+          "reasoning": 588,
+          "cache": {
+            "write": 0,
+            "read": 138368
+          }
+        },
+        "modelID": "gpt-5.3-codex",
+        "providerID": "openai",
+        "time": {
+          "created": 1775867719399,
+          "completed": 1775867749371
+        },
+        "finish": "stop",
+        "id": "msg_d79f6eee7001VsJ7tRVtieT7sx",
+        "sessionID": "ses_286e7bb36ffeF2fUDdBOXF96Oq"
+      },
+      "parts": [
+        {
+          "snapshot": "7198a4590603a9b3a344d26b90b5e2219acaf88a",
+          "type": "step-start",
+          "id": "prt_d79f6f6330010YDjuf8og00Mrw",
+          "sessionID": "ses_286e7bb36ffeF2fUDdBOXF96Oq",
+          "messageID": "msg_d79f6eee7001VsJ7tRVtieT7sx"
+        },
+        {
+          "type": "reasoning",
+          "text": "",
+          "time": {
+            "start": 1775867721655,
+            "end": 1775867732602
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "rs_0f5fc16b3cd32f2a0169d99749a0188195ac2e4724f8bb4705",
+              "reasoningEncryptedContent": "REDACTED"
+            }
+          },
+          "id": "prt_d79f6f7b7001gohgYi0kAFZp5X",
+          "sessionID": "ses_286e7bb36ffeF2fUDdBOXF96Oq",
+          "messageID": "msg_d79f6eee7001VsJ7tRVtieT7sx"
+        },
+        {
+          "type": "text",
+          "text": "Absolutely — here’s a categorized summary from the 25 fetched `e2e.yml` runs, before making any further changes.\n\n**Dataset**\n- Workflow runs analyzed: 25\n- Runs with parseable failure pairs: 22\n- Total failed test+agent pairs: 843\n- Unique test+agent pairs: 70\n\n**High-Level Breakdown**\n- `cursor-cli`: 745 failures (88.4%)\n- `gemini-cli`: 67 (7.9%)\n- `opencode`: 19 (2.3%)\n- others combined: 12 (1.4%)\n\n**Important context:** many runs show a **suite-wide cursor collapse** (45 cursor tests failing together in one run), which strongly skews counts.\n\n---\n\n**Categorized Failure Summary**\n\n- `C1` Cursor startup-prompt cascade  \n  - Frequency: **~45 cursor test failures/run** across **16 runs** (dominant pattern)  \n  - Typical error: `waiting for startup prompt: timed out waiting for \"/ commands\" after 30s`  \n  - Classification: **Likely flake / infra-agent readiness issue**, not many independent product bugs  \n  - Simple-fix likelihood: **High (4/5)** if solved at harness/prompt-detection level; **Low** if tackled test-by-test\n\n- `C2` Cursor interactive cluster (top 5 tests)  \n  - Tests:\n    - `TestInteractiveAttributionMultiCommitSameSession` (21)\n    - `TestInteractiveAttributionOnAgentCommit` (21)\n    - `TestInteractiveContentOverlapRevertNewFile` (21)\n    - `TestInteractiveMultiStep` (21)\n    - `TestInteractiveShadowBranchCleanedAfterAgentCommit` (21)\n  - Classification: **Likely same flake family as C1** (not 5 separate bugs)  \n  - Simple-fix likelihood: **High (4/5)** via one readiness/session fix\n\n- `C3` Gemini interactive cluster  \n  - Frequency:\n    - `TestInteractiveMultiStep` (14)\n    - the same 4 sibling interactive tests (13 each)\n  - Classification: **Likely flake / interaction timing** (pattern mirrors cursor interactive instability)  \n  - Simple-fix likelihood: **Medium-High (3.5/5)**\n\n- `C4` OpenCode “no-op commit” cluster (important)  \n  - From CI + local repro, failures often present as `nothing to commit, working tree clean`  \n  - Highest recurring opencode failures:\n    - `TestInteractiveAttributionMultiCommitSameSession` (4)\n    - `TestInteractiveAttributionOnAgentCommit` (4)\n    - `TestRewindSquashMergeMultipleCheckpoints` (3)\n  - Classification: **Likely flaky test-agent outcome mismatch** (prompt did not deterministically produce diff), not clearly a core strategy bug  \n  - Simple-fix likelihood: **Medium-High (3.5/5)** with test-side hardening\n\n- `C5` OpenCode rewind/resume isolated failures  \n  - `TestRewindMultipleFiles` (1), `TestEndedSessionUserCommitsAfterExit` (1), `TestResumeOlderCheckpointWithNewerCommits` (1), others singleton  \n  - Classification: **Inconclusive / low-signal flakes** (too sparse; local reproductions mostly pass)  \n  - Simple-fix likelihood: **Medium (3/5)**, but should be evidence-driven before prod changes\n\n- `C6` Other agents singleton/small counts  \n  - `claude-code` (4), `copilot-cli` (4), `codex` (3), `factoryai-droid` (1)  \n  - Classification: **Likely incidental flakes** with current data volume  \n  - Simple-fix likelihood: **Unknown (2.5/5)** until isolated reproduction\n\n---\n\n**What this says about “flake vs actual bug”**\n- The majority of failures are **flake-like clustered instability**, not independent deterministic regressions.\n- For OpenCode, current evidence points more toward **test determinism/no-op handling** than production logic defects.\n- This supports your constraint: **do not touch production code yet** until stronger causal evidence appears.\n\nIf you want, next I can provide a **ranked top-15 actionable list** (test+agent pairs) with a strict “fix test only vs investigate product” recommendation per item.",
+          "time": {
+            "start": 1775867732603,
+            "end": 1775867749250
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "msg_0f5fc16b3cd32f2a0169d9975491808195a7739127564bc864",
+              "phase": "final_answer"
+            }
+          },
+          "id": "prt_d79f7227b001tyha1LYzlbGIRv",
+          "sessionID": "ses_286e7bb36ffeF2fUDdBOXF96Oq",
+          "messageID": "msg_d79f6eee7001VsJ7tRVtieT7sx"
+        },
+        {
+          "reason": "stop",
+          "snapshot": "7198a4590603a9b3a344d26b90b5e2219acaf88a",
+          "type": "step-finish",
+          "tokens": {
+            "total": 140024,
+            "input": 136,
+            "output": 932,
+            "reasoning": 588,
+            "cache": {
+              "write": 0,
+              "read": 138368
+            }
+          },
+          "cost": 0,
+          "id": "prt_d79f763a40019lgmGn6qrS0rIR",
+          "sessionID": "ses_286e7bb36ffeF2fUDdBOXF96Oq",
+          "messageID": "msg_d79f6eee7001VsJ7tRVtieT7sx"
         }
       ]
     }
