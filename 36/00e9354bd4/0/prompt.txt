@@ -187,3 +187,7 @@ ship it!
 ---
 
 opencode does not support system messages, lets do the same. exit 0 and silent
+
+---
+
+ship it
