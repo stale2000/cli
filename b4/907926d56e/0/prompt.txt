@@ -1,0 +1,45 @@
+can you review the changes in this branch for a different approach to close the issue for now, but also review the PR in general
+
+---
+
+935 is the PR for this branch?
+
+---
+
+so what's your take on this branch?
+
+---
+
+but as a stopgap it's ok?
+
+---
+
+on 934: Does this also update the .git/config?
+
+---
+
+no, I mean using the url as a remote, would that create a config change?
+
+---
+
+but how does git decides then what matches when using origin that points to the same url as an url entry?
+
+---
+
+can you check the git sources in ../../research/git
+
+---
+
+I cloned it now, sorry
+
+---
+
+ok, I switched to the branch for 934 the branch for 935 is pjbgf/entire-remote, I'd like to bring both together: 
+
+- make sure we use urls instead of remotes
+- guard everything behind a config that needs to be enabled for now and default is false (can you come up with a good name)
+
+---
+
+git fetch git@github.com:pjbgf/test.git --filter=blob:none git@github.com:pjbgf/test.git
+fatal: couldn't find remote ref git@github.com
