@@ -33,6 +33,18 @@
     "output_tokens": 223619,
     "api_call_count": 631
   },
+  "combined_attribution": {
+    "calculated_at": "2026-04-13T22:14:06.563425Z",
+    "agent_lines": 13,
+    "agent_removed": 218,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 13,
+    "total_lines_changed": 231,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
   "linkage": {
     "tree_hash": "f604a7c6318589c052a36abf5e26f20735b15922",
     "patch_id": "54a76b2a959b513cd59ea89af0ebf71e6e7359de"
