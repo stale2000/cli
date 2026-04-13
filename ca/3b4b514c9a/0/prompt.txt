@@ -1,0 +1,13 @@
+I'd like to add something to the integration tests that validates we did not mess with `.git/config` in any unexpected way, can we have this as a general guard?
+
+---
+
+https://github.com/entireio/cli/pull/934 <- this addresses the filter=blob:none issue already and it's why I wanted this guards :)
+
+---
+
+like this is a bug, we should not snapshot/restore and I can merge this changes into the other PR so it does not fail straight away
+
+---
+
+yes, and one more thought: AcceptGitConfigChanges can we make this less broad? Basically tell it what should have changed and only allow that?
