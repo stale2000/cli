@@ -1,9 +1,1 @@
 can you commit
-
----
-
-can you look at the comments on the PR if they are still relevant or can all be closed
-
----
-
-can we address the bare repo one?
