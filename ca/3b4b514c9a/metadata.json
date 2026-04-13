@@ -2,16 +2,13 @@
   "cli_version": "dev",
   "checkpoint_id": "ca3b4b514c9a",
   "strategy": "manual-commit",
-  "branch": "soph/check-git-config-change",
-  "checkpoints_count": 4,
+  "branch": "soph/fix-remote",
+  "checkpoints_count": 2,
   "files_touched": [
-    "cmd/entire/cli/git_operations.go",
     "cmd/entire/cli/integration_test/git_author_test.go",
     "cmd/entire/cli/integration_test/testenv.go",
-    "cmd/entire/cli/strategy/checkpoint_remote.go",
-    "cmd/entire/cli/strategy/checkpoint_token.go",
-    "cmd/entire/cli/strategy/push_common.go",
-    "cmd/entire/cli/strategy/push_v2.go"
+    "cmd/entire/cli/integration_test/testenv_test.go",
+    "cmd/entire/cli/strategy/checkpoint_remote.go"
   ],
   "sessions": [
     {
@@ -22,10 +19,10 @@
     }
   ],
   "token_usage": {
-    "input_tokens": 8546694,
+    "input_tokens": 1728962,
     "cache_creation_tokens": 0,
-    "cache_read_tokens": 8015232,
-    "output_tokens": 44499,
-    "api_call_count": 93
+    "cache_read_tokens": 1609216,
+    "output_tokens": 12134,
+    "api_call_count": 30
   }
 }
