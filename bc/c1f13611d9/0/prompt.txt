@@ -1,0 +1,59 @@
+can you review the changes in this branch
+
+---
+
+can you fix your finding and all of these ones:
+
+## Review: `soph/fix-remote`
+
+Three commits fix a subtle bug where `git fetch --filter=blob:none origin` persists `remote.origin.promisor=true` / `partialclonefilter=blob:none` into `.git/config`, silently changing the user's own `git fetch` / `git pull` behavior repo-wide. Fix is to fetch by URL instead of by remote name, gated behind a rollout flag, with an integration-test guard that catches any future regression.
+
+Overall: well-scoped, defensible fix. A few issues worth addressing.
+
+### Issues
+
+**1. Credential leak risk in error messages (`cmd/entire/cli/git_operations.go`)**
+The four updated `Fetch*` helpers still format errors as `"failed to fetch %s from origin: %s: %w"` where `%s` is the unredacted git stderr output. Once `fetchTarget` is a URL, git's stderr can echo it — and if the user's origin URL has credentials embedded (`https://user:token@host/...`), they'll surface in the error. The sibling helpers in `strategy/checkpoint_remote.go` (lines ~380, ~425) already do `redactURL(remoteURL)` + `strings.ReplaceAll(output, remoteURL, redactedURL)`. The `git_operations.go` versions should mirror that once they're fetching by URL.
+
+**2. Error wording is now wrong when flag is on**
+`"failed to fetch %s from origin"` is hardcoded, but with the flag enabled `fetchTarget` is a URL. Cosmetic, but the messages will be misleading. Consider `"from %s"` with the redacted URL.
+
+**3. Regression test gap**
+`TestFetchDoesNotPolluteOriginConfig` only exercises `FetchMetadataBranch` and `FetchMetadataTreeOnly`. `FetchV2MainTreeOnly` and `FetchV2MainRef` got the same `ResolveFilteredFetchTarget` treatment in `git_operations.go:473-513` and have the identical `--filter=blob:none` bug surface — they should be in the cases table too.
+
+**4. Push helpers change merge-ref path when flag flips**
+In `push_common.go` and `push_v2.go`, `isURL(fetchTarget)` now determines whether the fetched ref lands under `refs/remotes/origin/...` vs `refs/entire-fetch-tmp/...`. Previously, passing remote name "origin" took the remote-tracking path; now with the flag on, the same call takes the temp-ref path. The rebase code uses `fetchedRefName` consistently so this looks correct — but it means turning on the flag also swaps which ref the follow-up merge reads from. Worth a targeted integration test that flips the flag and runs a push→rebase to confirm nothing downstream assumes `refs/remotes/origin/...`.
+
+**5. `ResolveFilteredFetchTarget` silently falls back to remote name if `getRemoteURL` fails**
+Actually — it doesn't fall back, it returns the error (`getRemoteURL` propagates). That's probably fine, but worth confirming the behavior when a user has no `origin` configured but does have another remote: today (flag off) `git fetch origin` fails with a git error; with flag on, they'll get `"failed to resolve filtered fetch target: ..."` earlier. Acceptable, just slightly different UX.
+
+### Nits
+
+- The guard regex `gitConfigGuardTransportPromisorRemoteRE` only normalizes sections with *both* `promisor` and `partialclonefilter` present. If git ever writes only one, the guard correctly trips — but that asymmetry is worth a one-line comment so future readers know it's deliberate.
+- `TestResolveFilteredFetchTarget` subtests mutate `.entire/settings.json` mid-test with no cleanup between subtests. Works because of test ordering, but fragile — the "URL target stays unchanged" subtest passes regardless of flag state, so ordering doesn't matter today. Fine as-is.
+- In `git_operations.go`, you renamed the inner `err` to `fetchErr` in four places purely because the outer `err` now comes from `ResolveFilteredFetchTarget`. Works; just noting the churn is unavoidable given the nested scopes.
+
+### Strengths
+
+- Feature flag default of `false` is the right call for a behavior that changes how git writes local config.
+- The `.git/config` guard in `testenv.go` with a deliberate `AcceptGitConfigChanges` escape hatch is a nice pattern — it'll catch this class of bug in any integration test, not just the ones targeting the fix.
+- Normalizing `repositoryformatversion` in the guard is a good call; partial clone bumps it to 1 and you don't want that tripping every unrelated test.
+- The URL-keyed remote regex (http/ssh/file/absolute/Windows/SCP-style) looks thorough.
+
+### Recommended before merge
+
+1. Redact URLs in the four `git_operations.go` error messages (#1).
+2. Add `FetchV2MainTreeOnly` + `FetchV2MainRef` to the regression test cases (#3).
+3. Fix the "from origin" wording when `fetchTarget` is a URL (#2).
+
+---
+
+can you run the integration suite?
+
+---
+
+yes, please trace it
+
+---
+
+a wait, sorry the setting should not be about using a url for filtered fetches it should be about using filtered fetches and there should be only filtered fetches by url
