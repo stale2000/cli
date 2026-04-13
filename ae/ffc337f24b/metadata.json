@@ -1,0 +1,26 @@
+{
+  "cli_version": "v0.5.5-dev-12bbd44db",
+  "checkpoint_id": "aeffc337f24b",
+  "strategy": "manual-commit",
+  "branch": "fix-factory-tool-use-hooks",
+  "checkpoints_count": 14,
+  "files_touched": [
+    "e2e/tests/factory_hooks_test.go",
+    "e2e/testutil/assertions.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/ae/ffc337f24b/0/metadata.json",
+      "transcript": "/ae/ffc337f24b/0/full.jsonl",
+      "content_hash": "/ae/ffc337f24b/0/content_hash.txt",
+      "prompt": "/ae/ffc337f24b/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 12057475,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 11678336,
+    "output_tokens": 32480,
+    "api_call_count": 124
+  }
+}
