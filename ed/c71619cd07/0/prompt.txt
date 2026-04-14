@@ -1,0 +1,13 @@
+I did a code review with Claude Code and it gave me a bunch of findings. Here's the first one:
+
+---
+
+1. Duplicated logic between checkpoint/committed.go and strategy/common.go
+
+  maybeMergeVercelConfig in committed.go and maybeAddVercelConfigToMetadataBranch in common.go do the same thing — read settings, build vercel config, create blob,
+  update subtree. The committed.go version is more complete (handles existing vercel.json on the branch), while common.go always starts fresh. This divergence will
+  be a maintenance burden.
+
+---
+
+Make the changes as suggested
