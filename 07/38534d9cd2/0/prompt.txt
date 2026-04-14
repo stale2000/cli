@@ -344,3 +344,7 @@ Can you make the PR description a bit more thorough and add more context to desc
 ---
 
 Do it
+
+---
+
+Commit and continue
