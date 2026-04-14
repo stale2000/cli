@@ -344,3 +344,27 @@ Can you make the PR description a bit more thorough and add more context to desc
 ---
 
 Do it
+
+---
+
+Commit and continue
+
+---
+
+/codex:adversarial-review --wait
+
+---
+
+Fix it, step by step. Let me review in between. Only stop once all findings are addressed.
+
+---
+
+commit and continue
+
+---
+
+Commit and continue
+
+---
+
+commit and continue
