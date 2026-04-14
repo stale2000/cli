@@ -3,7 +3,7 @@
   "checkpoint_id": "76266a8be480",
   "strategy": "manual-commit",
   "branch": "ashtom/vercel-config",
-  "checkpoints_count": 1,
+  "checkpoints_count": 3,
   "files_touched": [
     "cmd/entire/cli/checkpoint/committed.go",
     "cmd/entire/cli/setup.go",
@@ -15,6 +15,19 @@
       "transcript": "/76/266a8be480/0/full.jsonl",
       "content_hash": "/76/266a8be480/0/content_hash.txt",
       "prompt": ""
+    },
+    {
+      "metadata": "/76/266a8be480/1/metadata.json",
+      "transcript": "/76/266a8be480/1/full.jsonl",
+      "content_hash": "/76/266a8be480/1/content_hash.txt",
+      "prompt": "/76/266a8be480/1/prompt.txt"
     }
-  ]
+  ],
+  "token_usage": {
+    "input_tokens": 1448082,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 1388672,
+    "output_tokens": 11613,
+    "api_call_count": 34
+  }
 }
