@@ -11,3 +11,7 @@ I don't think that a change like this requires dedicated tests.
 ---
 
 But you did add tests. Quite awkward ones, in fact!
+
+---
+
+Commit and continue
