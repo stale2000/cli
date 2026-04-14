@@ -660,3 +660,7 @@ Both create a bare repo, clone it, configure user, create initial commit, push. 
 ---
 
 Unto the createTestBlob changes. These aren't using production code on purpose.
+
+---
+
+commit
