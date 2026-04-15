@@ -15,3 +15,7 @@ Didn't we validate that the codex review process is, in fact, not run as a subag
 ---
 
 I don't think it's true that the companion plugin doesn't create entire sessions. The very reason I started debugging this problem was based on the fact that we were listing entire sessions for the plugin invokations but didn't have any matching transcripts. Can you elaborate?
+
+---
+
+Yes commit them
