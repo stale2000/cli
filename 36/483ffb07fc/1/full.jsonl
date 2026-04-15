@@ -8,12 +8,12 @@
     "version": "1.4.6",
     "summary": {
       "additions": 0,
-      "deletions": 109,
+      "deletions": 224,
       "files": 2
     },
     "time": {
       "created": 1776290134887,
-      "updated": 1776290720389
+      "updated": 1776290808860
     }
   },
   "messages": [
@@ -2323,19 +2323,22 @@
         },
         "cost": 0,
         "tokens": {
-          "input": 0,
-          "output": 0,
-          "reasoning": 0,
+          "total": 67262,
+          "input": 44627,
+          "output": 67,
+          "reasoning": 168,
           "cache": {
-            "read": 0,
-            "write": 0
+            "write": 0,
+            "read": 22400
           }
         },
         "modelID": "gpt-5.3-codex",
         "providerID": "openai",
         "time": {
-          "created": 1776290720268
+          "created": 1776290720268,
+          "completed": 1776290785111
         },
+        "finish": "tool-calls",
         "id": "msg_d932d6a0c001V8fYxmM7cwdafJ",
         "sessionID": "ses_26cdb8498ffe7B2R5zjXtZJSPk"
       },
@@ -2369,19 +2372,24 @@
           "tool": "bash",
           "callID": "call_2S5LPo0NLlkA0EzXw0bGngGj",
           "state": {
-            "metadata": {
-              "output": "[test:ci] $ go test -tags=integration -race ./...\n",
-              "description": "Re-run full CI test suite locally"
-            },
-            "status": "running",
+            "status": "completed",
             "input": {
               "command": "mise run test:ci",
               "timeout": 1800000,
               "workdir": "/Users/pfleidi/entire/cli/.worktrees/feat/best-effort-transcript-capture",
               "description": "Re-run full CI test suite locally"
             },
+            "output": "[test:ci] $ go test -tags=integration -race ./...\n?   \tgithub.com/entireio/cli/cmd/entire\t[no test files]\nok  \tgithub.com/entireio/cli/cmd/entire/cli\t23.282s\nok  \tgithub.com/entireio/cli/cmd/entire/cli/agent\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/agent/claudecode\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/agent/codex\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/agent/copilotcli\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/agent/cursor\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/agent/external\t5.180s\nok  \tgithub.com/entireio/cli/cmd/entire/cli/agent/factoryaidroid\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/agent/geminicli\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/agent/opencode\t3.011s\n?   \tgithub.com/entireio/cli/cmd/entire/cli/agent/testutil\t[no test files]\n?   \tgithub.com/entireio/cli/cmd/entire/cli/agent/types\t[no test files]\n?   \tgithub.com/entireio/cli/cmd/entire/cli/agent/vogon\t[no test files]\nok  \tgithub.com/entireio/cli/cmd/entire/cli/api\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/auth\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/benchutil\t(cached) [no tests to run]\nok  \tgithub.com/entireio/cli/cmd/entire/cli/checkpoint\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/checkpoint/id\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/gitops\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/integration_test\t(cached)\n?   \tgithub.com/entireio/cli/cmd/entire/cli/jsonutil\t[no test files]\nok  \tgithub.com/entireio/cli/cmd/entire/cli/logging\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/osroot\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/paths\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/search\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/session\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/settings\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/strategy\t22.757s\nok  \tgithub.com/entireio/cli/cmd/entire/cli/stringutil\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/summarize\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/telemetry\t(cached)\n?   \tgithub.com/entireio/cli/cmd/entire/cli/testutil\t[no test files]\nok  \tgithub.com/entireio/cli/cmd/entire/cli/textutil\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/trail\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/trailers\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/transcript\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/transcript/compact\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/validation\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/versioncheck\t(cached)\n?   \tgithub.com/entireio/cli/cmd/entire/cli/versioninfo\t[no test files]\nok  \tgithub.com/entireio/cli/e2e/agents\t(cached)\n?   \tgithub.com/entireio/cli/e2e/bootstrap\t[no test files]\n?   \tgithub.com/entireio/cli/e2e/cmd/testreport\t[no test files]\n?   \tgithub.com/entireio/cli/e2e/entire\t[no test files]\n?   \tgithub.com/entireio/cli/e2e/testutil\t[no test files]\n?   \tgithub.com/entireio/cli/e2e/vogon\t[no test files]\nok  \tgithub.com/entireio/cli/perf\t(cached)\nok  \tgithub.com/entireio/cli/redact\t(cached)\n[test:e2e:canary] $ ~/entire/cli/.worktrees/feat/best-effort-transcript-capture…\n[build] $ ~/entire/cli/.worktrees/feat/best-effort-transcript-capture/mise-task…\nartifacts: /Users/pfleidi/entire/cli/.worktrees/feat/best-effort-transcript-capture/e2e/artifacts/canary-2026-04-15T15-05-59\n--- canary: vogon ---\n[e2e/tests]································↷·················↷·················································\n=== Skipped\n=== SKIP: e2e/tests TestExternalAgentMultipleTurnsManualCommit/vogon (0.11s)\n    external_agent_test.go:50: skipping external agent test for non-external agent\n\n=== SKIP: e2e/tests TestCodexResumeRestoredSessionWithSanitizedCompactedHistory/vogon (0.09s)\n    codex_resume_test.go:23: Codex-only native resume coverage\n\nDONE 100 tests, 2 skipped in 22.860s\nE2E Test Report\n═══════════════\n\nTotal: 50  Passed: 50  Failed: 0  Skipped: 0\n\n\u001b[32m✓\u001b[0m TestAgentAmendsCommit (3.4s)\n  \u001b[32m✓\u001b[0m vogon                3.4s\n\n\u001b[32m✓\u001b[0m TestAgentCommitsMidTurnUserCommitsRemainder (3.0s)\n  \u001b[32m✓\u001b[0m vogon                3.0s\n\n\u001b[32m✓\u001b[0m TestAgentContinuesAfterCommit (3.3s)\n  \u001b[32m✓\u001b[0m vogon                3.3s\n\n\u001b[32m✓\u001b[0m TestAttributionMixedHumanAndAgent (2.2s)\n  \u001b[32m✓\u001b[0m vogon                2.2s\n\n\u001b[32m✓\u001b[0m TestCheckpointMetadataDeepValidation (2.5s)\n  \u001b[32m✓\u001b[0m vogon                2.5s\n\n\u001b[32m✓\u001b[0m TestCodexResumeRestoredSessionWithSanitizedCompactedHistory (0.1s)\n  \u001b[33m−\u001b[0m vogon                SKIP: codex_resume_test.go:23: Codex-only native resume coverage\n\n\u001b[32m✓\u001b[0m TestDeletedFilesCommitDeletion (2.8s)\n  \u001b[32m✓\u001b[0m vogon                2.8s\n\n\u001b[32m✓\u001b[0m TestDirtyWorkingTree (3.0s)\n  \u001b[32m✓\u001b[0m vogon                3.0s\n\n\u001b[32m✓\u001b[0m TestEndedSessionUserCommitsAfterExit (3.1s)\n  \u001b[32m✓\u001b[0m vogon                3.1s\n\n\u001b[32m✓\u001b[0m TestEntireDisable (7.4s)\n  \u001b[32m✓\u001b[0m vogon                7.4s\n\n\u001b[32m✓\u001b[0m TestExternalAgentDeepCheckpointValidation (2.4s)\n  \u001b[32m✓\u001b[0m vogon                2.4s\n\n\u001b[32m✓\u001b[0m TestExternalAgentMultipleTurnsManualCommit (0.1s)\n  \u001b[33m−\u001b[0m vogon                SKIP: external_agent_test.go:50: skipping external agent test for non-external agent\n\n\u001b[32m✓\u001b[0m TestExternalAgentSessionMetadata (2.5s)\n  \u001b[32m✓\u001b[0m vogon                2.5s\n\n\u001b[32m✓\u001b[0m TestExternalAgentSingleSessionManualCommit (2.7s)\n  \u001b[32m✓\u001b[0m vogon                2.7s\n\n\u001b[32m✓\u001b[0m TestHumanOnlyChangesAndCommits (7.7s)\n  \u001b[32m✓\u001b[0m vogon                7.7s\n\n\u001b[32m✓\u001b[0m TestInteractiveAttributionMultiCommitSameSession (12.3s)\n  \u001b[32m✓\u001b[0m vogon                12.3s\n\n\u001b[32m✓\u001b[0m TestInteractiveAttributionOnAgentCommit (8.2s)\n  \u001b[32m✓\u001b[0m vogon                8.2s\n\n\u001b[32m✓\u001b[0m TestInteractiveContentOverlapRevertNewFile (13.6s)\n  \u001b[32m✓\u001b[0m vogon                13.6s\n\n\u001b[32m✓\u001b[0m TestInteractiveMultiStep (11.9s)\n  \u001b[32m✓\u001b[0m vogon                11.9s\n\n\u001b[32m✓\u001b[0m TestInteractiveShadowBranchCleanedAfterAgentCommit (8.7s)\n  \u001b[32m✓\u001b[0m vogon                8.7s\n\n\u001b[32m✓\u001b[0m TestLineAttributionReasonable (3.5s)\n  \u001b[32m✓\u001b[0m vogon                3.5s\n\n\u001b[32m✓\u001b[0m TestMidTurnCommit_DifferentFilesThanPreviousTurn (2.9s)\n  \u001b[32m✓\u001b[0m vogon                2.9s\n\n\u001b[32m✓\u001b[0m TestMixedNewAndModifiedFiles (2.9s)\n  \u001b[32m✓\u001b[0m vogon                2.9s\n\n\u001b[32m✓\u001b[0m TestModifiedFileAlwaysGetsCheckpoint (2.7s)\n  \u001b[32m✓\u001b[0m vogon                2.7s\n\n\u001b[32m✓\u001b[0m TestModifyExistingTrackedFile (2.9s)\n  \u001b[32m✓\u001b[0m vogon                2.9s\n\n\u001b[32m✓\u001b[0m TestMultiSessionManualCommit (4.4s)\n  \u001b[32m✓\u001b[0m vogon                4.4s\n\n\u001b[32m✓\u001b[0m TestMultiSessionSequential (3.8s)\n  \u001b[32m✓\u001b[0m vogon                3.8s\n\n\u001b[32m✓\u001b[0m TestPartialCommitStashNewPrompt (4.1s)\n  \u001b[32m✓\u001b[0m vogon                4.1s\n\n\u001b[32m✓\u001b[0m TestPartialStaging (2.9s)\n  \u001b[32m✓\u001b[0m vogon                2.9s\n\n\u001b[32m✓\u001b[0m TestRapidSequentialCommits (3.3s)\n  \u001b[32m✓\u001b[0m vogon                3.3s\n\n\u001b[32m✓\u001b[0m TestResumeFromClonedRepo (5.2s)\n  \u001b[32m✓\u001b[0m vogon                5.2s\n\n\u001b[32m✓\u001b[0m TestResumeFromFeatureBranch (3.2s)\n  \u001b[32m✓\u001b[0m vogon                3.2s\n\n\u001b[32m✓\u001b[0m TestResumeMetadataBranchAlreadyLocal (3.1s)\n  \u001b[32m✓\u001b[0m vogon                3.1s\n\n\u001b[32m✓\u001b[0m TestResumeNoCheckpointOnBranch (2.8s)\n  \u001b[32m✓\u001b[0m vogon                2.8s\n\n\u001b[32m✓\u001b[0m TestResumeOlderCheckpointWithNewerCommits (2.6s)\n  \u001b[32m✓\u001b[0m vogon                2.6s\n\n\u001b[32m✓\u001b[0m TestResumeSquashMergeMultipleCheckpoints (3.5s)\n  \u001b[32m✓\u001b[0m vogon                3.5s\n\n\u001b[32m✓\u001b[0m TestRewindAfterCommit (2.9s)\n  \u001b[32m✓\u001b[0m vogon                2.9s\n\n\u001b[32m✓\u001b[0m TestRewindMultipleFiles (0.5s)\n  \u001b[32m✓\u001b[0m vogon                0.5s\n\n\u001b[32m✓\u001b[0m TestRewindPreCommit (0.6s)\n  \u001b[32m✓\u001b[0m vogon                0.6s\n\n\u001b[32m✓\u001b[0m TestRewindSquashMergeMultipleCheckpoints (3.5s)\n  \u001b[32m✓\u001b[0m vogon                3.5s\n\n\u001b[32m✓\u001b[0m TestSessionDepletedManualEditNoCheckpoint (9.2s)\n  \u001b[32m✓\u001b[0m vogon                9.2s\n\n\u001b[32m✓\u001b[0m TestSingleSessionAgentCommitInTurn (2.9s)\n  \u001b[32m✓\u001b[0m vogon                2.9s\n\n\u001b[32m✓\u001b[0m TestSingleSessionManualCommit (3.4s)\n  \u001b[32m✓\u001b[0m vogon                3.4s\n\n\u001b[32m✓\u001b[0m TestSingleSessionSubagentCommitInTurn (3.2s)\n  \u001b[32m✓\u001b[0m vogon                3.2s\n\n\u001b[32m✓\u001b[0m TestSplitModificationsToExistingFiles (2.2s)\n  \u001b[32m✓\u001b[0m vogon                2.2s\n\n\u001b[32m✓\u001b[0m TestStashModificationsToTrackedFiles (3.3s)\n  \u001b[32m✓\u001b[0m vogon                3.3s\n\n\u001b[32m✓\u001b[0m TestStashSecondPromptUnstashCommitAll (4.4s)\n  \u001b[32m✓\u001b[0m vogon                4.4s\n\n\u001b[32m✓\u001b[0m TestSubagentCommitFlow (3.6s)\n  \u001b[32m✓\u001b[0m vogon                3.6s\n\n\u001b[32m✓\u001b[0m TestTrailerRemovalSkipsCondensation (5.7s)\n  \u001b[32m✓\u001b[0m vogon                5.7s\n\n\u001b[32m✓\u001b[0m TestUserSplitsAgentChanges (4.1s)\n  \u001b[32m✓\u001b[0m vogon                4.1s\n\n\u001b[32m🎉 ALL 50 TESTS PASSED 🎉\u001b[0m\n\n--- canary: roger-roger ---\n[e2e/tests]········\nDONE 8 tests in 1.918s\nE2E Test Report\n═══════════════\n\nTotal: 4  Passed: 4  Failed: 0  Skipped: 0\n\n\u001b[32m✓\u001b[0m TestExternalAgentDeepCheckpointValidation (1.3s)\n  \u001b[32m✓\u001b[0m roger-roger          1.3s\n\n\u001b[32m✓\u001b[0m TestExternalAgentMultipleTurnsManualCommit (1.7s)\n  \u001b[32m✓\u001b[0m roger-roger          1.7s\n\n\u001b[32m✓\u001b[0m TestExternalAgentSessionMetadata (1.6s)\n  \u001b[32m✓\u001b[0m roger-roger          1.6s\n\n\u001b[32m✓\u001b[0m TestExternalAgentSingleSessionManualCommit (1.5s)\n  \u001b[32m✓\u001b[0m roger-roger          1.5s\n\n\u001b[32m🎉 ALL 4 TESTS PASSED 🎉\u001b[0m\n\n\nentire binary:  /Users/pfleidi/entire/cli/.worktrees/feat/best-effort-transcript-capture/entire\nentire version: Entire CLI v0.5.3-dev-ecd1e6ae0 (ecd1e6ae0)\nGo version: go1.26.2\nOS/Arch: darwin/arm64\n\nartifacts: /Users/pfleidi/entire/cli/.worktrees/feat/best-effort-transcript-capture/e2e/artifacts/canary-2026-04-15T15-05-59\n",
+            "metadata": {
+              "output": "[test:ci] $ go test -tags=integration -race ./...\n?   \tgithub.com/entireio/cli/cmd/entire\t[no test files]\nok  \tgithub.com/entireio/cli/cmd/entire/cli\t23.282s\nok  \tgithub.com/entireio/cli/cmd/entire/cli/agent\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/agent/claudecode\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/agent/codex\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/agent/copilotcli\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/agent/cursor\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/agent/external\t5.180s\nok  \tgithub.com/entireio/cli/cmd/entire/cli/agent/factoryaidroid\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/agent/geminicli\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/agent/opencode\t3.011s\n?   \tgithub.com/entireio/cli/cmd/entire/cli/agent/testutil\t[no test files]\n?   \tgithub.com/entireio/cli/cmd/entire/cli/agent/types\t[no test files]\n?   \tgithub.com/entireio/cli/cmd/entire/cli/agent/vogon\t[no test files]\nok  \tgithub.com/entireio/cli/cmd/entire/cli/api\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/auth\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/benchutil\t(cached) [no tests to run]\nok  \tgithub.com/entireio/cli/cmd/entire/cli/checkpoint\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/checkpoint/id\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/gitops\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/integration_test\t(cached)\n?   \tgithub.com/entireio/cli/cmd/entire/cli/jsonutil\t[no test files]\nok  \tgithub.com/entireio/cli/cmd/entire/cli/logging\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/osroot\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/paths\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/search\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/session\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/settings\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/strategy\t22.757s\nok  \tgithub.com/entireio/cli/cmd/entire/cli/stringutil\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/summarize\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/telemetry\t(cached)\n?   \tgithub.com/entireio/cli/cmd/entire/cli/testutil\t[no test files]\nok  \tgithub.com/entireio/cli/cmd/entire/cli/textutil\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/trail\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/trailers\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/transcript\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/transcript/compact\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/validation\t(cached)\nok  \tgithub.com/entireio/cli/cmd/entire/cli/versioncheck\t(cached)\n?   \tgithub.com/entireio/cli/cmd/entire/cli/versioninfo\t[no test files]\nok  \tgithub.com/entireio/cli/e2e/agents\t(cached)\n?   \tgithub.com/entireio/cli/e2e/bootstrap\t[no test files]\n?   \tgithub.com/entireio/cli/e2e/cmd/testreport\t[no test files]\n?   \tgithub.com/entireio/cli/e2e/entire\t[no test files]\n?   \tgithub.com/entireio/cli/e2e/testutil\t[no test files]\n?   \tgithub.com/entireio/cli/e2e/vogon\t[no test files]\nok  \tgithub.com/entireio/cli/perf\t(cached)\nok  \tgithub.com/entireio/cli/redact\t(cached)\n[test:e2e:canary] $ ~/entire/cli/.worktrees/feat/best-effort-transcript-capture…\n[build] $ ~/entire/cli/.worktrees/feat/best-effort-transcript-capture/mise-task…\nartifacts: /Users/pfleidi/entire/cli/.worktrees/feat/best-effort-transcript-capture/e2e/artifacts/canary-2026-04-15T15-05-59\n--- canary: vogon ---\n[e2e/tests]································↷·················↷·················································\n=== Skipped\n=== SKIP: e2e/tests TestExternalAgentMultipleTurnsManualCommit/vogon (0.11s)\n    external_agent_test.go:50: skipping external agent test for non-external agent\n\n=== SKIP: e2e/tests TestCodexResumeRestoredSessionWithSanitizedCompactedHistory/vogon (0.09s)\n    codex_resume_test.go:23: Codex-only native resume coverage\n\nDONE 100 tests, 2 skipped in 22.860s\nE2E Test Report\n═══════════════\n\nTotal: 50  Passed: 50  Failed: 0  Skipped: 0\n\n\u001b[32m✓\u001b[0m TestAgentAmendsCommit (3.4s)\n  \u001b[32m✓\u001b[0m vogon                3.4s\n\n\u001b[32m✓\u001b[0m TestAgentCommitsMidTurnUserCommitsRemainder (3.0s)\n  \u001b[32m✓\u001b[0m vogon                3.0s\n\n\u001b[32m✓\u001b[0m TestAgentContinuesAfterCommit (3.3s)\n  \u001b[32m✓\u001b[0m vogon                3.3s\n\n\u001b[32m✓\u001b[0m TestAttributionMixedHumanAndAgent (2.2s)\n  \u001b[32m✓\u001b[0m vogon                2.2s\n\n\u001b[32m✓\u001b[0m TestCheckpointMetadataDeepValidation (2.5s)\n  \u001b[32m✓\u001b[0m vogon                2.5s\n\n\u001b[32m✓\u001b[0m TestCodexResumeRestoredSessionWithSanitizedCompactedHistory (0.1s)\n  \u001b[33m−\u001b[0m vogon                SKIP: codex_resume_test.go:23: Codex-only native resume coverage\n\n\u001b[32m✓\u001b[0m TestDeletedFilesCommitDeletion (2.8s)\n  \u001b[32m✓\u001b[0m vogon                2.8s\n\n\u001b[32m✓\u001b[0m TestDirtyWorkingTree (3.0s)\n  \u001b[32m✓\u001b[0m vogon                3.0s\n\n\u001b[32m✓\u001b[0m TestEndedSessionUserCommitsAfterExit (3.1s)\n  \u001b[32m✓\u001b[0m vogon                3.1s\n\n\u001b[32m✓\u001b[0m TestEntireDisable (7.4s)\n  \u001b[32m✓\u001b[0m vogon                7.4s\n\n\u001b[32m✓\u001b[0m TestExternalAgentDeepCheckpointValidation (2.4s)\n  \u001b[32m✓\u001b[0m vogon                2.4s\n\n\u001b[32m✓\u001b[0m TestExternalAgentMultipleTurnsManualCommit (0.1s)\n  \u001b[33m−\u001b[0m vogon                SKIP: external_agent_test.go:50: skipping external agent test for non-external agent\n\n\u001b[32m✓\u001b[0m TestExternalAgentSessionMetadata (2.5s)\n  \u001b[32m✓\u001b[0m vogon                2.5s\n\n\u001b[32m✓\u001b[0m TestExternalAgentSingleSessionManualCommit (2.7s)\n  \u001b[32m✓\u001b[0m vogon                2.7s\n\n\u001b[32m✓\u001b[0m TestHumanOnlyChangesAndCommits (7.7s)\n  \u001b[32m✓\u001b[0m vogon                7.7s\n\n\u001b[32m✓\u001b[0m TestInteractiveAttributionMultiCommitSameSession (12.3s)\n  \u001b[32m✓\u001b[0m vogon                12.3s\n\n\u001b[32m✓\u001b[0m TestInteractiveAttributionOnAgentCommit (8.2s)\n  \u001b[32m✓\u001b[0m vogon                8.2s\n\n\u001b[32m✓\u001b[0m TestInteractiveContentOverlapRevertNewFile (13.6s)\n  \u001b[32m✓\u001b[0m vogon                13.6s\n\n\u001b[32m✓\u001b[0m TestInteractiveMultiStep (11.9s)\n  \u001b[32m✓\u001b[0m vogon                11.9s\n\n\u001b[32m✓\u001b[0m TestInteractiveShadowBranchCleanedAfterAgentCommit (8.7s)\n  \u001b[32m✓\u001b[0m vogon                8.7s\n\n\u001b[32m✓\u001b[0m TestLineAttributionReasonable (3.5s)\n  \u001b[32m✓\u001b[0m vogon                3.5s\n\n\u001b[32m✓\u001b[0m TestMidTurnCommit_DifferentFilesThanPreviousTurn (2.9s)\n  \u001b[32m✓\u001b[0m vogon                2.9s\n\n\u001b[32m✓\u001b[0m TestMixedNewAndModifiedFiles (2.9s)\n  \u001b[32m✓\u001b[0m vogon                2.9s\n\n\u001b[32m✓\u001b[0m TestModifiedFileAlwaysGetsCheckpoint (2.7s)\n  \u001b[32m✓\u001b[0m vogon                2.7s\n\n\u001b[32m✓\u001b[0m TestModifyExistingTrackedFile (2.9s)\n  \u001b[32m✓\u001b[0m vogon                2.9s\n\n\u001b[32m✓\u001b[0m TestMultiSessionManualCommit (4.4s)\n  \u001b[32m✓\u001b[0m vogon                4.4s\n\n\u001b[32m✓\u001b[0m TestMultiSessionSequential (3.8s)\n  \u001b[32m✓\u001b[0m vogon                3.8s\n\n\u001b[32m✓\u001b[0m TestPartialCommitStashNewPrompt (4.1s)\n  \u001b[32m✓\u001b[0m vogon                4.1s\n\n\u001b[32m✓\u001b[0m TestPartialStaging (2.9s)\n  \u001b[32m✓\u001b[0m vogon                2.9s\n\n\u001b[32m✓\u001b[0m TestRapidSequentialCommits (3.3s)\n  \u001b[32m✓\u001b[0m vogon                3.3s\n\n\u001b[32m✓\u001b[0m TestResumeFromClonedRepo (5.2s)\n  \u001b[32m✓\u001b[0m vogon                5.2s\n\n\u001b[32m✓\u001b[0m TestResumeFromFeatureBranch (3.2s)\n  \u001b[32m✓\u001b[0m vogon                3.2s\n\n\u001b[32m✓\u001b[0m TestResumeMetadataBranchAlreadyLocal (3.1s)\n  \u001b[32m✓\u001b[0m vogon                3.1s\n\n\u001b[32m✓\u001b[0m TestResumeNoCheckpointOnBranch (2.8s)\n  \u001b[32m✓\u001b[0m vogon                2.8s\n\n\u001b[32m✓\u001b[0m TestResumeOlderCheckpointWithNewerCommits (2.6s)\n  \u001b[32m✓\u001b[0m vogon                2.6s\n\n\u001b[32m✓\u001b[0m TestResumeSquashMergeMultipleCheckpoints (3.5s)\n  \u001b[32m✓\u001b[0m vogon                3.5s\n\n\u001b[32m✓\u001b[0m TestRewindAfterCommit (2.9s)\n  \u001b[32m✓\u001b[0m vogon                2.9s\n\n\u001b[32m✓\u001b[0m TestRewindMultipleFiles (0.5s)\n  \u001b[32m✓\u001b[0m vogon                0.5s\n\n\u001b[32m✓\u001b[0m TestRewindPreCommit (0.6s)\n  \u001b[32m✓\u001b[0m vogon                0.6s\n\n\u001b[32m✓\u001b[0m TestRewindSquashMergeMultipleCheckpoints (3.5s)\n  \u001b[32m✓\u001b[0m vogon                3.5s\n\n\u001b[32m✓\u001b[0m TestSessionDepletedManualEditNoCheckpoint (9.2s)\n  \u001b[32m✓\u001b[0m vogon                9.2s\n\n\u001b[32m✓\u001b[0m TestSingleSessionAgentCommitInTurn (2.9s)\n  \u001b[32m✓\u001b[0m vogon                2.9s\n\n\u001b[32m✓\u001b[0m TestSingleSessionManualCommit (3.4s)\n  \u001b[32m✓\u001b[0m vogon                3.4s\n\n\u001b[32m✓\u001b[0m TestSingleSessionSubagentCommitInTurn (3.2s)\n  \u001b[32m✓\u001b[0m vogon                3.2s\n\n\u001b[32m✓\u001b[0m TestSplitModificationsToExistingFiles (2.2s)\n  \u001b[32m✓\u001b[0m vogon                2.2s\n\n\u001b[32m✓\u001b[0m TestStashModificationsToTrackedFiles (3.3s)\n  \u001b[32m✓\u001b[0m vogon                3.3s\n\n\u001b[32m✓\u001b[0m TestStashSecondPromptUnstashCommitAll (4.4s)\n  \u001b[32m✓\u001b[0m vogon                4.4s\n\n\u001b[32m✓\u001b[0m TestSubagentCommitFlow (3.6s)\n  \u001b[32m✓\u001b[0m vogon                3.6s\n\n\u001b[32m✓\u001b[0m TestTrailerRemovalSkipsCondensation (5.7s)\n  \u001b[32m✓\u001b[0m vogon                5.7s\n\n\u001b[32m✓\u001b[0m TestUserSplitsAgentChanges (4.1s)\n  \u001b[32m✓\u001b[0m vogon                4.1s\n\n\u001b[32m🎉 ALL 50 TESTS PASSED 🎉\u001b[0m\n\n--- canary: roger-roger ---\n[e2e/tests]········\nDONE 8 tests in 1.918s\nE2E Test Report\n═══════════════\n\nTotal: 4  Passed: 4  Failed: 0  Skipped: 0\n\n\u001b[32m✓\u001b[0m TestExternalAgentDeepCheckpointValidation (1.3s)\n  \u001b[32m✓\u001b[0m roger-roger          1.3s\n\n\u001b[32m✓\u001b[0m TestExternalAgentMultipleTurnsManualCommit (1.7s)\n  \u001b[32m✓\u001b[0m roger-roger          1.7s\n\n\u001b[32m✓\u001b[0m TestExternalAgentSessionMetadata (1.6s)\n  \u001b[32m✓\u001b[0m roger-roger          1.6s\n\n\u001b[32m✓\u001b[0m TestExternalAgentSingleSessionManualCommit (1.5s)\n  \u001b[32m✓\u001b[0m roger-roger          1.5s\n\n\u001b[32m🎉 ALL 4 TESTS PASSED 🎉\u001b[0m\n\n\nentire binary:  /Users/pfleidi/entire/cli/.worktrees/feat/best-effort-transcript-capture/entire\nentire version: Entire CLI v0.5.3-dev-ecd1e6ae0 (ecd1e6ae0)\nGo version: go1.26.2\nOS/Arch: darwin/arm64\n\nartifacts: /Users/pfleidi/entire/cli/.worktrees/feat/best-effort-transcript-capture/e2e/artifacts/canary-2026-04-15T15-05-59\n",
+              "exit": 0,
+              "description": "Re-run full CI test suite locally",
+              "truncated": false
+            },
+            "title": "Re-run full CI test suite locally",
             "time": {
-              "start": 1776290726594
+              "start": 1776290785063,
+              "end": 1776290785067
             }
           },
           "metadata": {
@@ -2392,6 +2400,442 @@
           "id": "prt_d932d7ff6001pwvE32cAF4WjEp",
           "sessionID": "ses_26cdb8498ffe7B2R5zjXtZJSPk",
           "messageID": "msg_d932d6a0c001V8fYxmM7cwdafJ"
+        },
+        {
+          "reason": "tool-calls",
+          "snapshot": "8b836b015086c5ad9f40fbf5d23c2bfd70c7913d",
+          "type": "step-finish",
+          "tokens": {
+            "total": 67262,
+            "input": 44627,
+            "output": 67,
+            "reasoning": 168,
+            "cache": {
+              "write": 0,
+              "read": 22400
+            }
+          },
+          "cost": 0,
+          "id": "prt_d932e672c001XjLBINzrpnTg1B",
+          "sessionID": "ses_26cdb8498ffe7B2R5zjXtZJSPk",
+          "messageID": "msg_d932d6a0c001V8fYxmM7cwdafJ"
+        }
+      ]
+    },
+    {
+      "info": {
+        "parentID": "msg_d932d69fb0018qijVcrEAm6Imk",
+        "role": "assistant",
+        "mode": "build",
+        "agent": "build",
+        "path": {
+          "cwd": "/Users/pfleidi/entire/cli/.worktrees/feat/best-effort-transcript-capture",
+          "root": "/Users/pfleidi/entire/cli/.worktrees/feat/best-effort-transcript-capture"
+        },
+        "cost": 0,
+        "tokens": {
+          "total": 71515,
+          "input": 4233,
+          "output": 63,
+          "reasoning": 147,
+          "cache": {
+            "write": 0,
+            "read": 67072
+          }
+        },
+        "modelID": "gpt-5.3-codex",
+        "providerID": "openai",
+        "time": {
+          "created": 1776290785113,
+          "completed": 1776290790780
+        },
+        "finish": "tool-calls",
+        "id": "msg_d932e6759001Bw45bJgTH9zLZA",
+        "sessionID": "ses_26cdb8498ffe7B2R5zjXtZJSPk"
+      },
+      "parts": [
+        {
+          "snapshot": "8b836b015086c5ad9f40fbf5d23c2bfd70c7913d",
+          "type": "step-start",
+          "id": "prt_d932e6a6e001W03AMVSM4IPRm2",
+          "sessionID": "ses_26cdb8498ffe7B2R5zjXtZJSPk",
+          "messageID": "msg_d932e6759001Bw45bJgTH9zLZA"
+        },
+        {
+          "type": "reasoning",
+          "text": "",
+          "time": {
+            "start": 1776290786800,
+            "end": 1776290789851
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "rs_0f307a8b1c47a75e0169e00be2c8308197a617bd37ccb6b7ad",
+              "reasoningEncryptedContent": "REDACTED"
+            }
+          },
+          "id": "prt_d932e6df0001VZcJ1K6CkJbPDD",
+          "sessionID": "ses_26cdb8498ffe7B2R5zjXtZJSPk",
+          "messageID": "msg_d932e6759001Bw45bJgTH9zLZA"
+        },
+        {
+          "type": "tool",
+          "tool": "bash",
+          "callID": "call_HFZI6fQ95lkQhe9SCdQLAanV",
+          "state": {
+            "status": "completed",
+            "input": {
+              "command": "git status -sb",
+              "timeout": 120000,
+              "workdir": "/Users/pfleidi/entire/cli/.worktrees/feat/best-effort-transcript-capture",
+              "description": "Check branch and local modifications"
+            },
+            "output": "## feat/best-effort-transcript-capture...origin/feat/best-effort-transcript-capture [ahead 5]\n",
+            "metadata": {
+              "output": "## feat/best-effort-transcript-capture...origin/feat/best-effort-transcript-capture [ahead 5]\n",
+              "exit": 0,
+              "description": "Check branch and local modifications",
+              "truncated": false
+            },
+            "title": "Check branch and local modifications",
+            "time": {
+              "start": 1776290790731,
+              "end": 1776290790732
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_0f307a8b1c47a75e0169e00be5d3908197b6ce3eb072ddcb34"
+            }
+          },
+          "id": "prt_d932e79df001EgIVDhvsd1N5v7",
+          "sessionID": "ses_26cdb8498ffe7B2R5zjXtZJSPk",
+          "messageID": "msg_d932e6759001Bw45bJgTH9zLZA"
+        },
+        {
+          "reason": "tool-calls",
+          "snapshot": "8b836b015086c5ad9f40fbf5d23c2bfd70c7913d",
+          "type": "step-finish",
+          "tokens": {
+            "total": 71515,
+            "input": 4233,
+            "output": 63,
+            "reasoning": 147,
+            "cache": {
+              "write": 0,
+              "read": 67072
+            }
+          },
+          "cost": 0,
+          "id": "prt_d932e7d4d001rWr7PVWuEMbTxA",
+          "sessionID": "ses_26cdb8498ffe7B2R5zjXtZJSPk",
+          "messageID": "msg_d932e6759001Bw45bJgTH9zLZA"
+        }
+      ]
+    },
+    {
+      "info": {
+        "parentID": "msg_d932d69fb0018qijVcrEAm6Imk",
+        "role": "assistant",
+        "mode": "build",
+        "agent": "build",
+        "path": {
+          "cwd": "/Users/pfleidi/entire/cli/.worktrees/feat/best-effort-transcript-capture",
+          "root": "/Users/pfleidi/entire/cli/.worktrees/feat/best-effort-transcript-capture"
+        },
+        "cost": 0,
+        "tokens": {
+          "total": 71658,
+          "input": 129,
+          "output": 69,
+          "reasoning": 36,
+          "cache": {
+            "write": 0,
+            "read": 71424
+          }
+        },
+        "modelID": "gpt-5.3-codex",
+        "providerID": "openai",
+        "time": {
+          "created": 1776290790781,
+          "completed": 1776290795747
+        },
+        "finish": "tool-calls",
+        "id": "msg_d932e7d7d001DRIH7K7In6S6Wb",
+        "sessionID": "ses_26cdb8498ffe7B2R5zjXtZJSPk"
+      },
+      "parts": [
+        {
+          "snapshot": "8b836b015086c5ad9f40fbf5d23c2bfd70c7913d",
+          "type": "step-start",
+          "id": "prt_d932e82c70010Gywn4sa4ow3IX",
+          "sessionID": "ses_26cdb8498ffe7B2R5zjXtZJSPk",
+          "messageID": "msg_d932e7d7d001DRIH7K7In6S6Wb"
+        },
+        {
+          "type": "reasoning",
+          "text": "",
+          "time": {
+            "start": 1776290793574,
+            "end": 1776290794670
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "rs_0a42c32c7e2abc140169e00be98ca88196aa01c69832272fed",
+              "reasoningEncryptedContent": "REDACTED"
+            }
+          },
+          "id": "prt_d932e8866001vfqLQweXFl2m7q",
+          "sessionID": "ses_26cdb8498ffe7B2R5zjXtZJSPk",
+          "messageID": "msg_d932e7d7d001DRIH7K7In6S6Wb"
+        },
+        {
+          "type": "tool",
+          "tool": "bash",
+          "callID": "call_AE4xULaJQojG3Pk3BBb0L0Rb",
+          "state": {
+            "status": "completed",
+            "input": {
+              "command": "git log --oneline --decorate -5",
+              "timeout": 120000,
+              "workdir": "/Users/pfleidi/entire/cli/.worktrees/feat/best-effort-transcript-capture",
+              "description": "Inspect recent commits on current branch"
+            },
+            "output": "ecd1e6ae0 (HEAD -> feat/best-effort-transcript-capture) simplify: remove transcript fallback resolution that cannot work\nb7a20b40b docs: correct Codex integration comments after validating hook mechanism\nb976b3955 fix: update integration test for empty-session trailer skip behavior\n057e9de17 docs: add sync comment linking fast path guard to CondenseSession skip gate\nf9a1a8255 refactor: make resolveTranscriptFromAgentStorage side-effect-free\n",
+            "metadata": {
+              "output": "ecd1e6ae0 (HEAD -> feat/best-effort-transcript-capture) simplify: remove transcript fallback resolution that cannot work\nb7a20b40b docs: correct Codex integration comments after validating hook mechanism\nb976b3955 fix: update integration test for empty-session trailer skip behavior\n057e9de17 docs: add sync comment linking fast path guard to CondenseSession skip gate\nf9a1a8255 refactor: make resolveTranscriptFromAgentStorage side-effect-free\n",
+              "exit": 0,
+              "description": "Inspect recent commits on current branch",
+              "truncated": false
+            },
+            "title": "Inspect recent commits on current branch",
+            "time": {
+              "start": 1776290795692,
+              "end": 1776290795693
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_0a42c32c7e2abc140169e00beaa5108196b0fa748b531683b7"
+            }
+          },
+          "id": "prt_d932e8cb4001F8nkd8OsBU67z8",
+          "sessionID": "ses_26cdb8498ffe7B2R5zjXtZJSPk",
+          "messageID": "msg_d932e7d7d001DRIH7K7In6S6Wb"
+        },
+        {
+          "reason": "tool-calls",
+          "snapshot": "8b836b015086c5ad9f40fbf5d23c2bfd70c7913d",
+          "type": "step-finish",
+          "tokens": {
+            "total": 71658,
+            "input": 129,
+            "output": 69,
+            "reasoning": 36,
+            "cache": {
+              "write": 0,
+              "read": 71424
+            }
+          },
+          "cost": 0,
+          "id": "prt_d932e90b1001XwTlFLDl485a2v",
+          "sessionID": "ses_26cdb8498ffe7B2R5zjXtZJSPk",
+          "messageID": "msg_d932e7d7d001DRIH7K7In6S6Wb"
+        }
+      ]
+    },
+    {
+      "info": {
+        "parentID": "msg_d932d69fb0018qijVcrEAm6Imk",
+        "role": "assistant",
+        "mode": "build",
+        "agent": "build",
+        "path": {
+          "cwd": "/Users/pfleidi/entire/cli/.worktrees/feat/best-effort-transcript-capture",
+          "root": "/Users/pfleidi/entire/cli/.worktrees/feat/best-effort-transcript-capture"
+        },
+        "cost": 0,
+        "tokens": {
+          "total": 71986,
+          "input": 351,
+          "output": 98,
+          "reasoning": 113,
+          "cache": {
+            "write": 0,
+            "read": 71424
+          }
+        },
+        "modelID": "gpt-5.3-codex",
+        "providerID": "openai",
+        "time": {
+          "created": 1776290795748,
+          "completed": 1776290808807
+        },
+        "finish": "tool-calls",
+        "id": "msg_d932e90e4001H5VfKGJ2hoIUYu",
+        "sessionID": "ses_26cdb8498ffe7B2R5zjXtZJSPk"
+      },
+      "parts": [
+        {
+          "snapshot": "8b836b015086c5ad9f40fbf5d23c2bfd70c7913d",
+          "type": "step-start",
+          "id": "prt_d932e9509001uI2NKku7hwI4pT",
+          "sessionID": "ses_26cdb8498ffe7B2R5zjXtZJSPk",
+          "messageID": "msg_d932e90e4001H5VfKGJ2hoIUYu"
+        },
+        {
+          "type": "reasoning",
+          "text": "",
+          "time": {
+            "start": 1776290798322,
+            "end": 1776290800833
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "rs_0507be56c24c005d0169e00bee4b7c8195b388df2956e11184",
+              "reasoningEncryptedContent": "REDACTED"
+            }
+          },
+          "id": "prt_d932e9af2001H8iOUY54a8B0GJ",
+          "sessionID": "ses_26cdb8498ffe7B2R5zjXtZJSPk",
+          "messageID": "msg_d932e90e4001H5VfKGJ2hoIUYu"
+        },
+        {
+          "type": "tool",
+          "tool": "bash",
+          "callID": "call_Ls6m6lCcW52eBlE4qfaMOVWk",
+          "state": {
+            "status": "completed",
+            "input": {
+              "command": "go test -tags=integration -race ./cmd/entire/cli/integration_test -run TestShadowStrategy_AgentCommit_GetsTrailerWhenSessionHasContent -count=30",
+              "timeout": 1800000,
+              "workdir": "/Users/pfleidi/entire/cli/.worktrees/feat/best-effort-transcript-capture",
+              "description": "Stress-run suspected flaky integration test"
+            },
+            "output": "ok  \tgithub.com/entireio/cli/cmd/entire/cli/integration_test\t5.817s\n",
+            "metadata": {
+              "output": "ok  \tgithub.com/entireio/cli/cmd/entire/cli/integration_test\t5.817s\n",
+              "exit": 0,
+              "description": "Stress-run suspected flaky integration test",
+              "truncated": false
+            },
+            "title": "Stress-run suspected flaky integration test",
+            "time": {
+              "start": 1776290808726,
+              "end": 1776290808763
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_0507be56c24c005d0169e00bf0cecc8195960424777138550d"
+            }
+          },
+          "id": "prt_d932ea4c2001tD2WVgmlJomeEj",
+          "sessionID": "ses_26cdb8498ffe7B2R5zjXtZJSPk",
+          "messageID": "msg_d932e90e4001H5VfKGJ2hoIUYu"
+        },
+        {
+          "reason": "tool-calls",
+          "snapshot": "8b836b015086c5ad9f40fbf5d23c2bfd70c7913d",
+          "type": "step-finish",
+          "tokens": {
+            "total": 71986,
+            "input": 351,
+            "output": 98,
+            "reasoning": 113,
+            "cache": {
+              "write": 0,
+              "read": 71424
+            }
+          },
+          "cost": 0,
+          "id": "prt_d932ec3bb002nG4mvmqMKLvwGe",
+          "sessionID": "ses_26cdb8498ffe7B2R5zjXtZJSPk",
+          "messageID": "msg_d932e90e4001H5VfKGJ2hoIUYu"
+        }
+      ]
+    },
+    {
+      "info": {
+        "parentID": "msg_d932d69fb0018qijVcrEAm6Imk",
+        "role": "assistant",
+        "mode": "build",
+        "agent": "build",
+        "path": {
+          "cwd": "/Users/pfleidi/entire/cli/.worktrees/feat/best-effort-transcript-capture",
+          "root": "/Users/pfleidi/entire/cli/.worktrees/feat/best-effort-transcript-capture"
+        },
+        "cost": 0,
+        "tokens": {
+          "input": 0,
+          "output": 0,
+          "reasoning": 0,
+          "cache": {
+            "read": 0,
+            "write": 0
+          }
+        },
+        "modelID": "gpt-5.3-codex",
+        "providerID": "openai",
+        "time": {
+          "created": 1776290808809
+        },
+        "id": "msg_d932ec3e9001wbbfwNLAXfG77k",
+        "sessionID": "ses_26cdb8498ffe7B2R5zjXtZJSPk"
+      },
+      "parts": [
+        {
+          "snapshot": "8b836b015086c5ad9f40fbf5d23c2bfd70c7913d",
+          "type": "step-start",
+          "id": "prt_d932ec697001gK9RXnHspfquj2",
+          "sessionID": "ses_26cdb8498ffe7B2R5zjXtZJSPk",
+          "messageID": "msg_d932ec3e9001wbbfwNLAXfG77k"
+        },
+        {
+          "type": "reasoning",
+          "text": "",
+          "time": {
+            "start": 1776290814016,
+            "end": 1776290817402
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "rs_0e0d823d3bef99ca0169e00bfdff4c8190bcf8aac132e53fc3",
+              "reasoningEncryptedContent": "REDACTED"
+            }
+          },
+          "id": "prt_d932ed840001ZGhFFYCxn74Dbn",
+          "sessionID": "ses_26cdb8498ffe7B2R5zjXtZJSPk",
+          "messageID": "msg_d932ec3e9001wbbfwNLAXfG77k"
+        },
+        {
+          "type": "tool",
+          "tool": "bash",
+          "callID": "call_erOfXNZjTpeRnzwEH6ZnCg0O",
+          "state": {
+            "metadata": {
+              "output": "[test:ci:integration:shard] $ ~/entire/cli/.worktrees/feat/best-effort-transcri…\nintegration shard a: 76 tests\nok  \tgithub.com/entireio/cli/cmd/entire/cli/integration_test\t34.837s\n[test:ci:integration:shard] $ ~/entire/cli/.worktrees/feat/best-effort-transcri…\nintegration shard a: 76 tests\n",
+              "description": "Run integration shard a twice to check flakiness"
+            },
+            "status": "running",
+            "input": {
+              "command": "mise run test:ci:integration:shard a && mise run test:ci:integration:shard a",
+              "timeout": 2400000,
+              "workdir": "/Users/pfleidi/entire/cli/.worktrees/feat/best-effort-transcript-capture",
+              "description": "Run integration shard a twice to check flakiness"
+            },
+            "time": {
+              "start": 1776290856991
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_0e0d823d3bef99ca0169e00c0161fc819083fff2e88838ecd8"
+            }
+          },
+          "id": "prt_d932ee57e001DPvg2iM2o50hNL",
+          "sessionID": "ses_26cdb8498ffe7B2R5zjXtZJSPk",
+          "messageID": "msg_d932ec3e9001wbbfwNLAXfG77k"
         }
       ]
     }
