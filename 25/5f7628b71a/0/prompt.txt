@@ -1,0 +1,15 @@
+Fix these linter errors:
+cmd/entire/cli/vercelconfig/vercelconfig.go:75:15: G304: Potential file inclusion via variable (gosec)
+        data, err := os.ReadFile(path)
+                     ^
+cmd/entire/cli/vercelconfig/vercelconfig.go:140:3: error is not nil (line 138) but it returns nil (nilerr)
+                return rootTreeHash, nil
+                ^
+cmd/entire/cli/strategy/common_test.go:1167:1: unnecessary trailing newline (whitespace)
+}
+^
+cmd/entire/cli/checkpoint/committed.go:1445:9: error returned from external package is unwrapped: sig: func github.com/entireio/cli/cmd/entire/cli/vercelconfig.MaybeMergeMetadataBranchConfig(repo *github.com/go-git/go-git/v6.Repository, rootTreeHash github.com/go-git/go-git/v6/plumbing.Hash) (github.com/go-git/go-git/v6/plumbing.Hash, error) (wrapcheck)
+        return vercelconfig.MaybeMergeMetadataBranchConfig(s.repo, rootTreeHash)
+               ^
+cmd/entire/cli/vercelconfig/vercelconfig.go:45:10: error returned from external package is unwrapped: sig: func github.com/entireio/cli/cmd/entire/cli/settings.Load(ctx context.Context) (*github.com/entireio/cli/cmd/entire/cli/settings.EntireSettings, error) (wrapcheck)
+                return err
