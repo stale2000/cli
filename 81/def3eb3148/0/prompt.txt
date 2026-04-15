@@ -1,13 +1,1 @@
-can you see why checks are failing on 888
-
----
-
-yes go ahead
-
----
-
-can you rerun full check
-
----
-
-yes
+okay proceed
