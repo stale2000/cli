@@ -27,3 +27,7 @@ Push it real good
 ---
 
 I'm seeing linter errors in CI. Fix them, please.
+
+---
+
+Yes, commit and push the changes
