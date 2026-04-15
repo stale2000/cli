@@ -1,0 +1,17 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "bc26a77f7fda",
+  "strategy": "manual-commit",
+  "branch": "feat/best-effort-transcript-capture",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/strategy/condense_skip_test.go",
+    "cmd/entire/cli/strategy/manual_commit_condensation.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/bc/26a77f7fda/0/metadata.json",
+      "prompt": ""
+    }
+  ]
+}
