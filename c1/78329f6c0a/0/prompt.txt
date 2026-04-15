@@ -3,3 +3,7 @@ Use the pr-feedback skill
 ---
 
 all
+
+---
+
+Commit and continue
