@@ -3,7 +3,7 @@
   "checkpoint_id": "12a9a7e2ffbe",
   "strategy": "manual-commit",
   "branch": "feat/best-effort-transcript-capture",
-  "checkpoints_count": 0,
+  "checkpoints_count": 1,
   "files_touched": [
     "cmd/entire/cli/strategy/manual_commit_condensation.go"
   ],
@@ -15,6 +15,19 @@
     {
       "metadata": "/12/a9a7e2ffbe/1/metadata.json",
       "prompt": ""
+    },
+    {
+      "metadata": "/12/a9a7e2ffbe/2/metadata.json",
+      "transcript": "/12/a9a7e2ffbe/2/full.jsonl",
+      "content_hash": "/12/a9a7e2ffbe/2/content_hash.txt",
+      "prompt": "/12/a9a7e2ffbe/2/prompt.txt"
     }
-  ]
+  ],
+  "token_usage": {
+    "input_tokens": 406,
+    "cache_creation_tokens": 250738,
+    "cache_read_tokens": 31077835,
+    "output_tokens": 57557,
+    "api_call_count": 206
+  }
 }
