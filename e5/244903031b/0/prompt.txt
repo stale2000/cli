@@ -252,3 +252,7 @@ The `Skipped` field on `CondenseResult` carries information that cannot be deriv
 Everything else is clean. The `writeTranscript` `(bool, error)` refactoring in `committed.go` is straightforward and correct. The `Skipped` field on `CondenseResult` is the right design choice. The parameter sprawl in `extractSessionData` predates this branch.</result>
 <usage><total_tokens>39667</total_tokens><tool_uses>21</tool_uses><duration_ms>91875</duration_ms></usage>
 </task-notification>
+
+---
+
+Commit
