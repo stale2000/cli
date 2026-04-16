@@ -1,0 +1,27 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "e0c53eb9f29d",
+  "strategy": "manual-commit",
+  "branch": "feat/explain-stream-progress",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/agent/claudecode/claude_test.go",
+    "cmd/entire/cli/agent/claudecode/generate.go",
+    "cmd/entire/cli/explain.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/e0/c53eb9f29d/0/metadata.json",
+      "transcript": "/e0/c53eb9f29d/0/full.jsonl",
+      "content_hash": "/e0/c53eb9f29d/0/content_hash.txt",
+      "prompt": "/e0/c53eb9f29d/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 604,
+    "cache_creation_tokens": 4615818,
+    "cache_read_tokens": 166214507,
+    "output_tokens": 306314,
+    "api_call_count": 439
+  }
+}
