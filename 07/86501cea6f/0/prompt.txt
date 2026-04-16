@@ -1,0 +1,9 @@
+I did run it on CI: https://github.com/entireio/cli/actions/runs/24510741362/job/71640932917
+
+---
+
+ok, let's trace that then
+
+---
+
+yes
