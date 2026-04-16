@@ -3,7 +3,7 @@
   "checkpoint_id": "4bf97c2dd1c8",
   "strategy": "manual-commit",
   "branch": "explain-summary-provider",
-  "checkpoints_count": 0,
+  "checkpoints_count": 1,
   "files_touched": [
     "cmd/entire/cli/strategy/manual_commit_condensation.go"
   ],
@@ -49,6 +49,19 @@
       "transcript": "/4b/f97c2dd1c8/6/full.jsonl",
       "content_hash": "/4b/f97c2dd1c8/6/content_hash.txt",
       "prompt": ""
+    },
+    {
+      "metadata": "/4b/f97c2dd1c8/7/metadata.json",
+      "transcript": "/4b/f97c2dd1c8/7/full.jsonl",
+      "content_hash": "/4b/f97c2dd1c8/7/content_hash.txt",
+      "prompt": "/4b/f97c2dd1c8/7/prompt.txt"
     }
-  ]
+  ],
+  "token_usage": {
+    "input_tokens": 11983,
+    "cache_creation_tokens": 2977426,
+    "cache_read_tokens": 138205839,
+    "output_tokens": 362064,
+    "api_call_count": 358
+  }
 }
