@@ -3,7 +3,7 @@
   "checkpoint_id": "d4b4025c01f6",
   "strategy": "manual-commit",
   "branch": "explain-summary-provider",
-  "checkpoints_count": 3,
+  "checkpoints_count": 1,
   "files_touched": [
     "cmd/entire/cli/agent/text_generator_cli.go",
     "cmd/entire/cli/explain_summary_provider.go",
@@ -61,10 +61,10 @@
     }
   ],
   "token_usage": {
-    "input_tokens": 11895,
-    "cache_creation_tokens": 2412850,
-    "cache_read_tokens": 108097410,
-    "output_tokens": 348907,
-    "api_call_count": 302
+    "input_tokens": 11907,
+    "cache_creation_tokens": 2418254,
+    "cache_read_tokens": 112378542,
+    "output_tokens": 350135,
+    "api_call_count": 310
   }
 }
