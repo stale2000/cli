@@ -87,3 +87,7 @@ I only mentioned a redundant, nested conditional and you rewrote a lot more code
 ---
 
 Before you commit: What's up with those package-lock.json changes that keep popping up in git all the time?
+
+---
+
+Okay commit and continue
