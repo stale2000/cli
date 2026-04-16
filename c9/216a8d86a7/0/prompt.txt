@@ -60,3 +60,11 @@ but is right response from failed cluade,   - Claude failed to generate the summ
 ---
 
 run user flow again where you uncovered this again to cover all user scnearios to test fix again
+
+---
+
+yes go ahead
+
+---
+
+yes go ahead
