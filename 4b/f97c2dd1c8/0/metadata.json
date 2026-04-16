@@ -1,0 +1,27 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "4bf97c2dd1c8",
+  "session_id": "019d9366-693d-76d1-a582-cc06158335a9",
+  "strategy": "manual-commit",
+  "created_at": "2026-04-16T03:29:18.786646Z",
+  "branch": "explain-summary-provider",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/strategy/manual_commit_condensation.go"
+  ],
+  "agent": "Codex",
+  "model": "gpt-5.4",
+  "turn_id": "6d2770c75fbb",
+  "initial_attribution": {
+    "calculated_at": "2026-04-16T03:29:18.785224Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 1,
+    "human_removed": 0,
+    "total_committed": 0,
+    "total_lines_changed": 1,
+    "agent_percentage": 0,
+    "metric_version": 2
+  }
+}
