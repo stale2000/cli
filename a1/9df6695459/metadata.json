@@ -3,7 +3,7 @@
   "checkpoint_id": "a19df6695459",
   "strategy": "manual-commit",
   "branch": "feat/explain-stream-progress",
-  "checkpoints_count": 0,
+  "checkpoints_count": 1,
   "files_touched": [
     "cmd/entire/cli/agent/claudecode/claude_test.go",
     "cmd/entire/cli/agent/claudecode/generate.go",
@@ -24,10 +24,10 @@
     }
   ],
   "token_usage": {
-    "input_tokens": 54,
-    "cache_creation_tokens": 29307,
-    "cache_read_tokens": 20670001,
-    "output_tokens": 13570,
-    "api_call_count": 45
+    "input_tokens": 492,
+    "cache_creation_tokens": 3454362,
+    "cache_read_tokens": 121190855,
+    "output_tokens": 282150,
+    "api_call_count": 354
   }
 }
