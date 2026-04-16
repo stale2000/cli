@@ -1,5 +1,1 @@
-Commit
-
----
-
-ya
+LGTM, commit and on to the next one
