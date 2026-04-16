@@ -1,0 +1,34 @@
+On this branch/PR there is this feedback:
+
+1. SafelyAdvanceLocalRef divergence behavior (strategy/common.go:134) — when histories diverge, the function overwrites local with remote. The doc comment reads as
+   if it "cannot rewind," which is misleading in the divergence case. Tighten the comment to say it only advances when target is a strict descendant (or local is
+  absent).
+  2. Misleading parameter name treeless (git_operations.go:414 and fetchV2MainFromOrigin) — this flag controls --depth=1, not the --filter=blob:none treeless filter
+  (applied separately by AppendFetchFilterArgs). Rename to shallow/shallowTip.
+
+  Nits
+
+  3. Package-level v2RefSeq counter in checkpoint_remote_test.go:913 is safe today (non-parallel callers) but would race if anyone adds a parallel user. Pre-existing
+   pattern, just noting.
+  4. fetched = fetched || v2Fetched in explain.go:260 would read cleaner as anyFetched.
+  5. explain.go:266 recreates v2Store with ResolveCheckpointURL(ctx, "origin") even when the successful fetch came from checkpoint_remote. Likely fine (URL is only
+  used for transcript fetching), but worth verifying the checkpoint_remote fallback still resolves transcripts correctly.
+
+Brainstorm with me how to solve this all
+
+---
+
+Let's do the recommended
+
+---
+
+Fix them one issue at the time, one commit each. Let me approve each change before committing it
+
+---
+
+"but only preserves an existing local ref when targetHash is already reachable by
+walking back from the local hash" - that's confusingly worded
+
+---
+
+1
