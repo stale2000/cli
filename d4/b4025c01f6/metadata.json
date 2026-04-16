@@ -40,6 +40,12 @@
       "transcript": "/d4/b4025c01f6/4/full.jsonl",
       "content_hash": "/d4/b4025c01f6/4/content_hash.txt",
       "prompt": ""
+    },
+    {
+      "metadata": "/d4/b4025c01f6/5/metadata.json",
+      "transcript": "/d4/b4025c01f6/5/full.jsonl",
+      "content_hash": "/d4/b4025c01f6/5/content_hash.txt",
+      "prompt": ""
     }
   ],
   "token_usage": {
