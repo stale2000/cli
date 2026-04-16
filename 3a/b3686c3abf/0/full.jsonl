@@ -13,7 +13,7 @@
     },
     "time": {
       "created": 1776296658410,
-      "updated": 1776371512071
+      "updated": 1776371538786
     }
   },
   "messages": [
@@ -9320,19 +9320,22 @@
         },
         "cost": 0,
         "tokens": {
-          "input": 0,
-          "output": 0,
-          "reasoning": 0,
+          "total": 109767,
+          "input": 1612,
+          "output": 114,
+          "reasoning": 9,
           "cache": {
-            "read": 0,
-            "write": 0
+            "write": 0,
+            "read": 108032
           }
         },
         "modelID": "gpt-5.3-codex",
         "providerID": "openai",
         "time": {
-          "created": 1776371512011
+          "created": 1776371512011,
+          "completed": 1776371520439
         },
+        "finish": "tool-calls",
         "id": "msg_d97fe32cb001kK3oxlUFge2ofp",
         "sessionID": "ses_26c77fa15ffeXjGJtAZPGgjOTY"
       },
@@ -9366,19 +9369,24 @@
           "tool": "bash",
           "callID": "call_J3DLUYZVXygGjwkrTQvPWMrG",
           "state": {
-            "metadata": {
-              "output": "",
-              "description": "Commits second root-cause fix with tests"
-            },
-            "status": "running",
+            "status": "completed",
             "input": {
               "command": "git add cmd/entire/cli/agent/opencode/entire_plugin.ts cmd/entire/cli/agent/opencode/hooks_test.go && git commit -m \"fix: harden opencode turn lifecycle hook emission\" && git status --short",
               "timeout": 120000,
               "workdir": "/Users/pfleidi/entire/cli/.worktrees/fix/e2e-opencode-flakes",
               "description": "Commits second root-cause fix with tests"
             },
+            "output": "[fix/e2e-opencode-flakes 78e58c81a] fix: harden opencode turn lifecycle hook emission\n 2 files changed, 58 insertions(+), 10 deletions(-)\n",
+            "metadata": {
+              "output": "[fix/e2e-opencode-flakes 78e58c81a] fix: harden opencode turn lifecycle hook emission\n 2 files changed, 58 insertions(+), 10 deletions(-)\n",
+              "exit": 0,
+              "description": "Commits second root-cause fix with tests",
+              "truncated": false
+            },
+            "title": "Commits second root-cause fix with tests",
             "time": {
-              "start": 1776371515433
+              "start": 1776371520380,
+              "end": 1776371520394
             }
           },
           "metadata": {
@@ -9389,6 +9397,341 @@
           "id": "prt_d97fe393000174e0qvKUQ0O390",
           "sessionID": "ses_26c77fa15ffeXjGJtAZPGgjOTY",
           "messageID": "msg_d97fe32cb001kK3oxlUFge2ofp"
+        },
+        {
+          "reason": "tool-calls",
+          "snapshot": "892f0c6ed848451c395416f31a4ebcbea864467a",
+          "type": "step-finish",
+          "tokens": {
+            "total": 109767,
+            "input": 1612,
+            "output": 114,
+            "reasoning": 9,
+            "cache": {
+              "write": 0,
+              "read": 108032
+            }
+          },
+          "cost": 0,
+          "id": "prt_d97fe538a0026A2YFTje5eTkig",
+          "sessionID": "ses_26c77fa15ffeXjGJtAZPGgjOTY",
+          "messageID": "msg_d97fe32cb001kK3oxlUFge2ofp"
+        }
+      ]
+    },
+    {
+      "info": {
+        "parentID": "msg_d97f2604f001eHON777zuVzfbu",
+        "role": "assistant",
+        "mode": "build",
+        "agent": "build",
+        "path": {
+          "cwd": "/Users/pfleidi/entire/cli/.worktrees/fix/e2e-opencode-flakes",
+          "root": "/Users/pfleidi/entire/cli/.worktrees/fix/e2e-opencode-flakes"
+        },
+        "cost": 0,
+        "tokens": {
+          "total": 109895,
+          "input": 127,
+          "output": 65,
+          "reasoning": 7,
+          "cache": {
+            "write": 0,
+            "read": 109696
+          }
+        },
+        "modelID": "gpt-5.3-codex",
+        "providerID": "openai",
+        "time": {
+          "created": 1776371520443,
+          "completed": 1776371523262
+        },
+        "finish": "tool-calls",
+        "id": "msg_d97fe53bb0011QCJthLoKD5wfr",
+        "sessionID": "ses_26c77fa15ffeXjGJtAZPGgjOTY"
+      },
+      "parts": [
+        {
+          "snapshot": "892f0c6ed848451c395416f31a4ebcbea864467a",
+          "type": "step-start",
+          "id": "prt_d97fe5756001AIQ7t5pFRYSacD",
+          "sessionID": "ses_26c77fa15ffeXjGJtAZPGgjOTY",
+          "messageID": "msg_d97fe53bb0011QCJthLoKD5wfr"
+        },
+        {
+          "type": "reasoning",
+          "text": "",
+          "time": {
+            "start": 1776371521619,
+            "end": 1776371522168
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "rs_007e2f77c658053e0169e1474199dc8194ac75d94cf25ac6f5",
+              "reasoningEncryptedContent": "REDACTED"
+            }
+          },
+          "id": "prt_d97fe5853001J82olJt5eRLy2T",
+          "sessionID": "ses_26c77fa15ffeXjGJtAZPGgjOTY",
+          "messageID": "msg_d97fe53bb0011QCJthLoKD5wfr"
+        },
+        {
+          "type": "tool",
+          "tool": "bash",
+          "callID": "call_V6jUkCNvRr8fTmH6ca9mgwRB",
+          "state": {
+            "status": "completed",
+            "input": {
+              "command": "git status --short",
+              "timeout": 120000,
+              "workdir": "/Users/pfleidi/entire/cli/.worktrees/fix/e2e-opencode-flakes",
+              "description": "Confirms clean worktree after second commit"
+            },
+            "output": "",
+            "metadata": {
+              "output": "",
+              "exit": 0,
+              "description": "Confirms clean worktree after second commit",
+              "truncated": false
+            },
+            "title": "Confirms clean worktree after second commit",
+            "time": {
+              "start": 1776371523107,
+              "end": 1776371523123
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_007e2f77c658053e0169e14742256081949dcc9728e88759bf"
+            }
+          },
+          "id": "prt_d97fe5a78002MPYfj6WxpbjZMT",
+          "sessionID": "ses_26c77fa15ffeXjGJtAZPGgjOTY",
+          "messageID": "msg_d97fe53bb0011QCJthLoKD5wfr"
+        },
+        {
+          "reason": "tool-calls",
+          "snapshot": "892f0c6ed848451c395416f31a4ebcbea864467a",
+          "type": "step-finish",
+          "tokens": {
+            "total": 109895,
+            "input": 127,
+            "output": 65,
+            "reasoning": 7,
+            "cache": {
+              "write": 0,
+              "read": 109696
+            }
+          },
+          "cost": 0,
+          "id": "prt_d97fe5e8f001y1IAJaBcTUFy6w",
+          "sessionID": "ses_26c77fa15ffeXjGJtAZPGgjOTY",
+          "messageID": "msg_d97fe53bb0011QCJthLoKD5wfr"
+        }
+      ]
+    },
+    {
+      "info": {
+        "parentID": "msg_d97f2604f001eHON777zuVzfbu",
+        "role": "assistant",
+        "mode": "build",
+        "agent": "build",
+        "path": {
+          "cwd": "/Users/pfleidi/entire/cli/.worktrees/fix/e2e-opencode-flakes",
+          "root": "/Users/pfleidi/entire/cli/.worktrees/fix/e2e-opencode-flakes"
+        },
+        "cost": 0,
+        "tokens": {
+          "total": 110154,
+          "input": 82,
+          "output": 65,
+          "reasoning": 183,
+          "cache": {
+            "write": 0,
+            "read": 109824
+          }
+        },
+        "modelID": "gpt-5.3-codex",
+        "providerID": "openai",
+        "time": {
+          "created": 1776371523266,
+          "completed": 1776371538717
+        },
+        "finish": "tool-calls",
+        "id": "msg_d97fe5ec2001JfcxshWBo06z2T",
+        "sessionID": "ses_26c77fa15ffeXjGJtAZPGgjOTY"
+      },
+      "parts": [
+        {
+          "snapshot": "892f0c6ed848451c395416f31a4ebcbea864467a",
+          "type": "step-start",
+          "id": "prt_d97fe6cb4001uwO6rJP5MUjCt0",
+          "sessionID": "ses_26c77fa15ffeXjGJtAZPGgjOTY",
+          "messageID": "msg_d97fe5ec2001JfcxshWBo06z2T"
+        },
+        {
+          "type": "reasoning",
+          "text": "",
+          "time": {
+            "start": 1776371533350,
+            "end": 1776371537880
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "rs_0d1f7148773df3cf0169e1474d49088190bda59b33746662ec",
+              "reasoningEncryptedContent": "REDACTED"
+            }
+          },
+          "id": "prt_d97fe8626001mfmZx4VaNIhkdL",
+          "sessionID": "ses_26c77fa15ffeXjGJtAZPGgjOTY",
+          "messageID": "msg_d97fe5ec2001JfcxshWBo06z2T"
+        },
+        {
+          "type": "tool",
+          "tool": "bash",
+          "callID": "call_Vyg4flf6hXZ66Y12r8Dn2Fqt",
+          "state": {
+            "status": "completed",
+            "input": {
+              "command": "git log -2 --oneline",
+              "timeout": 120000,
+              "workdir": "/Users/pfleidi/entire/cli/.worktrees/fix/e2e-opencode-flakes",
+              "description": "Shows newest isolated fix commits"
+            },
+            "output": "78e58c81a fix: harden opencode turn lifecycle hook emission\n12bc361bd fix: exclude opencode runtime files from checkpoint file tracking\n",
+            "metadata": {
+              "output": "78e58c81a fix: harden opencode turn lifecycle hook emission\n12bc361bd fix: exclude opencode runtime files from checkpoint file tracking\n",
+              "exit": 0,
+              "description": "Shows newest isolated fix commits",
+              "truncated": false
+            },
+            "title": "Shows newest isolated fix commits",
+            "time": {
+              "start": 1776371538608,
+              "end": 1776371538608
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_0d1f7148773df3cf0169e14751d8508190b1a375ffa8498fee"
+            }
+          },
+          "id": "prt_d97fe97d9002KB1dpoLZjEkXWD",
+          "sessionID": "ses_26c77fa15ffeXjGJtAZPGgjOTY",
+          "messageID": "msg_d97fe5ec2001JfcxshWBo06z2T"
+        },
+        {
+          "reason": "tool-calls",
+          "snapshot": "892f0c6ed848451c395416f31a4ebcbea864467a",
+          "type": "step-finish",
+          "tokens": {
+            "total": 110154,
+            "input": 82,
+            "output": 65,
+            "reasoning": 183,
+            "cache": {
+              "write": 0,
+              "read": 109824
+            }
+          },
+          "cost": 0,
+          "id": "prt_d97fe9af4001Hd2kGfe45h7rdS",
+          "sessionID": "ses_26c77fa15ffeXjGJtAZPGgjOTY",
+          "messageID": "msg_d97fe5ec2001JfcxshWBo06z2T"
+        }
+      ]
+    },
+    {
+      "info": {
+        "parentID": "msg_d97f2604f001eHON777zuVzfbu",
+        "role": "assistant",
+        "mode": "build",
+        "agent": "build",
+        "path": {
+          "cwd": "/Users/pfleidi/entire/cli/.worktrees/fix/e2e-opencode-flakes",
+          "root": "/Users/pfleidi/entire/cli/.worktrees/fix/e2e-opencode-flakes"
+        },
+        "cost": 0,
+        "tokens": {
+          "total": 110872,
+          "input": 374,
+          "output": 646,
+          "reasoning": 28,
+          "cache": {
+            "write": 0,
+            "read": 109824
+          }
+        },
+        "modelID": "gpt-5.3-codex",
+        "providerID": "openai",
+        "time": {
+          "created": 1776371538721,
+          "completed": 1776371552134
+        },
+        "finish": "stop",
+        "id": "msg_d97fe9b21001CEoRkYYlgB4W0F",
+        "sessionID": "ses_26c77fa15ffeXjGJtAZPGgjOTY"
+      },
+      "parts": [
+        {
+          "snapshot": "892f0c6ed848451c395416f31a4ebcbea864467a",
+          "type": "step-start",
+          "id": "prt_d97fe9eb9001VPvd4YVRIkhQ8T",
+          "sessionID": "ses_26c77fa15ffeXjGJtAZPGgjOTY",
+          "messageID": "msg_d97fe9b21001CEoRkYYlgB4W0F"
+        },
+        {
+          "type": "reasoning",
+          "text": "",
+          "time": {
+            "start": 1776371539741,
+            "end": 1776371540503
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "rs_083674f1ebf2dac60169e14753b8788193bba1493441e31d1c",
+              "reasoningEncryptedContent": "REDACTED"
+            }
+          },
+          "id": "prt_d97fe9f1d001qH56beCfuSv1z9",
+          "sessionID": "ses_26c77fa15ffeXjGJtAZPGgjOTY",
+          "messageID": "msg_d97fe9b21001CEoRkYYlgB4W0F"
+        },
+        {
+          "type": "text",
+          "text": "Done — I reverted the uncommitted work first, grouped failures by root cause, and then fixed them in isolated commits.\n\n**What I reverted**\n- Restored the previous in-progress edits before starting (`git restore` on the 3 modified files), then started clean.\n\n**Root-Cause Groups**\n- **Group 1: OpenCode runtime artifact pollution in checkpoint file tracking**\n  - Tests affected: `TestCheckpointMetadataDeepValidation`, `TestStashSecondPromptUnstashCommitAll`\n  - Symptom: `.opencode/plugins/entire.ts` and `opencode.json` leaked into `files_touched` / carry-forward decisions.\n- **Group 2: OpenCode turn lifecycle event race/dedup issues**\n  - Tests affected: `TestSingleSessionAgentCommitInTurn`, `TestMidTurnCommit_DifferentFilesThanPreviousTurn`\n  - Also related prior failures: `TestAgentCommitsMidTurnUserCommitsRemainder`, `TestAgentAmendsCommit`, `TestSingleSessionSubagentCommitInTurn`\n  - Symptom: missed `turn-start` in some run-mode sequences and duplicate/late idle-driven `turn-end` events.\n\n**Isolated commits**\n- `12bc361bd` — `fix: exclude opencode runtime files from checkpoint file tracking`\n  - Added internal-path filtering for `.entire/*`, `.opencode/*`, and `opencode.json`.\n  - Applied filtering in:\n    - `cmd/entire/cli/strategy/common.go`\n    - `cmd/entire/cli/strategy/manual_commit_git.go`\n    - `cmd/entire/cli/strategy/manual_commit_hooks.go`\n    - `cmd/entire/cli/strategy/manual_commit_condensation.go`\n    - tests in `cmd/entire/cli/strategy/manual_commit_test.go`\n- `78e58c81a` — `fix: harden opencode turn lifecycle hook emission`\n  - Added fallback turn-start from `message.updated`, open-turn tracking, and turn-end dedupe/cleanup.\n  - Changes in:\n    - `cmd/entire/cli/agent/opencode/entire_plugin.ts`\n    - `cmd/entire/cli/agent/opencode/hooks_test.go`\n\n**Verification run**\n- Full required checks passed before each commit: `mise run check`.\n- Focused real E2E (`--agent opencode`) passes after fixes:\n  - `TestCheckpointMetadataDeepValidation`\n  - `TestStashSecondPromptUnstashCommitAll`\n  - `TestSingleSessionAgentCommitInTurn`\n  - `TestMidTurnCommit_DifferentFilesThanPreviousTurn`\n  - `TestAgentCommitsMidTurnUserCommitsRemainder`\n  - `TestAgentAmendsCommit`\n  - `TestSingleSessionSubagentCommitInTurn`\n- A couple reruns showed model-behavior flakes (agent sometimes didn’t produce expected files), but reruns passed and no checkpoint/branch logic regressions remained.\n\nIf you want, I can next push this branch and open a PR with the same root-cause grouping in the description.",
+          "time": {
+            "start": 1776371540508,
+            "end": 1776371552030
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "msg_083674f1ebf2dac60169e147547ac88193846bc09b4c581611",
+              "phase": "final_answer"
+            }
+          },
+          "id": "prt_d97fea21c001tneMgEzwylSz3r",
+          "sessionID": "ses_26c77fa15ffeXjGJtAZPGgjOTY",
+          "messageID": "msg_d97fe9b21001CEoRkYYlgB4W0F"
+        },
+        {
+          "reason": "stop",
+          "snapshot": "892f0c6ed848451c395416f31a4ebcbea864467a",
+          "type": "step-finish",
+          "tokens": {
+            "total": 110872,
+            "input": 374,
+            "output": 646,
+            "reasoning": 28,
+            "cache": {
+              "write": 0,
+              "read": 109824
+            }
+          },
+          "cost": 0,
+          "id": "prt_d97fecf5a001AvVLf1O3FkCCL4",
+          "sessionID": "ses_26c77fa15ffeXjGJtAZPGgjOTY",
+          "messageID": "msg_d97fe9b21001CEoRkYYlgB4W0F"
         }
       ]
     }
