@@ -1,0 +1,28 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "d4b4025c01f6",
+  "strategy": "manual-commit",
+  "branch": "explain-summary-provider",
+  "checkpoints_count": 3,
+  "files_touched": [
+    "cmd/entire/cli/agent/text_generator_cli.go",
+    "cmd/entire/cli/explain_summary_provider.go",
+    "cmd/entire/cli/explain_summary_provider_test.go",
+    "cmd/entire/cli/strategy/manual_commit_condensation.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/d4/b4025c01f6/0/metadata.json",
+      "transcript": "/d4/b4025c01f6/0/full.jsonl",
+      "content_hash": "/d4/b4025c01f6/0/content_hash.txt",
+      "prompt": "/d4/b4025c01f6/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 11895,
+    "cache_creation_tokens": 2412850,
+    "cache_read_tokens": 108097410,
+    "output_tokens": 348907,
+    "api_call_count": 302
+  }
+}
