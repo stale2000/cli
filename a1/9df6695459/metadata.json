@@ -5,22 +5,15 @@
   "branch": "feat/explain-stream-progress",
   "checkpoints_count": 0,
   "files_touched": [
-    "cmd/entire/cli/agent/agent.go",
-    "cmd/entire/cli/agent/capabilities.go",
-    "cmd/entire/cli/agent/capabilities_test.go",
     "cmd/entire/cli/agent/claudecode/claude_test.go",
     "cmd/entire/cli/agent/claudecode/generate.go",
     "cmd/entire/cli/agent/claudecode/response.go",
     "cmd/entire/cli/agent/claudecode/response_test.go",
-    "cmd/entire/cli/agent/claudecode/testdata/stream_error_404.jsonl",
-    "cmd/entire/cli/agent/claudecode/testdata/stream_success.jsonl",
     "cmd/entire/cli/explain.go",
     "cmd/entire/cli/explain_test.go",
-    "cmd/entire/cli/strategy/manual_commit_condensation.go",
     "cmd/entire/cli/summarize/claude.go",
     "cmd/entire/cli/summarize/claude_test.go",
-    "cmd/entire/cli/summarize/summarize.go",
-    "cmd/entire/cli/summarize/summarize_test.go"
+    "cmd/entire/cli/summarize/summarize.go"
   ],
   "sessions": [
     {
@@ -31,10 +24,10 @@
     }
   ],
   "token_usage": {
-    "input_tokens": 21,
-    "cache_creation_tokens": 23502,
-    "cache_read_tokens": 6442875,
-    "output_tokens": 5025,
-    "api_call_count": 17
+    "input_tokens": 46,
+    "cache_creation_tokens": 438834,
+    "cache_read_tokens": 12341443,
+    "output_tokens": 9944,
+    "api_call_count": 31
   }
 }
