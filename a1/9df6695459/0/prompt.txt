@@ -1,0 +1,296 @@
+can you run /code-simplifier on 964 please
+
+---
+
+<task-notification>
+<task-id>ac2cfb60f96ab5776</task-id>
+<tool-use-id>REDACTED</tool-use-id>
+<output-file>/private/tmp/claude-501/-Users-peytonmontei-Documents-entire-devenv-entireio-cli--worktrees-review-876/a41f4669-6677-41da-a864-dbef451ac8ff/tasks/ac2cfb60f96ab5776.output</output-file>
+<status>completed</status>
+<summary>Agent "Efficiency review for PR 964" completed</summary>
+<result>I now have enough context to write a thorough review. Here is my analysis:
+
+---
+
+## Efficiency Review: PR 964 (Stream Progress for Explain)
+
+### 1. Triple `settings.Load()` on the summary path -- redundant I/O
+
+**Severity: Medium**
+
+`generateCheckpointAISummary` (explain.go:528) triggers up to **three** independent calls to `settings.Load()` that each read and parse the same JSON file from disk:
+
+1. **Line 533**: `summaryDeadlineResolver(errW)` -- calls `settings.Load()` (explain.go:47)
+2. **Line 538**: `settingsTimeoutUnset()` -- calls `settings.Load()` **again** (explain.go:576)
+3. **Line 494** (error path only): `summaryDeadlineResolver(errW)` inside `generateCheckpointSummary` re-resolves the deadline for the error message -- another `settings.Load()`.
+
+The first two fire unconditionally on every summary generation. Since `settings.Load` reads `.entire/settings.json` + `.entire/settings.local.json` from disk and parses both, this is redundant I/O. Consider having `generateCheckpointAISummary` resolve settings once and thread the result through, or caching inside the resolver so the second call in `settingsTimeoutUnset` does not re-read.
+
+### 2. `summaryProgressWriter.handle` -- `styles.render()` called unconditionally on every delta event
+
+**Severity: Low**
+
+In explain.go:2082-2101, `handle()` computes `arrow` and `check` via `s.styles.render(...)` on **every** call, including the high-frequency `PhaseGenerating` deltas. Looking at the stream fixture, a typical response has 5-10+ `content_block_delta` events. Each call to `handle` renders both `arrow` and `check` even though only one is used per invocation.
+
+This is a minor allocation concern. The styles could be precomputed once in the constructor, or the render calls could be hoisted into the relevant `case` branches so `check` is not computed on non-Done phases. Not a blocking issue given the event rate (dozens, not thousands), but it is wasted work on every delta.
+
+### 3. `streamClaudeResponse` 64 KB initial buffer -- appropriate and well-bounded
+
+**Severity: None (acceptable)**
+
+The scanner is created at response.go:59-60 with:
+```go
+scanner.Buffer(make([]byte, 64*1024), streamBufferMax)
+```
+
+The init event in the test fixture is ~2.7 KB. Real init events with many MCP tools could be larger but the 64 KB initial allocation is a single short-lived allocation per CLI invocation, and the 4 MiB max is documented and reasonable. The `bufio.Scanner` will reuse the buffer across lines. **No issue here.**
+
+### 4. `makeProgressDispatcher` -- `len(text)/4` token estimation on every delta
+
+**Severity: None (acceptable)**
+
+At generate.go:149, the dispatcher estimates output tokens via `len(text) / 4` on every `content_block_delta` event. This is an integer division -- essentially free. The closure also calls `progress()` which stores an `atomic.Int64` and builds a `fmt.Sprintf` string for the progress line, but since deltas arrive at ~10-50 Hz from a network stream (not a tight CPU loop), this is not hot-path in any meaningful sense. The dedup check in `updateLine` (explain.go:2113-2114) prevents redundant I/O when the token count rounds to the same display string. **No issue.**
+
+### 5. `startIdleWatchdog` goroutine lifecycle -- correctly bounded, no leak
+
+**Severity: None (no issue)**
+
+The watchdog goroutine (explain.go:2031-2054) exits on any of three channels: `ticker.C` triggering cancellation, `done` being closed (via `stop()`), or `parent.Done()`. The `stop` function is `func() { close(done); cancel() }` and is always deferred in the caller (explain.go:541-542). The ticker is stopped via `defer ticker.Stop()` inside the goroutine.
+
+The `fired` `atomic.Bool` returned alongside the context is never read in the current code (the `_` discard at explain.go:541), which means it is a dead allocation, but trivially cheap (one word).
+
+**No leak. The goroutine is properly cleaned up.**
+
+### 6. `newSummaryProgressWriter` -- seeding `lastActivity` before watchdog starts
+
+**Severity: None (no race)**
+
+At explain.go:2078, the constructor seeds `lastActivity.Store(time.Now().UnixNano())`. The watchdog goroutine is not started until `startIdleWatchdog` is called at explain.go:541, which happens **after** `newSummaryProgressWriter` returns. So there is no temporal race: the seed write completes before the goroutine that reads `lastActivity` even exists. The `atomic.Int64` provides the memory ordering guarantee that the goroutine's `Load()` will see the seeded value. **No issue.**
+
+### 7. `atomic.Store` on every progress event -- no contention concern
+
+**Severity: None**
+
+`s.lastActivity.Store(time.Now().UnixNano())` at explain.go:2083 is called from the same goroutine that reads the stream (the `onEvent` callback in `streamClaudeResponse` runs synchronously in the scanner loop). The watchdog goroutine only does `Load()`. This is a single-writer / single-reader atomic pattern -- zero contention. `time.Now()` is a vDSO call on modern OS, costing ~20ns. **No issue.**
+
+### 8. `StreamEvent` deserializes all fields for every NDJSON line
+
+**Severity: Low**
+
+Every line in the NDJSON stream is fully deserialized into a `StreamEvent` struct (response.go:67-68), including the `init` event which can be several KB and contains fields the code never inspects (tools list, MCP servers, session_id, etc.). The struct definition uses concrete types (not `json.RawMessage`), so `json.Unmarshal` must walk and allocate for all JSON keys, even those that are ignored.
+
+For the `init` event specifically, this means allocating and immediately discarding strings for every tool name in the tools array. A two-pass approach (parse `{"type":"..."}` first, then full unmarshal only for interesting types) would avoid this. However, this happens once per CLI invocation and the init event is ~3-5 KB in practice, so the waste is measured in microseconds. **Low priority, but worth noting if the stream protocol adds heavier events in the future.**
+
+### 9. `json.Unmarshal` on `scanner.Bytes()` -- safe but could avoid a copy
+
+**Severity: Low**
+
+At response.go:63-68, `scanner.Bytes()` returns a slice into the scanner's buffer, and the comment in `bufio.Scanner` says the slice is only valid until the next `Scan()` call. `json.Unmarshal` processes the bytes synchronously before `Scan()` is called again, so this is safe. However, `json.Unmarshal` does not modify the input, so no defensive copy is needed. The current code is correct.
+
+### 10. Double type-assertion for streaming path
+
+**Severity: Low**
+
+In `summarize/claude.go:100-104`, `AsStreamingTextGenerator(textGenerator)` is called to check if the generator supports streaming. But since `GenerateText` on `ClaudeCodeAgent` already delegates to `GenerateTextStreaming` (generate.go:19-21), the non-streaming fallback path is functionally identical for Claude Code. This means the `AsStreamingTextGenerator` check and dual path is only useful for non-Claude agents that implement `TextGenerator` but not `StreamingTextGenerator`. This is correct behavior but adds a branch that is currently dead code for the primary (Claude Code) path. Not an efficiency problem per se, but unnecessary complexity.
+
+### Summary of Actionable Items
+
+| # | Issue | Severity | File:Line |
+|---|-------|----------|-----------|
+| 1 | Triple `settings.Load()` per summary generation -- redundant filesystem reads | Medium | explain.go:533, 538, 494 |
+| 2 | `styles.render()` called for both arrow+check on every delta event | Low | explain.go:2083-2085 |
+| 8 | Full JSON deserialization of all stream events including large init | Low | response.go:67-68 |
+
+Items 3-7, 9-10 are either acceptable or have no actual issue upon close inspection. The idle watchdog goroutine and atomic operations are correctly implemented with proper cleanup semantics.</result>
+<usage><total_tokens>83137</total_tokens><tool_uses>23</tool_uses><duration_ms>124678</duration_ms></usage>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>a93f813be9a81ab98</task-id>
+<tool-use-id>toolu_01KN5YHeRtW71bUfTTbgeKGN</tool-use-id>
+<output-file>/private/tmp/claude-501/-Users-peytonmontei-Documents-entire-devenv-entireio-cli--worktrees-review-876/a41f4669-6677-41da-a864-dbef451ac8ff/tasks/a93f813be9a81ab98.output</output-file>
+<status>completed</status>
+<summary>Agent "Code quality review for PR 964" completed</summary>
+<result>I have now examined all the relevant source files. Here is my review.
+
+---
+
+## Code Quality Review: PR 964 (stream-progress delta from typed-errors)
+
+### 1. Redundant State: Double settings.Load in the deadline path
+
+**File:** `cmd/entire/cli/explain.go:533 and 538`
+
+`generateCheckpointAISummary` calls `summaryDeadlineResolver(errW)` at line 533, which internally calls `settings.Load()` and reads `SummaryTimeoutValue()`. Then immediately at line 538, it calls `settingsTimeoutUnset()`, which loads settings *again* to check the same value. Both functions are package-level vars that each independently call `settings.Load(context.Background())`.
+
+The same duplication happens a *third* time at line 494 in `generateCheckpointSummary`, where `summaryDeadlineResolver(errW)` is called again on error just to recover the deadline value for the error message -- even though `generateCheckpointAISummary` already computed and used this same value internally.
+
+The resolution policy would be cleaner if `resolveSummaryDeadlineInputs` also returned whether the settings timeout was explicitly set (it already knows this: `r.settings &gt; 0`), so the caller only needs one settings load. As-is, there are up to 3 `settings.Load()` calls per summary generation attempt.
+
+### 2. Leaky Abstraction: PhaseDone emitted outside the dispatcher
+
+**File:** `cmd/entire/cli/agent/claudecode/generate.go:86-91`
+
+`PhaseDone` is dispatched directly in `GenerateTextStreaming` (line 86-91), while all other phases are dispatched through `makeProgressDispatcher`. This splits the phase lifecycle across two locations, which means:
+
+- Future implementors of `StreamingTextGenerator` for other agents must remember to emit `PhaseDone` themselves in the success path
+- The dispatcher handles `PhaseConnecting`, `PhaseFirstToken`, and `PhaseGenerating` but silently does *not* handle `PhaseDone` -- there is no comment explaining this asymmetry
+
+The `PhaseDone` emission should either be inside the dispatcher (keyed on `ev.Type == "result" &amp;&amp; !ev.IsError`) or the split should be documented with a comment on `makeProgressDispatcher` explaining that `PhaseDone` is intentionally the caller's responsibility because it requires data from the parsed final envelope.
+
+### 3. Stringly-Typed Code: Raw string literals for Claude stream event types
+
+**File:** `cmd/entire/cli/agent/claudecode/generate.go:135-144` and `cmd/entire/cli/agent/claudecode/response.go:74`
+
+The event type/subtype matching uses raw string literals: `"system"`, `"status"`, `"requesting"`, `"stream_event"`, `"message_start"`, `"content_block_delta"`, `"result"`. These appear in `makeProgressDispatcher`, `streamClaudeResponse`, and across tests. There are no constants for these values. Since this is a new subsystem being introduced in this PR, now is the right time to define constants (e.g., `eventTypeSystem`, `eventTypeStreamEvent`, `eventTypeResult`, etc.) rather than accumulating string matches that will diverge.
+
+### 4. Leaky Abstraction: GenerateFromTranscript mutates caller-owned generator
+
+**File:** `cmd/entire/cli/summarize/summarize.go:56-57`
+
+```go
+} else if cg, ok := generator.(*ClaudeGenerator); ok &amp;&amp; cg.Progress == nil {
+    cg.Progress = progress
+}
+```
+
+When the caller passes an existing `*ClaudeGenerator` with `Progress == nil`, `GenerateFromTranscript` mutates the caller's struct to inject the progress callback. This is a side effect that survives the call: the caller's generator now has a non-nil `Progress` field that it did not set. If the caller reuses the generator across calls (e.g., with different progress callbacks or nil), the first call's mutation persists. Either clone the generator or accept that `Progress` on `ClaudeGenerator` is purely the caller's responsibility and remove this backfill.
+
+### 5. Parameter Sprawl: generateCheckpointAISummary growing parameters
+
+**File:** `cmd/entire/cli/explain.go:528`
+
+```go
+func generateCheckpointAISummary(ctx context.Context, errW io.Writer, scopedTranscript []byte, filesTouched []string, agentType types.AgentType) (*checkpoint.Summary, error)
+```
+
+This function now takes 5 parameters (up from 4 in the base). The `errW` parameter is used for three distinct purposes inside: (1) progress output writing, (2) TTY detection for deadline policy, (3) TTY detection for in-place rendering. This conflates "where to write progress" with "how to choose the timeout policy." A caller that wants to write progress to stderr but use non-interactive deadline policy cannot express that. This isn't urgent at 5 params, but the trajectory is worth noting since the function's responsibilities are expanding.
+
+### 6. Redundant State: summaryDeadlineResolver called twice on error path
+
+**File:** `cmd/entire/cli/explain.go:494`
+
+```go
+summary, err := generateCheckpointAISummary(ctx, errW, scopedTranscript, cpSummary.FilesTouched, content.Metadata.Agent)
+if err != nil {
+    deadline, _ := summaryDeadlineResolver(errW)
+    return formatCheckpointSummaryError(err, deadline)
+}
+```
+
+The caller re-resolves the deadline solely to pass it to the error formatter. `generateCheckpointAISummary` already computed this value internally but discards it. The deadline should either be included in the returned error (as a typed error wrapping the timeout value) or returned as a second value from `generateCheckpointAISummary`.
+
+### 7. Unnecessary Comments
+
+**File:** `cmd/entire/cli/agent/claudecode/generate.go:18`
+```go
+// Delegates to GenerateTextStreaming with no progress callback.
+```
+This comment on `GenerateText` describes *what* the one-liner does. The single line of implementation (`return c.GenerateTextStreaming(ctx, prompt, model, nil)`) is self-documenting.
+
+**File:** `cmd/entire/cli/summarize/claude.go:103`
+```go
+resultJSON, err = textGenerator.GenerateText(ctx, prompt, model)
+```
+The nolint comment on the error return at line 106 was updated from `// preserve *ClaudeError` to `// preserve typed *ClaudeError` -- adding "typed" is a cosmetic rewording in a comment that was already adequate.
+
+**File:** `cmd/entire/cli/explain.go:557`
+```go
+nil, // generator (use default)
+```
+This inline comment narrates what `nil` means for a parameter. It is fine for a function with many arguments, but the comment is duplicated verbatim. Minor.
+
+### 8. Copy-Paste with Slight Variation: equalPhases test helper
+
+**File:** `cmd/entire/cli/agent/claudecode/claude_test.go:135-141`
+
+```go
+func equalPhases(a, b []agent.ProgressPhase) bool {
+```
+
+Go 1.26 has `slices.Equal` in the standard library. This hand-rolled helper is unnecessary. Replace with `slices.Equal(phases, want)`.
+
+### Summary of Findings by Severity
+
+**Should fix before merge:**
+- **Finding 1 (Redundant state):** `settings.Load()` called 2-3 times per summary path. Consolidate into a single resolution that returns both the deadline and whether it was explicitly configured.
+- **Finding 2 (Leaky abstraction):** `PhaseDone` emitted in a different location than all other phases, with no documentation of the split. At minimum add a comment; ideally consolidate.
+- **Finding 4 (Leaky abstraction):** `GenerateFromTranscript` mutates caller-owned `*ClaudeGenerator`. Either clone or remove the backfill.
+
+**Consider fixing:**
+- **Finding 3 (Stringly-typed):** Define constants for stream event type strings to prevent silent typo divergence.
+- **Finding 6 (Redundant state):** Deadline re-resolved on error path; return it from the inner function instead.
+- **Finding 8 (Copy-paste):** Use `slices.Equal` instead of hand-rolled `equalPhases`.
+
+**Low priority:**
+- **Finding 5 (Parameter sprawl):** 5 params is manageable but worth noting the trajectory.
+- **Finding 7 (Unnecessary comments):** Minor comment noise.</result>
+<usage><total_tokens>88380</total_tokens><tool_uses>25</tool_uses><duration_ms>137345</duration_ms></usage>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>a5ef8f8bf4b379613</task-id>
+<tool-use-id>toolu_01EheViSsXPH1BZ9kPZ1QTSt</tool-use-id>
+<output-file>/private/tmp/claude-501/-Users-peytonmontei-Documents-entire-devenv-entireio-cli--worktrees-review-876/a41f4669-6677-41da-a864-dbef451ac8ff/tasks/a5ef8f8bf4b379613.output</output-file>
+<status>completed</status>
+<summary>Agent "Code reuse review for PR 964" completed</summary>
+<result>I see the duplication issue: `summaryDeadlineResolver` (line 46-52) calls `settings.Load()` and checks `SummaryTimeoutValue()`, and then `settingsTimeoutUnset` (line 575-578) also calls `settings.Load()` and checks `SummaryTimeoutValue() == 0`. Both are called in the same code path (`generateCheckpointAISummary` at lines 533 and 538). So `settings.Load` is called twice for the same generation, and both check `SummaryTimeoutValue`.
+
+Now I have all the findings. Let me compile the report.
+
+---
+
+Here are the code reuse findings for PR 964:
+
+## 1. `humanizeBytes` in explain.go (line 1966) -- No existing duplicate found
+
+There is no existing byte-formatting utility elsewhere in the codebase. The only "humanize" function is `trail.HumanizeBranchName`, which is unrelated. `humanizeBytes` is new functionality. **No action needed.**
+
+## 2. `formatMs` in explain.go (line 2125-2130) -- No existing duplicate found
+
+There is no existing millisecond-to-human-string formatter in the codebase. The `trace.go` file renders durations as raw `"%dms"` strings inline (e.g., line 251, 283, 298), but there is no reusable function. `formatMs` is genuinely new. **No action needed**, though if the trace rendering is ever refactored, `formatMs` would be a good shared utility.
+
+## 3. `stripGitEnv` in generate.go (line 180) -- Pre-existing duplication, not introduced by this PR
+
+The comment at `generate.go:179` says "Duplicated from summarize/claude.go", but `summarize/claude.go` no longer contains a `stripGitEnv` function. The function was previously deleted from `summarize/claude.go`, leaving only an orphaned doc comment at `summarize/claude.go:126-127` (the `stripGitEnv` doc comment is now incorrectly attached to `extractJSONFromMarkdown`). **This is a pre-existing issue, not introduced by PR 964.** Worth noting for a separate cleanup:
+- `cmd/entire/cli/summarize/claude.go:126-127` -- orphaned doc comment from deleted `stripGitEnv` now misleadingly attached to `extractJSONFromMarkdown`
+- `cmd/entire/cli/agent/claudecode/generate.go:179` -- stale "Duplicated from" comment referring to a function that no longer exists in the referenced file
+
+## 4. `isExecError` in generate.go (line 162-175) -- No duplicate found
+
+This was renamed from `isExecNotFound` in the base branch. There is no other function in the codebase that performs this check. The only other reference to `exec.ErrNotFound` is an inline `errors.Is` in `setup_test.go:101`, which is a test-only one-off check. **No action needed.**
+
+## 5. `StreamEvent` types in response.go vs types.go -- Proper reuse, no overlap
+
+`StreamEvent`, `StreamInnerEvent`, `StreamDelta`, and `StreamMessage` are new types that replace the old `responseEnvelope`. The key shared type `messageUsage` (defined in `types.go:87-92`) is correctly reused by both `StreamEvent.Usage` and `StreamMessage.Usage`. The old `responseEnvelope` was cleanly removed. **No action needed.**
+
+## 6. Duplicate `settings.Load()` calls in the same code path (explain.go)
+
+`generateCheckpointAISummary` (line 528) calls both `summaryDeadlineResolver(errW)` at line 533 and `settingsTimeoutUnset()` at line 538. Both independently call `settings.Load(context.Background())` and check `s.SummaryTimeoutValue()`. This means the same settings file is loaded and parsed twice for every summary generation.
+
+**Suggestion:** Have `summaryDeadlineResolver` return the raw settings timeout value (or a richer result struct), and use that to determine the "unset" condition instead of calling `settingsTimeoutUnset()` separately. Alternatively, `resolveSummaryDeadlineInputs.resolve()` could return a third value indicating the timeout mode (none / idle-watchdog / hard-wall-clock) so the caller doesn't need to re-derive it.
+
+Affected lines:
+- `cmd/entire/cli/explain.go:46-52` (`summaryDeadlineResolver` calls `settings.Load`)
+- `cmd/entire/cli/explain.go:575-578` (`settingsTimeoutUnset` calls `settings.Load`)
+- `cmd/entire/cli/explain.go:533` and `538` (both called in sequence)
+
+## 7. `formatTokenCount` -- Properly reused from `status_style.go`
+
+The new `summaryProgressWriter.handle()` calls `formatTokenCount` (defined in `cmd/entire/cli/status_style.go:106`) to format token counts. It also properly uses `newStatusStyles` and `isTerminalWriter` from the same file. **Good reuse; no action needed.**
+
+## Summary of actionable items
+
+| # | Severity | File:Line | Issue |
+|---|----------|-----------|-------|
+| 1 | Low | `explain.go:533+538` | `settings.Load()` called twice in same code path -- `summaryDeadlineResolver` and `settingsTimeoutUnset` both load settings independently |
+| 2 | Cosmetic (pre-existing) | `summarize/claude.go:126-127` | Orphaned `stripGitEnv` doc comment now wrongly prefixes `extractJSONFromMarkdown` |
+| 3 | Cosmetic (pre-existing) | `generate.go:179` | "Duplicated from summarize/claude.go" comment is stale -- that function no longer exists there |
+
+Items 2 and 3 predate this PR. Item 1 is introduced by this PR and is the only genuine code-reuse opportunity worth addressing.</result>
+<usage><total_tokens>79820</total_tokens><tool_uses>47</tool_uses><duration_ms>160737</duration_ms></usage>
+</task-notification>
