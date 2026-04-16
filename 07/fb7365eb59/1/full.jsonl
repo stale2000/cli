@@ -1,0 +1,85 @@
+{
+  "info": {
+    "id": "ses_269b33e23ffexNpe1z3JyoJNPk",
+    "slug": "silent-wolf",
+    "projectID": "0009c8055b312b6e743fafed54035fb20a124909",
+    "directory": "/Users/soph/Work/entire/devenv/cli",
+    "title": "New session - 2026-04-16T12:38:26.012Z",
+    "version": "1.2.27",
+    "summary": {
+      "additions": 0,
+      "deletions": 0,
+      "files": 0
+    },
+    "time": {
+      "created": 1776343106012,
+      "updated": 1776343106038
+    }
+  },
+  "messages": [
+    {
+      "info": {
+        "role": "user",
+        "time": {
+          "created": 1776343106018
+        },
+        "summary": {
+          "diffs": []
+        },
+        "agent": "build",
+        "model": {
+          "providerID": "anthropic",
+          "modelID": "claude-haiku-4-5"
+        },
+        "id": "msg_d964cc1de001mtpmmCJFUrg7v7",
+        "sessionID": "ses_269b33e23ffexNpe1z3JyoJNPk"
+      },
+      "parts": [
+        {
+          "type": "text",
+          "text": "hello",
+          "id": "prt_d964cc1de002ACR2JyNv4NqwxZ",
+          "sessionID": "ses_269b33e23ffexNpe1z3JyoJNPk",
+          "messageID": "msg_d964cc1de001mtpmmCJFUrg7v7"
+        }
+      ]
+    },
+    {
+      "info": {
+        "role": "assistant",
+        "time": {
+          "created": 1776343106025,
+          "completed": 1776343106072
+        },
+        "error": {
+          "name": "UnknownError",
+          "data": {
+            "message": "Error: Token refresh failed: 429"
+          }
+        },
+        "parentID": "msg_d964cc1de001mtpmmCJFUrg7v7",
+        "modelID": "claude-haiku-4-5",
+        "providerID": "anthropic",
+        "mode": "build",
+        "agent": "build",
+        "path": {
+          "cwd": "/Users/soph/Work/entire/devenv/cli",
+          "root": "/Users/soph/Work/entire/devenv/cli"
+        },
+        "cost": 0,
+        "tokens": {
+          "input": 0,
+          "output": 0,
+          "reasoning": 0,
+          "cache": {
+            "read": 0,
+            "write": 0
+          }
+        },
+        "id": "msg_d964cc1e9001k86ENMJMiRjQwh",
+        "sessionID": "ses_269b33e23ffexNpe1z3JyoJNPk"
+      },
+      "parts": []
+    }
+  ]
+}
