@@ -8,6 +8,7 @@
     "cmd/entire/cli/agent/text_generator_cli.go",
     "cmd/entire/cli/explain_summary_provider.go",
     "cmd/entire/cli/explain_summary_provider_test.go",
+    "cmd/entire/cli/setup_test.go",
     "cmd/entire/cli/strategy/manual_commit_condensation.go"
   ],
   "sessions": [
@@ -61,10 +62,10 @@
     }
   ],
   "token_usage": {
-    "input_tokens": 11907,
-    "cache_creation_tokens": 2418254,
-    "cache_read_tokens": 112378542,
-    "output_tokens": 350135,
-    "api_call_count": 310
+    "input_tokens": 11941,
+    "cache_creation_tokens": 2970707,
+    "cache_read_tokens": 126023255,
+    "output_tokens": 357541,
+    "api_call_count": 336
   }
 }

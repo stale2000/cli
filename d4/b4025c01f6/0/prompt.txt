@@ -117,3 +117,19 @@ okay now review again, wierd that wasn't caught before
 ---
 
 lint failed
+
+---
+
+what do you think
+
+---
+
+should the user not be able to select opencode, factoy, or any other provider i giess?
+
+---
+
+or why couldn't they use their own?
+
+---
+
+okay we'll just do the 5 for now, and add the error message to user as to why if the fail or something
