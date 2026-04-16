@@ -3,64 +3,37 @@
   "checkpoint_id": "a19df6695459",
   "session_id": "a41f4669-6677-41da-a864-dbef451ac8ff",
   "strategy": "manual-commit",
-  "created_at": "2026-04-16T17:04:34.331017Z",
+  "created_at": "2026-04-16T17:19:21.000668Z",
   "branch": "feat/explain-stream-progress",
   "checkpoints_count": 0,
   "files_touched": [
-    "cmd/entire/cli/agent/claudecode/claude_test.go",
-    "cmd/entire/cli/agent/claudecode/generate.go",
-    "cmd/entire/cli/agent/claudecode/response.go",
-    "cmd/entire/cli/agent/claudecode/response_test.go",
-    "cmd/entire/cli/explain.go",
-    "cmd/entire/cli/explain_test.go",
-    "cmd/entire/cli/summarize/claude.go",
-    "cmd/entire/cli/summarize/claude_test.go",
-    "cmd/entire/cli/summarize/summarize.go"
+    "cmd/entire/cli/explain_test.go"
   ],
   "agent": "Claude Code",
   "model": "",
-  "turn_id": "0cd8d0a005a6",
-  "checkpoint_transcript_start": 1005,
-  "transcript_lines_at_start": 1005,
+  "turn_id": "738d59f12846",
+  "checkpoint_transcript_start": 1186,
+  "transcript_lines_at_start": 1186,
   "token_usage": {
-    "input_tokens": 46,
-    "cache_creation_tokens": 438834,
-    "cache_read_tokens": 12341443,
-    "output_tokens": 9944,
-    "api_call_count": 31
+    "input_tokens": 9,
+    "cache_creation_tokens": 5881,
+    "cache_read_tokens": 3947711,
+    "output_tokens": 1968,
+    "api_call_count": 9
   },
   "session_metrics": {
-    "turn_count": 20
+    "turn_count": 22
   },
   "initial_attribution": {
-    "calculated_at": "2026-04-16T17:04:34.28192Z",
-    "agent_lines": 0,
-    "agent_removed": 0,
-    "human_added": 172,
-    "human_modified": 42,
+    "calculated_at": "2026-04-16T17:19:20.947528Z",
+    "agent_lines": 276,
+    "agent_removed": 143,
+    "human_added": 852,
+    "human_modified": 0,
     "human_removed": 0,
-    "total_committed": 172,
-    "total_lines_changed": 218,
-    "agent_percentage": 0,
+    "total_committed": 1128,
+    "total_lines_changed": 1471,
+    "agent_percentage": 28.484024473147517,
     "metric_version": 2
-  },
-  "prompt_attributions": [
-    {
-      "checkpoint_number": 1,
-      "user_lines_added": 135,
-      "user_lines_removed": 188,
-      "agent_lines_added": 0,
-      "agent_lines_removed": 0,
-      "user_added_per_file": {
-        "cmd/entire/cli/agent/claudecode/error_test.go": 68,
-        "cmd/entire/cli/explain_test.go": 50,
-        "cmd/entire/cli/settings/settings_test.go": 17
-      },
-      "user_removed_per_file": {
-        "cmd/entire/cli/agent/claudecode/error_test.go": 120,
-        "cmd/entire/cli/explain_test.go": 41,
-        "cmd/entire/cli/settings/settings_test.go": 27
-      }
-    }
-  ]
+  }
 }

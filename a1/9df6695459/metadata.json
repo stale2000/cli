@@ -5,29 +5,21 @@
   "branch": "feat/explain-stream-progress",
   "checkpoints_count": 0,
   "files_touched": [
-    "cmd/entire/cli/agent/claudecode/claude_test.go",
-    "cmd/entire/cli/agent/claudecode/generate.go",
-    "cmd/entire/cli/agent/claudecode/response.go",
-    "cmd/entire/cli/agent/claudecode/response_test.go",
-    "cmd/entire/cli/explain.go",
-    "cmd/entire/cli/explain_test.go",
-    "cmd/entire/cli/summarize/claude.go",
-    "cmd/entire/cli/summarize/claude_test.go",
-    "cmd/entire/cli/summarize/summarize.go"
+    "cmd/entire/cli/explain_test.go"
   ],
   "sessions": [
     {
       "metadata": "/a1/9df6695459/0/metadata.json",
       "transcript": "/a1/9df6695459/0/full.jsonl",
       "content_hash": "/a1/9df6695459/0/content_hash.txt",
-      "prompt": "/a1/9df6695459/0/prompt.txt"
+      "prompt": ""
     }
   ],
   "token_usage": {
-    "input_tokens": 46,
-    "cache_creation_tokens": 438834,
-    "cache_read_tokens": 12341443,
-    "output_tokens": 9944,
-    "api_call_count": 31
+    "input_tokens": 9,
+    "cache_creation_tokens": 5881,
+    "cache_read_tokens": 3947711,
+    "output_tokens": 1968,
+    "api_call_count": 9
   }
 }
