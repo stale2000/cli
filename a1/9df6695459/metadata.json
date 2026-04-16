@@ -1,0 +1,40 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "a19df6695459",
+  "strategy": "manual-commit",
+  "branch": "feat/explain-stream-progress",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/agent/agent.go",
+    "cmd/entire/cli/agent/capabilities.go",
+    "cmd/entire/cli/agent/capabilities_test.go",
+    "cmd/entire/cli/agent/claudecode/claude_test.go",
+    "cmd/entire/cli/agent/claudecode/generate.go",
+    "cmd/entire/cli/agent/claudecode/response.go",
+    "cmd/entire/cli/agent/claudecode/response_test.go",
+    "cmd/entire/cli/agent/claudecode/testdata/stream_error_404.jsonl",
+    "cmd/entire/cli/agent/claudecode/testdata/stream_success.jsonl",
+    "cmd/entire/cli/explain.go",
+    "cmd/entire/cli/explain_test.go",
+    "cmd/entire/cli/strategy/manual_commit_condensation.go",
+    "cmd/entire/cli/summarize/claude.go",
+    "cmd/entire/cli/summarize/claude_test.go",
+    "cmd/entire/cli/summarize/summarize.go",
+    "cmd/entire/cli/summarize/summarize_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/a1/9df6695459/0/metadata.json",
+      "transcript": "/a1/9df6695459/0/full.jsonl",
+      "content_hash": "/a1/9df6695459/0/content_hash.txt",
+      "prompt": "/a1/9df6695459/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 21,
+    "cache_creation_tokens": 23502,
+    "cache_read_tokens": 6442875,
+    "output_tokens": 5025,
+    "api_call_count": 17
+  }
+}
