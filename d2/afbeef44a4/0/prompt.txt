@@ -1,0 +1,33 @@
+Commit and continue
+
+---
+
+yes
+
+---
+
+yes
+
+---
+
+Is there a better name for `stngs`. I see that it would collide with the `settings` package but that name is kind of silly. Do we have established patterns for something like this?
+
+---
+
+Yes, do that. And while you're at it, maybe also rename `items` to `cleanUpItems` or somemething similar.
+
+---
+
+While guarding `ListEligibleV2Generations()` with a `IsCheckpointsV2Enabled()` makes sense on a first glance, I feel like we should guard the call in `DeleteAllCleanupItems()`. Having the code unguarded in `DeleteAllCleanupItems()` makes it look like we're already cleaning up v2 items even though we aren't.
+
+---
+
+I think whenever you have to use comments to explain application flow you're already wrong.
+
+---
+
+Yes
+
+---
+
+yes
