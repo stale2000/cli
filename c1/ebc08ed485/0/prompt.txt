@@ -1,0 +1,29 @@
+Use the brainstorming skill
+
+Please thoroughly read the project plan in ~/entire/cli/docs/superpowers/specs/2026-03-19-checkpoints-v2-design.md and the RFD in ~/entire/company-knowledge/rfds/rfd-009-transcript-compaction.md.
+
+I'd like to add the missing support for the external agents protocol mentioned in the RFD now.
+
+---
+
+I don't think attach supports external agents. Does it?
+
+---
+
+Let's fall back but also log a warning
+
+---
+
+There's one more thing: The current RFD mentions that assets should be externalized and transported that way. Right now, we don't even support that for built-in agents, yet. Would leaving out externalized assets simplify this feature?
+
+---
+
+Keep assets in the JSON schema so the format is compatible with what we're currently producing duing compaction for internal agents.
+
+---
+
+Do ti
+
+---
+
+Go
