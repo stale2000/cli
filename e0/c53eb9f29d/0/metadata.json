@@ -3,9 +3,9 @@
   "checkpoint_id": "e0c53eb9f29d",
   "session_id": "a41f4669-6677-41da-a864-dbef451ac8ff",
   "strategy": "manual-commit",
-  "created_at": "2026-04-16T20:14:35.461207Z",
+  "created_at": "2026-04-17T00:05:21.107156Z",
   "branch": "feat/explain-stream-progress",
-  "checkpoints_count": 1,
+  "checkpoints_count": 3,
   "files_touched": [
     "cmd/entire/cli/agent/claudecode/claude_test.go",
     "cmd/entire/cli/agent/claudecode/generate.go",
@@ -13,117 +13,27 @@
   ],
   "agent": "Claude Code",
   "model": "",
-  "turn_id": "a1d607749cec",
+  "turn_id": "6f82529000d6",
   "token_usage": {
-    "input_tokens": 604,
-    "cache_creation_tokens": 4615818,
-    "cache_read_tokens": 166214507,
-    "output_tokens": 306314,
-    "api_call_count": 439
+    "input_tokens": 690,
+    "cache_creation_tokens": 5861810,
+    "cache_read_tokens": 201567901,
+    "output_tokens": 320694,
+    "api_call_count": 501
   },
   "session_metrics": {
-    "turn_count": 42
-  },
-  "summary": {
-    "intent": "Improve error observability for Claude CLI summary generation in PR #876: replace a silent 30s timeout with actionable typed errors, real-time streaming progress, and a TTY-gated deadline strategy so users understand why summary generation fails or hangs.",
-    "outcome": "Two stacked PRs were shipped: #963 (typed Claude CLI error classification — auth/rate-limit/config/cli-missing — with user-facing messages) and #964 (stream-driven progress display using --output-format stream-json, idle-based watchdog for non-TTY, 30min hard wall-clock cap, and legacy CLI fallback for older claude versions). Four rounds of multi-agent review caught and fixed bugs including ttft_ms field placement, idle watchdog misclassification, and incorrect timeout duration in error messages.",
-    "learnings": {
-      "repo": [
-        "Claude CLI operational errors (auth 401/403, rate-limit 429, config 4xx) return exit code 0 with `is_error: true` + `api_error_status` in stdout JSON — gating typed error extraction on non-zero exit misses all common failures",
-        "The summarization stack has three layers with distinct responsibilities: explain.go (policy/UX), summarize/claude.go (agent-agnostic), agent/claudecode/generate.go (subprocess); typed errors must stay unwrapped across summarize layer so explain.go can errors.As them",
-        "Auto-summarize is a completely separate code path (strategy/manual_commit_condensation.go::generateSummary) that calls summarize.GenerateFromTranscript directly with no timeout — a different problem from explain --generate",
-        "cmd/entire/cli/status_style.go already provides statusStyles (lipgloss), isTerminalWriter, shouldUseColor (honors NO_COLOR), and formatTokenCount — reuse these instead of introducing new lipgloss dependencies",
-        "IsAccessibleMode() in cli/utils.go provides screen-reader mode detection; must gate in-place \\r updates on !IsAccessibleMode() for accessibility",
-        "charmbracelet/huh is forms-only (Select, Confirm, Input); lipgloss is the right tool for styled progress lines; bubbletea/bubbles want to own the render loop and conflict with line-based stderr output",
-        "Tests that modify package-level vars (defaultTextGeneratorFactory, summaryDeadlineResolver) cannot call t.Parallel() per CLAUDE.md — failure to follow this causes data races under go test -race",
-        "The claude CLI emits ttft_ms at the outer stream_event envelope level (sibling to 'type'), not inside the nested 'event' object — a fabricated test fixture can mask this struct field placement bug"
-      ],
-      "code": [
-        {
-          "path": "cmd/entire/cli/agent/claudecode/response.go",
-          "line": 37,
-          "end_line": 37,
-          "finding": "TTFTms must be on StreamEvent (outer envelope), not StreamInnerEvent (nested event object). Real CLI fixture confirms ttft_ms is a sibling of 'type':'stream_event', not inside 'event'. Fabricated test JSON masked this for multiple review rounds."
-        },
-        {
-          "path": "cmd/entire/cli/agent/claudecode/generate.go",
-          "line": 86,
-          "end_line": 91,
-          "finding": "PhaseDone is emitted directly in GenerateTextStreaming (not via makeProgressDispatcher) because it requires final envelope data (OutputTokens, DurationMs). This split must be documented; otherwise future StreamingTextGenerator implementors won't know to emit PhaseDone themselves."
-        },
-        {
-          "path": "cmd/entire/cli/explain.go",
-          "line": 562,
-          "end_line": 586,
-          "finding": "Idle watchdog cancels via context.WithCancel → context.Canceled, not DeadlineExceeded. Without checking the idleFired atomic.Bool first, idle timeouts were misclassified as user cancellations and showed the wrong message. idleFired must be checked before the Canceled sentinel."
-        },
-        {
-          "path": "cmd/entire/cli/explain.go",
-          "line": 533,
-          "end_line": 538,
-          "finding": "Original code called settings.Load() three times per summary generation (summaryDeadlineResolver + settingsTimeoutUnset + error path). Replaced with summaryDeadlineResult struct returning deadlineMode enum (none/idle/hardClock) + duration in a single resolution."
-        },
-        {
-          "path": "cmd/entire/cli/summarize/summarize.go",
-          "line": 54,
-          "end_line": 61,
-          "finding": "GenerateFromTranscript originally mutated the caller-owned *ClaudeGenerator to backfill Progress field. Fixed by cloning the struct instead — the mutation would persist across calls if the caller reused the generator."
-        },
-        {
-          "path": "cmd/entire/cli/explain.go",
-          "line": 2078,
-          "end_line": 2078,
-          "finding": "summaryProgressWriter.lastActivity must be seeded with time.Now().UnixNano() at construction. If initialized to 0, the idle watchdog's 'if ts > 0' guard prevents it from ever firing when no progress events arrive — the test hung for 10+ minutes before this was caught."
-        },
-        {
-          "path": "cmd/entire/cli/agent/claudecode/response.go",
-          "line": 68,
-          "end_line": 71,
-          "finding": "Malformed NDJSON lines are silently skipped. The malformedLines counter should be included in the 'stream ended without result' error message so CI users can diagnose corrupted output streams."
-        },
-        {
-          "path": "cmd/entire/cli/agent/claudecode/generate.go",
-          "line": 189,
-          "end_line": 195,
-          "finding": "looksLikeUnrecognizedFlag must require BOTH a rejection phrase (unknown flag, unrecognized option) AND the name of a streaming-specific flag (stream-json, --include-partial-messages, --verbose) to avoid false-positives on legitimate API error messages."
-        }
-      ],
-      "workflow": [
-        "Cherry-picking commits across diverged branches gets messy quickly; overlaying full file contents (git checkout <branch> -- <file>) is more reliable than cherry-pick when the bases have diverged",
-        "Amending vs new commit: review fixes should always be separate commits, not amended into the original — amending rewrites history and hides what was fixed post-review",
-        "Multi-agent review (code, errors, types, tests in parallel) consistently catches different bug classes; running 4 agents catches more than running 1 twice",
-        "Test fabrication can mask struct field placement bugs — using real captured CLI output as test fixtures (testdata/*.jsonl) prevents this class of false-green test",
-        "The simplifier skill (pre-commit) and the pr-review-toolkit (post-commit) serve different purposes and should both be run; the simplifier catches redundancy before review, the toolkit catches behavioral bugs during review",
-        "Codex adversarial review consistently surfaces architecture-level concerns (no hard cap, backward compat) that implementation-focused reviewers miss",
-        "PR splitting by natural seam (typed errors vs streaming/UX) is more effective than splitting by file count; each PR should deliver independent user value"
-      ]
-    },
-    "friction": [
-      "Idle watchdog lastActivity=0 bug caused test suite to hang for 10+ minutes before the root cause was identified — no timeout on test run meant a silent hang",
-      "ttft_ms struct placement bug survived multiple code review rounds because fabricated test JSON placed the field in the wrong location, making the wrong code appear correct",
-      "Cherry-pick approach for splitting the large PR into two stacked PRs got messy with conflicts; had to abandon and use full-file overlay instead",
-      "Accidentally amended a commit instead of creating a new one for review fixes, requiring a hard reset and re-applying changes",
-      "The wall-clock cap error message reported the idle timeout duration (5min) instead of the cap duration (30min) — discovered only in round 3 of review after the feature was already considered done",
-      "Multiple review rounds (4 total) were needed to converge on a clean implementation; each round found at least one real bug rather than just style issues"
-    ],
-    "open_items": [
-      "Auto-summarize hang protection: strategy/manual_commit_condensation.go::generateSummary has no timeout at all and runs at commit time — a parallel problem to explain --generate that was explicitly deferred",
-      "Codex adversarial finding: success envelope accepted even when cmd.Wait() returns non-zero exit — currently debatable (result is valid if fully written before teardown error) but not resolved",
-      "Per-summary cost display: the stream provides input/output token counts; surfacing these to users was noted as a trivially addable follow-up",
-      "looksLikeUnrecognizedFlag pattern list is narrow — if the legacy fallback fails to trigger on a real older CLI, users will get a streaming parse error instead of a graceful fallback; needs real-world validation against older claude CLI versions",
-      "The Generator interface has no progress capability; non-ClaudeGenerator implementations silently drop the progress callback — if new generators are added, either the interface needs extending or a ProgressAware interface should be introduced"
-    ]
+    "turn_count": 53
   },
   "initial_attribution": {
-    "calculated_at": "2026-04-16T20:14:35.362229Z",
-    "agent_lines": 0,
-    "agent_removed": 0,
-    "human_added": 78,
-    "human_modified": 4,
+    "calculated_at": "2026-04-17T00:05:20.998213Z",
+    "agent_lines": 4,
+    "agent_removed": 4,
+    "human_added": 0,
+    "human_modified": 0,
     "human_removed": 0,
-    "total_committed": 78,
-    "total_lines_changed": 82,
-    "agent_percentage": 0,
+    "total_committed": 4,
+    "total_lines_changed": 8,
+    "agent_percentage": 100,
     "metric_version": 2
   },
   "prompt_attributions": [
@@ -131,8 +41,22 @@
       "checkpoint_number": 2,
       "user_lines_added": 0,
       "user_lines_removed": 0,
-      "agent_lines_added": 0,
-      "agent_lines_removed": 0
+      "agent_lines_added": 4,
+      "agent_lines_removed": 4
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 4,
+      "agent_lines_removed": 4
+    },
+    {
+      "checkpoint_number": 4,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 4,
+      "agent_lines_removed": 4
     }
   ]
 }

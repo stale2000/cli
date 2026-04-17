@@ -1392,3 +1392,55 @@ wait, to confirm this is for 964, correct?
 ---
 
 yes go ahead ten
+
+---
+
+okay now run full user simulation so we see fix from user persepctive now. pull latest from main and this branch
+
+---
+
+okay show me resutls
+
+---
+
+i see sorry, any other improvemnets we cna make? use /superpowers:brainstorming
+
+---
+
+a. why would we truncte transcripts? isn't the point of having the progress is so users have visbility? and wouldn't truncating reudce quality of summaru? b. no the flag is intentional design c. no cost
+
+---
+
+keep A, i dont wat to change anything about the summary generation process, just failure handling
+
+---
+
+do any of these effect the fix/enhancement we're trying to fix?
+
+---
+
+do any of these effect the fix/enhancement we're trying to fix?
+
+---
+
+do any of these effect the fix/enhancement we're trying to fix?
+
+---
+
+do any of these effect the fix/enhancement we're trying to fix?
+
+---
+
+okay so what is next step, shoudl we do another review again
+
+---
+
+yes please
+
+---
+
+proceed
+
+---
+
+just focus on 964 only, says there are still rebase errors
