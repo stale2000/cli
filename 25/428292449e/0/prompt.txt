@@ -41,3 +41,19 @@ continue
 ---
 
 Do it
+
+---
+
+Can you commit the current changes and continue?
+
+---
+
+Do it
+
+---
+
+Do it, but don't try too hard. When there's situations where plaininit is required, we can leave them as-is.
+
+---
+
+Commit them
