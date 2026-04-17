@@ -119,3 +119,7 @@ Only OpenCode and the external agent implement it. Much cleaner.
 - `AllProtectedFiles()` correctly copies factories before releasing the lock, matching `AllProtectedDirs()` pattern
 - External agent types properly expose `protected_files` in the JSON schema
 - Tests cover empty registry, collection, and deduplication
+
+---
+
+ok, let's ammend the last commit as suggested, right?
