@@ -1,0 +1,25 @@
+Commit and continue
+
+Ignore the potential go-git changes since they will be addressed outside of the scope of this PR. Feel free to re-review the silent settings.Load() failre path and see if there's anything else that needs to be changed.
+
+---
+
+> In practice, a broken or unreadable settings file silently disables v2 cleanup for a user-invoked CLI command
+
+What would an error scenario look like? That the settings file gets corrupted between `settings.IsCheckpointsV2Enabled(ctx)` and `settings.Load(ctx)` is called? I'm assuming that a corrupt settings file would already return an error on the first call, no?
+
+---
+
+Do it
+
+---
+
+Would it be possible to only load the settings once instead of loading them multiple times. If this is a larger change that goes beyond the scope of this PR, feel free to skip it.
+
+---
+
+Okay, add this step
+
+---
+
+go
