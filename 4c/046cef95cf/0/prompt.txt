@@ -9,3 +9,7 @@ Can you check all agents.md files and related instructions to ensure that testut
 ---
 
 CLAUDE.md should be a symlink of AGENTS.md so you only need to update AGENTS.md. Can you make the recommended changes?
+
+---
+
+commit and continue
