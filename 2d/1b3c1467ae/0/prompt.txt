@@ -41,3 +41,7 @@ continue
 ---
 
 Do it
+
+---
+
+Can you commit the current changes and continue?
