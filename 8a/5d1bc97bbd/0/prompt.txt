@@ -1,9 +1,1 @@
-Commit and continue
-
----
-
-Yes
-
----
-
-Does the external agent compaction need to be guarded via the checkpoints v2 setting in finalizeAllTurnCheckpoints?
+Yeah, I just noticed after sending this prompt. Commit and continue
