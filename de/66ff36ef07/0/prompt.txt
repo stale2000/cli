@@ -115,3 +115,7 @@ Even more tests are failing now: https://github.com/entireio/cli/actions/runs/24
 ---
 
 Yes
+
+---
+
+Commit
