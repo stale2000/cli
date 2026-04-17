@@ -31,3 +31,7 @@ let's go
 2. Medium: contradictory bootstrap flags are accepted and resolve in a surprising way. `enable` exposes both `--init-repo` and `--no-init-repo` ([setup.go](/Users/soph/Work/entire/devenv/cli/cmd/entire/cli/setup.go:749)), but there is no validation for that combination. In `confirmInitRepo`, `NoInitRepo` wins silently because it is checked first ([setup_github.go](/Users/soph/Work/entire/devenv/cli/cmd/entire/cli/setup_github.go:184)). So `entire enable --init-repo --no-init-repo` exits with the legacy “Not a git repository” path instead of surfacing a flag error, which is a bad failure mode for automation.
 
 I ran `go test ./cmd/entire/cli -run 'TestRunGitHubBootstrap_|TestEnable'`, and it passed. Residual risk: the new tests are all mocked around command execution, so they do not exercise the real `git commit` failure path above.
+
+---
+
+can we separate this into meaningful commits
