@@ -1,9 +1,1 @@
-Use the review skill
-
----
-
-Confirm
-
----
-
-Can you address these issues?
+Commit and continue
