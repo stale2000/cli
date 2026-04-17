@@ -1,5 +1,1 @@
-can we potentially confirm this in the opencode source code: /Users/soph/Work/entire/research/opencode
-
----
-
-ok, we are down to one: https://github.com/entireio/cli/actions/runs/24514856282/job/71655846635
+yes, commit
