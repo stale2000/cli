@@ -1,0 +1,5 @@
+New test uses git.PlainInit instead of testutil.InitRepo
+
+Low Severity
+
+TestDetectFileChanges_IgnoresOpenCodeAgentFiles initializes a repo with git.PlainInit and performs a commit, but tests in cmd/entire/cli/ that commit are expected to use testutil.InitRepo() instead. InitRepo configures required git settings like disabling GPG signing that are needed for reliable CI behavior. The same package already imports and uses testutil.InitRepo in lifecycle_test.go.

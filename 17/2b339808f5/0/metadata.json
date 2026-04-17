@@ -1,0 +1,48 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "172b339808f5",
+  "session_id": "019d95e7-810c-72e3-925e-a420b48bbb0d",
+  "strategy": "manual-commit",
+  "created_at": "2026-04-17T15:19:35.694011Z",
+  "branch": "soph/opencode-fixing",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/state_test.go"
+  ],
+  "agent": "Codex",
+  "model": "gpt-5.4",
+  "turn_id": "0ecc4a783042",
+  "checkpoint_transcript_start": 1402,
+  "transcript_lines_at_start": 1402,
+  "token_usage": {
+    "input_tokens": 618005,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 517632,
+    "output_tokens": 1341,
+    "api_call_count": 7
+  },
+  "session_metrics": {
+    "turn_count": 4
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-04-17T15:19:35.592382Z",
+    "agent_lines": 7,
+    "agent_removed": 4,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 7,
+    "total_lines_changed": 11,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}
