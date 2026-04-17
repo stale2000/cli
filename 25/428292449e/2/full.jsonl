@@ -1,0 +1,552 @@
+{
+  "info": {
+    "id": "ses_262aff57bffesXvyNuvVr65EX6",
+    "slug": "jolly-river",
+    "projectID": "e72157d04022f74eb1af25d0a2ca9cd92933f715",
+    "directory": "/Users/pfleidi/entire/cli/.worktrees/fix/git-init-instructions",
+    "title": "Use review skill request",
+    "version": "1.4.7",
+    "summary": {
+      "additions": 0,
+      "deletions": 0,
+      "files": 0
+    },
+    "time": {
+      "created": 1776460761732,
+      "updated": 1776460796860
+    }
+  },
+  "messages": [
+    {
+      "info": {
+        "role": "user",
+        "time": {
+          "created": 1776460761740
+        },
+        "agent": "build",
+        "model": {
+          "providerID": "openai",
+          "modelID": "gpt-5.3-codex"
+        },
+        "summary": {
+          "diffs": []
+        },
+        "id": "msg_d9d500a87001RNpintLnCzwMj6",
+        "sessionID": "ses_262aff57bffesXvyNuvVr65EX6"
+      },
+      "parts": [
+        {
+          "type": "text",
+          "text": "Use the review skill",
+          "id": "prt_d9d500a87002CPI5f5iPDJqkoq",
+          "sessionID": "ses_262aff57bffesXvyNuvVr65EX6",
+          "messageID": "msg_d9d500a87001RNpintLnCzwMj6"
+        }
+      ]
+    },
+    {
+      "info": {
+        "parentID": "msg_d9d500a87001RNpintLnCzwMj6",
+        "role": "assistant",
+        "mode": "build",
+        "agent": "build",
+        "path": {
+          "cwd": "/Users/pfleidi/entire/cli/.worktrees/fix/git-init-instructions",
+          "root": "/Users/pfleidi/entire/cli/.worktrees/fix/git-init-instructions"
+        },
+        "cost": 0,
+        "tokens": {
+          "total": 22742,
+          "input": 17041,
+          "output": 19,
+          "reasoning": 50,
+          "cache": {
+            "write": 0,
+            "read": 5632
+          }
+        },
+        "modelID": "gpt-5.3-codex",
+        "providerID": "openai",
+        "time": {
+          "created": 1776460761748,
+          "completed": 1776460765567
+        },
+        "finish": "tool-calls",
+        "id": "msg_d9d500a94001uW3BtvGg8p3jeY",
+        "sessionID": "ses_262aff57bffesXvyNuvVr65EX6"
+      },
+      "parts": [
+        {
+          "snapshot": "bf963eaabb94e6cd5e5da0eabcf616b51d097563",
+          "type": "step-start",
+          "id": "prt_d9d50115d001nW2emmTyNBGH0q",
+          "sessionID": "ses_262aff57bffesXvyNuvVr65EX6",
+          "messageID": "msg_d9d500a94001uW3BtvGg8p3jeY"
+        },
+        {
+          "type": "reasoning",
+          "text": "",
+          "time": {
+            "start": 1776460764015,
+            "end": 1776460765329
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "rs_025ffa734500a0f90169e2a3dc011881948f306aec9d15e909",
+              "reasoningEncryptedContent": "REDACTED"
+            }
+          },
+          "id": "prt_d9d50136f001klZvkK50c6vm2u",
+          "sessionID": "ses_262aff57bffesXvyNuvVr65EX6",
+          "messageID": "msg_d9d500a94001uW3BtvGg8p3jeY"
+        },
+        {
+          "type": "tool",
+          "tool": "skill",
+          "callID": "call_fWDI40Sam3pqwWJd71KwPmSx",
+          "state": {
+            "status": "completed",
+            "input": {
+              "name": "review"
+            },
+            "output": "<skill_content name=\"review\">\n# Skill: review\n\n# Code Review\n\n## 1. Determine Base Branch\n\n```bash\ngit merge-base main HEAD\n```\n\nIf the user specified a different base branch, use that instead. Store the result as `BASE`.\n\n## 2. Confirm Scope\n\nRun:\n```bash\ngit diff $BASE...HEAD --stat\n```\n\nShow the user the file list and total count. Wait for confirmation before proceeding.\n\n## 3. Review Strategy\n\n- **Under 50 changed files:** Review directly in the current session.\n- **50+ changed files:** Split files into groups of ~30 and spawn a sub-agent per group. Each sub-agent reviews its files and reports findings.\n\n## 4. Review Each File\n\nFor every changed file, read the full diff (`git diff $BASE...HEAD -- <file>`) and evaluate:\n\n- **Correctness** — Logic errors, missing edge cases, off-by-one, nil/null handling\n- **Security** — Injection, auth bypass, secrets, OWASP top 10\n- **Performance** — Unnecessary allocations, N+1 queries, unbounded loops\n- **Readability** — Naming, dead code, confusing control flow\n\nNEVER review code outside the diff. NEVER suggest refactors, style changes, or improvements beyond what the diff touches.\n\n## 5. Output Format\n\nPresent findings grouped by severity:\n\n### Critical\nIssues that MUST be fixed before merge (bugs, security, data loss risk).\n\n### Important\nIssues that SHOULD be fixed (performance, error handling gaps, maintainability).\n\n### Nits\nOptional improvements (naming, minor readability).\n\nEach finding must include:\n- **File and line** — `path/to/file.go:42`\n- **What** — One-sentence description of the issue\n- **Why** — What goes wrong if this isn't fixed\n- **Suggested fix** — Concrete code change (not vague advice)\n\nIf no issues are found at a severity level, omit that section.\n\n## 6. Summary\n\nEnd with a one-paragraph summary: total findings by severity, overall assessment of merge-readiness, and any patterns across files worth noting.\n\n## 7. Incremental Fix Cycle\n\nAfter presenting findings, enter a fix cycle. Work through findings one at a time, ordered by severity (Critical first, then Important, then Nits):\n\n1. State which finding you are fixing (number and one-line description)\n2. Implement the fix — ONLY the code changes for that single finding\n3. Commit the fix with a message referencing the finding (e.g., `fix: handle nil check in ParseConfig`)\n4. **STOP and wait for user approval** before proceeding to the next finding\n\nNEVER batch multiple findings into one fix. NEVER proceed to the next finding without explicit user confirmation. The user may skip findings, reorder them, or stop the cycle at any point.\n\nBase directory for this skill: file:///Users/pfleidi/.agents/skills/review\nRelative paths in this skill (e.g., scripts/, reference/) are relative to this base directory.\nNote: file list is sampled.\n\n<skill_files>\n\n</skill_files>\n</skill_content>",
+            "metadata": {
+              "name": "review",
+              "dir": "/Users/pfleidi/.agents/skills/review",
+              "truncated": false
+            },
+            "title": "Loaded skill: review",
+            "time": {
+              "start": 1776460765424,
+              "end": 1776460765449
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_025ffa734500a0f90169e2a3dd507481948b7a8efcfb3f9beb"
+            }
+          },
+          "id": "prt_d9d501893001WSX4ECHAZGOed4",
+          "sessionID": "ses_262aff57bffesXvyNuvVr65EX6",
+          "messageID": "msg_d9d500a94001uW3BtvGg8p3jeY"
+        },
+        {
+          "reason": "tool-calls",
+          "snapshot": "bf963eaabb94e6cd5e5da0eabcf616b51d097563",
+          "type": "step-finish",
+          "tokens": {
+            "total": 22742,
+            "input": 17041,
+            "output": 19,
+            "reasoning": 50,
+            "cache": {
+              "write": 0,
+              "read": 5632
+            }
+          },
+          "cost": 0,
+          "id": "prt_d9d50194f0014PNaCEAm20AnoV",
+          "sessionID": "ses_262aff57bffesXvyNuvVr65EX6",
+          "messageID": "msg_d9d500a94001uW3BtvGg8p3jeY"
+        }
+      ]
+    },
+    {
+      "info": {
+        "parentID": "msg_d9d500a87001RNpintLnCzwMj6",
+        "role": "assistant",
+        "mode": "build",
+        "agent": "build",
+        "path": {
+          "cwd": "/Users/pfleidi/entire/cli/.worktrees/fix/git-init-instructions",
+          "root": "/Users/pfleidi/entire/cli/.worktrees/fix/git-init-instructions"
+        },
+        "cost": 0,
+        "tokens": {
+          "total": 23590,
+          "input": 750,
+          "output": 80,
+          "reasoning": 104,
+          "cache": {
+            "write": 0,
+            "read": 22656
+          }
+        },
+        "modelID": "gpt-5.3-codex",
+        "providerID": "openai",
+        "time": {
+          "created": 1776460765568,
+          "completed": 1776460769994
+        },
+        "finish": "tool-calls",
+        "id": "msg_d9d501980001DLa08PtSyRSgEU",
+        "sessionID": "ses_262aff57bffesXvyNuvVr65EX6"
+      },
+      "parts": [
+        {
+          "snapshot": "bf963eaabb94e6cd5e5da0eabcf616b51d097563",
+          "type": "step-start",
+          "id": "prt_d9d501bcc001sEe0W8WEkwtYxs",
+          "sessionID": "ses_262aff57bffesXvyNuvVr65EX6",
+          "messageID": "msg_d9d501980001DLa08PtSyRSgEU"
+        },
+        {
+          "type": "reasoning",
+          "text": "",
+          "time": {
+            "start": 1776460766448,
+            "end": 1776460768827
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "rs_0ffe77894ead4e600169e2a3de6d848196a1acfa4e77675331",
+              "reasoningEncryptedContent": "REDACTED"
+            }
+          },
+          "id": "prt_d9d501cf0001Naw8Plxx9ecsv0",
+          "sessionID": "ses_262aff57bffesXvyNuvVr65EX6",
+          "messageID": "msg_d9d501980001DLa08PtSyRSgEU"
+        },
+        {
+          "type": "tool",
+          "tool": "bash",
+          "callID": "call_cSWfiXznwyXZXtixvJo8waa1",
+          "state": {
+            "status": "completed",
+            "input": {
+              "command": "BASE=$(git merge-base main HEAD) && echo \"$BASE\" && git diff \"$BASE\"...HEAD --stat",
+              "timeout": 120000,
+              "workdir": "/Users/pfleidi/entire/cli/.worktrees/fix/git-init-instructions",
+              "description": "Compute merge-base and show diff stats"
+            },
+            "output": "b08a1be6e9840345ebd081d2684eb1d2728c070a\n CLAUDE.md                             |   2 +\n cmd/entire/cli/explain_test.go        | 113 ++++++++++++++--------------------\n cmd/entire/cli/git_operations_test.go |  44 +++++--------\n cmd/entire/cli/phase_wiring_test.go   |   5 +-\n cmd/entire/cli/session/state_test.go  |  11 ++--\n 5 files changed, 71 insertions(+), 104 deletions(-)\n",
+            "metadata": {
+              "output": "b08a1be6e9840345ebd081d2684eb1d2728c070a\n CLAUDE.md                             |   2 +\n cmd/entire/cli/explain_test.go        | 113 ++++++++++++++--------------------\n cmd/entire/cli/git_operations_test.go |  44 +++++--------\n cmd/entire/cli/phase_wiring_test.go   |   5 +-\n cmd/entire/cli/session/state_test.go  |  11 ++--\n 5 files changed, 71 insertions(+), 104 deletions(-)\n",
+              "exit": 0,
+              "description": "Compute merge-base and show diff stats",
+              "truncated": false
+            },
+            "title": "Compute merge-base and show diff stats",
+            "time": {
+              "start": 1776460769875,
+              "end": 1776460769877
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_0ffe77894ead4e600169e2a3e0cb848196aa2e7b50a60f7866"
+            }
+          },
+          "id": "prt_d9d50263c0015dM7Xx7rVjijr1",
+          "sessionID": "ses_262aff57bffesXvyNuvVr65EX6",
+          "messageID": "msg_d9d501980001DLa08PtSyRSgEU"
+        },
+        {
+          "reason": "tool-calls",
+          "snapshot": "bf963eaabb94e6cd5e5da0eabcf616b51d097563",
+          "type": "step-finish",
+          "tokens": {
+            "total": 23590,
+            "input": 750,
+            "output": 80,
+            "reasoning": 104,
+            "cache": {
+              "write": 0,
+              "read": 22656
+            }
+          },
+          "cost": 0,
+          "id": "prt_d9d502a9b001p3JcNqgwIYCJy0",
+          "sessionID": "ses_262aff57bffesXvyNuvVr65EX6",
+          "messageID": "msg_d9d501980001DLa08PtSyRSgEU"
+        }
+      ]
+    },
+    {
+      "info": {
+        "parentID": "msg_d9d500a87001RNpintLnCzwMj6",
+        "role": "assistant",
+        "mode": "build",
+        "agent": "build",
+        "path": {
+          "cwd": "/Users/pfleidi/entire/cli/.worktrees/fix/git-init-instructions",
+          "root": "/Users/pfleidi/entire/cli/.worktrees/fix/git-init-instructions"
+        },
+        "cost": 0,
+        "tokens": {
+          "total": 23904,
+          "input": 302,
+          "output": 145,
+          "reasoning": 33,
+          "cache": {
+            "write": 0,
+            "read": 23424
+          }
+        },
+        "modelID": "gpt-5.3-codex",
+        "providerID": "openai",
+        "time": {
+          "created": 1776460769995,
+          "completed": 1776460774214
+        },
+        "finish": "stop",
+        "id": "msg_d9d502acb001d2gyhCjI0nY6Ne",
+        "sessionID": "ses_262aff57bffesXvyNuvVr65EX6"
+      },
+      "parts": [
+        {
+          "snapshot": "bf963eaabb94e6cd5e5da0eabcf616b51d097563",
+          "type": "step-start",
+          "id": "prt_d9d502cfa001hBVIdqrkozng7P",
+          "sessionID": "ses_262aff57bffesXvyNuvVr65EX6",
+          "messageID": "msg_d9d502acb001d2gyhCjI0nY6Ne"
+        },
+        {
+          "type": "reasoning",
+          "text": "",
+          "time": {
+            "start": 1776460770842,
+            "end": 1776460771850
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "rs_0086f775547e82ad0169e2a3e2d0608190a29b701c927ca548",
+              "reasoningEncryptedContent": "REDACTED"
+            }
+          },
+          "id": "prt_d9d502e1a001aibTTIemG8wFxq",
+          "sessionID": "ses_262aff57bffesXvyNuvVr65EX6",
+          "messageID": "msg_d9d502acb001d2gyhCjI0nY6Ne"
+        },
+        {
+          "type": "text",
+          "text": "Using the `review` skill now.\n\nScope against `main` merge-base `b08a1be6e9840345ebd081d2684eb1d2728c070a` includes 5 files:\n\n- `CLAUDE.md`\n- `cmd/entire/cli/explain_test.go`\n- `cmd/entire/cli/git_operations_test.go`\n- `cmd/entire/cli/phase_wiring_test.go`\n- `cmd/entire/cli/session/state_test.go`\n\nDiffstat: 71 insertions, 104 deletions.\n\nReply with `confirm` and I’ll proceed with the full scoped review of only these changes.",
+          "time": {
+            "start": 1776460771855,
+            "end": 1776460774112
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "msg_0086f775547e82ad0169e2a3e3d3688190a7b0a7f2ac2a624b",
+              "phase": "final_answer"
+            }
+          },
+          "id": "prt_d9d50320f0013Ek04TxVKHhzVv",
+          "sessionID": "ses_262aff57bffesXvyNuvVr65EX6",
+          "messageID": "msg_d9d502acb001d2gyhCjI0nY6Ne"
+        },
+        {
+          "reason": "stop",
+          "snapshot": "bf963eaabb94e6cd5e5da0eabcf616b51d097563",
+          "type": "step-finish",
+          "tokens": {
+            "total": 23904,
+            "input": 302,
+            "output": 145,
+            "reasoning": 33,
+            "cache": {
+              "write": 0,
+              "read": 23424
+            }
+          },
+          "cost": 0,
+          "id": "prt_d9d503b19001emxGJqRjdhpfPR",
+          "sessionID": "ses_262aff57bffesXvyNuvVr65EX6",
+          "messageID": "msg_d9d502acb001d2gyhCjI0nY6Ne"
+        }
+      ]
+    },
+    {
+      "info": {
+        "role": "user",
+        "time": {
+          "created": 1776460791372
+        },
+        "agent": "build",
+        "model": {
+          "providerID": "openai",
+          "modelID": "gpt-5.3-codex"
+        },
+        "summary": {
+          "diffs": []
+        },
+        "id": "msg_d9d507e4a0014b4jzVYGPUCps9",
+        "sessionID": "ses_262aff57bffesXvyNuvVr65EX6"
+      },
+      "parts": [
+        {
+          "type": "text",
+          "text": "Confirm",
+          "id": "prt_d9d507e4a002co4MVfajx4rCua",
+          "sessionID": "ses_262aff57bffesXvyNuvVr65EX6",
+          "messageID": "msg_d9d507e4a0014b4jzVYGPUCps9"
+        }
+      ]
+    },
+    {
+      "info": {
+        "parentID": "msg_d9d507e4a0014b4jzVYGPUCps9",
+        "role": "assistant",
+        "mode": "build",
+        "agent": "build",
+        "path": {
+          "cwd": "/Users/pfleidi/entire/cli/.worktrees/fix/git-init-instructions",
+          "root": "/Users/pfleidi/entire/cli/.worktrees/fix/git-init-instructions"
+        },
+        "cost": 0,
+        "tokens": {
+          "total": 23963,
+          "input": 1190,
+          "output": 119,
+          "reasoning": 126,
+          "cache": {
+            "write": 0,
+            "read": 22528
+          }
+        },
+        "modelID": "gpt-5.3-codex",
+        "providerID": "openai",
+        "time": {
+          "created": 1776460791376,
+          "completed": 1776460796821
+        },
+        "finish": "tool-calls",
+        "id": "msg_d9d507e50001BojXs39HdWdB3a",
+        "sessionID": "ses_262aff57bffesXvyNuvVr65EX6"
+      },
+      "parts": [
+        {
+          "snapshot": "bf963eaabb94e6cd5e5da0eabcf616b51d097563",
+          "type": "step-start",
+          "id": "prt_d9d5080950014rWlIZA3eUo2E6",
+          "sessionID": "ses_262aff57bffesXvyNuvVr65EX6",
+          "messageID": "msg_d9d507e50001BojXs39HdWdB3a"
+        },
+        {
+          "type": "reasoning",
+          "text": "",
+          "time": {
+            "start": 1776460792253,
+            "end": 1776460794876
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "rs_06f90ee9c24f5d750169e2a3f82d5c81939dbf84fbbf2ff3c0",
+              "reasoningEncryptedContent": "REDACTED"
+            }
+          },
+          "id": "prt_d9d5081bd001RXMPmWyI4tPG11",
+          "sessionID": "ses_262aff57bffesXvyNuvVr65EX6",
+          "messageID": "msg_d9d507e50001BojXs39HdWdB3a"
+        },
+        {
+          "type": "tool",
+          "tool": "bash",
+          "callID": "call_9cZCsFxTPzhgDgT3JIPadveV",
+          "state": {
+            "status": "completed",
+            "input": {
+              "command": "BASE=$(git merge-base main HEAD) && git diff \"$BASE\"...HEAD -- CLAUDE.md cmd/entire/cli/explain_test.go cmd/entire/cli/git_operations_test.go cmd/entire/cli/phase_wiring_test.go cmd/entire/cli/session/state_test.go",
+              "timeout": 120000,
+              "workdir": "/Users/pfleidi/entire/cli/.worktrees/fix/git-init-instructions",
+              "description": "Show full diff for changed files"
+            },
+            "output": "diff --git a/CLAUDE.md b/CLAUDE.md\nindex a1c860003..92335badc 100644\n--- a/CLAUDE.md\n+++ b/CLAUDE.md\n@@ -132,6 +132,8 @@ t.Chdir(tmpDir)                                 // redirect CWD-based git resolu\n \n `testutil.InitRepo` configures `user.name`, `user.email`, and disables GPG signing — safe for CI environments without global git config.\n \n+**Prefer `testutil.InitRepo()` over direct `git.PlainInit()` in tests.** When a test in this repo needs an initialized repository, use `testutil.InitRepo(t, dir)` unless the test specifically needs lower-level initialization behavior that the helper cannot provide. Do not call `git.PlainInit()` directly and then create commits or run CLI git operations without also reproducing the helper's repo-local config.\n+\n **Do NOT** shell out to `git init`/`git commit` directly without setting user config and `--no-gpg-sign`, and **do NOT** run lifecycle/strategy handlers from the real repo CWD in tests.\n \n ### Linting and Formatting\ndiff --git a/cmd/entire/cli/explain_test.go b/cmd/entire/cli/explain_test.go\nindex 1905efc39..b1e0cd1d9 100644\n--- a/cmd/entire/cli/explain_test.go\n+++ b/cmd/entire/cli/explain_test.go\n@@ -455,9 +455,7 @@ func TestExplainCommit_NotFound(t *testing.T) {\n \tt.Chdir(tmpDir)\n \n \t// Initialize git repo\n-\tif _, err := git.PlainInit(tmpDir, false); err != nil {\n-\t\tt.Fatalf(\"failed to init git repo: %v\", err)\n-\t}\n+\ttestutil.InitRepo(t, tmpDir)\n \n \tvar stdout bytes.Buffer\n \terr := runExplainCommit(context.Background(), &stdout, \"nonexistent\", false, false, false, false)\n@@ -475,10 +473,9 @@ func TestExplainCommit_NoEntireData(t *testing.T) {\n \tt.Chdir(tmpDir)\n \n \t// Initialize git repo\n-\trepo, err := git.PlainInit(tmpDir, false)\n-\tif err != nil {\n-\t\tt.Fatalf(\"failed to init git repo: %v\", err)\n-\t}\n+\ttestutil.InitRepo(t, tmpDir)\n+\trepo, err := git.PlainOpen(tmpDir)\n+\trequire.NoError(t, err)\n \n \tw, err := repo.Worktree()\n \tif err != nil {\n@@ -528,10 +525,9 @@ func TestExplainCommit_WithMetadataTrailerButNoCheckpoint(t *testing.T) {\n \tt.Chdir(tmpDir)\n \n \t// Initialize git repo\n-\trepo, err := git.PlainInit(tmpDir, false)\n-\tif err != nil {\n-\t\tt.Fatalf(\"failed to init git repo: %v\", err)\n-\t}\n+\ttestutil.InitRepo(t, tmpDir)\n+\trepo, err := git.PlainOpen(tmpDir)\n+\trequire.NoError(t, err)\n \n \tw, err := repo.Worktree()\n \tif err != nil {\n@@ -596,10 +592,9 @@ func TestExplainDefault_ShowsBranchView(t *testing.T) {\n \tt.Chdir(tmpDir)\n \n \t// Initialize git repo\n-\trepo, err := git.PlainInit(tmpDir, false)\n-\tif err != nil {\n-\t\tt.Fatalf(\"failed to init git repo: %v\", err)\n-\t}\n+\ttestutil.InitRepo(t, tmpDir)\n+\trepo, err := git.PlainOpen(tmpDir)\n+\trequire.NoError(t, err)\n \n \t// Create initial commit so HEAD exists (required for branch view)\n \tw, err := repo.Worktree()\n@@ -652,10 +647,9 @@ func TestExplainDefault_NoCheckpoints_ShowsHelpfulMessage(t *testing.T) {\n \tt.Chdir(tmpDir)\n \n \t// Initialize git repo\n-\trepo, err := git.PlainInit(tmpDir, false)\n-\tif err != nil {\n-\t\tt.Fatalf(\"failed to init git repo: %v\", err)\n-\t}\n+\ttestutil.InitRepo(t, tmpDir)\n+\trepo, err := git.PlainOpen(tmpDir)\n+\trequire.NoError(t, err)\n \n \t// Create initial commit so HEAD exists (required for branch view)\n \tw, err := repo.Worktree()\n@@ -1174,10 +1168,9 @@ func TestRunExplainCheckpoint_NotFound(t *testing.T) {\n \tt.Chdir(tmpDir)\n \n \t// Initialize git repo with an initial commit (required for checkpoint lookup)\n-\trepo, err := git.PlainInit(tmpDir, false)\n-\tif err != nil {\n-\t\tt.Fatalf(\"failed to init git repo: %v\", err)\n-\t}\n+\ttestutil.InitRepo(t, tmpDir)\n+\trepo, err := git.PlainOpen(tmpDir)\n+\trequire.NoError(t, err)\n \n \tw, err := repo.Worktree()\n \tif err != nil {\n@@ -2424,10 +2417,9 @@ func TestGetBranchCheckpoints_ReadsPromptFromShadowBranch(t *testing.T) {\n \tt.Chdir(tmpDir)\n \n \t// Initialize git repo with an initial commit\n-\trepo, err := git.PlainInit(tmpDir, false)\n-\tif err != nil {\n-\t\tt.Fatalf(\"failed to init git repo: %v\", err)\n-\t}\n+\ttestutil.InitRepo(t, tmpDir)\n+\trepo, err := git.PlainOpen(tmpDir)\n+\trequire.NoError(t, err)\n \n \tw, err := repo.Worktree()\n \tif err != nil {\n@@ -2538,9 +2530,7 @@ func TestGetCurrentWorktreeHash_MainWorktree(t *testing.T) {\n \ttmpDir := t.TempDir()\n \tt.Chdir(tmpDir)\n \n-\tif _, err := git.PlainInit(tmpDir, false); err != nil {\n-\t\tt.Fatalf(\"failed to init git repo: %v\", err)\n-\t}\n+\ttestutil.InitRepo(t, tmpDir)\n \n \thash := getCurrentWorktreeHash(context.Background())\n \texpected := checkpoint.HashWorktreeID(\"\") // Main worktree has empty ID\n@@ -2555,10 +2545,9 @@ func TestGetReachableTemporaryCheckpoints_FiltersByWorktree(t *testing.T) {\n \ttmpDir := t.TempDir()\n \tt.Chdir(tmpDir)\n \n-\trepo, err := git.PlainInit(tmpDir, false)\n-\tif err != nil {\n-\t\tt.Fatalf(\"failed to init git repo: %v\", err)\n-\t}\n+\ttestutil.InitRepo(t, tmpDir)\n+\trepo, err := git.PlainOpen(tmpDir)\n+\trequire.NoError(t, err)\n \n \tw, err := repo.Worktree()\n \tif err != nil {\n@@ -2658,10 +2647,9 @@ func TestRunExplainBranchDefault_DetachedHead(t *testing.T) {\n \tt.Chdir(tmpDir)\n \n \t// Initialize git repo with a commit\n-\trepo, err := git.PlainInit(tmpDir, false)\n-\tif err != nil {\n-\t\tt.Fatalf(\"failed to init git repo: %v\", err)\n-\t}\n+\ttestutil.InitRepo(t, tmpDir)\n+\trepo, err := git.PlainOpen(tmpDir)\n+\trequire.NoError(t, err)\n \n \tw, err := repo.Worktree()\n \tif err != nil {\n@@ -2715,10 +2703,9 @@ func TestIsAncestorOf(t *testing.T) {\n \tt.Chdir(tmpDir)\n \n \t// Initialize git repo\n-\trepo, err := git.PlainInit(tmpDir, false)\n-\tif err != nil {\n-\t\tt.Fatalf(\"failed to init git repo: %v\", err)\n-\t}\n+\ttestutil.InitRepo(t, tmpDir)\n+\trepo, err := git.PlainOpen(tmpDir)\n+\trequire.NoError(t, err)\n \n \tw, err := repo.Worktree()\n \tif err != nil {\n@@ -2781,10 +2768,9 @@ func TestGetBranchCheckpoints_OnFeatureBranch(t *testing.T) {\n \tt.Chdir(tmpDir)\n \n \t// Initialize git repo\n-\trepo, err := git.PlainInit(tmpDir, false)\n-\tif err != nil {\n-\t\tt.Fatalf(\"failed to init git repo: %v\", err)\n-\t}\n+\ttestutil.InitRepo(t, tmpDir)\n+\trepo, err := git.PlainOpen(tmpDir)\n+\trequire.NoError(t, err)\n \n \tw, err := repo.Worktree()\n \tif err != nil {\n@@ -2829,10 +2815,9 @@ func TestHasCodeChanges_FirstCommitReturnsTrue(t *testing.T) {\n \ttmpDir := t.TempDir()\n \tt.Chdir(tmpDir)\n \n-\trepo, err := git.PlainInit(tmpDir, false)\n-\tif err != nil {\n-\t\tt.Fatalf(\"failed to init git repo: %v\", err)\n-\t}\n+\ttestutil.InitRepo(t, tmpDir)\n+\trepo, err := git.PlainOpen(tmpDir)\n+\trequire.NoError(t, err)\n \n \tw, err := repo.Worktree()\n \tif err != nil {\n@@ -2869,10 +2854,9 @@ func TestHasCodeChanges_OnlyMetadataChanges(t *testing.T) {\n \ttmpDir := t.TempDir()\n \tt.Chdir(tmpDir)\n \n-\trepo, err := git.PlainInit(tmpDir, false)\n-\tif err != nil {\n-\t\tt.Fatalf(\"failed to init git repo: %v\", err)\n-\t}\n+\ttestutil.InitRepo(t, tmpDir)\n+\trepo, err := git.PlainOpen(tmpDir)\n+\trequire.NoError(t, err)\n \n \tw, err := repo.Worktree()\n \tif err != nil {\n@@ -2927,10 +2911,9 @@ func TestHasCodeChanges_WithCodeChanges(t *testing.T) {\n \ttmpDir := t.TempDir()\n \tt.Chdir(tmpDir)\n \n-\trepo, err := git.PlainInit(tmpDir, false)\n-\tif err != nil {\n-\t\tt.Fatalf(\"failed to init git repo: %v\", err)\n-\t}\n+\ttestutil.InitRepo(t, tmpDir)\n+\trepo, err := git.PlainOpen(tmpDir)\n+\trequire.NoError(t, err)\n \n \tw, err := repo.Worktree()\n \tif err != nil {\n@@ -2981,10 +2964,9 @@ func TestHasCodeChanges_MixedChanges(t *testing.T) {\n \ttmpDir := t.TempDir()\n \tt.Chdir(tmpDir)\n \n-\trepo, err := git.PlainInit(tmpDir, false)\n-\tif err != nil {\n-\t\tt.Fatalf(\"failed to init git repo: %v\", err)\n-\t}\n+\ttestutil.InitRepo(t, tmpDir)\n+\trepo, err := git.PlainOpen(tmpDir)\n+\trequire.NoError(t, err)\n \n \tw, err := repo.Worktree()\n \tif err != nil {\n@@ -3046,10 +3028,9 @@ func TestGetBranchCheckpoints_FiltersMainCommits(t *testing.T) {\n \tt.Chdir(tmpDir)\n \n \t// Initialize git repo\n-\trepo, err := git.PlainInit(tmpDir, false)\n-\tif err != nil {\n-\t\tt.Fatalf(\"failed to init git repo: %v\", err)\n-\t}\n+\ttestutil.InitRepo(t, tmpDir)\n+\trepo, err := git.PlainOpen(tmpDir)\n+\trequire.NoError(t, err)\n \n \tw, err := repo.Worktree()\n \tif err != nil {\ndiff --git a/cmd/entire/cli/git_operations_test.go b/cmd/entire/cli/git_operations_test.go\nindex 8344fc69d..f94096eb6 100644\n--- a/cmd/entire/cli/git_operations_test.go\n+++ b/cmd/entire/cli/git_operations_test.go\n@@ -7,6 +7,7 @@ import (\n \t\"path/filepath\"\n \t\"testing\"\n \n+\t\"github.com/entireio/cli/cmd/entire/cli/testutil\"\n \t\"github.com/go-git/go-git/v6\"\n \t\"github.com/go-git/go-git/v6/plumbing\"\n \t\"github.com/go-git/go-git/v6/plumbing/object\"\n@@ -24,16 +25,21 @@ func gitCheckout(t *testing.T, dir, ref string) {\n \t}\n }\n \n+func initOpenedTestRepo(t *testing.T, dir string) *git.Repository {\n+\tt.Helper()\n+\ttestutil.InitRepo(t, dir)\n+\trepo, err := git.PlainOpen(dir)\n+\trequire.NoError(t, err)\n+\treturn repo\n+}\n+\n func TestGetCurrentBranch(t *testing.T) {\n \t// Create temp directory for test repo\n \ttmpDir := t.TempDir()\n \tt.Chdir(tmpDir)\n \n \t// Initialize repo\n-\trepo, err := git.PlainInit(tmpDir, false)\n-\tif err != nil {\n-\t\tt.Fatalf(\"Failed to init repo: %v\", err)\n-\t}\n+\trepo := initOpenedTestRepo(t, tmpDir)\n \n \t// Create initial commit\n \tw, err := repo.Worktree()\n@@ -82,10 +88,7 @@ func TestGetCurrentBranchDetachedHead(t *testing.T) {\n \tt.Chdir(tmpDir)\n \n \t// Initialize repo\n-\trepo, err := git.PlainInit(tmpDir, false)\n-\tif err != nil {\n-\t\tt.Fatalf(\"Failed to init repo: %v\", err)\n-\t}\n+\trepo := initOpenedTestRepo(t, tmpDir)\n \n \t// Create initial commit\n \tw, err := repo.Worktree()\n@@ -125,10 +128,7 @@ func TestGetMergeBase(t *testing.T) {\n \tt.Chdir(tmpDir)\n \n \t// Initialize repo\n-\trepo, err := git.PlainInit(tmpDir, false)\n-\tif err != nil {\n-\t\tt.Fatalf(\"Failed to init repo: %v\", err)\n-\t}\n+\trepo := initOpenedTestRepo(t, tmpDir)\n \n \tw, err := repo.Worktree()\n \tif err != nil {\n@@ -198,10 +198,7 @@ func TestGetMergeBaseNonExistentBranch(t *testing.T) {\n \tt.Chdir(tmpDir)\n \n \t// Initialize repo with commit\n-\trepo, err := git.PlainInit(tmpDir, false)\n-\tif err != nil {\n-\t\tt.Fatalf(\"Failed to init repo: %v\", err)\n-\t}\n+\trepo := initOpenedTestRepo(t, tmpDir)\n \n \tw, err := repo.Worktree()\n \tif err != nil {\n@@ -236,10 +233,7 @@ func TestHasUncommittedChanges(t *testing.T) {\n \tt.Chdir(tmpDir)\n \n \t// Initialize repo\n-\trepo, err := git.PlainInit(tmpDir, false)\n-\tif err != nil {\n-\t\tt.Fatalf(\"Failed to init repo: %v\", err)\n-\t}\n+\trepo := initOpenedTestRepo(t, tmpDir)\n \n \tw, err := repo.Worktree()\n \tif err != nil {\n@@ -491,10 +485,7 @@ func TestGetGitAuthorReturnsAuthor(t *testing.T) {\n \tt.Chdir(tmpDir)\n \n \t// Initialize repo with user config\n-\trepo, err := git.PlainInit(tmpDir, false)\n-\tif err != nil {\n-\t\tt.Fatalf(\"Failed to init repo: %v\", err)\n-\t}\n+\trepo := initOpenedTestRepo(t, tmpDir)\n \n \t// Set local user config\n \tcfg, err := repo.Config()\n@@ -582,10 +573,7 @@ func TestBranchExistsOnRemote(t *testing.T) {\n \tt.Chdir(tmpDir)\n \n \t// Initialize repo\n-\trepo, err := git.PlainInit(tmpDir, false)\n-\tif err != nil {\n-\t\tt.Fatalf(\"Failed to init repo: %v\", err)\n-\t}\n+\trepo := initOpenedTestRepo(t, tmpDir)\n \n \tw, err := repo.Worktree()\n \tif err != nil {\ndiff --git a/cmd/entire/cli/phase_wiring_test.go b/cmd/entire/cli/phase_wiring_test.go\nindex 6f493a40e..eb8ce6a65 100644\n--- a/cmd/entire/cli/phase_wiring_test.go\n+++ b/cmd/entire/cli/phase_wiring_test.go\n@@ -7,8 +7,8 @@ import (\n \n \t\"github.com/entireio/cli/cmd/entire/cli/session\"\n \t\"github.com/entireio/cli/cmd/entire/cli/strategy\"\n+\t\"github.com/entireio/cli/cmd/entire/cli/testutil\"\n \n-\t\"github.com/go-git/go-git/v6\"\n \t\"github.com/stretchr/testify/assert\"\n \t\"github.com/stretchr/testify/require\"\n )\n@@ -134,7 +134,6 @@ func setupGitRepoForPhaseTest(t *testing.T) string {\n \tt.Helper()\n \n \tdir := t.TempDir()\n-\t_, err := git.PlainInit(dir, false)\n-\trequire.NoError(t, err)\n+\ttestutil.InitRepo(t, dir)\n \treturn dir\n }\ndiff --git a/cmd/entire/cli/session/state_test.go b/cmd/entire/cli/session/state_test.go\nindex dac4d5b65..9ae70c139 100644\n--- a/cmd/entire/cli/session/state_test.go\n+++ b/cmd/entire/cli/session/state_test.go\n@@ -8,7 +8,7 @@ import (\n \t\"testing\"\n \t\"time\"\n \n-\t\"github.com/go-git/go-git/v6\"\n+\t\"github.com/entireio/cli/cmd/entire/cli/testutil\"\n \t\"github.com/stretchr/testify/assert\"\n \t\"github.com/stretchr/testify/require\"\n )\n@@ -493,8 +493,7 @@ func initTestRepo(t *testing.T) string {\n \tif resolved, err := filepath.EvalSymlinks(dir); err == nil {\n \t\tdir = resolved\n \t}\n-\t_, err := git.PlainInit(dir, false)\n-\trequire.NoError(t, err)\n+\ttestutil.InitRepo(t, dir)\n \tt.Chdir(dir)\n \tClearGitCommonDirCache()\n \treturn dir\n@@ -558,15 +557,13 @@ func TestGetGitCommonDir_InvalidatesOnCwdChange(t *testing.T) {\n \tif resolved, err := filepath.EvalSymlinks(dir1); err == nil {\n \t\tdir1 = resolved\n \t}\n-\t_, err := git.PlainInit(dir1, false)\n-\trequire.NoError(t, err)\n+\ttestutil.InitRepo(t, dir1)\n \n \tdir2 := t.TempDir()\n \tif resolved, err := filepath.EvalSymlinks(dir2); err == nil {\n \t\tdir2 = resolved\n \t}\n-\t_, err = git.PlainInit(dir2, false)\n-\trequire.NoError(t, err)\n+\ttestutil.InitRepo(t, dir2)\n \n \tClearGitCommonDirCache()\n \n",
+            "metadata": {
+              "output": "diff --git a/CLAUDE.md b/CLAUDE.md\nindex a1c860003..92335badc 100644\n--- a/CLAUDE.md\n+++ b/CLAUDE.md\n@@ -132,6 +132,8 @@ t.Chdir(tmpDir)                                 // redirect CWD-based git resolu\n \n `testutil.InitRepo` configures `user.name`, `user.email`, and disables GPG signing — safe for CI environments without global git config.\n \n+**Prefer `testutil.InitRepo()` over direct `git.PlainInit()` in tests.** When a test in this repo needs an initialized repository, use `testutil.InitRepo(t, dir)` unless the test specifically needs lower-level initialization behavior that the helper cannot provide. Do not call `git.PlainInit()` directly and then create commits or run CLI git operations without also reproducing the helper's repo-local config.\n+\n **Do NOT** shell out to `git init`/`git commit` directly without setting user config and `--no-gpg-sign`, and **do NOT** run lifecycle/strategy handlers from the real repo CWD in tests.\n \n ### Linting and Formatting\ndiff --git a/cmd/entire/cli/explain_test.go b/cmd/entire/cli/explain_test.go\nindex 1905efc39..b1e0cd1d9 100644\n--- a/cmd/entire/cli/explain_test.go\n+++ b/cmd/entire/cli/explain_test.go\n@@ -455,9 +455,7 @@ func TestExplainCommit_NotFound(t *testing.T) {\n \tt.Chdir(tmpDir)\n \n \t// Initialize git repo\n-\tif _, err := git.PlainInit(tmpDir, false); err != nil {\n-\t\tt.Fatalf(\"failed to init git repo: %v\", err)\n-\t}\n+\ttestutil.InitRepo(t, tmpDir)\n \n \tvar stdout bytes.Buffer\n \terr := runExplainCommit(context.Background(), &stdout, \"nonexistent\", false, false, false, false)\n@@ -475,10 +473,9 @@ func TestExplainCommit_NoEntireData(t *testing.T) {\n \tt.Chdir(tmpDir)\n \n \t// Initialize git repo\n-\trepo, err := git.PlainInit(tmpDir, false)\n-\tif err != nil {\n-\t\tt.Fatalf(\"failed to init git repo: %v\", err)\n-\t}\n+\ttestutil.InitRepo(t, tmpDir)\n+\trepo, err := git.PlainOpen(tmpDir)\n+\trequire.NoError(t, err)\n \n \tw, err := repo.Worktree()\n \tif err != nil {\n@@ -528,10 +525,9 @@ func TestExplainCommit_WithMetadataTrailerButNoCheckpoint(t *testing.T) {\n \tt.Chdir(tmpDir)\n \n \t// Initialize git repo\n-\trepo, err := git.PlainInit(tmpDir, false)\n-\tif err != nil {\n-\t\tt.Fatalf(\"failed to init git repo: %v\", err)\n-\t}\n+\ttestutil.InitRepo(t, tmpDir)\n+\trepo, err := git.PlainOpen(tmpDir)\n+\trequire.NoError(t, err)\n \n \tw, err := repo.Worktree()\n \tif err != nil {\n@@ -596,10 +592,9 @@ func TestExplainDefault_ShowsBranchView(t *testing.T) {\n \tt.Chdir(tmpDir)\n \n \t// Initialize git repo\n-\trepo, err := git.PlainInit(tmpDir, false)\n-\tif err != nil {\n-\t\tt.Fatalf(\"failed to init git repo: %v\", err)\n-\t}\n+\ttestutil.InitRepo(t, tmpDir)\n+\trepo, err := git.PlainOpen(tmpDir)\n+\trequire.NoError(t, err)\n \n \t// Create initial commit so HEAD exists (required for branch view)\n \tw, err := repo.Worktree()\n@@ -652,10 +647,9 @@ func TestExplainDefault_NoCheckpoints_ShowsHelpfulMessage(t *testing.T) {\n \tt.Chdir(tmpDir)\n \n \t// Initialize git repo\n-\trepo, err := git.PlainInit(tmpDir, false)\n-\tif err != nil {\n-\t\tt.Fatalf(\"failed to init git repo: %v\", err)\n-\t}\n+\ttestutil.InitRepo(t, tmpDir)\n+\trepo, err := git.PlainOpen(tmpDir)\n+\trequire.NoError(t, err)\n \n \t// Create initial commit so HEAD exists (required for branch view)\n \tw, err := repo.Worktree()\n@@ -1174,10 +1168,9 @@ func TestRunExplainCheckpoint_NotFound(t *testing.T) {\n \tt.Chdir(tmpDir)\n \n \t// Initialize git repo with an initial commit (required for checkpoint lookup)\n-\trepo, err := git.PlainInit(tmpDir, false)\n-\tif err != nil {\n-\t\tt.Fatalf(\"failed to init git repo: %v\", err)\n-\t}\n+\ttestutil.InitRepo(t, tmpDir)\n+\trepo, err := git.PlainOpen(tmpDir)\n+\trequire.NoError(t, err)\n \n \tw, err := repo.Worktree()\n \tif err != nil {\n@@ -2424,10 +2417,9 @@ func TestGetBranchCheckpoints_ReadsPromptFromShadowBranch(t *testing.T) {\n \tt.Chdir(tmpDir)\n \n \t// Initialize git repo with an initial commit\n-\trepo, err := git.PlainInit(tmpDir, false)\n-\tif err != nil {\n-\t\tt.Fatalf(\"failed to init git repo: %v\", err)\n-\t}\n+\ttestutil.InitRepo(t, tmpDir)\n+\trepo, err := git.PlainOpen(tmpDir)\n+\trequire.NoError(t, err)\n \n \tw, err := repo.Worktree()\n \tif err != nil {\n@@ -2538,9 +2530,7 @@ func TestGetCurrentWorktreeHash_MainWorktree(t *testing.T) {\n \ttmpDir := t.TempDir()\n \tt.Chdir(tmpDir)\n \n-\tif _, err := git.PlainInit(tmpDir, false); err != nil {\n-\t\tt.Fatalf(\"failed to init git repo: %v\", err)\n-\t}\n+\ttestutil.InitRepo(t, tmpDir)\n \n \thash := getCurrentWorktreeHash(context.Background())\n \texpected := checkpoint.HashWorktreeID(\"\") // Main worktree has empty ID\n@@ -2555,10 +2545,9 @@ func TestGetReachableTemporaryCheckpoints_FiltersByWorktree(t *testing.T) {\n \ttmpDir := t.TempDir()\n \tt.Chdir(tmpDir)\n \n-\trepo, err := git.PlainInit(tmpDir, false)\n-\tif err != nil {\n-\t\tt.Fatalf(\"failed to init git repo: %v\", err)\n-\t}\n+\ttestutil.InitRepo(t, tmpDir)\n+\trepo, err := git.PlainOpen(tmpDir)\n+\trequire.NoError(t, err)\n \n \tw, err := repo.Worktree()\n \tif err != nil {\n@@ -2658,10 +2647,9 @@ func TestRunExplainBranchDefault_DetachedHead(t *testing.T) {\n \tt.Chdir(tmpDir)\n \n \t// Initialize git repo with a commit\n-\trepo, err := git.PlainInit(tmpDir, false)\n-\tif err != nil {\n-\t\tt.Fatalf(\"failed to init git repo: %v\", err)\n-\t}\n+\ttestutil.InitRepo(t, tmpDir)\n+\trepo, err := git.PlainOpen(tmpDir)\n+\trequire.NoError(t, err)\n \n \tw, err := repo.Worktree()\n \tif err != nil {\n@@ -2715,10 +2703,9 @@ func TestIsAncestorOf(t *testing.T) {\n \tt.Chdir(tmpDir)\n \n \t// Initialize git repo\n-\trepo, err := git.PlainInit(tmpDir, false)\n-\tif err != nil {\n-\t\tt.Fatalf(\"failed to init git repo: %v\", err)\n-\t}\n+\ttestutil.InitRepo(t, tmpDir)\n+\trepo, err := git.PlainOpen(tmpDir)\n+\trequire.NoError(t, err)\n \n \tw, err := repo.Worktree()\n \tif err != nil {\n@@ -2781,10 +2768,9 @@ func TestGetBranchCheckpoints_OnFeatureBranch(t *testing.T) {\n \tt.Chdir(tmpDir)\n \n \t// Initialize git repo\n-\trepo, err := git.PlainInit(tmpDir, false)\n-\tif err != nil {\n-\t\tt.Fatalf(\"failed to init git repo: %v\", err)\n-\t}\n+\ttestutil.InitRepo(t, tmpDir)\n+\trepo, err := git.PlainOpen(tmpDir)\n+\trequire.NoError(t, err)\n \n \tw, err := repo.Worktree()\n \tif err != nil {\n@@ -2829,10 +2815,9 @@ func TestHasCodeChanges_FirstCommitReturnsTrue(t *testing.T) {\n \ttmpDir := t.TempDir()\n \tt.Chdir(tmpDir)\n \n-\trepo, err := git.PlainInit(tmpDir, false)\n-\tif err != nil {\n-\t\tt.Fatalf(\"failed to init git repo: %v\", err)\n-\t}\n+\ttestutil.InitRepo(t, tmpDir)\n+\trepo, err := git.PlainOpen(tmpDir)\n+\trequire.NoError(t, err)\n \n \tw, err := repo.Worktree()\n \tif err != nil {\n@@ -2869,10 +2854,9 @@ func TestHasCodeChanges_OnlyMetadataChanges(t *testing.T) {\n \ttmpDir := t.TempDir()\n \tt.Chdir(tmpDir)\n \n-\trepo, err := git.PlainInit(tmpDir, false)\n-\tif err != nil {\n-\t\tt.Fatalf(\"failed to init git repo: %v\", err)\n-\t}\n+\ttestutil.InitRepo(t, tmpDir)\n+\trepo, err := git.PlainOpen(tmpDir)\n+\trequire.NoError(t, err)\n \n \tw, err := repo.Worktree()\n \tif err != nil {\n@@ -2927,10 +2911,9 @@ func TestHasCodeChanges_WithCodeChanges(t *testing.T) {\n \ttmpDir := t.TempDir()\n \tt.Chdir(tmpDir)\n \n-\trepo, err := git.PlainInit(tmpDir, false)\n-\tif err != nil {\n-\t\tt.Fatalf(\"failed to init git repo: %v\", err)\n-\t}\n+\ttestutil.InitRepo(t, tmpDir)\n+\trepo, err := git.PlainOpen(tmpDir)\n+\trequire.NoError(t, err)\n \n \tw, err := repo.Worktree()\n \tif err != nil {\n@@ -2981,10 +2964,9 @@ func TestHasCodeChanges_MixedChanges(t *testing.T) {\n \ttmpDir := t.TempDir()\n \tt.Chdir(tmpDir)\n \n-\trepo, err := git.PlainInit(tmpDir, false)\n-\tif err != nil {\n-\t\tt.Fatalf(\"failed to init git repo: %v\", err)\n-\t}\n+\ttestutil.InitRepo(t, tmpDir)\n+\trepo, err := git.PlainOpen(tmpDir)\n+\trequire.NoError(t, err)\n \n \tw, err := repo.Worktree()\n \tif err != nil {\n@@ -3046,10 +3028,9 @@ func TestGetBranchCheckpoints_FiltersMainCommits(t *testing.T) {\n \tt.Chdir(tmpDir)\n \n \t// Initialize git repo\n-\trepo, err := git.PlainInit(tmpDir, false)\n-\tif err != nil {\n-\t\tt.Fatalf(\"failed to init git repo: %v\", err)\n-\t}\n+\ttestutil.InitRepo(t, tmpDir)\n+\trepo, err := git.PlainOpen(tmpDir)\n+\trequire.NoError(t, err)\n \n \tw, err := repo.Worktree()\n \tif err != nil {\ndiff --git a/cmd/entire/cli/git_operations_test.go b/cmd/entire/cli/git_operations_test.go\nindex 8344fc69d..f94096eb6 100644\n--- a/cmd/entire/cli/git_operations_test.go\n+++ b/cmd/entire/cli/git_operations_test.go\n@@ -7,6 +7,7 @@ import (\n \t\"path/filepath\"\n \t\"testing\"\n \n+\t\"github.com/entireio/cli/cmd/entire/cli/testutil\"\n \t\"github.com/go-git/go-git/v6\"\n \t\"github.com/go-git/go-git/v6/plumbing\"\n \t\"github.com/go-git/go-git/v6/plumbing/object\"\n@@ -24,16 +25,21 @@ func gitCheckout(t *testing.T, dir, ref string) {\n \t}\n }\n \n+func initOpenedTestRepo(t *testing.T, dir string) *git.Repository {\n+\tt.Helper()\n+\ttestutil.InitRepo(t, dir)\n+\trepo, err := git.PlainOpen(dir)\n+\trequire.NoError(t, err)\n+\treturn repo\n+}\n+\n func TestGetCurrentBranch(t *testing.T) {\n \t// Create temp directory for test repo\n \ttmpDir := t.TempDir()\n \tt.Chdir(tmpDir)\n \n \t// Initialize repo\n-\trepo, err := git.PlainInit(tmpDir, false)\n-\tif err != nil {\n-\t\tt.Fatalf(\"Failed to init repo: %v\", err)\n-\t}\n+\trepo := initOpenedTestRepo(t, tmpDir)\n \n \t// Create initial commit\n \tw, err := repo.Worktree()\n@@ -82,10 +88,7 @@ func TestGetCurrentBranchDetachedHead(t *testing.T) {\n \tt.Chdir(tmpDir)\n \n \t// Initialize repo\n-\trepo, err := git.PlainInit(tmpDir, false)\n-\tif err != nil {\n-\t\tt.Fatalf(\"Failed to init repo: %v\", err)\n-\t}\n+\trepo := initOpenedTestRepo(t, tmpDir)\n \n \t// Create initial commit\n \tw, err := repo.Worktree()\n@@ -125,10 +128,7 @@ func TestGetMergeBase(t *testing.T) {\n \tt.Chdir(tmpDir)\n \n \t// Initialize repo\n-\trepo, err := git.PlainInit(tmpDir, false)\n-\tif err != nil {\n-\t\tt.Fatalf(\"Failed to init repo: %v\", err)\n-\t}\n+\trepo := initOpenedTestRepo(t, tmpDir)\n \n \tw, err := repo.Worktree()\n \tif err != nil {\n@@ -198,10 +198,7 @@ func TestGetMergeBaseNonExistentBranch(t *testing.T) {\n \tt.Chdir(tmpDir)\n \n \t// Initialize repo with commit\n-\trepo, err := git.PlainInit(tmpDir, false)\n-\tif err != nil {\n-\t\tt.Fatalf(\"Failed to init repo: %v\", err)\n-\t}\n+\trepo := initOpenedTestRepo(t, tmpDir)\n \n \tw, err := repo.Worktree()\n \tif err != nil {\n@@ -236,10 +233,7 @@ func TestHasUncommittedChanges(t *testing.T) {\n \tt.Chdir(tmpDir)\n \n \t// Initialize repo\n-\trepo, err := git.PlainInit(tmpDir, false)\n-\tif err != nil {\n-\t\tt.Fatalf(\"Failed to init repo: %v\", err)\n-\t}\n+\trepo := initOpenedTestRepo(t, tmpDir)\n \n \tw, err := repo.Worktree()\n \tif err != nil {\n@@ -491,10 +485,7 @@ func TestGetGitAuthorReturnsAuthor(t *testing.T) {\n \tt.Chdir(tmpDir)\n \n \t// Initialize repo with user config\n-\trepo, err := git.PlainInit(tmpDir, false)\n-\tif err != nil {\n-\t\tt.Fatalf(\"Failed to init repo: %v\", err)\n-\t}\n+\trepo := initOpenedTestRepo(t, tmpDir)\n \n \t// Set local user config\n \tcfg, err := repo.Config()\n@@ -582,10 +573,7 @@ func TestBranchExistsOnRemote(t *testing.T) {\n \tt.Chdir(tmpDir)\n \n \t// Initialize repo\n-\trepo, err := git.PlainInit(tmpDir, false)\n-\tif err != nil {\n-\t\tt.Fatalf(\"Failed to init repo: %v\", err)\n-\t}\n+\trepo := initOpenedTestRepo(t, tmpDir)\n \n \tw, err := repo.Worktree()\n \tif err != nil {\ndiff --git a/cmd/entire/cli/phase_wiring_test.go b/cmd/entire/cli/phase_wiring_test.go\nindex 6f493a40e..eb8ce6a65 100644\n--- a/cmd/entire/cli/phase_wiring_test.go\n+++ b/cmd/entire/cli/phase_wiring_test.go\n@@ -7,8 +7,8 @@ import (\n \n \t\"github.com/entireio/cli/cmd/entire/cli/session\"\n \t\"github.com/entireio/cli/cmd/entire/cli/strategy\"\n+\t\"github.com/entireio/cli/cmd/entire/cli/testutil\"\n \n-\t\"github.com/go-git/go-git/v6\"\n \t\"github.com/stretchr/testify/assert\"\n \t\"github.com/stretchr/testify/require\"\n )\n@@ -134,7 +134,6 @@ func setupGitRepoForPhaseTest(t *testing.T) string {\n \tt.Helper()\n \n \tdir := t.TempDir()\n-\t_, err := git.PlainInit(dir, false)\n-\trequire.NoError(t, err)\n+\ttestutil.InitRepo(t, dir)\n \treturn dir\n }\ndiff --git a/cmd/entire/cli/session/state_test.go b/cmd/entire/cli/session/state_test.go\nindex dac4d5b65..9ae70c139 100644\n--- a/cmd/entire/cli/session/state_test.go\n+++ b/cmd/entire/cli/session/state_test.go\n@@ -8,7 +8,7 @@ import (\n \t\"testing\"\n \t\"time\"\n \n-\t\"github.com/go-git/go-git/v6\"\n+\t\"github.com/entireio/cli/cmd/entire/cli/testutil\"\n \t\"github.com/stretchr/testify/assert\"\n \t\"github.com/stretchr/testify/require\"\n )\n@@ -493,8 +493,7 @@ func initTestRepo(t *testing.T) string {\n \tif resolved, err := filepath.EvalSymlinks(dir); err == nil {\n \t\tdir = resolved\n \t}\n-\t_, err := git.PlainInit(dir, false)\n-\trequire.NoError(t, err)\n+\ttestutil.InitRepo(t, dir)\n \tt.Chdir(dir)\n \tClearGitCommonDirCache()\n \treturn dir\n@@ -558,15 +557,13 @@ func TestGetGitCommonDir_InvalidatesOnCwdChange(t *testing.T) {\n \tif resolved, err := filepath.EvalSymlinks(dir1); err == nil {\n \t\tdir1 = resolved\n \t}\n-\t_, err := git.PlainInit(dir1, false)\n-\trequire.NoError(t, err)\n+\ttestutil.InitRepo(t, dir1)\n \n \tdir2 := t.TempDir()\n \tif resolved, err := filepath.EvalSymlinks(dir2); err == nil {\n \t\tdir2 = resolved\n \t}\n-\t_, err = git.PlainInit(dir2, false)\n-\trequire.NoError(t, err)\n+\ttestutil.InitRepo(t, dir2)\n \n \tClearGitCommonDirCache()\n \n",
+              "exit": 0,
+              "description": "Show full diff for changed files",
+              "truncated": false
+            },
+            "title": "Show full diff for changed files",
+            "time": {
+              "start": 1776460796705,
+              "end": 1776460796706
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_06f90ee9c24f5d750169e2a3fada4c8193ab06360fb1fcc364"
+            }
+          },
+          "id": "prt_d9d508bfd001KtE7JDN9HtAcbW",
+          "sessionID": "ses_262aff57bffesXvyNuvVr65EX6",
+          "messageID": "msg_d9d507e50001BojXs39HdWdB3a"
+        },
+        {
+          "reason": "tool-calls",
+          "snapshot": "bf963eaabb94e6cd5e5da0eabcf616b51d097563",
+          "type": "step-finish",
+          "tokens": {
+            "total": 23963,
+            "input": 1190,
+            "output": 119,
+            "reasoning": 126,
+            "cache": {
+              "write": 0,
+              "read": 22528
+            }
+          },
+          "cost": 0,
+          "id": "prt_d9d509367001xTLyHbVAIRfpqC",
+          "sessionID": "ses_262aff57bffesXvyNuvVr65EX6",
+          "messageID": "msg_d9d507e50001BojXs39HdWdB3a"
+        }
+      ]
+    },
+    {
+      "info": {
+        "parentID": "msg_d9d507e4a0014b4jzVYGPUCps9",
+        "role": "assistant",
+        "mode": "build",
+        "agent": "build",
+        "path": {
+          "cwd": "/Users/pfleidi/entire/cli/.worktrees/fix/git-init-instructions",
+          "root": "/Users/pfleidi/entire/cli/.worktrees/fix/git-init-instructions"
+        },
+        "cost": 0,
+        "tokens": {
+          "input": 0,
+          "output": 0,
+          "reasoning": 0,
+          "cache": {
+            "read": 0,
+            "write": 0
+          }
+        },
+        "modelID": "gpt-5.3-codex",
+        "providerID": "openai",
+        "time": {
+          "created": 1776460796823
+        },
+        "id": "msg_d9d5093970015fL3NBqAdZJQAm",
+        "sessionID": "ses_262aff57bffesXvyNuvVr65EX6"
+      },
+      "parts": [
+        {
+          "snapshot": "bf963eaabb94e6cd5e5da0eabcf616b51d097563",
+          "type": "step-start",
+          "id": "prt_d9d509639001QFj7g22UuVJ611",
+          "sessionID": "ses_262aff57bffesXvyNuvVr65EX6",
+          "messageID": "msg_d9d5093970015fL3NBqAdZJQAm"
+        },
+        {
+          "type": "reasoning",
+          "text": "",
+          "time": {
+            "start": 1776460797834
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "rs_04c6f0c11305b7a20169e2a3fdb7108193a094103a13327196",
+              "reasoningEncryptedContent": "REDACTED"
+            }
+          },
+          "id": "prt_d9d50978a001mzeVO4LyS1zldV",
+          "sessionID": "ses_262aff57bffesXvyNuvVr65EX6",
+          "messageID": "msg_d9d5093970015fL3NBqAdZJQAm"
+        }
+      ]
+    }
+  ]
+}
