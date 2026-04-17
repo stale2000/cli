@@ -1,0 +1,21 @@
+Okay, commit the change for consistency for now. We can revisit the cli use for refs and branches later.
+
+---
+
+Can you run the full test suite?
+
+---
+
+Use the review skill
+
+---
+
+Can you address this issue in a way that dos not modify the current `entire clean` behavior unless the checkpoints v2 dual write setting is enabled. It would be confusing to show a help text referencing checkpoints v2 while it's still in development and the customer doesn't have the setting enabled.
+
+---
+
+I think it would be better to keep the help text generic, if possible.
+
+---
+
+I've changed my mind: Go with the version you suggested.
