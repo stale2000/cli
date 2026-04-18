@@ -52,3 +52,7 @@ y
 ---
 
 TestFetchBlobsByHash_UsesCheckpointRemote doesn’t currently validate the checkpoint_remote behavior it describes. The test fetches entire/checkpoints/v1 from the checkpoint remote (which already brings the blob into the local object store) and then changes the origin URL to checkpointDir, so the final FetchBlobsByHash success is no longer attributable to resolving checkpoint_remote. Consider rewriting this test to assert the fetch target selection (e.g., by configuring checkpoint_remote and verifying the command/remote used), or adjust the name/comments so it reflects what’s actually being tested.
+
+---
+
+ship it
