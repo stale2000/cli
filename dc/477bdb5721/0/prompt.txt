@@ -1,9 +1,1 @@
-Commit and continue
-
----
-
-Yes
-
----
-
-We should also mention something about the expected compacted format that we're expecting in the base64 encoded transcript returned by the external agent
+Yes, commit
