@@ -43,3 +43,7 @@ there is still a uncommited change? I assume lint might have that autofixed?
 ---
 
 can you give me a PR description
+
+---
+
+I tested this now and the issue is that the code tries to commit before the agents are actually enabled and the `.entire/` files and hooks are written so there is nothing to commit. The commit needs to happen after the agent selection.
