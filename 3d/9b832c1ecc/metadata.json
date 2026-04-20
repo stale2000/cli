@@ -1,0 +1,25 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "3d9b832c1ecc",
+  "strategy": "manual-commit",
+  "branch": "remote-package",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/strategy/manual_commit_condensation.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/3d/9b832c1ecc/0/metadata.json",
+      "transcript": "/3d/9b832c1ecc/0/full.jsonl",
+      "content_hash": "/3d/9b832c1ecc/0/content_hash.txt",
+      "prompt": "/3d/9b832c1ecc/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 40103314,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 37740544,
+    "output_tokens": 152881,
+    "api_call_count": 313
+  }
+}
