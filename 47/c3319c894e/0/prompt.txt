@@ -3,3 +3,7 @@
 [lint:go] ^
 [lint:go] 1 issues:
 [lint:go] * maintidx: 1
+
+---
+
+commit
