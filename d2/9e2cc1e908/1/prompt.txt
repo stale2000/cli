@@ -15,3 +15,7 @@ I ran `go test ./cmd/entire/cli -run 'TestEnableUsesSetupFlow|TestSelectAllAgent
 1. `cmd/entire/cli/strategy/manual_commit_condensation.go:490` likely reintroduces an `ireturn` lint failure. `.golangci.yaml` enables `ireturn`, and `summarize.Generator` is not in the allowlist. This function previously had a targeted `//nolint:ireturn` with an explanation matching the comment above it; removing that suppression looks accidental rather than semantic. I couldn’t get `golangci-lint` to run cleanly in this sandboxed environment, but from the repo config this should be flagged again.
 
 The two earlier `setup` issues look fixed: `selectFn` now bypasses the non-interactive bail-out in `runManageAgents`, and `--yes` now respects `--telemetry=false` plus `ENTIRE_TELEMETRY_OPTOUT`. I also ran the targeted tests for the new `setup` coverage, and they pass.
+
+---
+
+can you commit
