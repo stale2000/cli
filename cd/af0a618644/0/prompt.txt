@@ -1,9 +1,1 @@
-Do that
-
----
-
-Yes, do that.
-
----
-
-You've introduced some linter errors
+Commit and push
