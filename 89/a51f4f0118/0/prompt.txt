@@ -1,0 +1,21 @@
+Use the pr-feedback skill
+
+---
+
+Go ahead
+
+---
+
+What's the reason for removing most of the parameters of buildFinalizeCompactTranscript()?
+
+---
+
+Yes, please. If they aren't used, they shouldn't be there.
+
+---
+
+Earlier, we did some work specifically to ensure that startLine is set correctly. Won't these changes undo these changes? I'm especially worried that this change might mean that subsequent checkpoints referring to the same session would result in incorrect line number references.
+
+---
+
+Do that.
