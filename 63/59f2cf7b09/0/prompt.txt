@@ -71,3 +71,28 @@ I also ran:
 env GOCACHE=/tmp/go-build go test ./cmd/entire/cli -run 'TestRunGitHubBootstrap_Yes|TestEnableCmd_Init|TestBootstrap_FreshMachine_NoIdentity_RealGit'
 ```
 and those targeted tests passed.
+
+---
+
+could we in this case - if a tty is available - fallback to asking?
+
+❯ entire enable -y
+
+━ Setting up git repository
+✓ Initialized empty git repository
+Using GitHub owner: Soph
+
+━ Enabling Entire
+
+Selected agents: Claude Code, Codex, Copilot CLI, Cursor, Factory AI Droid, Gemini CLI, OpenCode
+
+Installed Claude Code search subagent at .claude/agents/entire-search.md
+Installed Codex search subagent at .codex/agents/entire-search.toml
+Installed Gemini CLI search subagent at .gemini/agents/entire-search.md
+✓ Hooks installed
+✓ Project configured (.entire/settings.json)
+✓ Created orphan branch 'entire/checkpoints/v1' for session metadata
+
+━ Publishing to GitHub
+✓ Created initial commit (Initial commit)
+gh repo create: gh repo create: exit status 1: GraphQL: Name already exists on this account (createRepository)
