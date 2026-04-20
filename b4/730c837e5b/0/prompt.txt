@@ -100,3 +100,7 @@ gh repo create: gh repo create: exit status 1: GraphQL: Name already exists on t
 ---
 
 did you add tests for this?
+
+---
+
+can you do a quick pass over othe commands what they use as a separator? the "━" looks a bit as if it didn't work compared to the checkmark
