@@ -119,3 +119,23 @@ yes you need to rename everything we did to recap
 ---
 
 why do you need so many commits
+
+---
+
+yes and less commmits, just do each chunk so you can go faster
+
+---
+
+question why do we need insights.go adn aggregate.go if we're pulling from entire.io existing data sources?
+
+---
+
+so is it just for organizing for the views?
+
+---
+
+are inline readers better?
+
+---
+
+yes let's do that
