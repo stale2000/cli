@@ -220,3 +220,7 @@ Here are the code quality findings:
 ---
 
 It looks like you've removed the performance trancing code. Can you put that back in a way that uses the same event names etc. as before?
+
+---
+
+commit and continue. Respond and resolve to the comments you've addressed.
