@@ -7,3 +7,7 @@ Yes
 ---
 
 Should we add a debug log to make sure this new behavior is observable?
+
+---
+
+commit, push, and update the pr
