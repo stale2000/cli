@@ -268,3 +268,7 @@ Let's maybe be more spefific and not ignore everything in the agent namespace bu
 ---
 
 Never mind, I just realized that the capabilities.go file contains a lot of things we need to ignore. Feel free to add the wildcard again.
+
+---
+
+commit and push
