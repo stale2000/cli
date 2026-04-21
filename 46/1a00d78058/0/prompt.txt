@@ -11,3 +11,7 @@ lint failed, https://github.com/entireio/cli/actions/runs/24749953755/job/724106
 ---
 
 did you re-run all tests, including full lint
+
+---
+
+go ahead
