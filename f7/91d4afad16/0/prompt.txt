@@ -11,3 +11,7 @@ Should we add a debug log to make sure this new behavior is observable?
 ---
 
 commit, push, and update the pr
+
+---
+
+Are the changes around normalizeSigningKey() still necessary? As far as I can tell, they aren't since we're fully disabling signing for users with external ssh programs, anyways.
