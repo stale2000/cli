@@ -232,3 +232,7 @@ Can you ensure all lint steps and tests are passing?
 ---
 
 I've just pulled in main and some recent refactorings around ResolveCheckpointURL broke our code. Can you address this?
+
+---
+
+commit and push
