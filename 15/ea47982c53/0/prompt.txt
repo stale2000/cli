@@ -13,3 +13,7 @@ Continue the entire-review feature implementation session — check results of t
 ---
 
 build local binary and test the new command, all new scenarios
+
+---
+
+fix gaps now please
