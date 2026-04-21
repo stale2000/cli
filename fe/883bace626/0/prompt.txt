@@ -23,3 +23,7 @@ Are the changes around normalizeSigningKey() still necessary? As far as I can te
 ---
 
 Yes, do that.
+
+---
+
+Yes.
