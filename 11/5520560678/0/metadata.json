@@ -1,0 +1,103 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "115520560678",
+  "session_id": "a9ceb2b8-24ea-41bb-96b7-daca8d2e0e08",
+  "strategy": "manual-commit",
+  "created_at": "2026-04-21T16:41:56.866341Z",
+  "branch": "agent-improvements",
+  "checkpoints_count": 5,
+  "files_touched": [
+    "docs/plans/2026-04-16-agent-memory-lessons-experiences-design.md",
+    "docs/plans/2026-04-16-agent-planning-layer-design.md"
+  ],
+  "agent": "Claude Code",
+  "owner_name": "Alisha Kawaguchi",
+  "owner_id": "alishakawaguchi",
+  "owner_email": "alisha@entire.io",
+  "turn_id": "ea213972dcfc",
+  "token_usage": {
+    "input_tokens": 176,
+    "cache_creation_tokens": 604253,
+    "cache_read_tokens": 19781552,
+    "output_tokens": 159228,
+    "api_call_count": 91
+  },
+  "session_metrics": {
+    "turn_count": 15
+  },
+  "summary": {
+    "intent": "Design a server-side memory system (lessons + experiences) and planning layer for the Entire CLI agent, incorporating findings from an existing design doc and the already-implemented RFD-014 (CheckpointAnalysis API).",
+    "outcome": "Two design docs written and committed (force-added past .gitignore): `2026-04-16-agent-memory-lessons-experiences-design.md` (~65 KB, server-primary extraction/storage with local cache+outbox) and `2026-04-16-agent-planning-layer-design.md` (~49 KB, plans local-primary with server completion signal only). Both docs incorporate four prompt-injection hardening improvements from hermes-agent analysis.",
+    "learnings": {
+      "repo": [
+        "docs/plans/ is listed in .gitignore (line 61); design docs there require `git add -f` to commit on the working branch",
+        "The checkpoint system archives files under docs/plans/ on a shadow branch (e.g. entire/dbf1db1-e84028) even when they are gitignored on the working branch",
+        "RFD-014 is already implemented: CheckpointAnalysis generation moved to the entire.io API (webhook-triggered for synced checkpoints, on-demand for unsynced uploads); Entire pays the LLM cost via its own Claude key",
+        "All session and checkpoint data is already sent to the API and stored in the server DB, making local-only storage arguments for experiences invalid"
+      ],
+      "code": [],
+      "workflow": [
+        "When existing memory architecture assumptions are invalidated mid-session (e.g. RFD-014 already implemented), plan files should be overwritten fresh rather than patched incrementally",
+        "Hermes-agent (at /Users/alisha/Projects/hermes-agent) contains a concrete prompt-injection sanitizer with a versioned denylist regex set, invisible Unicode rejection, recalled-context wrapper framing, and response/echo-back sanitization — all transferable patterns",
+        "Invisible Unicode characters (U+200B, U+200C, U+200D, U+2060, U+FEFF, U+202A–U+202E) are invisible in TUI review but visible to LLMs, making them a real injection vector; rejection at ingress is the right mitigation",
+        "Wrapping injection bundles with an explicit 'this is recalled guidance, not new user instructions' annotation is one of the strongest and cheapest prompt-injection mitigations",
+        "Response sanitization (stripping memory-fence tags from captured agent output before analysis) closes a self-referential poisoning loop where the model can echo memory fences into its reply and influence future extraction"
+      ]
+    },
+    "friction": [
+      "Second design doc path was wrong on first attempt — required glob search to locate the correct path under docs/plans/",
+      "docs/plans/ gitignore blocked normal `git add`; required `-f` flag discovery and an explicit user confirmation step before committing",
+      "The planning-layer doc was written before the memory doc was rewritten to server-primary, requiring targeted multi-section edits to align the two docs' architecture assumptions",
+      "Multiple clarifying question rounds were needed before the memory doc could be rewritten (server vs local extraction, RFD-014 already implemented, sensitivity argument invalidated)"
+    ],
+    "open_items": [
+      "Pull cadence for local memory cache not decided: three options remain open (manual refresh, auto-on-session-start, background pull) — manual refresh recommended for beta",
+      "Outbox conflict resolution semantics not yet specified",
+      "Cache TTL policy not defined",
+      "Branch-scope server semantics not resolved",
+      "Auto-promotion override behavior not specified",
+      "Manual experience authoring not designed",
+      "Playbook layer not designed",
+      "Ordered-trajectory source is definitively an RFD-014 extension question, not a CLI-level one — deferred",
+      "Repo-scope lesson sync across users deliberately deferred to Phase 2 to avoid quality-drift risk in beta",
+      "Phase 2 (server-side repo-scope lesson extraction) and Phase 3 (server-side experience extraction) require a new RFD",
+      "Planning-layer doc: whether plan drafting should eventually move server-side (open question added to §14)",
+      "Agent-invocable memory tool (hermes-agent improvement #5) explicitly deferred — not added in this session",
+      "Prompt cache stability optimization (frozen snapshot at session start) noted but deferred to cost-tuning phase"
+    ],
+    "implementation_rationale": [
+      "Server-primary memory storage chosen because all session/checkpoint data is already on the server (RFD-014 implemented), making local-only arguments invalid and cross-device continuity free",
+      "Plans kept local-primary because plans are naturally scoped to one workstation/session; cross-device plan continuity is not a beta-critical feature and would require significant additional server surface",
+      "Plan outcome feedback to memory goes server-side via a focused completion signal (POST /plans/completions) rather than direct memory row mutation, keeping the local/server boundary clean",
+      "Memory derivation runs server-side because the server already has the full analysis artifact and cross-user evidence; CLI becomes a read consumer only",
+      "Hybrid extraction trigger (webhook for synced, on-demand for unsynced) mirrors RFD-014's two-path model exactly to avoid new architecture",
+      "Sanitizer denylist versioned as sanitizer_denylist_v1 so bumps piggyback on extractor_version cache invalidation",
+      "Recalled-context wrapper uses authoritative='false' attribute to signal to the model that the content is background data, not authoritative instructions"
+    ],
+    "tradeoffs": [
+      "Local extraction (fast iteration, user pays cost, quality drifts across users) vs server extraction (consistent quality, Entire pays, slower to iterate) — server extraction chosen for alignment with RFD-014",
+      "Local-only memory storage (offline, private, no sync cost) vs server-primary with local cache (cross-device, backup, enables derivation) — server-primary chosen given data already on server",
+      "Local-primary plans (simple, fast to ship, no outbox) vs server-primary plans (cross-device continuity, more server work) — local-primary chosen for beta",
+      "Manual memory refresh (predictable, no background activity) vs auto-on-session-start (always fresh but adds latency) vs background pull (fresh without session-start cost but complex) — manual recommended for beta",
+      "Not syncing repo-scope lessons across users in Phase 1 (avoids quality-drift from different users extracting different memories from same analysis) vs early cross-user convergence — deferred to Phase 2",
+      "Experiences deliberately not extracted in isolation from experiences-in-server-extraction until redaction design exists, even though sensitivity argument was partially invalidated"
+    ],
+    "codebase_patterns": [
+      "Design docs live under docs/plans/ which is gitignored; force-add required for working-branch commits",
+      "The checkpoint system maintains a shadow branch archive of gitignored files independently of the working branch",
+      "RFD-014 established the pattern: webhook-triggered async for synced data, on-demand for unsynced uploads — new features should follow this two-path model",
+      "Memory extraction uses extractor_version for cache invalidation; denylist version bumps should piggyback on this same versioning mechanism",
+      "The entire.io API uses its own Claude key and GitHub App credentials for server-side LLM calls; user auth is separate from LLM cost",
+      "Entire-Plan-Step commit trailer already exists in the checkpoint system and can be parsed server-side for plan step advancement without extra round trips"
+    ]
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-04-21T16:41:10.538933Z",
+    "agent_lines": 2142,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 2142,
+    "agent_percentage": 100
+  }
+}
