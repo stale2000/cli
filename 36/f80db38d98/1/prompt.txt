@@ -72,3 +72,7 @@ Most valuable cases:
 **Recommendation**
 
 Yes, add more tests here. The highest ROI is pure table-driven coverage around the new stats helpers and renderer, because almost all of this logic is deterministic and currently unprotected. If you want command-level coverage too, I’d first make `runStats` accept an injectable client factory so login failure and API error paths can be tested cleanly.
+
+---
+
+can you do meaningful commits
