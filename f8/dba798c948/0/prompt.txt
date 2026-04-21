@@ -1,13 +1,1 @@
-This session about updating a markdown doc only. Feel free to skip validation checks for docs-only changes.
-
----
-
-Go
-
----
-
-The newly added docs seem to test a lot of edge cases. Think if this doc in this way: Software engineers will use their valuable time in order to run through these examples. Some of these scenarios might be more valudable than other, others might be easier to test. Focus on the high value cases that are easier to test first and maybe mention a few important and very common edge cases. What we don't want here is engineers running through scenarios that should be automated tests.
-
----
-
-Yes
+Commit and continue
