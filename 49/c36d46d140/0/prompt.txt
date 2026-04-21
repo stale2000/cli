@@ -47,3 +47,7 @@ is there anything else we need to do
 ---
 
 we have no pr for all agent errors is this ready
+
+---
+
+okay do 1 and then run all tests and then tell me how many commits and diffs we have
