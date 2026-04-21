@@ -1,5 +1,1 @@
-Can you go through and review docs/guides/checkpoints-v2-manual-test-plan.md and update it to the latest state implemented in this repo? Some features might have changed slightly. Others weren't ready when the guide was written etc. Ensure that everything is up to date, matches the current state and makes sense.
-
----
-
-Yes
+This session about updating a markdown doc only. Feel free to skip validation checks for docs-only changes.
