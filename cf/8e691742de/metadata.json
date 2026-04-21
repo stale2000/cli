@@ -1,0 +1,19 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "cf8e691742de",
+  "strategy": "manual-commit",
+  "branch": "update-checkpoints-version-setting",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/settings/settings.go",
+    "cmd/entire/cli/settings/settings_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/cf/8e691742de/0/metadata.json",
+      "transcript": "/cf/8e691742de/0/full.jsonl",
+      "content_hash": "/cf/8e691742de/0/content_hash.txt",
+      "prompt": "/cf/8e691742de/0/prompt.txt"
+    }
+  ]
+}
