@@ -19,3 +19,7 @@ Yes, check that
 ---
 
 Do it
+
+---
+
+commit it but don't update the claude files. That seems to be redundant
