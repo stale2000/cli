@@ -1,24 +1,9 @@
 {
-  "cli_version": "dev",
+  "cli_version": "v0.5.6-nightly.202604210647.ef25b3c9-dev-b7169b4a1",
   "checkpoint_id": "df1ddfe6b261",
   "strategy": "manual-commit",
-  "branch": "auto-update",
   "checkpoints_count": 0,
-  "files_touched": [
-    "cmd/entire/cli/attach.go",
-    "cmd/entire/cli/explain_summary_provider.go",
-    "cmd/entire/cli/integration_test/testenv.go",
-    "cmd/entire/cli/interactive/interactive.go",
-    "cmd/entire/cli/interactive/interactive_test.go",
-    "cmd/entire/cli/login.go",
-    "cmd/entire/cli/setup.go",
-    "cmd/entire/cli/setup_github.go",
-    "cmd/entire/cli/strategy/manual_commit_hooks.go",
-    "cmd/entire/cli/strategy/manual_commit_rewind.go",
-    "cmd/entire/cli/strategy/preparecommitmsg_bench_test.go",
-    "cmd/entire/cli/versioncheck/autoupdate.go",
-    "e2e/testutil/repo.go"
-  ],
+  "files_touched": null,
   "sessions": [
     {
       "metadata": "/df/1ddfe6b261/0/metadata.json",
@@ -28,10 +13,11 @@
     }
   ],
   "token_usage": {
-    "input_tokens": 12,
-    "cache_creation_tokens": 23410,
-    "cache_read_tokens": 821935,
-    "output_tokens": 1833,
-    "api_call_count": 7
-  }
+    "input_tokens": 38,
+    "cache_creation_tokens": 179983,
+    "cache_read_tokens": 2019137,
+    "output_tokens": 14610,
+    "api_call_count": 24
+  },
+  "has_review": true
 }
