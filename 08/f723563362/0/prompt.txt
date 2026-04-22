@@ -1,0 +1,21 @@
+commit first and then rerun the clean scenario in v2 mode
+
+---
+
+Don't go overboard with the e2e tests. They are often very fragile and adding to many of them would make the problem worse. Do we have any other gaps we want to close otherwise?
+
+---
+
+Before switching to lower level tests, can you add a checkpoints v2 workflow that's currently triggered via workflow dispatch only?
+
+---
+
+Can you call it something like `e2e-checkpoints-v2.yml` or something like it? I want to emphasize that the workflow is running e2e tests.
+
+---
+
+Okay, do it
+
+---
+
+Can you also make the agent selectable but default to vogon?
