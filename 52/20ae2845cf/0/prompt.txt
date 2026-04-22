@@ -79,3 +79,7 @@ I commited them alread
 
 ~/Projects/wt/cli/entire-dispatch-codex (entire-dispatch-codex) $ ENTIRE_API_BASE_URL=http://localhost:8787 /tmp/entire dispatch
 POST /api/v1/dispatch: Post "http://localhost:8787/api/v1/dispatch": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+---
+
+commit and push
