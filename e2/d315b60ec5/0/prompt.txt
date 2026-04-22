@@ -187,3 +187,7 @@ okay we'll try this first, make sure it's colorful, nice to see, also do you kno
 ---
 
 maybe we don't call it team then
+
+---
+
+do contributors
