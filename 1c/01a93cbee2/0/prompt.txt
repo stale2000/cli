@@ -101,3 +101,7 @@ why is this now out of scope of the plan,   2. Phase 6 as 4 commits (one per age
 ---
 
 why can't you reveert what is giving us large additions, stick to the plan. I just am not understanding the drastic change
+
+---
+
+okay do this only please
