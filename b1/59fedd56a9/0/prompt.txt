@@ -1,5 +1,1 @@
-commit and continue
-
----
-
-Go
+Commit and continue. Start the next task after that
