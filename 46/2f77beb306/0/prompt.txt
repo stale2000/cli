@@ -57,3 +57,7 @@ remove border box on generating loading state
 ---
 
 cloud wizard is all messed up. It should let me choose repo path or org path
+
+---
+
+commit
