@@ -65,3 +65,7 @@ is there a problem with phase 2 and 3
 ---
 
 okay also, this plan should only have ~500 lines total. Are you familar with the scope of the plan because it seems like maybe not if this one phase has over 1000
+
+---
+
+why don't you review the planning doc and fix the mistake that happened in 2+3
