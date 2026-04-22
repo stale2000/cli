@@ -49,3 +49,7 @@ entirehq/go-git-api ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 Soph/go-git-cli     ▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░  19
 
 on entire.io cli has 161
+
+---
+
+can you look at ../entire.io I made two changes to the activity api, the long time streak should just work but the other fix means we get the same continuity data
