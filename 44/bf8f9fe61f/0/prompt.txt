@@ -1,9 +1,1 @@
-Commit the changes and do it
-
----
-
-Okay, continue
-
----
-
-Do it
+Commit and continue
