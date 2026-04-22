@@ -1,0 +1,25 @@
+Commit and continue
+
+---
+
+Go
+
+---
+
+Would it be possible to update vogon to support attach explicitly? A lot of the other agents aren't really feasible to run locally so vogon would be a great target.
+
+---
+
+Do it
+
+---
+
+commit and continue
+
+---
+
+Let's go with the next step first and validate that the tests work with vogon.
+
+---
+
+Okay, do it
