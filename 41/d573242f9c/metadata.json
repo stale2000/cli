@@ -1,0 +1,29 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "41d573242f9c",
+  "strategy": "manual-commit",
+  "branch": "feat/entire-why",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/why.go",
+    "cmd/entire/cli/why_tui.go",
+    "cmd/entire/cli/why_tui_test.go",
+    "go.mod",
+    "go.sum"
+  ],
+  "sessions": [
+    {
+      "metadata": "/41/d573242f9c/0/metadata.json",
+      "transcript": "/41/d573242f9c/0/full.jsonl",
+      "content_hash": "/41/d573242f9c/0/content_hash.txt",
+      "prompt": "/41/d573242f9c/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 1588023,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 1499904,
+    "output_tokens": 7080,
+    "api_call_count": 24
+  }
+}
