@@ -195,3 +195,7 @@ do contributors
 ---
 
 also entire recap --claude-code should be callable, and  entire recap --30 --agent claude-code is wrong should just be  entire recap --30 --claude-code
+
+---
+
+we need contributor data
