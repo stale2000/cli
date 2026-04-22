@@ -87,3 +87,19 @@ and then we keep the same functionality
 ---
 
 okay go ahead
+
+---
+
+we can simplify more, under 1000 diffs. what is test and what is production code
+
+---
+
+would we still have same user seeing the same messages
+
+---
+
+yes
+
+---
+
+proceed to see if we can cut more. but if not, then what we have is fine
