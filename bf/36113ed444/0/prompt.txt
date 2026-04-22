@@ -1,17 +1,1 @@
-can you review the branch
-
----
-
-can you review again
-
----
-
-can you review again?
-
----
-
-last question: what kind of integration tests where added?
-
----
-
-ok, I'd like to craft a few proper integration tests that validate what this is doing. We need to fake running an agent, but I think it's worth validating the `entire review` works, `entire review attach` works too and also check a few edge cases
+can you commit the review tests then
