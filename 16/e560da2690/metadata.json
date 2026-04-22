@@ -3,7 +3,7 @@
   "checkpoint_id": "16e560da2690",
   "strategy": "manual-commit",
   "branch": "feat/entire-why",
-  "checkpoints_count": 3,
+  "checkpoints_count": 4,
   "files_touched": [
     "cmd/entire/cli/root.go",
     "cmd/entire/cli/why.go",
@@ -25,13 +25,19 @@
       "transcript": "/16/e560da2690/1/full.jsonl",
       "content_hash": "/16/e560da2690/1/content_hash.txt",
       "prompt": "/16/e560da2690/1/prompt.txt"
+    },
+    {
+      "metadata": "/16/e560da2690/2/metadata.json",
+      "transcript": "/16/e560da2690/2/full.jsonl",
+      "content_hash": "/16/e560da2690/2/content_hash.txt",
+      "prompt": "/16/e560da2690/2/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 13481485,
+    "input_tokens": 13865528,
     "cache_creation_tokens": 0,
-    "cache_read_tokens": 13112960,
-    "output_tokens": 34697,
-    "api_call_count": 100
+    "cache_read_tokens": 13457792,
+    "output_tokens": 52482,
+    "api_call_count": 110
   }
 }
