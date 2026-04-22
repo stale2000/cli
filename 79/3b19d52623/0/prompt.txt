@@ -1,0 +1,35 @@
+Use the brainstorming skill
+
+Please thoroughly read the project plan in ~/entire/cli/docs/superpowers/specs/2026-03-19-checkpoints-v2-design.md and the RFD in ~/entire/company-knowledge/rfds/rfd-009-transcript-compaction.md.
+
+Now that checkpoints v2 is mostly implemented, can you review and check all the tests we have and ensure we have thorough code coverage on all aspects of the feature? Can you also start to inspect the e2e test suite and see what we can do to run the commands affected by checkpoints v2 in v2 mode using the e2e test suite as well?
+
+There is a user-speficic testing guide in /Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v2-validation/docs/guides/checkpoints-v2-manual-test-plan.md. Also thoroughly read that and ensure that we have tests for all the scenarios outlined in this doc.
+
+---
+
+Let's start with a reusable v2-mode scaffolding first and build on top of that once we have a solid foundation.
+
+---
+
+Let's do that.
+
+---
+
+I approve
+
+---
+
+I'm wondering if I have mis-stated my intentions yesterday: After thinking about this more, I think I came to realize that I'd like a version of the e2e test suite that runs at first with checkpoints v2 enabled and later in v2 only mode. Given that the tests are end2end, they should reflect the user-experience a customer would have and shouldn't be impacted by implementation details. I therefore think that v1 vs. v2 should be a configuration setting for the whole test suite and shouldn't just be some helpers to write v2 specific tests. What do you think about that?
+
+---
+
+Do that
+
+---
+
+I approve
+
+---
+
+Continue
