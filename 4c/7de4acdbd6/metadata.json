@@ -1,8 +1,9 @@
 {
-  "cli_version": "v0.5.6-nightly.202604210647.ef25b3c9-dev-b7169b4a1",
+  "cli_version": "dev",
   "checkpoint_id": "4c7de4acdbd6",
   "strategy": "manual-commit",
-  "checkpoints_count": 0,
+  "branch": "auto-update",
+  "checkpoints_count": 1,
   "files_touched": null,
   "sessions": [
     {
@@ -13,11 +14,10 @@
     }
   ],
   "token_usage": {
-    "input_tokens": 23,
-    "cache_creation_tokens": 93486,
-    "cache_read_tokens": 1534906,
-    "output_tokens": 13064,
-    "api_call_count": 18
-  },
-  "has_review": true
+    "input_tokens": 413,
+    "cache_creation_tokens": 1307819,
+    "cache_read_tokens": 66634594,
+    "output_tokens": 158347,
+    "api_call_count": 279
+  }
 }
