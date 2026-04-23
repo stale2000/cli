@@ -832,3 +832,11 @@ is it not anywhere in 1015 in any of the commits we have that are dedicated to r
 ---
 
 okay then rebase on proper main and ensure that c30039be2588e6af57dfa34bad72963c210b2bfa is not there and only the ones related to this new command are on 1015.
+
+---
+
+why is there 10,000 additions?
+
+---
+
+i dont need any planning docs, or legacy fallback

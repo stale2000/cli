@@ -3,96 +3,22 @@
   "checkpoint_id": "6a34a6b7c34d",
   "session_id": "b35707d3-641d-4b8a-83b2-52ef9ab92ecf",
   "strategy": "manual-commit",
-  "created_at": "2026-04-23T19:15:15.423593Z",
+  "created_at": "2026-04-23T19:23:07.137753Z",
   "branch": "entire-activity",
-  "checkpoints_count": 10,
-  "files_touched": [
-    "cmd/entire/cli/recap.go",
-    "cmd/entire/cli/recap/agents_card.go",
-    "cmd/entire/cli/recap/agents_card_test.go",
-    "cmd/entire/cli/recap/aggregate.go",
-    "cmd/entire/cli/recap/aggregate_test.go",
-    "cmd/entire/cli/recap/api_types.go",
-    "cmd/entire/cli/recap/api_types_test.go",
-    "cmd/entire/cli/recap/badges.go",
-    "cmd/entire/cli/recap/badges_test.go",
-    "cmd/entire/cli/recap/cache.go",
-    "cmd/entire/cli/recap/cache_test.go",
-    "cmd/entire/cli/recap/contributors.go",
-    "cmd/entire/cli/recap/contributors_test.go",
-    "cmd/entire/cli/recap/doc.go",
-    "cmd/entire/cli/recap/enrich.go",
-    "cmd/entire/cli/recap/enrich_test.go",
-    "cmd/entire/cli/recap/heatmap.go",
-    "cmd/entire/cli/recap/heatmap_test.go",
-    "cmd/entire/cli/recap/insights.go",
-    "cmd/entire/cli/recap/insights_test.go",
-    "cmd/entire/cli/recap/load.go",
-    "cmd/entire/cli/recap/load_checkpoints_test.go",
-    "cmd/entire/cli/recap/load_linked.go",
-    "cmd/entire/cli/recap/load_linked_test.go",
-    "cmd/entire/cli/recap/load_test.go",
-    "cmd/entire/cli/recap/me_recap.go",
-    "cmd/entire/cli/recap/metrics.go",
-    "cmd/entire/cli/recap/metrics_test.go",
-    "cmd/entire/cli/recap/model.go",
-    "cmd/entire/cli/recap/model_range_test.go",
-    "cmd/entire/cli/recap/model_test.go",
-    "cmd/entire/cli/recap/recap_view.go",
-    "cmd/entire/cli/recap/recap_view_test.go",
-    "cmd/entire/cli/recap/render_activity.go",
-    "cmd/entire/cli/recap/render_activity_test.go",
-    "cmd/entire/cli/recap/render_bar.go",
-    "cmd/entire/cli/recap/render_bar_test.go",
-    "cmd/entire/cli/recap/render_chart.go",
-    "cmd/entire/cli/recap/render_chart_test.go",
-    "cmd/entire/cli/recap/render_panel.go",
-    "cmd/entire/cli/recap/render_panel_test.go",
-    "cmd/entire/cli/recap/render_static.go",
-    "cmd/entire/cli/recap/render_static_test.go",
-    "cmd/entire/cli/recap/render_summary.go",
-    "cmd/entire/cli/recap/render_summary_test.go",
-    "cmd/entire/cli/recap/styles.go",
-    "cmd/entire/cli/recap/styles_test.go",
-    "cmd/entire/cli/recap/testutil_test.go",
-    "cmd/entire/cli/recap/tool_categorize.go",
-    "cmd/entire/cli/recap/tool_categorize_test.go",
-    "cmd/entire/cli/recap/tui.go",
-    "cmd/entire/cli/recap/tui_test.go",
-    "cmd/entire/cli/recap_test.go",
-    "cmd/entire/cli/root.go",
-    "cmd/entire/cli/testutil/git_commit_with_msg_test.go",
-    "cmd/entire/cli/testutil/testutil.go",
-    "docs/2026-04-15-entire-activity-design.md",
-    "docs/2026-04-21-entire-activity-replan.md",
-    "docs/2026-04-22-entire-recap-visual-redesign-design.md",
-    "docs/2026-04-22-entire-recap-visual-redesign-plan.md",
-    "go.mod"
-  ],
+  "checkpoints_count": 3,
+  "files_touched": [],
   "agent": "Claude Code",
   "model": "claude-opus-4-7[1m]",
-  "turn_id": "523aeb0a5445",
+  "turn_id": "f772272e211e",
   "token_usage": {
-    "input_tokens": 1751,
-    "cache_creation_tokens": 10985697,
-    "cache_read_tokens": 435674490,
-    "output_tokens": 896791,
-    "api_call_count": 987
+    "input_tokens": 1786,
+    "cache_creation_tokens": 11005462,
+    "cache_read_tokens": 451162870,
+    "output_tokens": 908646,
+    "api_call_count": 1012
   },
   "session_metrics": {
-    "turn_count": 103
-  },
-  "initial_attribution": {
-    "calculated_at": "2026-04-23T19:15:15.252981Z",
-    "agent_lines": 2924,
-    "agent_removed": 0,
-    "human_added": 6,
-    "human_modified": 3,
-    "human_removed": 0,
-    "total_committed": 2933,
-    "total_lines_changed": 2933,
-    "agent_percentage": 99.69314694851687,
-    "metric_version": 2
+    "turn_count": 105
   },
   "prompt_attributions": [
     {
@@ -106,69 +32,14 @@
       "checkpoint_number": 3,
       "user_lines_added": 0,
       "user_lines_removed": 0,
-      "agent_lines_added": 2928,
+      "agent_lines_added": 1,
       "agent_lines_removed": 1
     },
     {
       "checkpoint_number": 4,
       "user_lines_added": 0,
       "user_lines_removed": 0,
-      "agent_lines_added": 2928,
-      "agent_lines_removed": 1
-    },
-    {
-      "checkpoint_number": 5,
-      "user_lines_added": 0,
-      "user_lines_removed": 0,
-      "agent_lines_added": 2928,
-      "agent_lines_removed": 1
-    },
-    {
-      "checkpoint_number": 6,
-      "user_lines_added": 0,
-      "user_lines_removed": 0,
-      "agent_lines_added": 2928,
-      "agent_lines_removed": 1
-    },
-    {
-      "checkpoint_number": 7,
-      "user_lines_added": 0,
-      "user_lines_removed": 0,
-      "agent_lines_added": 2928,
-      "agent_lines_removed": 1
-    },
-    {
-      "checkpoint_number": 8,
-      "user_lines_added": 0,
-      "user_lines_removed": 0,
-      "agent_lines_added": 2928,
-      "agent_lines_removed": 1
-    },
-    {
-      "checkpoint_number": 9,
-      "user_lines_added": 0,
-      "user_lines_removed": 0,
-      "agent_lines_added": 2928,
-      "agent_lines_removed": 1
-    },
-    {
-      "checkpoint_number": 10,
-      "user_lines_added": 2,
-      "user_lines_removed": 2,
-      "agent_lines_added": 10357,
-      "agent_lines_removed": 3,
-      "user_added_per_file": {
-        "go.mod": 2
-      },
-      "user_removed_per_file": {
-        "go.mod": 2
-      }
-    },
-    {
-      "checkpoint_number": 11,
-      "user_lines_added": 0,
-      "user_lines_removed": 0,
-      "agent_lines_added": 10355,
+      "agent_lines_added": 1,
       "agent_lines_removed": 1
     }
   ]
