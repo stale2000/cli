@@ -1,9 +1,1 @@
-Run the tests, commit and continue
-
----
-
-Do it
-
----
-
-Add tests, please
+Run and commit the changes
