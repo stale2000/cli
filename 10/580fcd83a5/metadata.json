@@ -3,7 +3,7 @@
   "checkpoint_id": "10580fcd83a5",
   "strategy": "manual-commit",
   "branch": "soph/entire-review-2",
-  "checkpoints_count": 2,
+  "checkpoints_count": 1,
   "files_touched": [
     "cmd/entire/cli/review.go"
   ],
@@ -16,10 +16,10 @@
     }
   ],
   "token_usage": {
-    "input_tokens": 78,
-    "cache_creation_tokens": 65623,
-    "cache_read_tokens": 10169673,
-    "output_tokens": 50728,
-    "api_call_count": 23
+    "input_tokens": 2770,
+    "cache_creation_tokens": 892964,
+    "cache_read_tokens": 48922907,
+    "output_tokens": 282630,
+    "api_call_count": 173
   }
 }
