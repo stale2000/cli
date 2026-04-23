@@ -1,0 +1,13 @@
+Okay, go through the issues and address them one by one.
+
+---
+
+I approve
+
+---
+
+Commit and continue
+
+---
+
+Only commit the change you've just made. I've been updating other files in a different terminal.
