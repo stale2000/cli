@@ -1,5 +1,1 @@
-Do it
-
----
-
-I approve
+commit and continue
