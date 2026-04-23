@@ -753,3 +753,7 @@ fish: Unknown command: static
 fish: 
 static --insecure-http-auth --refresh 
 ^~~~~^
+
+---
+
+that is good
