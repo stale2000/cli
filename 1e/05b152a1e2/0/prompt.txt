@@ -114,3 +114,11 @@ dispatch base URL: refusing to use insecure http:// base URL for authentication 
 ~/Projects/wt/cli/entire-dispatch-codex (entire-dispatch-codex) $ ENTIRE_API_BASE_URL=http://localhost:8787 /tmp/entire dispatch --insecure-http-auth
 Usage:
   entire
+
+---
+
+Error: cmd/entire/cli/dispatch/generate_test.go:169:42: string `main` has 5 occurrences, make it a constant (goconst)
+      if len(branches) != 2 || branches[0] != "main" || branches[1] != "release" {
+                                              ^
+  1 issues:
+  * goconst: 1
