@@ -102,3 +102,7 @@ fix 1 and 3. 2 is fixed in api. fix --all-branches behavior change isn't in --he
 ---
 
 fix this [high] Cloud dispatch sends bearer tokens without the repo-wide HTTPS safety check and explain this [high] Stale origin/HEAD is still accepted and can leak default-branch history
+
+---
+
+fold it in
