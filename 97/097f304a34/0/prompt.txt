@@ -46,3 +46,7 @@ also says tokens is 0 for team in codex tokesn and checkpoints
 ---
 
 okay proceed
+
+---
+
+yes do this please
