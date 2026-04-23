@@ -109,3 +109,12 @@ please, think on a better wording than: To update entire run
 ---
 
 A
+
+---
+
+I'm getting this again:
+  3. CI detection is slightly over-broad
+    os.Getenv("CI") != "" will also return false for CI=false (some devs deliberately set CI=false to override an inherited env). In practice this is the
+  documented de-facto convention, but if you want to be strict, follow GH Actions/CircleCI semantics (CI equal to one of "true", "1"). Minor — flag for
+  discussion, not a
+     blocker.
