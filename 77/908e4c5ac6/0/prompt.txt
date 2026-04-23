@@ -42,3 +42,7 @@ good,is this real data or did you make it up
 ---
 
 also says tokens is 0 for team in codex tokesn and checkpoints
+
+---
+
+okay proceed
