@@ -1,0 +1,5 @@
+CanPromptInteractively checks for everything, tty and env vars and GIT_TERMINAL_.. env. is it really a issue ?
+
+---
+
+add it
