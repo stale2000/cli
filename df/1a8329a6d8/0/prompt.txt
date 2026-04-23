@@ -210,3 +210,7 @@ cli_experiments_2 on  HEAD (d20d773) [$] via 🐹 v1.26.2
 ❯ /tmp/entire attach -f --review 9a29d9ba-5e22-4e92-a5d0-017356e28328
 Attached session 9a29d9ba-5e22-4e92-a5d0-017356e28328
   Added to existing checkpoint f6e622ab0da2
+
+---
+
+YES
