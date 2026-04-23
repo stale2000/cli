@@ -1,32 +1,20 @@
 {
-  "cli_version": "dev",
+  "cli_version": "v0.5.6-nightly.202604210647.ef25b3c9-dev-38c7d5c38",
   "checkpoint_id": "29f6ae5b8238",
-  "session_id": "6936874d-099f-4dbb-b729-153313e9b129",
+  "session_id": "df709011-f5e6-4312-b9ad-608e1e345a4d",
   "strategy": "manual-commit",
-  "created_at": "2026-04-23T12:25:39.94915Z",
-  "branch": "auto-update",
-  "checkpoints_count": 1,
-  "files_touched": [],
+  "created_at": "2026-04-23T12:47:20.572439Z",
+  "checkpoints_count": 0,
+  "files_touched": null,
   "agent": "Claude Code",
-  "model": "claude-opus-4-7[1m]",
-  "turn_id": "89a5c15b366d",
+  "model": "claude-opus-4-7",
   "token_usage": {
-    "input_tokens": 357,
-    "cache_creation_tokens": 318111,
-    "cache_read_tokens": 36809302,
-    "output_tokens": 83729,
-    "api_call_count": 234
+    "input_tokens": 18,
+    "cache_creation_tokens": 51646,
+    "cache_read_tokens": 540516,
+    "output_tokens": 8700,
+    "api_call_count": 9
   },
-  "session_metrics": {
-    "turn_count": 22
-  },
-  "prompt_attributions": [
-    {
-      "checkpoint_number": 2,
-      "user_lines_added": 0,
-      "user_lines_removed": 0,
-      "agent_lines_added": 0,
-      "agent_lines_removed": 0
-    }
-  ]
+  "kind": "agent_review",
+  "review_prompt": "Please run these review skills in order:\n  1. /review\n  2. /security-review\n  3. /entire-engineering:plan_review"
 }
