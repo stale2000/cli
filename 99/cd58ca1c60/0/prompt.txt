@@ -93,3 +93,7 @@ great, Now I want to update the PR description to include a graph tree decision 
 ---
 
 y
+
+---
+
+last small change. If ENTIRE_NO_AUTO_UPDATE is set and or !CanPromptInteractively, instead of just returning. Print something like: `To update entire run: cmd`
