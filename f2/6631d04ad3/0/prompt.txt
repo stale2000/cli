@@ -22,3 +22,7 @@ now If I do dispatch in "my-feature" a,b,c should not be considered for the disp
 ---
 
 yes fix local mode
+
+---
+
+commit
