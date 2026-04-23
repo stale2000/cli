@@ -106,3 +106,11 @@ fix this [high] Cloud dispatch sends bearer tokens without the repo-wide HTTPS s
 ---
 
 fold it in
+
+---
+
+~/Projects/wt/cli/entire-dispatch-codex (entire-dispatch-codex) $ ENTIRE_API_BASE_URL=http://localhost:8787 /tmp/entire dispatch
+dispatch base URL: refusing to use insecure http:// base URL for authentication (use --insecure-http-auth to override)
+~/Projects/wt/cli/entire-dispatch-codex (entire-dispatch-codex) $ ENTIRE_API_BASE_URL=http://localhost:8787 /tmp/entire dispatch --insecure-http-auth
+Usage:
+  entire
