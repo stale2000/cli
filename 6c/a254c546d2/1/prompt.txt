@@ -47,3 +47,7 @@ What's the `ensureHookEntireBinary` there fore in the firs place?
 ---
 
 Okay, keep it and fix the issues outlined by the comment. Double check whether building the cli on windows actually results in an entire.exe executable, though. I'm not sure if this is actually the case.
+
+---
+
+Commit and continue
