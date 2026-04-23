@@ -1,0 +1,25 @@
+Use entire to find a checkpoint related to "warning: failed to create object signer: reading SSH private key"
+
+---
+
+I've logged in. Retry
+
+---
+
+Can you restore the context by running entire explain since the issue doesn't seem to be fixed, yet.
+
+---
+
+Yes, do that
+
+---
+
+It obviously isn't fixed otherwise, I wouldn't be restarting this invastigation. I still get the warnings occasionally, especially when I'm pushing via an AI agent.
+
+---
+
+I approve
+
+---
+
+Can you add tests to validate this behavior?
