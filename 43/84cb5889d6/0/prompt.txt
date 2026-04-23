@@ -77,3 +77,7 @@ I want to test manually if the install command fails. Make simple installation c
 
 instead of the wording: Try again later with 
 lets do: Try again later running: \n
+
+---
+
+ship it
