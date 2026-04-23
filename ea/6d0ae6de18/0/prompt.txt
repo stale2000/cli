@@ -86,3 +86,11 @@ no remove that too
 ---
 
 commit
+
+---
+
+do a full review of this code
+
+---
+
+fix 1 and 3. 2 is fixed in api. fix --all-branches behavior change isn't in --help
