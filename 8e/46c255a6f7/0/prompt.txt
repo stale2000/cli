@@ -1,0 +1,25 @@
+Use the pr-feedback skill
+
+---
+
+Make it so
+
+---
+
+Why does the `E2E_AGENT` variable not work, again?
+
+---
+
+Can we change the task executed to the regular e2e task which allows swapping agents?
+
+---
+
+Yes, do that.
+
+---
+
+Go
+
+---
+
+Go
