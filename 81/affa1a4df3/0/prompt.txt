@@ -91,3 +91,7 @@ DO it
 ---
 
 Go
+
+---
+
+Inspect the merged diff, ensure that everything still works and then commit
