@@ -1,0 +1,9 @@
+Commit and continue
+
+---
+
+Do it
+
+---
+
+How often is `plugin.Get(plugin.ObjectSigner())` actually being called in a real-world scenario?
