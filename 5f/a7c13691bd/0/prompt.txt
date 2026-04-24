@@ -1,9 +1,1 @@
-commit
-
----
-
-Use the pr-feedback skill
-
----
-
-all
+commit, validate and push
