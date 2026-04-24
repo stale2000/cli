@@ -68,3 +68,11 @@ can we make explicit run command as interactive enabled and non interactive enab
 ---
 
 y
+
+---
+
+ship it
+
+---
+
+ship it as draft
