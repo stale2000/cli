@@ -1,17 +1,1 @@
-Commit them
-
----
-
-Use the review skill
-
----
-
-proceed
-
----
-
-Batched
-
----
-
-All of them
+Commit and continue
