@@ -1,0 +1,13 @@
+Review the current sync operation during push. When the local checkpoint branch is not aligned with upstream, it tries to conciliate them. What would be the impact on resetting to the upstream and just cherry picking the commits on top of it?
+
+---
+
+Review the current use of FetchMetadataTreeOnly. That relies on the filtered fetches and is being called regardless of its setting. What other locations the filtered_fetches is being disregarded?
+
+---
+
+Change the existing logic to make sure they assess the value of that setting.
+
+---
+
+Are there any tests that need to be updated for this change? Are there any additional touch points that lean on filtered fetches and are not gated by the setting?
