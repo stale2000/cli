@@ -19,3 +19,7 @@ Continue with the next issue
 ---
 
 Do it
+
+---
+
+commit and continue
