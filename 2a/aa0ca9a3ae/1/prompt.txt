@@ -1,17 +1,1 @@
-commit changes
-
----
-
-Investigate touch points and impact on removing shallow clones across the code base
-
----
-
-go ahead
-
----
-
-Do we need to add any additional logic to unshallow existing checkpoint trees?
-
----
-
-What would be the best way to detect shallow repos and then call --unshallow on the next fetch?
+commit recent changes, then do the above. However, instead of having an unshallow opts, let's automatically do that check once per execution and reuse that in a fetch. This should only be done when filtered_fetches are enabled due to the cheer network impact of doing a full clone for the checkpoints repo.
