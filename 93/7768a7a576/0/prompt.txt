@@ -1,0 +1,1 @@
+Move the logic of registering the objectsigner, instead amend the CreateCommit in cmd/entire/cli/checkpoint/committed.go so that it creates and uses the signer on demand.
