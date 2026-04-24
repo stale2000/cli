@@ -1,0 +1,157 @@
+can you read this report / debug session:
+
+What's there
+
+  - 17/813205bbce/ has two sessions: 0/ = Codex (agent: "Codex", model gpt-5.4, session 019dba89…), 1/ = Claude Code (agent: "Claude Code", 10 checkpoints, 737-line transcript).
+  - Codex's 0/ contains only metadata.json — no full.jsonl, no prompt.txt, no content_hash.txt. Top-level sessions[0].prompt is even explicitly "".
+
+  So Codex was a first-class session. It was registered and condensed — just with nothing to condense.
+
+  Why 0/ is empty
+
+  The session-state file .git/entire-sessions/019dba89-44d8-79f1-8151-b605e6a3c7d2.json gives it away:
+
+  "phase": "active",
+  "checkpoint_count": 0,
+  "last_prompt": "<role> You are Codex performing an adversarial software review..."
+
+  - checkpoint_count: 0 — no SaveStep ever fired for this Codex turn. The shadow branch never got .entire/metadata/019dba89…/full.jsonl or prompt.txt written to it.
+  - phase: "active" — the session never transitioned to idle/ended. Stop hook never cleanly closed it.
+  - Yet base_commit, last_prompt, and agent/model fields are populated, so something wired Codex into Entire at session start, just not at turn end.
+
+  What condensation did
+
+  At commit time, condenseSessions walks session-state files and writes a <N>/metadata.json per session — that's why 0/metadata.json exists (and carries agent_lines: 0, agent_removed: 228, human_removed: 849 — those come from a base_commit
+   → HEAD diff, not from the transcript). When it went to copy transcript files from .entire/metadata/019dba89…/ on the shadow branch, that dir was empty, so full.jsonl / prompt.txt / content_hash.txt simply weren't produced.
+
+  The prompt.txt miss is particularly telling: last_prompt is right there in session state, but the checkpoint dir gets its prompt from shadow-branch prompt.txt, not from session state.
+
+  Root cause
+
+  This is a bug in the Codex agent integration (still IsPreview: true in cmd/entire/cli/agent/codex/codex.go:51). When /codex:adversarial-review runs Codex:
+
+  1. Something creates the Entire session state — likely Codex's SessionStart/init hook, which stores last_prompt and agent_type: "Codex".
+  2. Codex does its review work and exits.
+  3. The per-turn snapshot path that should write .entire/metadata/<codex-session-id>/full.jsonl + prompt.txt on the shadow branch (via SaveStep) never runs — either because the Stop hook doesn't fire in the subagent flow, or because the
+  rollout-to-metadata copy step is missing/short-circuiting.
+  4. Claude Code's own turn completes normally (1/ gets the full treatment).
+  5. User commits → condensation → Claude Code's session is fully copied; Codex's session contributes only the metadata.json stub.
+
+  If you want real Codex transcripts in future checkpoints, the fix is in the Codex agent wiring — probably its Stop-equivalent handler needs to read ~/.codex/sessions/YYYY/MM/DD/rollout-*-019dba89….jsonl and persist a snippet into the
+  shadow branch's .entire/metadata/<codex-session>/full.jsonl (and prompt.txt) the way Claude Code does.
+
+If you need to look at a commit / checkpoint look at commit be7ff386a38c354805957294833a43f816267f5f in ../entiredb
+
+Now I want us to focus on two things: 
+
+1. can we prevent this happening at all, like why are we writing `0/metadata.json` and there is no session log, we should not do this at all. There should never be a session without a session log, can we hard guard this somewhere? Or is this needed since the log might come later?
+2. can we figure out a way to handle this better and/or debug why the codex subsession hooks are not firing?
+
+---
+
+can you maybe validate, the codex source is here: /Users/soph/Work/entire/research/codex
+
+---
+
+is it worth filing this as a bug with codex?
+
+---
+
+> when a turn terminates via an error path
+
+why are we assuming error path?
+
+---
+
+I chatted with the reporter again, we were wondering if maybe ctrl+c was used, but here is the analysi:
+
+:black_circle_for_record: Short answer: no evidence you hit ctrl-C on the Claude Code session itself. The Codex side is suspicious, but the fingerprint points more at missing integration than at an interrupt.
+
+  What the artifacts say:
+
+  Claude Code (28c2a1e4) — clean run:
+  - 865 transcript lines spanning 13:05:23Z → 14:47:17Z (1h42m)
+  - Stop reasons: 337 tool_use, 24 end_turn, 1 stop_sequence — no "interrupted":true, no SIGINT/SIGTERM/abort markers
+  - 11 turns, 10 checkpoints, condensed normally at commit time (14:09Z)
+  - Only 2 BashOutput reads across 3 /codex:adversarial-review launches — you fired them and barely looked at them, but CC itself finished naturally
+
+  The three Codex sessions — frozen at birth:
+
+  ┌──────────┬───────────────┬──────────────────┬──────┐
+  │ session  │ started (UTC) │ last_interaction │  Δ   │
+  ├──────────┼───────────────┼──────────────────┼──────┤
+  │ 019dba69 │ 12:56:07.561  │ 12:56:07.562     │ ~1ms │
+  ├──────────┼───────────────┼──────────────────┼──────┤
+  │ 019dba89 │ 13:30:54.573  │ 13:30:54.576     │ ~3ms │
+  ├──────────┼───────────────┼──────────────────┼──────┤
+  │ 019dbabf │ 14:29:54.379  │ 14:29:54.380     │ ~1ms │
+  └──────────┴───────────────┴──────────────────┴──────┘
+
+  All three: phase: "active", checkpoint_count: 0, last_interaction_time literally microseconds after started_at. That means Codex's SessionStart-equivalent fired once to register the session, and then no other Entire hook ever ran for
+  those sessions. No UserPromptSubmit, no Stop, no PostCommit.
+
+  And no rollout files exist at all — ~/.codex/sessions/2026/04/23/ doesn't exist (dir jumps 22 → 01/01 the other way). That's true for all three launches, not just one.
+
+  Why this isn't a ctrl-C story:
+  If you'd ctrl-C'd the CC session, the CC transcript would typically show an abort marker and you'd expect only later codex subprocesses to die; the first one (12:56Z) had 1h50m to run before CC exited. Three identical microsecond-gap
+  start/stop windows in three different sessions is a systematic pattern, not a one-off interrupt.
+
+  The more likely story: Codex's Entire integration (still IsPreview: true) registers a session at launch but its turn-end handler — the one that's supposed to read ~/.codex/sessions/.../rollout-*.jsonl and write snippets into
+  .entire/metadata/<codex-session>/full.jsonl on the shadow branch — isn't running, at least not in the codex-companion.mjs subprocess path used by /codex:adversarial-review. That also explains why no rollout files exist at all for that
+  day: the companion likely runs Codex with some output-capture mode (or a different CODEX_HOME) that bypasses the normal session directory, so neither Codex's own rollout nor Entire's mirror of it ever lands on disk.
+
+  If you want to be extra sure it wasn't ctrl-C: check your shell history for that window — ctrl-C in CC often leaves a partial command line on disk — and see if /codex:status on 2026-04-23 reported completions.
+
+---
+
+ok, one more data point: it seems using /codex:adversarial-review can timeout, that would be one of the cases where there is no stop hook?
+
+---
+
+but more data: 
+
+[codex] Running command: /bin/zsh -lc "nl -ba cmd/worker/syncer.go | sed -n '60,140p'"
+     [codex] Command completed: /bin/zsh -lc "nl -ba cmd/worker/syncer.go | sed -n '60,140p'" (exit 0)
+     [codex] Running command: /bin/zsh -lc "nl -ba cmd/worker/syncer_test.go | sed -n '220,360p'"
+     [codex] Command completed: /bin/zsh -lc "nl -ba cmd/worker/syncer_test.go | sed -n '220,360p'" (exit 0)
+     [codex] Assistant message captured: {"verdict":"needs-attention","summary":"No-ship: the new redirect auth logic relies on an uns...
+     [codex] Turn completed.
+     # Codex Adversarial Review
+
+     Target: working tree diff
+     Verdict: needs-attention
+
+     No-ship: the new redirect auth logic relies on an unsafe DNS heuristic, so it can leak the mirror key to a broader host set and still fail on valid cluster topologies.
+
+     Findings:
+     - [high] Cluster membership is inferred with a brittle suffix heuristic that widens the trust boundary and misses some legitimate sibling redirects (cmd/worker/syncer.go:90-126)
+       `clusterFQDN` strips the first label from any 4+ label target host, and `hostInCluster` then treats any hostname ending in `.`+cluster as trusted. That is not equivalent to 'the configured cluster and its direct replicas'. For
+     example, a 4-label cluster entry host like `mirror.prod.example.com` is broadened to `prod.example.com`, so redirects to unrelated siblings under that parent zone would receive `X-Entire-Mirror-Key`. The opposite failure also
+     exists: a node-specific 3-label host like `node1.cluster.local` is left unchanged, so a redirect to `node2.cluster.local` still drops auth and reproduces the original 401. This is an inference from the code plus the documented
+     `ENTIRE_TARGET_URL` contract: the config does not constrain hostnames to the one shape this heuristic assumes. The result is a silent trust-boundary regression in some deployments and a silent auth regression in others.
+       Recommendation: Do not derive cluster identity from label count. Pass the authoritative cluster FQDN explicitly, or reuse the server/discovery implementation that defines valid same-cluster hosts. If matching remains local,
+     restrict it to the exact cluster host or exactly one replica label, and add tests for 3-label node hosts, 4-label cluster entry domains, and deeper subdomains.
+
+     Next steps:
+     - Replace `clusterFQDN`/`hostInCluster` with an explicit cluster host matcher from authoritative config or shared discovery code.
+     - Add regression tests covering nested subdomains, 3-label node hostnames, and 4+-label cluster entry domains before shipping this redirect behavior.
+  ⎿  (timeout 10m)
+  ⎿  1 PostToolUse hook ran
+
+This is strange, so it shows a timeout but also that codex finished... I feel there should have been a hook fired
+
+---
+
+can you also look at /Users/soph/Work/entire/research/codex-plugin-cc this is the plugin in use
+
+---
+
+what part in this triggers the first hook then?
+
+---
+
+I'm fine with #2 if there is no session ref / file availble. The tool call is probably actually in the claude logs?
+
+---
+
+ok, yeah letzt do a first -> distinct PR, and then we do b+c in another

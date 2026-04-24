@@ -1,0 +1,44 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "e733ba0e7dff",
+  "session_id": "c2a51e7d-ab7f-4f50-9349-537240c8648f",
+  "strategy": "manual-commit",
+  "created_at": "2026-04-24T11:49:38.654922Z",
+  "branch": "soph/prevent-empty-sessions",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/strategy/manual_commit_condensation.go",
+    "cmd/entire/cli/strategy/condense_skip_test.go"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "f6a28fe16bd3",
+  "token_usage": {
+    "input_tokens": 247,
+    "cache_creation_tokens": 1103060,
+    "cache_read_tokens": 40928458,
+    "output_tokens": 129281,
+    "api_call_count": 187
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-04-24T11:49:38.62298Z",
+    "agent_lines": 227,
+    "agent_removed": 18,
+    "human_added": 2,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 229,
+    "total_lines_changed": 249,
+    "agent_percentage": 98.39357429718876,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}
