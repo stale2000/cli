@@ -1,0 +1,68 @@
+Investigate the test failures below:
+--- FAIL: TestIsV2MainDisconnected_NoRemoteRef (0.93s)
+565
+    metadata_reconcile_test.go:889: 
+566
+        	Error Trace:	/home/runner/work/cli/cli/cmd/entire/cli/strategy/metadata_reconcile_test.go:889
+567
+        	Error:      	Received unexpected error:
+568
+        	            	failed to ls-remote v2 /main: resolve fetch target for ls-remote: get remote URL: get remote URL: remote "/tmp/TestIsV2MainDisconnected_NoRemoteRef841967841/001" not found
+569
+        	Test:       	TestIsV2MainDisconnected_NoRemoteRef
+570
+✓ Created local branch 'entire/checkpoints/v1' from origin
+571
+✓ Created local branch 'entire/checkpoints/v1' from origin
+572
+--- FAIL: TestReconcileDisconnectedV2Ref_CherryPicksOntoRemote (1.07s)
+573
+    metadata_reconcile_test.go:984: 
+574
+        	Error Trace:	/home/runner/work/cli/cli/cmd/entire/cli/strategy/metadata_reconcile_test.go:984
+575
+        	Error:      	Received unexpected error:
+576
+        	            	failed to ls-remote v2 /main: resolve fetch target for ls-remote: get remote URL: get remote URL: remote "/tmp/TestReconcileDisconnectedV2Ref_CherryPicksOntoRemote4101622996/001" not found
+577
+        	Test:       	TestReconcileDisconnectedV2Ref_CherryPicksOntoRemote
+578
+✓ Created local branch 'entire/checkpoints/v1' from origin
+579
+--- FAIL: TestIsV2MainDisconnected_Disconnected (1.15s)
+580
+    metadata_reconcile_test.go:917: 
+581
+        	Error Trace:	/home/runner/work/cli/cli/cmd/entire/cli/strategy/metadata_reconcile_test.go:917
+582
+        	Error:      	Received unexpected error:
+583
+        	            	failed to ls-remote v2 /main: resolve fetch target for ls-remote: get remote URL: get remote URL: remote "/tmp/TestIsV2MainDisconnected_Disconnected477708117/001" not found
+584
+        	Test:       	TestIsV2MainDisconnected_Disconnected
+585
+✓ Created local branch 'entire/checkpoints/v1' from origin
+586
+--- FAIL: TestIsV2MainDisconnected_SharedAncestry (1.29s)
+587
+    metadata_reconcile_test.go:955: 
+588
+        	Error Trace:	/home/runner/work/cli/cli/cmd/entire/cli/strategy/metadata_reconcile_test.go:955
+589
+        	Error:      	Received unexpected error:
+590
+        	            	failed to ls-remote v2 /main: resolve fetch target for ls-remote: get remote URL: get remote URL: remote "/tmp/TestIsV2MainDisconnected_SharedAncestry2768878521/001" not found
+591
+        	Test:       	TestIsV2MainDisconnected_SharedAncestry
+592
+✓ Created local branch 'entire/checkpoints/v1' from origin
+593
+✓ Created local branch 'entire/checkpoints/v1' from origin
+594
+  ✓ Created orphan branch entire/checkpoints/v1 for session metadata
+595
+[entire] Updated local branch 'entire/checkpoints/v1' from origin
+596
+FAIL
+597
+FAIL	github.com/entireio/cli/cmd/entire/cli/strategy	15.963s
