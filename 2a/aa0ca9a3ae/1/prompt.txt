@@ -1,0 +1,17 @@
+commit changes
+
+---
+
+Investigate touch points and impact on removing shallow clones across the code base
+
+---
+
+go ahead
+
+---
+
+Do we need to add any additional logic to unshallow existing checkpoint trees?
+
+---
+
+What would be the best way to detect shallow repos and then call --unshallow on the next fetch?
