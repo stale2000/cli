@@ -1,7 +1,3 @@
-ok, can you start working on this, do meaningful commits between items
-
----
-
 ## Follow-up review (review-03.md)
 
 **Verdict: REQUEST CHANGES** — but down to one real blocker.
