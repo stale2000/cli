@@ -1,9 +1,1 @@
-commit and continue
-
----
-
-Do nothing about it
-
----
-
-Use the pr skill
+commit
