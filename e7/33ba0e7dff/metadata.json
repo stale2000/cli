@@ -5,7 +5,6 @@
   "branch": "soph/prevent-empty-sessions",
   "checkpoints_count": 2,
   "files_touched": [
-    "cmd/entire/cli/strategy/condense_skip_test.go",
     "cmd/entire/cli/strategy/manual_commit_condensation.go"
   ],
   "sessions": [
@@ -19,7 +18,7 @@
       "metadata": "/e7/33ba0e7dff/1/metadata.json",
       "transcript": "/e7/33ba0e7dff/1/full.jsonl",
       "content_hash": "/e7/33ba0e7dff/1/content_hash.txt",
-      "prompt": "/e7/33ba0e7dff/1/prompt.txt"
+      "prompt": ""
     },
     {
       "metadata": "/e7/33ba0e7dff/2/metadata.json",
@@ -29,11 +28,11 @@
     }
   ],
   "token_usage": {
-    "input_tokens": 9348,
-    "cache_creation_tokens": 603341,
-    "cache_read_tokens": 53647527,
-    "output_tokens": 112465,
-    "api_call_count": 255
+    "input_tokens": 5291,
+    "cache_creation_tokens": 568330,
+    "cache_read_tokens": 49353519,
+    "output_tokens": 96613,
+    "api_call_count": 244
   },
   "combined_attribution": {
     "calculated_at": "2026-04-24T12:17:58.305346Z",
