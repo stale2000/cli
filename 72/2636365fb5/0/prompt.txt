@@ -43,3 +43,7 @@ Why do you run everything in plan mode?
 ---
 
 Yes, keep it lighter in this session.
+
+---
+
+Commit and continue
