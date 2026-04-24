@@ -1,9 +1,1 @@
-Use the review skill
-
----
-
-Batched
-
----
-
-A worktree local ssh signer sounds like an incredibly weird edge case. We should not address that.
+commit and continue
