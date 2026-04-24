@@ -1,0 +1,25 @@
+Okay, I'm done in the other terminal. Continue
+
+---
+
+Oh also, a bunch of code changed from addressing PR feedback so it might make sense to run through and validate that the findings are actually still valid.
+
+---
+
+1
+
+---
+
+Go
+
+---
+
+Why would we make the attach test vogon-only?
+
+---
+
+Okay, that's fair. Go ahead and make the change.
+
+---
+
+Go
