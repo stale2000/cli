@@ -1,0 +1,65 @@
+can you look at the branch and the PR description and review it, and then let me know if these findings are what you would agree on as issues and/or if you have more:
+
+
+Full list from `review-02.md`:
+
+## High (Must Fix)
+
+1. **Dispatch TUI ignores `ACCESSIBLE=1`** — screen-reader users get animated spinner + ANSI-painted markdown. `dispatch.go:84-98` routes on terminal detection only; no `IsAccessibleMode()` check. Wizard uses `NewAccessibleForm` correctly but the generation step afterward runs Bubble Tea (`dispatch_tui.go:62-91`) and Glamour (`dispatch_tui.go:93-108`). Compare `search_cmd.go:73` which short-circuits on accessible mode.
+
+2. **Wizard `currentBranch` resolver called on every keystroke in local mode** — `dispatch_wizard.go:311-325` wires both `DescriptionFunc`s to `state.resolve(currentBranch)`, which shells out to `git` each repaint. Also **breaks on detached HEAD**: `currentBranchName` returns `"not on a branch (detached HEAD)"` (`mode_local.go:315`), and the Resolved Options / Command notes both render as `Validation error: ...` with no way to progress.
+
+## Important (Should Fix)
+
+3. **`--local` help text says "local LLM tokens"** (`dispatch.go:70`) — misleading. Local mode still invokes the installed Claude Code CLI (`generate.go:22`), using the user's Claude account tokens. Suggest: *"generate via the locally-installed agent CLI instead of the Entire server"*.
+
+4. **N+1 `git log` in local checkpoint enumeration** (`mode_local.go:155-161`, `mode_local.go:199`) — `findCommitSubjectByCheckpoint` shells out `git log --all --grep=... --format=%s%x00` per checkpoint. O(N) traversals of all refs. Replace with a single `git log --grep='Entire-Checkpoint:' --format='%H%x00%s%x00%B' --since=... --all` and build a map once.
+
+5. **Bullet `Text` values not sanitized like voice** (`generate.go:188-192`) — `sanitizeDispatchVoice` strips control / bidi / zero-width chars from voice, but the identical sanitization is NOT applied to `metadata.Summary.Outcome` (`mode_local.go:192`) or commit subjects (`mode_local.go:199`). `json.Encode` with `SetEscapeHTML(false)` preserves raw bidi overrides / null bytes verbatim. Extract as `sanitizePromptString` and run bullet text through it.
+
+6. **Dispatch TUI duplicates patterns from `search_tui.go`** (`dispatch_tui.go:52-58`, `dispatch_tui.go:109-136`) — status-model lifecycle, ctx/cancel, spinner.Model, View() card composition, inline-clear helper all re-implemented. At minimum, `renderedLineCount` + the ANSI clear sequence `"\x1b[1A\x1b[2K\r"` should live in a shared helper.
+
+7. **`--repos` values not validated as `owner/repo` slugs** (`options.go:19-22`) — `normalizeScopeValues` trims + dedupes but allows arbitrary strings (`"../../etc"`, `"a b c"`, newlines). Require `^[A-Za-z0-9][A-Za-z0-9._-]*/[A-Za-z0-9._-]+$`.
+
+8. **`go loadRepos()` prefetch leaks work if user picks Local** (`dispatch_wizard.go:220-230`) — fires a `gh api --paginate user/repos` call before the user picks a mode. Discarded on Local. Wasteful against GitHub API rate limits. Gate the prefetch behind mode selection.
+
+9. **Non-401 cloud errors leak endpoint in user message** (`cloud.go:187-194`) — output is `"POST /api/v1/dispatches/generate: unexpected status 500: \"body\""`. Diagnostic-grade noise. Log the method/path via `logging.Warn` and return a trimmed user-facing string (or use `SilentError` per CLAUDE.md).
+
+10. **`ReadCommitted` error silently swallowed with `continue`** (`mode_local.go:175-178`) — data-integrity signal worth at least `logging.Warn` with CheckpointID + err. Today user gets a smaller-than-expected dispatch with no indication that some checkpoints were dropped.
+
+## Suggestions (Consider)
+
+11. **`"N month"` is 30 days, not calendar months** (`flags.go:85-87`) — `"2 months ago"` = `60*24h`. Surprises users near month boundaries. Use `AddDate(0, -n, 0)` or drop month from the grammar.
+
+12. **`newDispatchProgram` takes `altScreen bool` but every caller passes `false`** (`dispatch_tui.go:52-58`) — dead parameter.
+
+13. **Sibling repo discovery walks symlinks implicitly** (`dispatch_wizard.go:400-438`) — `entry.IsDir()` reports true for symlinks pointing at directories; `os.Stat(.../.git)` follows symlinks. Low risk but use `os.Lstat` or document as intentional.
+
+14. **`resolveRepoFullName` requires origin with parseable GitHub URL** (`mode_local.go:293-307`) — fresh local init or non-GitHub remote (SourceHut, self-hosted Gitea) fails the whole dispatch. Consider falling back to directory name.
+
+15. **`dispatchTextGeneratorFactory` hardcodes Claude Code** (`generate.go:21-27`) — no way to use Cursor / OpenCode even though `TextGenerator` interface exists for all of them. Read preferred agent from settings or add `--agent` flag.
+
+16. **`newDispatchStatusModel` hard-codes card height 12 and `min(max(width-8, 44), 76)`** (`dispatch_tui.go:109-136`) — 40-col terminals clamp to 44 and overflow. Pass `ss.width` through and respect it.
+
+17. **Flag-hide panic pattern** (`dispatch.go:77-79`) — matches `login.go`/`trail_cmd.go` so consistency is fine, but `MarkHidden` can't realistically fail. Replace with `_ = cmd.Flags().MarkHidden(...)`.
+
+18. **No length cap on literal `--voice` string** (`voices.go:33-35`) — 10MB voice string would be embedded verbatim in every LLM prompt. Cap at ~1 KB.
+
+## Praise
+
+- **HTTPS enforcement**: `requireSecureDispatchURL = api.RequireSecureURL` with test-only seam (`mode_cloud.go:19`), dedicated `TestServerMode_RejectsPlainHTTPBaseURL` that explicitly doesn't stub the guard (`mode_cloud_test.go:380-398`), plus matching `--insecure-http-auth` test.
+- **Default-branch ancestry gate** (`mode_local.go:258-277`) with three complementary regression tests.
+- **`reachableCheckpointIDsInRange` git-shim test** (`mode_local_test.go:616-662`) — asserts only `git log` invocations are captured.
+- **Forward-compat JSON decoding** (`cloud_test.go:170-194`) + `APIBranches.UnmarshalJSON` accepting both `["x","y"]` and `"all"`.
+- **Thorough voice sanitization** (control chars, zero-width, bidi overrides) — just needs extending to bullet text.
+- **Clean mode separation** between cloud and local; no shared global state beyond test-only hooks.
+
+Summary: 2 High + 8 Important + 8 Suggestions + 6 Praise. Fix estimate: 4–6 hours for both Highs + top 3 Importants.
+
+---
+
+I think an important information is: this only works for GitHub repos right now, looking at 14 especially but is this relevant to other things?
+
+---
+
+ok, can you start working on this, do meaningful commits between items
