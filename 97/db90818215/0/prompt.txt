@@ -1,0 +1,21 @@
+we seem to be miscounting codex token counts. can we investigate?
+
+---
+
+we should also cut a branch for this fix
+
+---
+
+so what exactly was the problem and what did we change?
+
+---
+
+and how do we know this is the behaviour?
+
+---
+
+and...why are we summing up instead of using the `total_tokens` field?
+
+---
+
+right. and this is a difference between codex and other agents?
