@@ -1,0 +1,15 @@
+commit and push
+
+---
+
+I scheduled a workflow run against the current branch: https://github.com/entireio/cli/actions/runs/24915434046
+
+Can you validate whether the failures in the run are flakes, existed before or are related to changes in this branch?
+
+---
+
+I have just kicked off a rerun of the failed jobs. Can you address the issues found, otherwise?
+
+---
+
+The rerun has completed
