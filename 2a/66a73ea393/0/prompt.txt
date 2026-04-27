@@ -76,3 +76,7 @@ ship it
 ---
 
 ship it as draft
+
+---
+
+/simplify
