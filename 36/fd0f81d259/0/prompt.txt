@@ -1,0 +1,37 @@
+Review https://github.com/entireio/cli/compare/main...detect-protected-branches. Make sure it has idiomatic go standards and isn't too verbose in terms of tests or comments.
+
+---
+
+# Review findings:
+
+## Finding 1 (cmd/entire/cli/checkpoint/committed.go:1873) [added]
+[P1] Restore ireturn suppressions
+
+This branch removes the existing //nolint:ireturn suppression, but .golangci.yaml still enables ireturn and does not allow plugin.Signer. CI lint should flag this; the same regression appears on connectSSHAgent at line 1912 for sshagent.Agent. Keep the local suppressions or add these interfaces to the allow list.
+
+## My request for Codex:
+Ok fix the issues and remove the linter changes
+
+---
+
+Review the comments in https://github.com/entireio/cli/pull/1033
+
+---
+
+So v2 refs is a custom refspec and I don't think there's an option to even protect those branches
+
+---
+
+Review https://github.com/entireio/cli/pull/1012/changes and check for redundancy with the existing E2E tests.
+
+---
+
+# Review findings:
+
+## Finding 1 (e2e/testutil/assertions.go:413-431) [added]
+[P1] Use v2 transcript paths in deep validation
+
+When E2E_CHECKPOINTS_MODE is v2-dual-write or v2-only, checkpointReadRef() points at refs/entire/checkpoints/v2/main, but v2 /main stores compact transcripts as transcript.jsonl with transcript_hash.txt, not 0/full.jsonl with content_hash.txt. Existing E2E tests like TestCheckpointMetadataDeepValidation and TestExternalAgentDeepCheckpointValidation call ValidateCheckpointDeep, so the new v2 workflow will fail before it validates the actual metadata. Branch this helper by checkpoint mode or read the transcript/hash paths from checkpoint metadata.
+
+## My request for Codex:
+Review comments on https://github.com/entireio/cli/pull/1033 and address linter issues
