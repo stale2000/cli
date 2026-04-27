@@ -7,3 +7,11 @@ continue: check the result of the `mise run check` background task and report th
 ---
 
 can we add some styling to `auth list` maybe in line with `entire activity` commit list
+
+---
+
+make the id yellow and the rest of the values also white, contrast is to bad
+
+---
+
+/simplify
