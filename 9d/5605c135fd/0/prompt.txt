@@ -13,3 +13,7 @@ Looking into the redaction engine, I found 222 bundled gitleaks rules, all vendo
 ---
 
 can you also add a case for an ssh key if it's completely removed and not just parts of it due to enthropy catching some parts
+
+---
+
+can you do meaningful commits
