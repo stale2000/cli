@@ -1,0 +1,8 @@
+can you take a look at this branch and also this page and the link to the spec https://git-meta.com
+
+1. I'd like to validate things are still in line with the spec as it was when I started this branch
+2. the branch is pretty far away from main now, can you take a look if it's worth the effort to rebase?
+
+---
+
+ok, then maybe just fix 1-3 and then we do a fresh port onto main next?
