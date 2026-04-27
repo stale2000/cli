@@ -1,16 +1,1 @@
-push up the changes
-
----
-
-Fix the merge conflicts
-
----
-
-when there are new versions of the CLI via brew, we should have a message that prints:
-"Update available! x.xx.xx -> x.xx.xx (as appropriate)
-Release notes: [link]
-1. Update now (runs `brew upgrade entire`
-2. Skip
-3. Skip until next version
-
-Press enter to continue"
+please push up the changes
