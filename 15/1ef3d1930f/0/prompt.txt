@@ -1,0 +1,11 @@
+Fix this linter error:
+```
+Error: cmd/entire/cli/checkpoint/committed.go:1873:1: loadObjectSigner returns interface (github.com/go-git/go-git/v6/x/plugin.Signer) (ireturn)
+  func loadObjectSigner(ctx context.Context) (plugin.Signer, bool) {
+  ^
+  Error: cmd/entire/cli/checkpoint/committed.go:1912:1: connectSSHAgent returns interface (golang.org/x/crypto/ssh/agent.Agent) (ireturn)
+  func connectSSHAgent(ctx context.Context) sshagent.Agent {
+  ^
+  2 issues:
+  * ireturn: 2
+```
