@@ -1,0 +1,73 @@
+You are modifying the `entire activity` TUI in this repository to align its navigation and help behavior with the existing TUI standards used by commands like `entire search`, while keeping `entire activity` scoped to the features it actually has today.
+
+Context:
+- The `entire activity` TUI is implemented in `cmd/entire/cli/activity_tui.go`.
+- It is currently a single-view dashboard plus scrollable commit/activity list.
+- It does not support drill-down/detail navigation, so do not invent or add one.
+- We want interaction consistency across TUIs, but we do NOT want to add features that `activity` does not already conceptually support.
+
+Task:
+Update `entire activity` so its keyboard behavior and visible help/footer follow the same general interaction vocabulary used by the newer interactive commands in this repo.
+
+Requirements:
+1. Keep the command as a single-screen TUI. Do not add detail modes, nested views, file pickers, search inputs, or any other new navigation model.
+2. Add hidden vim-style aliases:
+   - `j` = down / scroll down
+   - `k` = up / scroll up
+   - `h` should behave the same as `esc` if there is a meaningful back/exit action in this single-screen context
+   - `l` should behave the same as `enter` only if there is already a meaningful confirm/open action; otherwise do not invent a new action just to support `l`
+   - `g` = jump to top
+   - `G` = jump to bottom
+3. Support standard non-vim equivalents for top/bottom navigation:
+   - `home` = jump to top
+   - `end` = jump to bottom
+4. Keep the visible/documented controls accessibility-first:
+   - show arrow keys
+   - show `home/end`
+   - show `q`
+   - do NOT show `h/j/k/l`
+   - do NOT show `g/G`
+5. Preserve existing quit behavior:
+   - `q` quits
+   - `ctrl+c` quits
+   - `esc` should remain supported
+6. Make the help/footer wording and ordering feel closer to the repo’s interactive conventions:
+   - use compact, dot-separated hints
+   - prefer labels like `↑/↓ scroll`, `home/end top/bottom`, `q quit`
+   - do not mention unsupported actions like `detail`, `open`, or `back` if there is no real second screen
+7. Do not change the visual structure of the activity dashboard beyond what is needed for help/footer consistency.
+8. Do not refactor unrelated code or change any API/data-loading behavior.
+9. Add or update focused tests for the new key behavior.
+
+Implementation constraints:
+- Only make changes directly required for this alignment task.
+- Do not add dependencies.
+- Do not add a drill-down mode.
+- Do not change the underlying activity rendering logic unless required for footer/help updates.
+- Keep the code idiomatic and consistent with the existing Bubble Tea patterns in this repo.
+
+Definition of done:
+- `entire activity` supports arrow-key navigation plus hidden `j/k` aliases.
+- `home/end` jump to top/bottom.
+- Hidden `g/G` aliases also jump to top/bottom.
+- Footer/help text reflects only the intended visible controls.
+- No new UI mode or feature is introduced.
+- Tests cover the new keyboard behavior.
+- `go build ./...` and `go vet ./...` pass.
+
+Before making changes:
+- Read `cmd/entire/cli/activity_tui.go`
+- Compare the interaction/help patterns in `cmd/entire/cli/search_tui.go`
+- Keep scope strictly limited to `entire activity`
+
+---
+
+Make it so
+
+---
+
+I think "h" shouldn't quite the app here, can you update it accordingly?
+
+---
+
+I think "h" shouldn't quit the app here, can you update it accordingly?
