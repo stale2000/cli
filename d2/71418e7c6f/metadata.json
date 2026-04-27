@@ -3,7 +3,7 @@
   "checkpoint_id": "d271418e7c6f",
   "strategy": "manual-commit",
   "branch": "redact",
-  "checkpoints_count": 12,
+  "checkpoints_count": 13,
   "files_touched": [
     "docs/security-and-privacy.md",
     "redact/redact.go",
@@ -36,11 +36,11 @@
     }
   ],
   "token_usage": {
-    "input_tokens": 59796870,
+    "input_tokens": 64796458,
     "cache_creation_tokens": 0,
-    "cache_read_tokens": 57341824,
-    "output_tokens": 271725,
-    "api_call_count": 562
+    "cache_read_tokens": 62274688,
+    "output_tokens": 286823,
+    "api_call_count": 607
   },
   "combined_attribution": {
     "calculated_at": "2026-04-27T13:00:32.250598Z",
