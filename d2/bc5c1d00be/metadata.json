@@ -3,18 +3,19 @@
   "checkpoint_id": "d2bc5c1d00be",
   "strategy": "manual-commit",
   "branch": "feat/advanced-entire-activity-key-bindings",
-  "checkpoints_count": 1,
+  "checkpoints_count": 0,
   "files_touched": [
     "cmd/entire/cli/activity_tui.go",
     "cmd/entire/cli/activity_tui_test.go",
-    "cmd/entire/cli/dispatch_tui.go"
+    "cmd/entire/cli/dispatch_tui.go",
+    "cmd/entire/cli/tui_keys.go"
   ],
   "sessions": [
     {
       "metadata": "/d2/bc5c1d00be/0/metadata.json",
       "transcript": "/d2/bc5c1d00be/0/full.jsonl",
       "content_hash": "/d2/bc5c1d00be/0/content_hash.txt",
-      "prompt": "/d2/bc5c1d00be/0/prompt.txt"
+      "prompt": ""
     },
     {
       "metadata": "/d2/bc5c1d00be/1/metadata.json",
@@ -24,11 +25,11 @@
     }
   ],
   "token_usage": {
-    "input_tokens": 112046,
+    "input_tokens": 3608,
     "cache_creation_tokens": 10106,
-    "cache_read_tokens": 8177577,
-    "output_tokens": 22489,
-    "api_call_count": 61
+    "cache_read_tokens": 866601,
+    "output_tokens": 5737,
+    "api_call_count": 7
   },
   "combined_attribution": {
     "calculated_at": "2026-04-27T23:09:54.77622Z",
