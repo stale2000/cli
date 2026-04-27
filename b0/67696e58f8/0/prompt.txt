@@ -1123,3 +1123,7 @@ ok      github.com/entireio/cli/perf    (cached)
 ok      github.com/entireio/cli/redact    (cached)
 FAIL
 [test] ERROR task failed
+
+---
+
+go test -run TestRunDispatchWizard_Proceeds... ./cmd/entire/cli/ hangs until i press enter..
