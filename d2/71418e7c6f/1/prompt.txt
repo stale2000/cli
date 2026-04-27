@@ -209,3 +209,15 @@ okay what is next
 ---
 
 go ahead
+
+---
+
+proceed
+
+---
+
+why is connection_strings an entirely new file when it could probably go in redact.go?
+
+---
+
+proceed
