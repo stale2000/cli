@@ -1,9 +1,1 @@
-First add the tests before committing.
-
----
-
-continue
-
----
-
-Please use tdd and add the tests first before trying to commit a change
+commit and continue
