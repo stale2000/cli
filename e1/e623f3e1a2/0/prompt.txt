@@ -3,3 +3,7 @@ I do want to print a hint like we do with claude after running entire resume for
 ---
 
 did you marked as solved the PR comments?
+
+---
+
+ship the changes and answer those comments + resolve them
