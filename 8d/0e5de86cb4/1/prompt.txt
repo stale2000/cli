@@ -1,1 +1,1 @@
-Before you do anything else: Can you add some initial performance logging using the perf package? The current implementation is very slow and we should have reliable timing data to know what to optimize later.
+Commit the changes
