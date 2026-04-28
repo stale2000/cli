@@ -1,9 +1,1 @@
-please push up the changes
-
----
-
-Address review in https://github.com/entireio/cli/pull/1057
-
----
-
 Review the latest comments on https://github.com/entireio/cli/pull/1057 and address them
