@@ -1,13 +1,1 @@
-commit it
-
----
-
-Is there anything else to do here?
-
----
-
-Use the review skill
-
----
-
-Apply both suggestions in one go
+commit the changes
