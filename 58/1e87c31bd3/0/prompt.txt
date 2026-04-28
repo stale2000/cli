@@ -1,1 +1,1 @@
-For https://github.com/entireio/cli/pull/1033, v2 isn't actually affected at all. you can't set a custom branch protection rule for v2. why is v2 code changing? it doesn't seem necessary
+Push up the changes please
