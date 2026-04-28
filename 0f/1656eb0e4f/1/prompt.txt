@@ -1,12 +1,1 @@
-commit and continue
-
----
-
-Right now, the following command pauses for a very long time until it detects that the interactive mode isn't implemented. Can we make that check earlier because it's really slow right now.
-
-./entire why cmd/entire/cli/explain.go
-interactive why overview is not implemented yet
-
----
-
-I think we don't need a `--no-pager` option right now since we're automatically detecting whether to use the TUI or not. I think we can also skip the --interactive flag for now for the same reasons. Can you simplify the spec, plan, and code accordingly?
+Commit and continue
