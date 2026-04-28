@@ -1,0 +1,83 @@
+We found a perf trace grouping limitation while instrumenting `entire why`.
+
+  Context:
+  - `perf.Start(ctx, name)` correctly returns an updated context with the new span.
+  - Passing that context into nested work is semantically correct.
+  - However, current `Span.End()` serialization only emits root children by name, then emits grandchildren as numeric keys:
+    - `steps.enrich_commits_ms`
+    - `steps.enrich_commits.0_ms`
+    - `steps.enrich_commits.1_ms`
+  - That works for `perf.StartLoop()`, but it loses nested child span names when the children are normal named operations.
+  - In `entire why`, passing `enrichCtx` into `enrichWhyCommits()` caused useful spans like `why_checkpoint_read_session` to render as anonymous
+  `enrich_commits.N` rows in `./entire trace`.
+
+  Goal:
+  Improve the perf package and trace renderer in a separate PR so nested named spans remain readable, while preserving existing `StartLoop()` numeric iteration
+  behavior.
+
+  Suggested approach:
+  - Update `perf/span.go` serialization to recursively emit nested spans.
+  - Preserve current loop keys when a child span has the same name as its parent:
+    - `steps.process_sessions_ms`
+    - `steps.process_sessions.0_ms`
+    - `steps.process_sessions.1_ms`
+  - Emit named nested spans with their names:
+    - `steps.enrich_commits.why_checkpoint_info_ms`
+    - `steps.enrich_commits.why_checkpoint_info.why_checkpoint_read_session_ms`
+  - Handle duplicate sibling names with the existing `~N` suffix behavior.
+  - Update `cmd/entire/cli/trace.go` to parse and render nested named step keys, not only numeric substeps.
+  - Keep backward compatibility with existing trace tests for `steps.foo.0_ms`.
+  - Add tests in `perf/span_test.go` and `cmd/entire/cli/trace_test.go` covering:
+    - existing loop iteration rendering
+    - nested named spans
+    - nested errors
+    - numeric ordering for `.0`, `.1`, `.10`
+
+(`entire why` doens't exist in this branch but it exists in the worktree in /Users/pfleidi/entire/cli/.worktrees/feat/entire-why
+
+---
+
+We found a perf trace grouping limitation while instrumenting `entire why`.
+
+  Context:
+  - `perf.Start(ctx, name)` correctly returns an updated context with the new span.
+  - Passing that context into nested work is semantically correct.
+  - However, current `Span.End()` serialization only emits root children by name, then emits grandchildren as numeric keys:
+    - `steps.enrich_commits_ms`
+    - `steps.enrich_commits.0_ms`
+    - `steps.enrich_commits.1_ms`
+  - That works for `perf.StartLoop()`, but it loses nested child span names when the children are normal named operations.
+  - In `entire why`, passing `enrichCtx` into `enrichWhyCommits()` caused useful spans like `why_checkpoint_read_session` to render as anonymous
+  `enrich_commits.N` rows in `./entire trace`.
+
+  Goal:
+  Improve the perf package and trace renderer in a separate PR so nested named spans remain readable, while preserving existing `StartLoop()` numeric iteration
+  behavior.
+
+  Suggested approach:
+  - Update `perf/span.go` serialization to recursively emit nested spans.
+  - Preserve current loop keys when a child span has the same name as its parent:
+    - `steps.process_sessions_ms`
+    - `steps.process_sessions.0_ms`
+    - `steps.process_sessions.1_ms`
+  - Emit named nested spans with their names:
+    - `steps.enrich_commits.why_checkpoint_info_ms`
+    - `steps.enrich_commits.why_checkpoint_info.why_checkpoint_read_session_ms`
+  - Handle duplicate sibling names with the existing `~N` suffix behavior.
+  - Update `cmd/entire/cli/trace.go` to parse and render nested named step keys, not only numeric substeps.
+  - Keep backward compatibility with existing trace tests for `steps.foo.0_ms`.
+  - Add tests in `perf/span_test.go` and `cmd/entire/cli/trace_test.go` covering:
+    - existing loop iteration rendering
+    - nested named spans
+    - nested errors
+    - numeric ordering for `.0`, `.1`, `.10`
+
+(`entire why` doens't exist in this branch but it exists in the worktree in /Users/pfleidi/entire/cli/.worktrees/feat/entire-why)
+
+---
+
+Make it so
+
+---
+
+Go ahead
