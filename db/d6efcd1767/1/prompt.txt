@@ -1,0 +1,25 @@
+commit and continue
+
+---
+
+Can you re-check and re-align the spec with recent changes regarding key mappings and help texts for TUIs that just landed in main?
+
+---
+
+Don't use the local main as a reference. I've pulled origin/main into this branch and that should be good enough.
+
+---
+
+CCan you also update the current plan accordingly?
+
+---
+
+Can you now update the existing code accordingly as well?
+
+---
+
+I think being able to supply a line range is both incompatible with the concept of a TUI and might also add too much complexity for a first iteration. Can you remove all of the code related to parsing line ranges and remove the -L option for now. Please update the spec and the plan accordingly and note that it's something to be figured out later.
+
+---
+
+I'm wondering if whyPathExistsAtHEAD() is necessary at this point. This looks like an extra call which would slow the command down. We should be able to determine whether a file exists or not when executing the `git blame` command.
