@@ -1,0 +1,16 @@
+Commit the changes
+
+---
+
+Right now, the why command is very slow. You can use the `./entire trace --hook why --last 5` command to see that `enrich_commits` is by far the greatest bottleneck. Can we improve this situation?
+
+A few ideas could be:
+
+- De-duplicate the commits before trying to fetch checkpoints for each of them redundantly
+- We should try to batch some of the information to reduce the number of lookups we need to do
+
+What else could we do to improve the performance here?
+
+---
+
+Let's start by adding more spans to `enrich_commits` to identify the actual bottleneck(s). Otherwise, the suggestions sound good!
