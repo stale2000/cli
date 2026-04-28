@@ -1,13 +1,1 @@
-Commit and continue
-
----
-
-Use the review skill
-
----
-
-Use the pr skill
-
----
-
-Do it
+Commit the current changes and then continue
