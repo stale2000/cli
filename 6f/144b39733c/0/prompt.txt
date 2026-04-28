@@ -29,3 +29,7 @@ The left gutter uses a lot of space right now. Can we make this layout more spac
 ---
 
 Please don't use actual developer names in tests.
+
+---
+
+Commit the changes
