@@ -1,1 +1,1 @@
-review the comments on https://github.com/entireio/cli/pull/1059 (I know they're outdated but they might still apply)
+ok perfect push that up, thanks!
