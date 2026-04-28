@@ -1,0 +1,33 @@
+Can you update the PR description accordingly?
+
+---
+
+Can you respond to and resolve the review comments?
+
+---
+
+Can you fix the failing tests?
+
+---
+
+I think the job runners had some issues. I re-ran the failed jobs and they immediately passed
+
+---
+
+Can you inline the esc key constant and remove tui_keys.go? I don't think it's really adding anything here.
+
+---
+
+commit and push
+
+---
+
+Use the pr-feedback skill
+
+---
+
+Do ti
+
+---
+
+the updated code is harder to read than what was there before. I also think we should be dropping the extra vim-style options like `, j/k` in smaller width terminals instead of the current behavior.
