@@ -1,0 +1,13 @@
+commit and continue to evaluate the results
+
+---
+
+There somehow also seems to be a disconnect preventing the spans from being grouped properly. Should we be passing the updated context object from `perf.Start(ctx, "enrich_commits")` to the function call instead?
+
+---
+
+We might also want to use `perf.StartLoop()` for iteration blocks in loops to allow for better grouping.
+
+---
+
+These changes look great but go beyond the scope of adding `entire why` which will already be a large pull request. Can you generate a prompt to hand over context so I can start adding the changes to the perf package in a different PR? Can you limit the changes here to `entire why` for now?
