@@ -1,9 +1,1 @@
-can you commit
-
----
-
-can you push
-
----
-
-The compact-footer assertions are checking for contiguous substrings like "↑/↓ scroll" and "q quit", but renderFooter() renders the key label and description with different lipgloss styles, which typically inserts ANSI reset/style sequences between them. That makes these substring checks environment-dependent and likely to fail when ANSI is enabled. Consider stripping ANSI codes before asserting, or assert on the individual parts (e.g., "↑/↓" and " scroll" separately) similar to TestActivityModel_FooterDocumentsVisibleControlsOnly.
+no make a new commit
