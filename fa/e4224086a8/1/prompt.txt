@@ -1,5 +1,1 @@
-Okay, commit and continue
-
----
-
-Using `SplitSeq` might be better than `strings.Split` here: https://pkg.go.dev/golang.org/x/tools/go/analysis/passes/modernize#stringsseq
+commit and continue
