@@ -3,7 +3,7 @@
   "checkpoint_id": "74b3190b7dfb",
   "strategy": "manual-commit",
   "branch": "soph/explain-fetch",
-  "checkpoints_count": 37,
+  "checkpoints_count": 9,
   "files_touched": [
     "cmd/entire/cli/checkpoint/fetching_tree.go",
     "cmd/entire/cli/checkpoint/remote/git.go",
@@ -24,11 +24,11 @@
     }
   ],
   "token_usage": {
-    "input_tokens": 163376,
-    "cache_creation_tokens": 328550,
-    "cache_read_tokens": 44195869,
-    "output_tokens": 182004,
-    "api_call_count": 223
+    "input_tokens": 163053,
+    "cache_creation_tokens": 39997,
+    "cache_read_tokens": 7833562,
+    "output_tokens": 22458,
+    "api_call_count": 36
   },
   "combined_attribution": {
     "calculated_at": "2026-04-28T17:52:09.264605Z",
