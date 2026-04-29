@@ -1,0 +1,25 @@
+commit the changes
+
+---
+
+Is there anything left do to here?
+
+---
+
+Use the pr skill to open a draft PR for me
+
+---
+
+Implement the plan.
+
+---
+
+Use the pr-feedback skill
+
+---
+
+Do ti
+
+---
+
+Do it
