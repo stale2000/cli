@@ -1,1 +1,1 @@
-Address review comments in https://github.com/entireio/cli/pull/1071
+Push up those changes
