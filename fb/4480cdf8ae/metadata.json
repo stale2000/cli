@@ -122,14 +122,14 @@
     "api_call_count": 433
   },
   "combined_attribution": {
-    "calculated_at": "2026-04-29T13:39:22.202038Z",
-    "agent_lines": 938,
-    "agent_removed": 61,
+    "calculated_at": "2026-04-29T13:47:17.665689Z",
+    "agent_lines": 952,
+    "agent_removed": 65,
     "human_added": 0,
     "human_modified": 0,
     "human_removed": 0,
-    "total_committed": 938,
-    "total_lines_changed": 999,
+    "total_committed": 952,
+    "total_lines_changed": 1017,
     "agent_percentage": 100,
     "metric_version": 2
   }
