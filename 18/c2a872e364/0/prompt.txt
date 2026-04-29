@@ -1,0 +1,29 @@
+find session on this branch and resume here
+
+---
+
+okay great, what do we have left from planning doc
+
+---
+
+okay i'll do this, do you need to find branch with checkpoint i can generate summary and build binary there
+
+---
+
+there are no checkpoints on this branch which is the pribelm
+
+---
+
+very nice, is there an extra space above where the summary starts, above intent, and underneath where checkpoint data is?
+
+---
+
+can you do that
+
+---
+
+okay i ran again on that checkpoint and still see extra /n
+
+---
+
+very good, we are ready
