@@ -1,0 +1,43 @@
+Yes, for new migrations, I think generation should be a final packing step, not an incidental side effect of writing checkpoints one by one.
+Current migration does this:
+ListCommitted() returns v1 checkpoints newest-first.
+Migration writes each checkpoint into v2/full/current.
+v2/full/current rotates every 100 checkpoints.
+So generation 0001 gets some of the newest checkpoints, then later numbers may get older ones.
+A better migration design would be:
+Read all migratable v1 checkpoints.
+Sort them by original checkpoint/session time, probably oldest-first.
+Write v2/main.
+Build archived v2/full/000... generation refs directly in sorted batches.
+Leave v2/full/current empty or containing only post-migration live writes.
+That would make initial migrated generations more intuitive: higher generation numbers would generally be newer than lower ones. I still would not make cleanup rely on that, but it would make the refs less surprising.
+For existing repos that were already migrated, the fix is not force migration. It’s a repair pass over archived generation refs:
+List refs/entire/checkpoints/v2/full/000... locally and on the checkpoint remote.
+Fetch remote-only archived refs into temporary refs.
+For each archived generation, recompute the timestamp envelope from raw transcripts, not current generation.json.
+Rewrite only generation.json in that generation tree.
+Create a new commit parented on the old generation commit.
+Update/push the same ref with --force-with-lease=<ref>:<old oid>.
+Run entire clean --all --dry-run, then clean.
+That repairs the bad metadata without renumbering refs or re-copying all transcripts.
+If we also care about v2 /main created_at being wrong for already-migrated checkpoints, that’s a separate repair: read v1 metadata and rewrite v2 /main metadata. But for retention cleanup, repairing archived generation.json or continuing to recompute from raw transcripts is the important part.
+
+---
+
+Please thoroughly read the project plan in ~/entire/cli/docs/superpowers/specs/2026-03-19-checkpoints-v2-design.md and the RFD in ~/entire/company-knowledge/rfds/rfd-009-transcript-compaction.md for additional context. The command in question here is `entire migrate --checkpoints v2` which currently seems to currently not sort checkpoints into the correct generational refs after a migration.
+
+---
+
+Just to elaborate here: Oldest to newest means that `0000000000001` will contain the oldest checkpoints, `0000000000002` the next oldest batch and so on, correct?
+
+---
+
+Correct. Let's implement it.
+
+---
+
+if end > len(checkpoints) {
+			end = len(checkpoints)
+		}
+
+if statement can be modernized using min
