@@ -187,3 +187,7 @@ Long lines which are causing line breaks and are eventually being truncated seem
 ---
 
 [Image #1] When highlighting a truncated line, I'm getting terminal control characters right next to the current line indicator.
+
+---
+
+commit the changes
