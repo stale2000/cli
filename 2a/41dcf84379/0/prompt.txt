@@ -211,3 +211,7 @@ Can you make the contents of the header a more highlighted color and make the bo
 ---
 
 commit and continue
+
+---
+
+commit the changes
