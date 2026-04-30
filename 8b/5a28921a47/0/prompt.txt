@@ -11,3 +11,7 @@ check test-auto.sh I did use it to test the brew path, how can I use it to test 
 ---
 
 update the test-auto so I can hit it
+
+---
+
+ship it
