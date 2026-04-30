@@ -15,3 +15,9 @@ why is this the case? ` Also, v2/full/0000000000023 contains some transcript tim
 ---
 
 why is it all the way in 23?
+
+---
+
+ok, that makes sense.
+
+please generate reasonable commit messages with details and push up the changes to `update-rotation-generation-logic`
