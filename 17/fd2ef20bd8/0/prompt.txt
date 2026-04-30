@@ -125,3 +125,7 @@ Here are the findings.
 **Net:** the high-value fix is #1 (drop the duplicate string constants and use the typed `agent.AgentType*` values) and #2 (call `setupStopTestRepo` instead of hand-rolling repo setup five times). #3 is optional polish.</result>
 <usage><total_tokens>66826</total_tokens><tool_uses>24</tool_uses><duration_ms>90370</duration_ms></usage>
 </task-notification>
+
+---
+
+can you commit, and the please focus on test coverage / maybe integration tests on the fixes
