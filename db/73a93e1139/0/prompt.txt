@@ -165,3 +165,7 @@ Are the rest of the steps to make the changes I asked for done?
 ---
 
 Okay. We now need to ensure that every column has a fixed length because right now, the way it looks is very misaligned.
+
+---
+
+commit the changes
