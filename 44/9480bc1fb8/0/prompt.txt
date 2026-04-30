@@ -173,3 +173,7 @@ commit the changes
 ---
 
 Okay, now I'd like an indicator showing which line is currently selected. I think using something like the `>` the prototype branch is using would be good. Maybe we can also use a highlight background color to indicate the current row.
+
+---
+
+Commit the changes
