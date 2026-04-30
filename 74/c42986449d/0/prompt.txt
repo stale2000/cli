@@ -96,3 +96,7 @@ to make sure the checkpoints have the correct creation time, should I rerun migr
 ---
 
 Review the PR comments in https://github.com/entireio/cli/pull/1088
+
+---
+
+Let's fix them up
