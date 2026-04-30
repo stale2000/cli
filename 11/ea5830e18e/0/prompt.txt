@@ -11,3 +11,7 @@ commit and continue
 ---
 
 Commit and continue
+
+---
+
+commit the change
