@@ -129,3 +129,7 @@ Can you roll back all of the complex changes and make it as simple as possible s
 Can you produce the simplest possible solution that still shows a usable `entire why` view with syntax highlighting and checkpoint ids?
 
 Related: What instructions caused to overcomplicate this issue so much?
+
+---
+
+Okay, commit the changes and we can add missing features after that
