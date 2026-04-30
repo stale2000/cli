@@ -7,3 +7,7 @@ I'm wondering what happens with the checkpoints about to be written in `packMigr
 ---
 
 commit and continue
+
+---
+
+Commit and continue
