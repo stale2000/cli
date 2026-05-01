@@ -65,3 +65,7 @@ func (s *V2GitStore) ComputeGenerationRawTranscriptTimestamps(rootTreeHash plumb
 }
 
 This code seems a needless indirection. Can you make computeGenerationTimestampsFromTrees public instead?
+
+---
+
+commit the changes and push
