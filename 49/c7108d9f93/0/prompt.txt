@@ -1,17 +1,1 @@
-`"[entire] Warning: couldn't sync v2/main:")` why the :`?
-
----
-
-Review the PR reviewer comments
-
----
-
-so if one failed, what's the behavior?
-
----
-
-Got it, let's print the successful ones separately then
-
----
-
-Got it, let's print the successful ones separately then only in the failure case
+push up that change, thank you
