@@ -1,11 +1,3 @@
-push up that change, thank you
-
----
-
-how does this change behavior for the force migration?
-
----
-
 Instead of pushing the refspecs one by one, we could generate a list of refspecs and have git do the heavy lifting for us instead of trying to parallelize the whole process:
 
 ```
