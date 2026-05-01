@@ -1,0 +1,21 @@
+Can you also pull in origin/main and fix the merge conflicts?
+
+---
+
+Use the review skill
+
+---
+
+Regarding #1: Most of what you've described would already apply to the output of `git blame`, wouldn't it? The same goes for viewing a file in a terminal via `cat` or a pager. What's the actual attack angle here?
+
+---
+
+What's the effort required to sanitize the input we're getting from `git blame` or file contents? If it's more than a few lines, I'd completely skip this for now.
+
+---
+
+The main use case here is that the person who's using the TUI is also a comitter of the repo does that change the assessment yet again?
+
+---
+
+Okay, address everything but #1 one by one for now
