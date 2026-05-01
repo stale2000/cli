@@ -43,3 +43,7 @@ Use the pr skill to open a draft pr
 ---
 
 Can you pull in origin/main and resolve the merge conflicts?
+
+---
+
+commit the changes
