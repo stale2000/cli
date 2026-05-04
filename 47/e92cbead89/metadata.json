@@ -1,0 +1,25 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "47e92cbead89",
+  "strategy": "manual-commit",
+  "branch": "soph/fix-copilot-e2e",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/strategy/manual_commit_condensation.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/47/e92cbead89/0/metadata.json",
+      "transcript": "/47/e92cbead89/0/full.jsonl",
+      "content_hash": "/47/e92cbead89/0/content_hash.txt",
+      "prompt": ""
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 1,
+    "cache_creation_tokens": 491,
+    "cache_read_tokens": 340206,
+    "output_tokens": 428,
+    "api_call_count": 1
+  }
+}
