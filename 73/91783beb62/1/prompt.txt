@@ -36,3 +36,7 @@ We want the following to be true:
 * New checkpoints are picked up
 * If the process was interrupted, any checkpoints that weren't migrated will be migrated
 * Checkpoints that were already migrated are skipped unless --force is used
+
+---
+
+Generate commit messages to go with the changes and push them up to more-migration-speedups
