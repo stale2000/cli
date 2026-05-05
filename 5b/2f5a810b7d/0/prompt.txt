@@ -1,13 +1,1 @@
-Commit the changes
-
----
-
-Next, I'd like commit hashes to be clickable terminal hyperlinks (via lipgloss) and take a user to https://entire.io/gh/entireio/cli/commit/<commit-hash>
-
----
-
-Why didn't you use the lipgloss functions instead? https://github.com/charmbracelet/lipgloss#hyperlinks
-
----
-
-Migrate to lipgloss v2
+Can you also pull in origin/main and fix the merge conflicts?

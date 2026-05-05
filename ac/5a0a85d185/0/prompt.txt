@@ -81,3 +81,7 @@ Use the pr-feedback skill
 ---
 
 Address the issues found
+
+---
+
+commit the changes, push them, reply to the comments and resolve them
