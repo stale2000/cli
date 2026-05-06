@@ -1,17 +1,1 @@
-if you look at 1106 now, there doesn't seem to be merge conflcits or anything
-
----
-
-ci is clean on 1105. Do you want to review the rest of the prs like the review we recieved for 1105? you can start wth 1106
-
----
-
-okay what do you suggest for implementing fixes
-
----
-
-that sounds good, but you'll also have to re-run smoke tests to make sure no regression or downstream effects
-
----
-
 proceed
