@@ -1,0 +1,125 @@
+alright, cut a branch, and let's PR these local testing improvements
+
+---
+
+we don't need a linear card for this one
+
+---
+
+oh no! ok      github.com/entireio/cli/cmd/entire/cli/recap    4.514s
+==================
+WARNING: DATA RACE
+Write at 0x00c0004d80d0 by goroutine 406:
+  internal/poll.(*FD).destroy()
+      /Users/alex/.local/share/mise/installs/go/1.26.2/src/internal/poll/fd_unix.go:84 +0xb4
+  internal/poll.(*FD).decref()
+      /Users/alex/.local/share/mise/installs/go/1.26.2/src/internal/poll/fd_mutex.go:213 +0x38
+  internal/poll.(*FD).Close()
+      /Users/alex/.local/share/mise/installs/go/1.26.2/src/internal/poll/fd_unix.go:105 +0x6c
+  os.(*file).close()
+      /Users/alex/.local/share/mise/installs/go/1.26.2/src/os/file_unix.go:315 +0x80
+  os.(*File).Close()
+      /Users/alex/.local/share/mise/installs/go/1.26.2/src/os/file_posix.go:23 +0x38
+  github.com/muesli/cancelreader.(*selectCancelReader).Close()
+      /Users/alex/go/pkg/mod/github.com/muesli/cancelreader@v0.2.2/cancelreader_select.go:92 +0x140
+  charm.land/bubbletea/v2.(*Program).Run.(*Program).shutdown.func4()
+      /Users/alex/go/pkg/mod/charm.land/bubbletea/v2@v2.0.6/tea.go:1256 +0xbc
+  sync.(*Once).doSlow()
+      /Users/alex/.local/share/mise/installs/go/1.26.2/src/sync/once.go:78 +0x94
+  charm.land/huh/v2.(*Form).run()
+      /Users/alex/go/pkg/mod/charm.land/huh/v2@v2.0.3/form.go:707 +0x294
+  charm.land/huh/v2.(*Form).RunWithContext()
+      /Users/alex/go/pkg/mod/charm.land/huh/v2@v2.0.3/form.go:683 +0x164
+  github.com/entireio/cli/cmd/entire/cli/review.PickAgents()
+      /Users/alex/workspace/cli/.worktrees/1/cmd/entire/cli/review/multipicker.go:69 +0x444
+  github.com/entireio/cli/cmd/entire/cli/review_test.TestPickAgents_CancelledContextReturnsPickerCancelled()
+      /Users/alex/workspace/cli/.worktrees/1/cmd/entire/cli/review/multipicker_test.go:56 +0xe0
+  testing.tRunner()
+      /Users/alex/.local/share/mise/installs/go/1.26.2/src/testing/testing.go:2036 +0x164
+  testing.(*T).Run.gowrap1()
+      /Users/alex/.local/share/mise/installs/go/1.26.2/src/testing/testing.go:2101 +0x34
+
+Previous read at 0x00c0004d80d0 by goroutine 576:
+  os.(*File).fd()
+      /Users/alex/.local/share/mise/installs/go/1.26.2/src/os/file_unix.go:84 +0x90
+  os.(*File).Fd()
+      /Users/alex/.local/share/mise/installs/go/1.26.2/src/os/file.go:723 +0x30
+  github.com/muesli/cancelreader.waitForRead()
+      /Users/alex/go/pkg/mod/github.com/muesli/cancelreader@v0.2.2/cancelreader_select.go:120 +0x208
+  github.com/muesli/cancelreader.(*selectCancelReader).Read()
+      /Users/alex/go/pkg/mod/github.com/muesli/cancelreader@v0.2.2/cancelreader_select.go:53 +0xb8
+  github.com/charmbracelet/ultraviolet.(*TerminalReader).sendBytes()
+      /Users/alex/go/pkg/mod/github.com/charmbracelet/ultraviolet@v0.0.0-20260416155717-489999b90468/terminal_reader.go:124 +0xa8
+  github.com/charmbracelet/ultraviolet.(*TerminalReader).streamData()
+      /Users/alex/go/pkg/mod/github.com/charmbracelet/ultraviolet@v0.0.0-20260416155717-489999b90468/terminal_reader_other.go:12 +0x90
+  github.com/charmbracelet/ultraviolet.(*TerminalReader).StreamEvents.func1()
+      /Users/alex/go/pkg/mod/github.com/charmbracelet/ultraviolet@v0.0.0-20260416155717-489999b90468/terminal_reader.go:151 +0x98
+
+Goroutine 406 (running) created at:
+  testing.(*T).Run()
+      /Users/alex/.local/share/mise/installs/go/1.26.2/src/testing/testing.go:2101 +0x7bc
+  testing.runTests.func1()
+      /Users/alex/.local/share/mise/installs/go/1.26.2/src/testing/testing.go:2585 +0x78
+  testing.tRunner()
+      /Users/alex/.local/share/mise/installs/go/1.26.2/src/testing/testing.go:2036 +0x164
+  testing.runTests()
+      /Users/alex/.local/share/mise/installs/go/1.26.2/src/testing/testing.go:2583 +0x7a0
+  testing.(*M).Run()
+      /Users/alex/.local/share/mise/installs/go/1.26.2/src/testing/testing.go:2443 +0xb38
+  main.main()
+      _testmain.go:366 +0x100
+
+Goroutine 576 (running) created at:
+  github.com/charmbracelet/ultraviolet.(*TerminalReader).StreamEvents()
+      /Users/alex/go/pkg/mod/github.com/charmbracelet/ultraviolet@v0.0.0-20260416155717-489999b90468/terminal_reader.go:149 +0x23c
+  charm.land/bubbletea/v2.(*Program).readLoop()
+      /Users/alex/go/pkg/mod/charm.land/bubbletea/v2@v2.0.6/tty.go:87 +0xd0
+  charm.land/bubbletea/v2.(*Program).initInputReader.gowrap1()
+      /Users/alex/go/pkg/mod/charm.land/bubbletea/v2@v2.0.6/tty.go:79 +0x2c
+==================
+--- FAIL: TestPickAgents_CancelledContextReturnsPickerCancelled (0.05s)
+    testing.go:1712: race detected during execution of test
+--- FAIL: TestReviewAttach_NoArgsPrintsHelp (0.04s)
+    testing.go:1712: race detected during execution of test
+--- FAIL: TestNewReviewCmd_NoHiddenFlags (0.03s)
+    testing.go:1712: race detected during execution of test
+--- FAIL: TestIsAncestorOf (0.08s)
+    testing.go:1712: race detected during execution of test
+FAIL
+FAIL    github.com/entireio/cli/cmd/entire/cli/review   7.303s
+ok      github.com/entireio/cli/cmd/entire/cli/review/types     3.791s
+ok      github.com/entireio/cli/cmd/entire/cli/search   3.770s
+ok      github.com/entireio/cli/cmd/entire/cli/session  4.267s
+ok      github.com/entireio/cli/cmd/entire/cli/settings 5.054s
+ok      github.com/entireio/cli/cmd/entire/cli/strategy 61.042s
+ok      github.com/entireio/cli/cmd/entire/cli/stringutil       4.600s
+ok      github.com/entireio/cli/cmd/entire/cli/summarize        13.559s
+ok      github.com/entireio/cli/cmd/entire/cli/telemetry        5.405s
+?       github.com/entireio/cli/cmd/entire/cli/testutil [no test files]
+ok      github.com/entireio/cli/cmd/entire/cli/textutil 5.341s
+ok      github.com/entireio/cli/cmd/entire/cli/trail    8.244s
+ok      github.com/entireio/cli/cmd/entire/cli/trailers 5.832s
+^[[?2026;2$yok          github.com/entireio/cli/cmd/entire/cli/transcript       8.324s
+ok      github.com/entireio/cli/cmd/entire/cli/transcript/compact       7.059s
+ok      github.com/entireio/cli/cmd/entire/cli/validation       6.066s
+?       github.com/entireio/cli/cmd/entire/cli/vercelconfig     [no test files]
+ok      github.com/entireio/cli/cmd/entire/cli/versioncheck     5.732s
+?       github.com/entireio/cli/cmd/entire/cli/versioninfo      [no test files]
+^[[?2027;2$yok          github.com/entireio/cli/e2e/agents      4.523s
+?       github.com/entireio/cli/e2e/bootstrap   [no test files]
+?       github.com/entireio/cli/e2e/cmd/testreport      [no test files]
+?       github.com/entireio/cli/e2e/entire      [no test files]
+?       github.com/entireio/cli/e2e/testutil    [no test files]
+?       github.com/entireio/cli/e2e/vogon       [no test files]
+ok      github.com/entireio/cli/perf    8.400s
+ok      github.com/entireio/cli/redact  13.405s
+FAIL
+[test:ci] ERROR task failed
+
+---
+
+was this something we introduced?
+
+---
+
+strangely enough the builds have been green in recent history
