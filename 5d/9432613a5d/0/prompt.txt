@@ -1,0 +1,5 @@
+implement this on this branch /Users/alisha/.marvin/plans/entire-labs-investigate/prompt.md do not commit the claude.md file changes
+
+---
+
+commit then verify to spec then do code review
