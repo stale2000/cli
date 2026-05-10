@@ -1,1 +1,1 @@
-Update the CLI with an option to listen to the newly added endpoint in  https://github.com/entirehq/entire.io/pull/1888
+Create a new branch based on feat/pi-agent-builtin, then commit the changes (don't push to origin yet).
