@@ -1,0 +1,1 @@
+Update the CLI with an option to listen to the newly added endpoint in  https://github.com/entirehq/entire.io/pull/1888
