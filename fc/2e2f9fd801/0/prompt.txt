@@ -1,9 +1,1 @@
-Push the branch up. Create a separate PR real quick to add the mise.local.toml to the gitignore and come back to this branch.
-
----
-
-I installed the latest version. Can you check if it's working end to end?
-
----
-
 Yes, fix it.
