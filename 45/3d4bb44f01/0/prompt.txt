@@ -14,3 +14,7 @@ Use the pfleidi:pr-feedback skill
 ---
 
 Do both in a batch
+
+---
+
+commit and push
