@@ -1,0 +1,53 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "b7fab1d96c0e",
+  "strategy": "manual-commit",
+  "branch": "entire-learn",
+  "checkpoints_count": 1,
+  "files_touched": [
+    ".github/workflows/release.yml",
+    "cmd/entire/cli/labs.go",
+    "cmd/entire/cli/labs_test.go",
+    "cmd/entire/cli/learn/discovery.go",
+    "cmd/entire/cli/learn/discovery_test.go",
+    "cmd/entire/cli/learn/embedded.go",
+    "cmd/entire/cli/learn/embedded/learn.md",
+    "cmd/entire/cli/learn/prompt.go",
+    "cmd/entire/cli/learn/prompt_test.go",
+    "cmd/entire/cli/learn/run.go",
+    "cmd/entire/cli/learn/state.go",
+    "cmd/entire/cli/learn_cmd.go",
+    "cmd/entire/cli/learn_tui.go",
+    "cmd/entire/cli/mdrender/mdrender.go",
+    "cmd/entire/cli/root.go",
+    "cmd/entire/cli/tour/blog.go",
+    "cmd/entire/cli/tour/discovery.go",
+    "cmd/entire/cli/tour/discovery_test.go",
+    "cmd/entire/cli/tour/embedded.go",
+    "cmd/entire/cli/tour/embedded/tour.md",
+    "cmd/entire/cli/tour/prompt.go",
+    "cmd/entire/cli/tour/prompt_test.go",
+    "cmd/entire/cli/tour/run.go",
+    "cmd/entire/cli/tour/state.go",
+    "cmd/entire/cli/tour_cmd.go",
+    "cmd/entire/cli/tour_tui.go",
+    "mise-tasks/learn/regenerate",
+    "mise-tasks/tour/regenerate",
+    "mise.toml"
+  ],
+  "sessions": [
+    {
+      "metadata": "/b7/fab1d96c0e/0/metadata.json",
+      "transcript": "/b7/fab1d96c0e/0/full.jsonl",
+      "content_hash": "/b7/fab1d96c0e/0/content_hash.txt",
+      "prompt": "/b7/fab1d96c0e/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 110,
+    "cache_creation_tokens": 282932,
+    "cache_read_tokens": 13131165,
+    "output_tokens": 63414,
+    "api_call_count": 91
+  }
+}

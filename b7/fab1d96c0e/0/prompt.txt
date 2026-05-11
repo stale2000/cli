@@ -1,0 +1,7 @@
+can you do these changes that were requested to the entire tour command I like learn more then tour
+
+generate the file and keep it in git. We could include that with the changelog PR, like part of updating the CHANGELOG is making sure we generate the new template. This way we can also tweak it more and it's less undeterministic. also remove the --latest feature
+
+---
+
+commit
