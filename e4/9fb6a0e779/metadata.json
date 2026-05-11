@@ -1,0 +1,26 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "e49fb6a0e779",
+  "strategy": "manual-commit",
+  "branch": "fix/checkpoints-v2-clean-generation-json-fetch",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/clean_test.go",
+    "cmd/entire/cli/strategy/cleanup.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/e4/9fb6a0e779/0/metadata.json",
+      "transcript": "/e4/9fb6a0e779/0/full.jsonl",
+      "content_hash": "/e4/9fb6a0e779/0/content_hash.txt",
+      "prompt": "/e4/9fb6a0e779/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 3490,
+    "cache_creation_tokens": 207074,
+    "cache_read_tokens": 2800219,
+    "output_tokens": 29401,
+    "api_call_count": 30
+  }
+}
