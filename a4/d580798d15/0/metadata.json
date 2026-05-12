@@ -1,0 +1,44 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "a4d580798d15",
+  "session_id": "87875d7f-17c3-47b1-ba0b-581724e1ee19",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-12T19:49:54.227462Z",
+  "branch": "entire-labs-investigate",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/investigate/tui_detail.go",
+    "cmd/entire/cli/investigate/tui_model.go",
+    "cmd/entire/cli/investigate/tui_model_test.go"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "34707e443064",
+  "checkpoint_transcript_start": 27,
+  "transcript_lines_at_start": 27,
+  "token_usage": {
+    "input_tokens": 0,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 0,
+    "output_tokens": 0,
+    "api_call_count": 0
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-12T19:49:54.216108Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 171,
+    "human_modified": 10,
+    "human_removed": 0,
+    "total_committed": 171,
+    "total_lines_changed": 181,
+    "agent_percentage": 0,
+    "metric_version": 2
+  },
+  "kind": "agent_investigate",
+  "investigate_run_id": "45bc33dc65eb",
+  "investigate_round": 1,
+  "investigate_turn": 1,
+  "investigate_topic": "Search stays empty after successful Codex & Claude checkpoint capture in clean repo repro",
+  "investigate_prompt": "You are participating in an autonomous multi-agent investigation. The agents take turns appending findings, evidence, and analysis to a shared findings document until quorum is reached.\n\nYou are agent: claude-code\nRound: 1    (turn 1 overall in this session)\nTopic: Search stays empty after successful Codex & Claude checkpoint capture in clean repo repro\n\nFiles:\n  Findings: /Users/alisha/.marvin/worktrees/cli/entire-labs-investigate/.entire/investigations/search-stays-empty-after-successful-codex-claude-checkpoint.md\n  Timeline: /Users/alisha/.marvin/worktrees/cli/entire-labs-investigate/.entire/investigations/search-stays-empty-after-successful-codex-claude-checkpoint-timeline.md\n\n## Your task this turn\n\n1. Read the findings doc and the full timeline to date. Read both files in\n   full before editing — prior agents may have already established findings,\n   evidence, or pushback you must engage with rather than restate.\n\n2. Form an independent opinion. Investigate the codebase as needed (read\n   files, run git log/grep, run tests if useful). You have full agent\n   powers, but you MUST NOT modify any file other than the findings doc\n   and the timeline file.\n\n   You are a skeptical investigator: every claim in the findings doc must\n   be supported by concrete evidence (file:line refs, command output, or\n   test results). Push back on prior agents' claims that lack evidence,\n   mark them disputed, or note unknowns. Aim to converge on a complete,\n   defensible explanation — not just to add more text.\n\n3. Edit the findings doc to add or refine findings. One numbered subsection\n   per finding, with concrete evidence. Keep the TLDR section accurate\n   every turn — it should reflect the current best answer, not the\n   original question. Until consensus, hedge confidence with words like\n   \"likely\" or \"preliminary\"; once consensus is reached, state the answer\n   directly. Do NOT add a \"## Recommendations\" or \"## Action items\"\n   section — investigations end at the Conclusion.\n\n4. Append exactly one entry to the timeline file using this format (note:\n   the heading MUST be at column 0, no leading whitespace):\n\n```markdown\n## Turn 1 — claude-code\n**Stance:** approve | request-changes | abstain\n**Date:** <ISO 8601 timestamp>\n\n### Changes\n- <bullet>\n\n### Rationale\n<prose>\n\n### Open concerns\n<prose; \"none\" if you have no remaining concerns>\n```\n\n5. Stance rules:\n   - \"approve\" only if you have independently verified the findings and\n     confirm the investigation is complete and correct.\n   - \"request-changes\" if there are remaining gaps, unverified claims, or\n     alternative explanations not yet considered.\n   - \"abstain\" if you cannot form an opinion (e.g. insufficient context,\n     out-of-scope expertise) — explain why so the next agent can address\n     the gap.\n\n6. Do NOT commit anything to git. Do NOT run destructive commands.\n\n7. Exit when you've appended your turn entry.\n"
+}
