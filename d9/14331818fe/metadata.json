@@ -1,0 +1,31 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "d914331818fe",
+  "strategy": "manual-commit",
+  "branch": "feat/review-surface-agent-errors",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "cmd/entire/cli/review/cmd.go",
+    "cmd/entire/cli/review/dump.go",
+    "cmd/entire/cli/review/dump_test.go",
+    "cmd/entire/cli/review/manifest.go",
+    "cmd/entire/cli/review/manifest_test.go",
+    "cmd/entire/cli/review/run_multi_test.go",
+    "cmd/entire/cli/review/tui_sink_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/d9/14331818fe/0/metadata.json",
+      "transcript": "/d9/14331818fe/0/full.jsonl",
+      "content_hash": "/d9/14331818fe/0/content_hash.txt",
+      "prompt": "/d9/14331818fe/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 101,
+    "cache_creation_tokens": 227456,
+    "cache_read_tokens": 9167230,
+    "output_tokens": 65663,
+    "api_call_count": 67
+  }
+}

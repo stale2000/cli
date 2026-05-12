@@ -1,0 +1,64 @@
+please review pr 1167, with the following review findings, ### Medium — asymmetric panic handling between EnrichSummary and EnrichAgentRun
+
+run.go:113-118 calls enrichRunSummary with no recovery:
+go
+func enrichRunSummary(ctx context.Context, cfg reviewtypes.RunConfig, summary reviewtypes.RunSummary) reviewtypes.RunSummary {
+    if cfg.EnrichSummary == nil { return summary }
+    return cfg.EnrichSummary(ctx, summary)
+}But run_multi.go:233-244 does recover for EnrichAgentRun. The RunConfig docs disclose this ("EnrichSummary … must not panic (no orchestrator-side recovery)"), so it's a documented choice — but the reasoning isn't obvious from the call sites, and the symmetry break risks future bugs.
+
+Both enrichers do the same kind of I/O (store.List) and could plausibly hit the same panic surfaces (state file corruption, deserialization). A panic in EnrichSummary skips Sink.RunFinished for every sink — the user never sees the dashboard's final frame and the manifest never gets written. Recommend mirroring the recovery pattern.
+
+### Medium — package-level reviewAgentByType is a parallel-test footgun
+
+manifest.go:25:
+go
+var reviewAgentByType = agent.GetByAgentType // overridable in testsThen TestHydrateReviewSummaryTokensFromStates_FallsBackToTranscript mutates it and *does not call t.Parallel()* — while TestHydrateReviewSummaryTokensFromStates_PopulatesTokensFromSessionState (immediately above it) does. The two don't actually race today because the parallel test takes the early-return path before reaching reviewAgentByType, but anyone adding a parallel test that exercises the transcript path will race silently.
+
+Two options, ordered by my preference:
+
+Thread the lookup function through as an explicit dependency on RunConfig or the hydration entry points. Slightly more plumbing, eliminates the global.
+Keep the global but lock it with a sync.Mutex or document the constraint loudly at the var declaration ("DO NOT use t.Parallel in tests that touch reviewAgentByType").
+
+
+### Minor — N+1 store.List calls in multi-agent
+
+In RunMulti, each agent finish triggers reviewAgentRunTokenEnricher → NewStateStore + store.List, then a final reviewSummaryTokenEnricher does it again. For N agents that's N+1 listings of the same directory. Today the file count is small so this is cheap, but if review session retention ever expands you'll see it in profiles. A single store.List at the cobra level, passed via an injected states []*session.State slice, would be cleaner.
+
+### Minor — markdown fence in writeFailureHeader doesn't escape backticks
+
+dump.go:99:
+go
+fmt.Fprintf(b, "\n%s\n```\n\n", pe.Stderr)
+If `pe.Stderr` contains "" (e.g., an agent reflecting markdown back through stderr), the fence terminates early and trailing content renders raw. Low-probability in practice but the fix is one line: scan stderr for the longest backtick run and use a fence one longer (CommonMark §4.5). Not blocking; flagging because the failure mode is silent-corruption rather than missing-output.
+
+### Minor — hasReviewTokenUsageData / reviewTokensFromTokenUsage are unbounded recursive
+
+manifest.go:382-389 and manifest.go:368-380 both descend SubagentTokens without a depth limit or cycle guard. agent.TokenUsage.SubagentTokens is a *TokenUsage and nothing structurally prevents a cycle if the upstream agent code ever bug-introduces one (or a hand-crafted test state file is loaded). A depth >= maxDepth early return (say, maxDepth = 8) would be cheap insurance. The cost of being wrong is a stack overflow during a review run — the cost of being right is two lines.
+
+### Minor — terminalMeasurer happy path isn't unit-tested
+
+tui_sink.go:73-87 introduces the measurement path, but no test exercises output.(fdWriter) succeeding and returning real sizes. Tests for the cached width (_DashboardUsesCachedTerminalWidthBeforeResizeMsg) set model.termWidth directly, which skips the measurement. A fakeFDWriter that returns controlled values would close the loop.
+
+### Question — TestRunMulti_EmitsEnrichedTokensWhenAgentFinishes and dispatch-loop overwrite semantics
+
+The dispatch loop overwrites st.tokens on every Tokens event (run_multi.go:154-155):
+go
+case reviewtypes.Tokens:
+    st.tokens = e // Tokens is cumulative — overwrite, don't sum.If the parser emits intermediate Tokens during a long run and the post-Wait synthetic Tokens arrives last, the enriched value wins — which is correct here because reviewTokenUsageForSession reads the post-flush state. But there's no test verifying the order: if the parser emitted Tokens{In: 1000} and the enricher returns Tokens{In: 0}, the early-return at emitEnrichedAgentTokens (line 226 if enriched.Tokens.In == 0 && enriched.Tokens.Out == 0) preserves the parser's value. Good. But a test asserting "parser tokens + zero-enriched-result = parser tokens preserved" would lock that contract in.
+
+---
+
+yes go ahead
+
+---
+
+why drop?
+
+---
+
+so do we need enrichSummary? is this for tokens?
+
+---
+
+yes please. But first, review the changes that were propsoed and then make sure we didnt miss anything please
