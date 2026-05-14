@@ -1,0 +1,33 @@
+Currently we use "migration@entire.dev" for when you use the migration tooling, is there a good reason to not just use the user that is doing the migration instead?
+
+---
+
+yeah but the main case is: we don't own entire.dev
+
+---
+
+the issue is also: if we ever want to sign these commits, they have to be done by a user
+
+---
+
+Can you explain me what migration currently does? Or more specific how translate a commit on v1 to a commit on v2, is there a 1:1 mapping?
+
+---
+
+how do we figure out where a v2 full log is stored?
+
+---
+
+let's say we build archives on top of each other, then it's an easy full view by looking at current. the issue becomes now cleanup, but what if we just take out commits and rewrite history? like root-commit - 100 - 100 - 100 - current, now can we just take out the first 100 and transplant the next 100 on the root-commit? is that an expensive operation? given the constraints that there should be no conflicts?
+
+---
+
+but the number isn't known when the session is written
+
+---
+
+ok, back to migration commit: let's switch to Drop migrateAuthorName/Email and repairAuthorName/Email, call checkpoint.GetGitAuthorFromRepo(repo) at each commit site. and then maybe we could add co-author migration@entire.io? then it's clear this was a mechanical thing but the signing still works?
+
+---
+
+yeah, let'd do this
