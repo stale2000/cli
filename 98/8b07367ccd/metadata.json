@@ -1,0 +1,25 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "988b07367ccd",
+  "strategy": "manual-commit",
+  "branch": "soph/better-migration-email",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/strategy/generation_repair.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/98/8b07367ccd/0/metadata.json",
+      "transcript": "/98/8b07367ccd/0/full.jsonl",
+      "content_hash": "/98/8b07367ccd/0/content_hash.txt",
+      "prompt": "/98/8b07367ccd/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 256,
+    "cache_creation_tokens": 524140,
+    "cache_read_tokens": 26136364,
+    "output_tokens": 83550,
+    "api_call_count": 177
+  }
+}

@@ -1,0 +1,9 @@
+can you give me a short PR description
+
+---
+
+[test:ci] --- FAIL: TestExternalCommand_SigintReachesPlugin (13.75s)
+[test:ci]     external_command_signal_unix_test.go:55: plugin never reached ready state
+[test:ci]         parent stderr:
+[test:ci] FAIL
+[test:ci] FAIL  github.com/entireio/cli/cmd/entire/cli/integration_test 113.702s
