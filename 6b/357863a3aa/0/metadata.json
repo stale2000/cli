@@ -1,0 +1,63 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "6b357863a3aa",
+  "session_id": "019e2690-da26-7441-b5c0-f0394e2ab384",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-14T18:40:44.626793Z",
+  "branch": "soph/better-migration-email",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/checkpoint/committed.go",
+    "cmd/entire/cli/checkpoint/v2_committed.go",
+    "cmd/entire/cli/migrate.go",
+    "cmd/entire/cli/strategy/generation_repair.go",
+    "cmd/entire/cli/trailers/trailers.go"
+  ],
+  "agent": "Codex",
+  "model": "gpt-5.4",
+  "turn_id": "c8f1ec954bbe",
+  "token_usage": {
+    "input_tokens": 78172,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 723328,
+    "output_tokens": 7737,
+    "api_call_count": 17
+  },
+  "session_metrics": {
+    "turn_count": 1
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-14T18:40:44.602265Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 30,
+    "human_removed": 40,
+    "total_committed": 0,
+    "total_lines_changed": 70,
+    "agent_percentage": 0,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 43,
+      "user_lines_removed": 47,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        "cmd/entire/cli/checkpoint/committed.go": 7,
+        "cmd/entire/cli/checkpoint/v2_committed.go": 4,
+        "cmd/entire/cli/migrate.go": 12,
+        "cmd/entire/cli/strategy/generation_repair.go": 2,
+        "cmd/entire/cli/trailers/trailers.go": 18
+      },
+      "user_removed_per_file": {
+        "cmd/entire/cli/checkpoint/committed.go": 15,
+        "cmd/entire/cli/checkpoint/v2_committed.go": 4,
+        "cmd/entire/cli/migrate.go": 24,
+        "cmd/entire/cli/strategy/generation_repair.go": 4
+      }
+    }
+  ]
+}
