@@ -1,0 +1,48 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "90baba88311d",
+  "session_id": "be365e77-bc42-49b7-a4e8-88d06bbb205d",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-14T19:25:31.654052Z",
+  "branch": "soph/better-migration-email",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/trailers/trailers_test.go"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "6a87ea54c23e",
+  "checkpoint_transcript_start": 653,
+  "transcript_lines_at_start": 653,
+  "token_usage": {
+    "input_tokens": 13,
+    "cache_creation_tokens": 5408,
+    "cache_read_tokens": 1844074,
+    "output_tokens": 3066,
+    "api_call_count": 8
+  },
+  "session_metrics": {
+    "turn_count": 2
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-14T19:25:31.615943Z",
+    "agent_lines": 13,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 13,
+    "total_lines_changed": 13,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "90baba88311d",
+  "strategy": "manual-commit",
+  "branch": "soph/better-migration-email",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/trailers/trailers_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/90/baba88311d/0/metadata.json",
+      "transcript": "/90/baba88311d/0/full.jsonl",
+      "content_hash": "/90/baba88311d/0/content_hash.txt",
+      "prompt": "/90/baba88311d/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 13,
+    "cache_creation_tokens": 5408,
+    "cache_read_tokens": 1844074,
+    "output_tokens": 3066,
+    "api_call_count": 8
+  }
+}
