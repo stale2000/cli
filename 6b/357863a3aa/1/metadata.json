@@ -1,0 +1,59 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "6b357863a3aa",
+  "session_id": "be365e77-bc42-49b7-a4e8-88d06bbb205d",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-14T18:40:47.939414Z",
+  "branch": "soph/better-migration-email",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/checkpoint/committed.go",
+    "cmd/entire/cli/checkpoint/v2_committed.go",
+    "cmd/entire/cli/migrate.go",
+    "cmd/entire/cli/strategy/generation_repair.go",
+    "cmd/entire/cli/trailers/trailers.go"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-7[1m]",
+  "turn_id": "4c5adc2215a9",
+  "checkpoint_transcript_start": 340,
+  "transcript_lines_at_start": 340,
+  "token_usage": {
+    "input_tokens": 61,
+    "cache_creation_tokens": 242571,
+    "cache_read_tokens": 9222859,
+    "output_tokens": 29595,
+    "api_call_count": 52
+  },
+  "session_metrics": {
+    "turn_count": 11
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-14T18:40:47.895201Z",
+    "agent_lines": 20,
+    "agent_removed": 25,
+    "human_added": 7,
+    "human_modified": 23,
+    "human_removed": 0,
+    "total_committed": 50,
+    "total_lines_changed": 75,
+    "agent_percentage": 60,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 43,
+      "agent_lines_removed": 47
+    }
+  ]
+}

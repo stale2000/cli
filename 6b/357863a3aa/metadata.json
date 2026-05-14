@@ -3,7 +3,7 @@
   "checkpoint_id": "6b357863a3aa",
   "strategy": "manual-commit",
   "branch": "soph/better-migration-email",
-  "checkpoints_count": 1,
+  "checkpoints_count": 2,
   "files_touched": [
     "cmd/entire/cli/checkpoint/committed.go",
     "cmd/entire/cli/checkpoint/v2_committed.go",
@@ -17,13 +17,19 @@
       "transcript": "/6b/357863a3aa/0/full.jsonl",
       "content_hash": "/6b/357863a3aa/0/content_hash.txt",
       "prompt": "/6b/357863a3aa/0/prompt.txt"
+    },
+    {
+      "metadata": "/6b/357863a3aa/1/metadata.json",
+      "transcript": "/6b/357863a3aa/1/full.jsonl",
+      "content_hash": "/6b/357863a3aa/1/content_hash.txt",
+      "prompt": "/6b/357863a3aa/1/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 78172,
-    "cache_creation_tokens": 0,
-    "cache_read_tokens": 723328,
-    "output_tokens": 7737,
-    "api_call_count": 17
+    "input_tokens": 78233,
+    "cache_creation_tokens": 242571,
+    "cache_read_tokens": 9946187,
+    "output_tokens": 37332,
+    "api_call_count": 69
   }
 }
