@@ -82,3 +82,21 @@ simplify this a bit. And did you add the ability to set the model , etc/
 ---
 
 simplify this a bit. And did you add the ability to set the model , etc/ - like in the pr
+
+---
+
+did you add this in docs, To use the new knobs
+
+  Users edit their clone preferences (.git/entire/preferences.json):
+
+  {
+    "review": {
+      "codex": {
+        "skills": ["/review"],
+        "reasoning_effort": "low",
+        "model": "gpt-5-mini"
+      }
+    }
+  }
+
+  Or via .entire/settings.json review section.
