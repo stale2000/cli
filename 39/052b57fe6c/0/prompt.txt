@@ -1,0 +1,1 @@
+Remove the v2 migration command (deprecate it). Delete the code related to it and if someone tries to run it, it should just say v2 has been deprecated
