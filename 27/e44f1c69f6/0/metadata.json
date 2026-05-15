@@ -1,0 +1,44 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "27e44f1c69f6",
+  "session_id": "8ae0921d-1f34-405b-ae0e-d3322c6748cd",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-15T17:53:57.080646Z",
+  "branch": "fix/checkpoints-v2-full-transcript-fallback",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/checkpoint/committed_reader_resolve.go",
+    "cmd/entire/cli/review_context.go"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-7[1m]",
+  "turn_id": "d8283267f281",
+  "token_usage": {
+    "input_tokens": 12,
+    "cache_creation_tokens": 99332,
+    "cache_read_tokens": 494339,
+    "output_tokens": 5472,
+    "api_call_count": 8
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-15T17:53:57.061611Z",
+    "agent_lines": 8,
+    "agent_removed": 6,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 8,
+    "total_lines_changed": 14,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}
