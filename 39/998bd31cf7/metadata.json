@@ -1,0 +1,26 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "39998bd31cf7",
+  "strategy": "manual-commit",
+  "branch": "deprecate-v2-migrate-command",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/migrate.go",
+    "cmd/entire/cli/migrate_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/39/998bd31cf7/0/metadata.json",
+      "transcript": "/39/998bd31cf7/0/full.jsonl",
+      "content_hash": "/39/998bd31cf7/0/content_hash.txt",
+      "prompt": "/39/998bd31cf7/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 21,
+    "cache_creation_tokens": 141799,
+    "cache_read_tokens": 2294163,
+    "output_tokens": 5748,
+    "api_call_count": 16
+  }
+}
