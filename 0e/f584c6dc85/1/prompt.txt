@@ -1,0 +1,100 @@
+Current "entire trail list" returns a list of all items but it should only return the most recent ones. The branch shouldn't get truncated, the title instead though.
+
+---
+
+There should not be an option to show all. That makes no sense. Also, we need an option for most recent vs. MY most recent.
+
+---
+
+I want options to return the list filtered by author and/or status. Default should be "me" and in_progress. Recommend a parameter design.
+
+---
+
+Where come the open/closed/active states from? Just use the ones from trails.
+
+---
+
+What if not providing an "any" value and just e.g. "--author" and show any then?
+
+---
+
+Do it and aim for the output logic to be like this: `entire trail list`
+
+```
+  Your trails · 6 in progress
+
+  feat/explain-fetch-progress               1d ago
+  feat/explain-streaming-diagnostic         1d ago
+  feat/openai-privacy-filter-v1-backup      2d ago
+  feat/openai-privacy-filter                2d ago
+  slow-codex-in-review                      3d ago
+  redact-2                                  3d ago
+```
+
+`entire trail list --author alice`
+
+```
+  alice · 4 in progress
+
+  feat/cohort-analysis                      2d ago
+  feat/billing-webhooks                     3d ago
+  fix/timezone-edge-cases                   5d ago
+  chore/upgrade-postgres-driver             1w ago
+```
+
+`entire trail list --author`
+
+```
+  In progress · 10 trails
+
+  feat/explain-fetch-progress                    peyton-alt      1d ago
+  dependabot/…/codeql-action-4.35.5              dependabot      1d ago
+  feat/explain-streaming-diagnostic              peyton-alt      1d ago
+  fix/checkpoints-v2-full-transcript-fallback    pfleidi         1d ago
+  feat/openai-privacy-filter-v1-backup           peyton-alt      2d ago
+  soph/better-migration-email                    Soph            2d ago
+  feat/openai-privacy-filter                     peyton-alt      2d ago
+  fix-slow-v2-pushes                             computermode    3d ago
+  slow-codex-in-review                           peyton-alt      3d ago
+  redact-2                                       peyton-alt      3d ago
+```
+
+`entire trail list --status open`
+
+```
+  Your trails · 8 open
+
+  redact-2                                  1d ago
+  slow-codex-in-review                      3d ago
+  feat/throttle-runner-spawn                4d ago
+  feat/new-experiment                       5d ago
+  fix/runner-timeout-handling               6d ago
+  chore/bump-deps                           1w ago
+  feat/checkpoint-pagination                1w ago
+  fix/sse-keepalive                         2w ago
+```
+
+`entire trail list --author --status`
+
+```
+  Recent trails · 10
+
+  In progress · 5
+
+  feat/explain-fetch-progress         peyton-alt      1d ago
+  feat/explain-streaming-diagnostic   peyton-alt      1d ago
+  soph/better-migration-email         Soph            2d ago
+  feat/openai-privacy-filter          peyton-alt      2d ago
+  slow-codex-in-review                peyton-alt      3d ago
+
+  Open · 3
+
+  redact-2                            peyton-alt      1d ago
+  feat/cohort-analysis                alice           1d ago
+  feat/throttle-runner-spawn          peyton-alt      4d ago
+
+  Closed · 2
+
+  feat/checkpoint-search              pfleidi         2h ago
+  fix/sse-reconnect                   Kai             5h ago
+```
