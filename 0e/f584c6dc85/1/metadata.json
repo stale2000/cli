@@ -3,51 +3,37 @@
   "checkpoint_id": "0ef584c6dc85",
   "session_id": "019e2c4b-75d2-75bd-a80a-9b3bc435afd1",
   "strategy": "manual-commit",
-  "created_at": "2026-05-17T17:06:48.482005Z",
+  "created_at": "2026-05-17T17:16:34.118195Z",
   "branch": "dip/trail-list-filters-output",
   "checkpoints_count": 0,
   "files_touched": [
-    "cmd/entire/cli/trail_cmd.go",
-    "cmd/entire/cli/trail_cmd_test.go"
+    "cmd/entire/cli/review/manifest_test.go"
   ],
   "agent": "Pi",
   "model": "",
   "turn_id": "0488ee0b58a1",
-  "checkpoint_transcript_start": 145,
-  "transcript_lines_at_start": 145,
+  "checkpoint_transcript_start": 181,
+  "transcript_lines_at_start": 181,
   "token_usage": {
-    "input_tokens": 41770,
+    "input_tokens": 34610,
     "cache_creation_tokens": 0,
-    "cache_read_tokens": 1899520,
-    "output_tokens": 4026,
-    "api_call_count": 18
+    "cache_read_tokens": 3640832,
+    "output_tokens": 1919,
+    "api_call_count": 27
   },
   "session_metrics": {
     "turn_count": 7
   },
   "initial_attribution": {
-    "calculated_at": "2026-05-17T17:06:48.444219Z",
-    "agent_lines": 0,
-    "agent_removed": 0,
-    "human_added": 7,
-    "human_modified": 29,
+    "calculated_at": "2026-05-17T17:16:34.076767Z",
+    "agent_lines": 1,
+    "agent_removed": 1,
+    "human_added": 314,
+    "human_modified": 0,
     "human_removed": 0,
-    "total_committed": 7,
-    "total_lines_changed": 36,
-    "agent_percentage": 0,
+    "total_committed": 315,
+    "total_lines_changed": 366,
+    "agent_percentage": 0.546448087431694,
     "metric_version": 2
-  },
-  "prompt_attributions": [
-    {
-      "checkpoint_number": 1,
-      "user_lines_added": 193,
-      "user_lines_removed": 0,
-      "agent_lines_added": 0,
-      "agent_lines_removed": 0,
-      "user_added_per_file": {
-        ".pi/extensions/entire.ts": 120,
-        ".pi/extensions/entire/index.ts": 73
-      }
-    }
-  ]
+  }
 }

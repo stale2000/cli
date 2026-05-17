@@ -5,8 +5,8 @@
   "branch": "dip/trail-list-filters-output",
   "checkpoints_count": 1,
   "files_touched": [
-    "cmd/entire/cli/trail_cmd.go",
-    "cmd/entire/cli/trail_cmd_test.go"
+    "cmd/entire/cli/review/manifest_test.go",
+    "cmd/entire/cli/trail_cmd.go"
   ],
   "sessions": [
     {
@@ -19,15 +19,15 @@
       "metadata": "/0e/f584c6dc85/1/metadata.json",
       "transcript": "/0e/f584c6dc85/1/full.jsonl",
       "content_hash": "/0e/f584c6dc85/1/content_hash.txt",
-      "prompt": "/0e/f584c6dc85/1/prompt.txt"
+      "prompt": ""
     }
   ],
   "token_usage": {
-    "input_tokens": 251556,
+    "input_tokens": 244396,
     "cache_creation_tokens": 538825,
-    "cache_read_tokens": 15062925,
-    "output_tokens": 62390,
-    "api_call_count": 154
+    "cache_read_tokens": 16804237,
+    "output_tokens": 60283,
+    "api_call_count": 163
   },
   "combined_attribution": {
     "calculated_at": "2026-05-17T17:06:48.791794Z",

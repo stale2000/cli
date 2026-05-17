@@ -1,5 +1,0 @@
-Create a PR with description of the changes and the new output design.
-
----
-
-Remote checks are failing, fix them and have a look at the review comments and whether there is anything valid and worth addressing.
