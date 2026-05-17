@@ -3,7 +3,7 @@
   "checkpoint_id": "0ef584c6dc85",
   "strategy": "manual-commit",
   "branch": "dip/trail-list-filters-output",
-  "checkpoints_count": 7,
+  "checkpoints_count": 1,
   "files_touched": [
     "cmd/entire/cli/trail_cmd.go",
     "cmd/entire/cli/trail_cmd_test.go"
@@ -23,11 +23,11 @@
     }
   ],
   "token_usage": {
-    "input_tokens": 441240,
+    "input_tokens": 251556,
     "cache_creation_tokens": 538825,
-    "cache_read_tokens": 16568205,
-    "output_tokens": 77058,
-    "api_call_count": 204
+    "cache_read_tokens": 15062925,
+    "output_tokens": 62390,
+    "api_call_count": 154
   },
   "combined_attribution": {
     "calculated_at": "2026-05-17T16:58:04.460145Z",
