@@ -1,0 +1,26 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "51bc65cf19e9",
+  "strategy": "manual-commit",
+  "branch": "dip/trail-list-filters-output",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/trail_cmd.go",
+    "cmd/entire/cli/trail_cmd_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/51/bc65cf19e9/0/metadata.json",
+      "transcript": "/51/bc65cf19e9/0/full.jsonl",
+      "content_hash": "/51/bc65cf19e9/0/content_hash.txt",
+      "prompt": "/51/bc65cf19e9/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 102,
+    "cache_creation_tokens": 345889,
+    "cache_read_tokens": 8930087,
+    "output_tokens": 57311,
+    "api_call_count": 72
+  }
+}
