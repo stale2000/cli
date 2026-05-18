@@ -1,9 +1,1 @@
-Remote checks are failing, fix them and have a look at the review comments and whether there is anything valid and worth addressing.
-
----
-
-Resolve addressed review comment
-
----
-
 On --author default, let's show the ones in progress from the repo, not just "me". Add an alias for "--author me". For "--status" let's list states comma separated by default and accept a comma separated input of states.
