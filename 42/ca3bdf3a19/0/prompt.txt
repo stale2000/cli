@@ -1,5 +1,1 @@
-On --author default, let's show the ones in progress from the repo, not just "me". Add an alias for "--author me". For "--status" let's list states comma separated by default and accept a comma separated input of states.
-
----
-
 Remove "--mine" again I wanted "me"! as an alias for the current users username.
