@@ -1,10 +1,2 @@
-Remove "--mine" again I wanted "me"! as an alias for the current users username.
-
----
-
-Last example in the PR is wrong? Like it doesn't need --author anymore no?
-
----
-
 entire trail list --author me
 always returns an API error: Not authenticated (status 401) — run 'entire login' to re-authenticate
