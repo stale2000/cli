@@ -1,0 +1,27 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "38e3a39e90b8",
+  "strategy": "manual-commit",
+  "branch": "feat/checkpoints-v2-fallback-detection",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "cmd/entire/cli/checkpoint/committed_reader_resolve.go",
+    "cmd/entire/cli/resume.go",
+    "cmd/entire/cli/strategy/manual_commit.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/38/e3a39e90b8/0/metadata.json",
+      "transcript": "/38/e3a39e90b8/0/full.jsonl",
+      "content_hash": "/38/e3a39e90b8/0/content_hash.txt",
+      "prompt": "/38/e3a39e90b8/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 5064,
+    "cache_creation_tokens": 316664,
+    "cache_read_tokens": 10001761,
+    "output_tokens": 46039,
+    "api_call_count": 74
+  }
+}
