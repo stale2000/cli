@@ -69,3 +69,7 @@ commit and puhs
 <status>completed</status>
 <summary>Background command "Push with upstream tracking" completed (exit code 0)</summary>
 </task-notification>
+
+---
+
+can you go through all new comments on this branch and make them concise and only write what is need for understanding not anything to do with past state
