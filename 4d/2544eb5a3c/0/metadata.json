@@ -1,0 +1,46 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "4d2544eb5a3c",
+  "session_id": "22ea627b-151b-4830-b957-b6c379b78cc9",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-19T20:57:36.788662Z",
+  "branch": "entire-labs-investigate",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/investigate/issuelink.go"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "cb056da0e56a",
+  "token_usage": {
+    "input_tokens": 669,
+    "cache_creation_tokens": 1508031,
+    "cache_read_tokens": 195253789,
+    "output_tokens": 260706,
+    "api_call_count": 564
+  },
+  "session_metrics": {
+    "turn_count": 17
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-19T20:57:36.592571Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 71,
+    "human_modified": 2,
+    "human_removed": 0,
+    "total_committed": 71,
+    "total_lines_changed": 73,
+    "agent_percentage": 0,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}
