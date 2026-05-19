@@ -1,0 +1,51 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "463230cd5723",
+  "strategy": "manual-commit",
+  "branch": "entire-labs-investigate",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "cmd/entire/cli/agent/claudecode/spawner.go",
+    "cmd/entire/cli/agent/codex/spawner.go",
+    "cmd/entire/cli/agent/geminicli/spawner.go",
+    "cmd/entire/cli/agentlaunch/launch.go",
+    "cmd/entire/cli/gitexec/gitexec.go",
+    "cmd/entire/cli/investigate/bootstrap.go",
+    "cmd/entire/cli/investigate/clean.go",
+    "cmd/entire/cli/investigate/cmd.go",
+    "cmd/entire/cli/investigate/env.go",
+    "cmd/entire/cli/investigate/findings.go",
+    "cmd/entire/cli/investigate/fix.go",
+    "cmd/entire/cli/investigate/issuelink.go",
+    "cmd/entire/cli/investigate/loop.go",
+    "cmd/entire/cli/investigate/multipicker.go",
+    "cmd/entire/cli/investigate/picker.go",
+    "cmd/entire/cli/investigate/progress.go",
+    "cmd/entire/cli/investigate/prompt.go",
+    "cmd/entire/cli/investigate/prompt_yn.go",
+    "cmd/entire/cli/investigate/show.go",
+    "cmd/entire/cli/investigate/state.go",
+    "cmd/entire/cli/investigate/tui_detail.go",
+    "cmd/entire/cli/investigate/tui_model.go",
+    "cmd/entire/cli/investigate/tui_sink.go",
+    "cmd/entire/cli/investigate_bridge.go",
+    "cmd/entire/cli/provenance/env.go",
+    "cmd/entire/cli/tuiutil/display.go",
+    "cmd/entire/cli/uiform/uiform.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/46/3230cd5723/0/metadata.json",
+      "transcript": "/46/3230cd5723/0/full.jsonl",
+      "content_hash": "/46/3230cd5723/0/content_hash.txt",
+      "prompt": "/46/3230cd5723/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 740,
+    "cache_creation_tokens": 2187722,
+    "cache_read_tokens": 223671323,
+    "output_tokens": 280029,
+    "api_call_count": 610
+  }
+}

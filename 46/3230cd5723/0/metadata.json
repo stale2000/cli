@@ -1,0 +1,79 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "463230cd5723",
+  "session_id": "22ea627b-151b-4830-b957-b6c379b78cc9",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-19T22:48:12.832055Z",
+  "branch": "entire-labs-investigate",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "cmd/entire/cli/agent/claudecode/spawner.go",
+    "cmd/entire/cli/agent/codex/spawner.go",
+    "cmd/entire/cli/agent/geminicli/spawner.go",
+    "cmd/entire/cli/agentlaunch/launch.go",
+    "cmd/entire/cli/gitexec/gitexec.go",
+    "cmd/entire/cli/investigate/bootstrap.go",
+    "cmd/entire/cli/investigate/clean.go",
+    "cmd/entire/cli/investigate/cmd.go",
+    "cmd/entire/cli/investigate/env.go",
+    "cmd/entire/cli/investigate/findings.go",
+    "cmd/entire/cli/investigate/fix.go",
+    "cmd/entire/cli/investigate/issuelink.go",
+    "cmd/entire/cli/investigate/loop.go",
+    "cmd/entire/cli/investigate/multipicker.go",
+    "cmd/entire/cli/investigate/picker.go",
+    "cmd/entire/cli/investigate/progress.go",
+    "cmd/entire/cli/investigate/prompt.go",
+    "cmd/entire/cli/investigate/prompt_yn.go",
+    "cmd/entire/cli/investigate/show.go",
+    "cmd/entire/cli/investigate/state.go",
+    "cmd/entire/cli/investigate/tui_detail.go",
+    "cmd/entire/cli/investigate/tui_model.go",
+    "cmd/entire/cli/investigate/tui_sink.go",
+    "cmd/entire/cli/investigate_bridge.go",
+    "cmd/entire/cli/provenance/env.go",
+    "cmd/entire/cli/tuiutil/display.go",
+    "cmd/entire/cli/uiform/uiform.go"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "80341a3fe8a2",
+  "token_usage": {
+    "input_tokens": 740,
+    "cache_creation_tokens": 2187722,
+    "cache_read_tokens": 223671323,
+    "output_tokens": 280029,
+    "api_call_count": 610
+  },
+  "session_metrics": {
+    "turn_count": 21
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-19T22:48:12.779822Z",
+    "agent_lines": 182,
+    "agent_removed": 350,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 182,
+    "total_lines_changed": 532,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}

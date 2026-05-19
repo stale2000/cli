@@ -1,0 +1,71 @@
+/simplify
+
+---
+
+/simplify all code on branch diff from main
+
+---
+
+extract things that are similar to review but not the othre things
+
+---
+
+commit then extract things that are similar to review but not the othre things
+
+---
+
+what is gitexec.go and why is it needed?
+
+---
+
+remove the entire search section from findings. I want the agents to use entire search but not put output in findings
+
+---
+
+nvm. instead of  Optional per-run prompt it should say investigation prompt but only if no seed doc. also get rid of the investigation attach command and make sure to clean up the code so there is no dead code
+
+---
+
+nvm. instead of  Optional per-run prompt it should say investigation prompt but only if no seed doc. then get rid of --topic flag.  also get rid of the investigation attach command and make sure to clean up the code so there is no dead code
+
+---
+
+I still see investigation topic in the code in places
+
+---
+
+/simplify
+
+---
+
+/simplify all code on this branch
+
+---
+
+/codex:adversarial-review all code on this branch
+
+---
+
+/codex:adversarial-review diff from main
+
+---
+
+show codex review output
+
+---
+
+fix Credential-bearing issue URLs leak through gh error wrapping and Continuing a run never updates the saved manifest. for this one "Untrusted investigation input runs with disabled agent guardrails" lets show warning to user and have them accept
+
+---
+
+commit and puhs
+
+---
+
+<task-notification>
+<task-id>bpxcznray</task-id>
+<tool-use-id>toolu_019H4Qp4fQXVMAqY2ib5q1ui</tool-use-id>
+<output-file>/private/tmp/claude-501/-Users-alisha--marvin-worktrees-cli-entire-labs-investigate/79b1faee-caf4-41da-b4c8-e345d75655fa/tasks/bpxcznray.output</output-file>
+<status>completed</status>
+<summary>Background command "Push with upstream tracking" completed (exit code 0)</summary>
+</task-notification>
