@@ -1,0 +1,68 @@
+do we need all of these in @cmd/entire/cli/checkpoint/checkpoint.go 
+    // InvestigateRunID is the 12-hex-char ID of the parent investigation
+    // run (only meaningful when Kind is an investigate kind).
+    InvestigateRunID string
+
+    // InvestigateRound is the round number (1-indexed) within the
+    // investigation run (only meaningful when Kind is an investigate kind).
+    InvestigateRound int
+
+    // InvestigateTurn is the overall turn index (1-indexed) within the
+    // investigation run (only meaningful when Kind is an investigate kind).
+    InvestigateTurn int
+
+    // InvestigateTopic is the human-readable topic the investigation was
+    // asked to investigate (only meaningful when Kind is an investigate
+    // kind).
+    InvestigateTopic string
+
+    // InvestigatePrompt is the actual text of the investigation request
+    // (composed prompt sent to the agent for this turn). Only meaningful
+    // when Kind is an investigate kind.
+    InvestigatePrompt string what is the diff between topic and prompt?
+
+---
+
+so these are all in the explain command?
+
+---
+
+I was testing it out but can't figure out which checkpoint has the investigation on it in this repo /Users/alisha/.marvin/worktrees/skills/scope-skill
+
+---
+
+need to use this entire binary at /tmp/entire
+
+---
+
+ahh no they werent oops
+
+---
+
+'i just need to test investigation works. can you create a test repo in /Users/alisha/Projects/test-repos and test investigation works
+
+---
+
+lets remove investigate_round and investigate_turn and investigationprompt from the entire explain. clean up all dead code this creates.
+
+---
+
+are changes in cmd/entire/cli/attach.go necessary? I though we removed the investigation attach command?
+
+there are a lot of changes in cmd/entire/cli/review_helpers.go are they required?
+
+---
+
+yks
+
+---
+
+search for more dead code added on this branch then commit and push
+
+---
+
+/entire-internal:test-auditor
+
+---
+
+do  Rewrite TestNullProgressSink_ImplementsInterface:
