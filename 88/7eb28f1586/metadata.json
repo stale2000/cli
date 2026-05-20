@@ -1,0 +1,26 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "887eb28f1586",
+  "strategy": "manual-commit",
+  "branch": "review-cutover",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/review/cmd.go",
+    "cmd/entire/cli/review/setup.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/88/7eb28f1586/0/metadata.json",
+      "transcript": "/88/7eb28f1586/0/full.jsonl",
+      "content_hash": "/88/7eb28f1586/0/content_hash.txt",
+      "prompt": "/88/7eb28f1586/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 779,
+    "cache_creation_tokens": 1348786,
+    "cache_read_tokens": 167628269,
+    "output_tokens": 427237,
+    "api_call_count": 408
+  }
+}
