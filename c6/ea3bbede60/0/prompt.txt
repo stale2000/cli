@@ -1,0 +1,1 @@
+Build "entire trail watch" against this new endpoint GET /api/v1/review-sessions/ses_…/events added in https://github.com/entirehq/entire.io/pull/1971
