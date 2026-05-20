@@ -177,3 +177,12 @@ can you pull down pr comment and fix if real issues and also fix failing lint
 <status>completed</status>
 <summary>Background command "Re-render demo with playback speedup" completed (exit code 0)</summary>
 </task-notification>
+
+---
+
+I still see captured in manifest "~/Projects/test-repos/investigate-test (main) $ /tmp/entire investigate --findings
+Investigations
+
+1caf61c04381 · Is the example.txt file useful? · claude-code, codex · 3h ago
+  fix:     entire investigate fix 1caf61c04381
+  findings: <captured in manifest>"
