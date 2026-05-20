@@ -1,0 +1,35 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "a45484da26df",
+  "strategy": "manual-commit",
+  "branch": "soph/auth-go",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/activity_cmd.go",
+    "cmd/entire/cli/api_client.go",
+    "cmd/entire/cli/dispatch/dispatch_test.go",
+    "cmd/entire/cli/dispatch/mode_cloud.go",
+    "cmd/entire/cli/dispatch/mode_cloud_test.go",
+    "cmd/entire/cli/dispatch/mode_local.go",
+    "cmd/entire/cli/dispatch_wizard.go",
+    "cmd/entire/cli/recap.go",
+    "cmd/entire/cli/search_cmd.go",
+    "cmd/entire/cli/trail_cmd.go",
+    "cmd/entire/cli/trail_watch_cmd.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/a4/5484da26df/0/metadata.json",
+      "transcript": "/a4/5484da26df/0/full.jsonl",
+      "content_hash": "/a4/5484da26df/0/content_hash.txt",
+      "prompt": "/a4/5484da26df/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 8562,
+    "cache_creation_tokens": 928347,
+    "cache_read_tokens": 47344715,
+    "output_tokens": 104780,
+    "api_call_count": 207
+  }
+}
