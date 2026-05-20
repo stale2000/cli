@@ -1,0 +1,9 @@
+/simplify
+
+---
+
+explain `PreserveV1HistoryAndLog`. as it stands, it feels clunky and a bit awkward right now the way it is.
+
+---
+
+I think it should just be inlined
