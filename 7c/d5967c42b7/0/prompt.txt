@@ -1,9 +1,1 @@
-Push the changes, respond to the comments and resolve them
-
----
-
-Can you run the pr-feedback skill again and re-check if all feedback was addressed?
-
----
-
-Do it
+Commit the changes, push them, and resolve the comment
