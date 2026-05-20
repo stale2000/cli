@@ -1,0 +1,9 @@
+How do I refresh the currently loaded skill in this session?
+
+---
+
+I have skills in ~/.claude/skills/pfleidi which don't seem to show up here
+
+---
+
+2
