@@ -1,0 +1,25 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "1992642f7451",
+  "strategy": "manual-commit",
+  "branch": "soph/auth-go",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "cmd/entire/cli/checkpoint/committed_reader_resolve.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/19/92642f7451/0/metadata.json",
+      "transcript": "/19/92642f7451/0/full.jsonl",
+      "content_hash": "/19/92642f7451/0/content_hash.txt",
+      "prompt": "/19/92642f7451/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 8694,
+    "cache_creation_tokens": 1004160,
+    "cache_read_tokens": 83407723,
+    "output_tokens": 161780,
+    "api_call_count": 304
+  }
+}

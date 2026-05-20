@@ -1,0 +1,49 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "1992642f7451",
+  "session_id": "58ea4463-8f4c-4d99-9a40-a61b6d54552f",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-20T20:37:53.328031Z",
+  "branch": "soph/auth-go",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "cmd/entire/cli/checkpoint/committed_reader_resolve.go"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-7[1m]",
+  "turn_id": "8986e47eeb13",
+  "token_usage": {
+    "input_tokens": 8694,
+    "cache_creation_tokens": 1004160,
+    "cache_read_tokens": 83407723,
+    "output_tokens": 161780,
+    "api_call_count": 304
+  },
+  "session_metrics": {
+    "turn_count": 10
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-20T20:37:53.290448Z",
+    "agent_lines": 1,
+    "agent_removed": 1,
+    "human_added": 1,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 2,
+    "total_lines_changed": 3,
+    "agent_percentage": 66.66666666666666,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 1,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".claude/scheduled_tasks.lock": 1
+      }
+    }
+  ]
+}
