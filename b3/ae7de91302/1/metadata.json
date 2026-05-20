@@ -1,0 +1,61 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "b3ae7de91302",
+  "session_id": "58ea4463-8f4c-4d99-9a40-a61b6d54552f",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-20T19:56:44.364603Z",
+  "branch": "soph/auth-go",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "cmd/entire/cli/api/base_url.go",
+    "cmd/entire/cli/api/base_url_test.go"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-7[1m]",
+  "turn_id": "20989223f5ed",
+  "token_usage": {
+    "input_tokens": 8553,
+    "cache_creation_tokens": 923756,
+    "cache_read_tokens": 44396999,
+    "output_tokens": 101357,
+    "api_call_count": 198
+  },
+  "session_metrics": {
+    "turn_count": 2
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-20T19:56:44.339089Z",
+    "agent_lines": 52,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 52,
+    "total_lines_changed": 52,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 1051,
+      "agent_lines_removed": 257
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 1051,
+      "agent_lines_removed": 260
+    }
+  ]
+}

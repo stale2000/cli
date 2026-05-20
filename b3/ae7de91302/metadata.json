@@ -3,7 +3,7 @@
   "checkpoint_id": "b3ae7de91302",
   "strategy": "manual-commit",
   "branch": "soph/auth-go",
-  "checkpoints_count": 1,
+  "checkpoints_count": 3,
   "files_touched": [
     "cmd/entire/cli/api/base_url.go",
     "cmd/entire/cli/api/base_url_test.go"
@@ -14,13 +14,19 @@
       "transcript": "/b3/ae7de91302/0/full.jsonl",
       "content_hash": "/b3/ae7de91302/0/content_hash.txt",
       "prompt": "/b3/ae7de91302/0/prompt.txt"
+    },
+    {
+      "metadata": "/b3/ae7de91302/1/metadata.json",
+      "transcript": "/b3/ae7de91302/1/full.jsonl",
+      "content_hash": "/b3/ae7de91302/1/content_hash.txt",
+      "prompt": "/b3/ae7de91302/1/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 92092,
-    "cache_creation_tokens": 0,
-    "cache_read_tokens": 771200,
-    "output_tokens": 8416,
-    "api_call_count": 15
+    "input_tokens": 100645,
+    "cache_creation_tokens": 923756,
+    "cache_read_tokens": 45168199,
+    "output_tokens": 109773,
+    "api_call_count": 213
   }
 }
