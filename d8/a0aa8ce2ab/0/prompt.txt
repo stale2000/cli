@@ -1,0 +1,2 @@
+getting cli on  nodo/fix-dispatch ❯ entire dispatch
+2026/05/20 11:07:41 WARN dispatch wizard repo list failed error="list dispatch repos: API error: Token expired (status 401)"
