@@ -1,0 +1,42 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "aedacb2a168e",
+  "strategy": "manual-commit",
+  "branch": "entire-labs-investigate",
+  "checkpoints_count": 3,
+  "files_touched": [
+    "cmd/entire/cli/agentlaunch/launch_test.go",
+    "cmd/entire/cli/attach.go",
+    "cmd/entire/cli/checkpoint/checkpoint.go",
+    "cmd/entire/cli/checkpoint/checkpoint_test.go",
+    "cmd/entire/cli/checkpoint/committed.go",
+    "cmd/entire/cli/explain_export.go",
+    "cmd/entire/cli/explain_export_test.go",
+    "cmd/entire/cli/integration_test/investigate_test.go",
+    "cmd/entire/cli/investigate/env.go",
+    "cmd/entire/cli/investigate/env_test.go",
+    "cmd/entire/cli/investigate/loop.go",
+    "cmd/entire/cli/lifecycle.go",
+    "cmd/entire/cli/lifecycle_test.go",
+    "cmd/entire/cli/provenance/env.go",
+    "cmd/entire/cli/session/state.go",
+    "cmd/entire/cli/session/state_test.go",
+    "cmd/entire/cli/strategy/manual_commit_condensation.go",
+    "cmd/entire/cli/strategy/manual_commit_condensation_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/ae/dacb2a168e/0/metadata.json",
+      "transcript": "/ae/dacb2a168e/0/full.jsonl",
+      "content_hash": "/ae/dacb2a168e/0/content_hash.txt",
+      "prompt": "/ae/dacb2a168e/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 317,
+    "cache_creation_tokens": 483625,
+    "cache_read_tokens": 58022768,
+    "output_tokens": 103963,
+    "api_call_count": 262
+  }
+}
