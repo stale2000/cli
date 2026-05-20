@@ -71,3 +71,99 @@ Adds `entire investigate` (labs, hidden) — a multi-agent investigation loop th
 ## Verdict
 
 The new feature is well-scoped, well-commented, defends against the obvious prompt-injection vectors, and the extractions (`provenance`, `agentlaunch`, `gitexec`, `tuiutil`, `uiform`) cleanly de-duplicate review code. The issues above are mostly small correctness fixes and test gaps; only the **clean.go delete ordering**, **tui_sink unbounded Wait()**, **show/fix path resolution**, and **fix.go untrusted-content envelope** rise to "should fix before merge."
+
+---
+
+commit and push
+
+---
+
+is there anyway for you to create screen recordings using cleanshot to show off investigation demo?
+
+---
+
+vhs is just made up tho right?
+
+---
+
+no sorry I meant the video from vhs isn't a real demo of the feature. like it doesnt actually run the investigation command?
+
+---
+
+can tapes be edited? like if I want to do a real investigation and it takes a while for agent to be done can I cut those parts out?
+
+---
+
+okay lets do it. should use entire in /tmp/entire
+
+---
+
+<task-notification>
+<task-id>b275xzvaq</task-id>
+<tool-use-id>toolu_013TFSe4CKDvASuKWjoqof3q</tool-use-id>
+<output-file>/private/tmp/claude-501/-Users-alisha--marvin-worktrees-cli-entire-labs-investigate/eafa7516-abea-4d1a-9342-081c946eff23/tasks/b275xzvaq.output</output-file>
+<status>completed</status>
+<summary>Background command "Render the investigate demo tape (real agents, ~2-8 min)" completed (exit code 0)</summary>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bp3b1jtxc</task-id>
+<tool-use-id>toolu_01LJiT6wm3xJyXmwkyx97xgs</tool-use-id>
+<output-file>/private/tmp/claude-501/-Users-alisha--marvin-worktrees-cli-entire-labs-investigate/eafa7516-abea-4d1a-9342-081c946eff23/tasks/bp3b1jtxc.output</output-file>
+<status>completed</status>
+<summary>Background command "Re-render demo tape with agents installed" completed (exit code 0)</summary>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>becsqakno</task-id>
+<tool-use-id>toolu_01YZWVvZMRRbcCMtJQVvBE4W</tool-use-id>
+<output-file>/private/tmp/claude-501/-Users-alisha--marvin-worktrees-cli-entire-labs-investigate/eafa7516-abea-4d1a-9342-081c946eff23/tasks/becsqakno.output</output-file>
+<status>completed</status>
+<summary>Background command "Re-render with --agents flag" completed (exit code 0)</summary>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bs5ai9ud1</task-id>
+<tool-use-id>toolu_013TDJBJFTrahLLaZzEhXbaE</tool-use-id>
+<output-file>/private/tmp/claude-501/-Users-alisha--marvin-worktrees-cli-entire-labs-investigate/eafa7516-abea-4d1a-9342-081c946eff23/tasks/bs5ai9ud1.output</output-file>
+<status>completed</status>
+<summary>Background command "Re-render with Wait+Screen" completed (exit code 0)</summary>
+</task-notification>
+
+---
+
+how do I view it
+
+---
+
+need to updaet the code. at the end it says fix: entire .... then findings: captured in manifests. can you update that to use the entire investigation show id cmmand then redo the vhs
+
+---
+
+<task-notification>
+<task-id>b1y828du6</task-id>
+<tool-use-id>toolu_01DH7bCCouzanqktmuH2xqFW</tool-use-id>
+<output-file>/private/tmp/claude-501/-Users-alisha--marvin-worktrees-cli-entire-labs-investigate/eafa7516-abea-4d1a-9342-081c946eff23/tasks/b1y828du6.output</output-file>
+<status>completed</status>
+<summary>Background command "Re-render with show command at end" completed (exit code 0)</summary>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>b3lbke90z</task-id>
+<tool-use-id>REDACTED</tool-use-id>
+<output-file>/private/tmp/claude-501/-Users-alisha--marvin-worktrees-cli-entire-labs-investigate/eafa7516-abea-4d1a-9342-081c946eff23/tasks/b3lbke90z.output</output-file>
+<status>completed</status>
+<summary>Background command "Re-render with auto-clean and show command" completed (exit code 0)</summary>
+</task-notification>
+
+---
+
+can you pull down pr comment and fix if real issues and also fix failing lint
