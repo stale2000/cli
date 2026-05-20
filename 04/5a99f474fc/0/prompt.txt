@@ -1,0 +1,32 @@
+/superpowers:brainstorming We need to make a v1.1 custom ref, `refs/heads/entire/checkpoints/v1`, that behaves the same way as the v1 ref today, just as a custom ref instead. If settings.json has `checkpoints_version` set to "1.1" or 1.1, it should use that custom ref.
+
+---
+
+"Three existing callers (IsCheckpointsV2Enabled,
+  attach.go:301, attach.go:387) update from == 2 to == "2"" this is not correct, don't update the version 2 check as part of these changes.
+
+---
+
+Looks good
+
+---
+
+" **Fresh-repo auto-enrollment.** `entire enable` on a repo with no existing `.entire/settings.*.json` (and no upstream settings.json on or    igin) writes `checkpoints_version: 1.1` into settings and installs the fetch refspec."
+
+we don't want this anymore: it should be manual opt-in with the settings.json "1.1" or 1.1 setting only
+
+---
+
+Explain the "migration" idea, and whether it can be easily implemented later on (ie. we enable 1.1 for a repo for testing, then decide we want to "migrate" v1 data over to 1.1) so we can build it incrementally
+
+---
+
+Calling it a "migration" seems a bit much then. Otherwise I think it sounds good without adjusting the original plan
+
+---
+
+I think "PreserveV1History" instead of "Legacy" makes it clearer. But yes.
+
+---
+
+Looks good
