@@ -1,0 +1,75 @@
+can we smoke test pr 1
+
+---
+
+for this test, If you want a deeper interactive test (driving the actual
+  roles + skills picker forms), you'd need to:
+  1. Run entire enable first in a test repo to install hooks
+  2. Then entire review setup would render the huh forms - can we see the huh forms in this pr?
+
+---
+
+this doesn't look like Pick a role for each installed agent:       │
+│                                              │
+│ ▶ Claude Code   [ Reviewer ▼ ]             │
+│   Codex         [ Fixer    ▼ ]             │
+│   Gemini CLI    [ Reviewer ▼ ]             │
+│                                              │
+│ ↑↓ navigate · space change · ↩ confirm   where you select all agents role at once, which i think is bette, less click throughs
+
+---
+
+it's in three separate pickers, instead of one line per agent, 
+
+Claude Code
+┃ Role for claude-code
+┃ > Reviewer — runs on `entire review`
+┃   Fixer — runs on `entire review fix`
+┃   Both — reviews and fixes
+┃   Skip — keep entry but don't use
+
+  Codex
+  Role for codex
+  > Reviewer — runs on `entire review`
+    Fixer — runs on `entire review fix`
+    Both — reviews and fixes
+    Skip — keep entry but don't use
+
+  Gemini CLI
+  Role for gemini
+  > Reviewer — runs on `entire review`
+    Fixer — runs on `entire review fix`
+    Both — reviews and fixes
+    Skip — keep entry but don't use
+
+---
+
+they're still on separate lines and not like 3x2 table basically and no key on the bottom
+
+---
+
+okay add a legend please
+
+---
+
+it has the weird highlights from the back ticks i think, should remove that
+
+---
+
+i don't really like how Roles looks like another agent
+
+---
+
+and also allows you to pick both for two agents
+
+---
+
+the roles should probably be all on different lines for easy readinh
+
+---
+
+you don't have navs, ↑↓ navigate · space change · ↩ confirm
+
+---
+
+but is that actually how you navigate? like  ↑↓ navigate is this accurate
