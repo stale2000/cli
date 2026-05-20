@@ -1,0 +1,25 @@
+based on this I'd like to switch the auth to the new token in the cli https://github.com/entireio/auth-go/pull/5 also take a look at https://github.com/entireio/cli/pull/1153 which did this inline before, but now we should use the library
+
+---
+
+/simplify
+
+---
+
+can you do meaningful commits
+
+---
+
+• 1. High: --insecure-http-auth no longer works for device-flow login against non-loopback http:// auth hosts. login still accepts the flag, but it constructs
+     the auth client with auth.NewClient(nil) and no way to pass that opt-in through, while the new client hard-codes AllowInsecureHTTP to loopback only
+     (cmd/entire/cli/login.go:47, cmd/entire/cli/auth/client.go:50). Before this refactor, the hidden flag disabled the CLI-side HTTPS guard for local/dev auth
+     hosts generally; after it, entire login --insecure-http-auth will still fail on something like http://devbox.internal:8787.
+  2. Medium: login persists the core token under the raw AuthBaseURL, but the new token manager later looks it up under a normalized issuer. runLogin saves
+     with store.SaveToken(client.BaseURL(), token) (cmd/entire/cli/login.go:100), while defaultManager() passes api.AuthBaseURL() into tokenmanager.New, which
+     normalizes scheme/host/default port before using it as the store key (cmd/entire/cli/auth/exchange.go:63, cmd/entire/cli/api/base_url.go:43). That means a
+     login done with an equivalent-but-not-canonical issuer such as https://AUTH.example.com:443/ can succeed, but later data-API commands using
+     TokenForResource can report “not logged in” because they probe a different keyring entry.
+  3. Medium: the new login-time token validation rejects some opaque access tokens even though the comment says opaque tokens are allowed.
+     validateReceivedToken only treats tokens.ErrMalformedJWT as “opaque, accept”, but any dotted non-JWT token that fails deeper in ParseClaims becomes a hard
+     error via parse claims (cmd/entire/cli/login.go:120). In practice, a 3-segment opaque token or other non-JWT token that happens to look JWT-shaped will
+     now fail login unexpectedly.
