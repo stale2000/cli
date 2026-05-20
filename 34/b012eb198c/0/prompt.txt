@@ -1,9 +1,1 @@
-Commit the changes
-
----
-
-Push the changes, respond to the comments and resolve them. Then re-check for unresolved comments
-
----
-
-Address it, please
+commit the changes
