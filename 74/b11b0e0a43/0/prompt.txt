@@ -1,0 +1,1 @@
+Review the latest findings on https://github.com/entireio/cli/pull/1242
