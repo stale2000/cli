@@ -1,0 +1,30 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "6d696fc55440",
+  "strategy": "manual-commit",
+  "branch": "soph/auth-go",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/auth/client.go",
+    "cmd/entire/cli/auth/client_test.go",
+    "cmd/entire/cli/auth/exchange.go",
+    "cmd/entire/cli/auth/store.go",
+    "go.mod",
+    "go.sum"
+  ],
+  "sessions": [
+    {
+      "metadata": "/6d/696fc55440/0/metadata.json",
+      "transcript": "/6d/696fc55440/0/full.jsonl",
+      "content_hash": "/6d/696fc55440/0/content_hash.txt",
+      "prompt": "/6d/696fc55440/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 8559,
+    "cache_creation_tokens": 926437,
+    "cache_read_tokens": 46357907,
+    "output_tokens": 103624,
+    "api_call_count": 204
+  }
+}
