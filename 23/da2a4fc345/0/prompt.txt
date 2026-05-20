@@ -1,0 +1,179 @@
+Fix only the selected review findings.
+Do not rewrite unrelated code. Run targeted tests where practical, then report what changed and what verification passed.
+
+Reviewed commit: 185888b316a7e1b7c17dca8f9705c2bea5d8e775
+Worktree: /Users/alisha/.marvin/worktrees/cli/entire-labs-investigate
+
+## Selected findings
+
+## Full selected review output
+
+## Claude Code findings
+
+I'll review the changes on this branch versus origin/HEAD, including uncommitted changes.
+Given the size of this branch (87 files, ~13k insertions), I'll spawn parallel reviewers focused on the highest-impact areas and then synthesize. Let me first sample the key new files myself.
+Let me look at the lifecycle changes, env code, and key new shared packages in parallel:
+Now I'll delegate deeper review across the remaining significant areas in parallel.
+Let me verify a few of the higher-impact findings before writing up:
+I have enough to write up the review. Let me write the final synthesis.
+
+# Code Review — `entire-labs-investigate` branch
+
+## Overview
+
+Adds `entire investigate` (labs, hidden) — a multi-agent investigation loop that lets configured agents take turns appending findings to a shared markdown doc until quorum. Includes a Bubble Tea TUI, `fix`/`show`/`clean` subcommands, GitHub issue/PR seeding via `gh`, settings/manifest persistence, and the lifecycle hook plumbing to tag the spawned agent sessions. Extracts shared helpers (`provenance`, `agentlaunch`, `gitexec`, `tuiutil`, `uiform`) so `review` and `investigate` no longer duplicate code.
+
+**Scale:** 87 files, ~13.1k insertions / 327 deletions; 13 of the new files are package-scoped tests.
+
+## Strengths
+
+- **Untrusted-input handling is thoughtful**: `issuelink.go:289-300` wraps `gh`-fetched issue body + comments in a labeled `<untrusted>` envelope and defangs nested close-tags. `cmd.go:384-408` adds an interactive y/N gate before running `--issue-link` against agents that spawn with permission bypass.
+- **Credential redaction**: `runGhExec` (`issuelink.go:77-94`) redacts URL userinfo from error strings via `url.Redacted()`, so an OAuth token in `--issue-link` never reaches stderr.
+- **Provenance contract is clean**: `provenance/env.go` is a leaf package owning the env-var names; `agentlaunch.LaunchFixAgent` strips both families before spawning a fix session.
+- **Failure modes are explicit**: manifest write is "best-effort, the docs are the deliverable"; cleanup ordering preserves recoverability ("manifest write fail leaves the run dir intact").
+
+## Issues worth fixing before merge
+
+### Correctness
+
+- **`cmd/entire/cli/investigate/clean.go:138-157`** — deletes manifest *first*, run dir second. If the run dir removal fails, you orphan a `state.json` with no manifest record. Reverse the order so a failure is recoverable from the manifest.
+- **`cmd/entire/cli/investigate/show.go:135`, `fix.go:128`** — read `manifest.FindingsDoc` as an absolute path with no relocation handling, while `manifest.go:51-53` documents that the field "may be a repo-relative path." Either resolve via `paths.WorktreeRoot(ctx)` on read, or commit to always-absolute and update the docstring.
+- **`cmd/entire/cli/investigate/loop.go:206-209`** — `States.Save` failure between turns is logged at `Debug` and ignored. On a crash, on-disk state is one turn stale. Should be `Warn` (and arguably retry once). Same swallow at `state.go:199-201` for corrupt `state.json` in `List()`.
+- **`cmd/entire/cli/investigate/tui_sink.go`** — no parent-context watcher pumps `tea.Quit` into the program. If the loop driver returns early (or cobra cancels via SIGINT), `RunFinished` is never called, the `done` channel never closes, and `Wait()` blocks indefinitely. Add a `<-ctx.Done() → program.Quit()` goroutine.
+- **`cmd/entire/cli/investigate/tui_model.go:159`** — `runFinishedMsg` stomps every non-failed row to `rowStatusDone`, including queued-but-skipped agents. Preserve `rowStatusQueued` when `turnsTaken == 0`.
+- **`cmd/entire/cli/investigate/tui_detail.go:57`** — footer advertises "Ctrl+C cancel" but `tui_model.go:297-301` ignores Ctrl+C in detail mode. Either route Ctrl+C in detail mode or fix the footer text.
+- **`cmd/entire/cli/investigate/manifest.go:130-134`** — manifest file mode is `0o644` while `state.go:146` uses `0o600`. Manifests contain user prompts + findings content; tighten to `0o600` for parity.
+
+### Security
+
+- **`cmd/entire/cli/investigate/fix.go:143-162`** — `composeFixPrompt` embeds the verbatim findings body and `manifest.Topic` into the agent prompt with no envelope/delimiter. Findings come from prior agent runs that may have ingested untrusted seed content — wrap in `<untrusted source="prior-findings">` like `issuelink.go:294-300` does for issue bodies.
+- **`cmd/entire/cli/lifecycle.go` adoption gate** — uses "env-present + agent-match + SHA-match". A parent shell that knows HEAD's SHA and the agent name can forge a session tag. Production code never `export`s these, so this requires user error, and the SHA gate is broken by the next commit. Worth a doc note; if you want to harden, gate adoption on a per-run secret token written to a tmp file readable only by the spawned process.
+- **`cmd/entire/cli/review/env.go:73-89`** — `AppendReviewEnv` strips only `ENTIRE_REVIEW_*`, not `ENTIRE_INVESTIGATE_*`. `AppendInvestigateEnv` is symmetric (strips both). Fix for defense in depth.
+
+### Layering / cycle risk
+
+- **`cmd/entire/cli/lifecycle.go:24`** — imports `investigate` only for `EnvSession`/`EnvAgent`/`EnvRunID`/`EnvStartingSHA`/`IsValidRunID`. Move those into `provenance` so the binary doesn't link the whole investigate package when the user never invokes `entire investigate`. (Or use a fxlite indirection from the bridge file.)
+
+### Test gaps
+
+- No test mirrors `TestAdoptReviewEnv_TagsSession` for the investigate side — `adoptInvestigateEnv` is only called directly, never through `handleLifecycleTurnStart`.
+- No end-to-end test asserts `Kind.IsInvestigate → CommittedMetadata.HasInvestigation → CheckpointSummary.HasInvestigation` flows through condensation.
+- No coverage for `clean.go` / `show.go` / `fix.go` / `manifest.go` / `progress.go` at the package level beyond the bootstrap/loop pair.
+- `agentlaunch/launch_test.go:47-49` doesn't exercise the `cmd.Env == nil → fall back to os.Environ()` branch; this fallback silently re-adds host stale provenance env if a future launcher returns an empty env.
+- No test for `tui_sink.go` early-return-without-RunFinished blocking `Wait()`.
+
+### Minor
+
+- `loop.go:500-517` `fileFingerprint` uses size+mtime-nanos to detect findings doc changes. On FAT/older FS where mtime granularity is 1s, a sub-second edit of the same length will report `PlanChanged=false`. Modern FS are fine but worth a SHA fallback when size matches.
+- `loop.go:493` failure note says `"spawn error: <exit status N>"` even when the process spawned and exited cleanly with non-zero. Differentiate spawn vs exit.
+- `loop.go:519-541` defines `slogString`/`sErr` wrappers but the same file also calls `slog.String` directly via `slog` import — pick one style.
+
+## Verdict
+
+The new feature is well-scoped, well-commented, defends against the obvious prompt-injection vectors, and the extractions (`provenance`, `agentlaunch`, `gitexec`, `tuiutil`, `uiform`) cleanly de-duplicate review code. The issues above are mostly small correctness fixes and test gaps; only the **clean.go delete ordering**, **tui_sink unbounded Wait()**, **show/fix path resolution**, and **fix.go untrusted-content envelope** rise to "should fix before merge."
+
+---
+
+commit and push
+
+---
+
+is there anyway for you to create screen recordings using cleanshot to show off investigation demo?
+
+---
+
+vhs is just made up tho right?
+
+---
+
+no sorry I meant the video from vhs isn't a real demo of the feature. like it doesnt actually run the investigation command?
+
+---
+
+can tapes be edited? like if I want to do a real investigation and it takes a while for agent to be done can I cut those parts out?
+
+---
+
+okay lets do it. should use entire in /tmp/entire
+
+---
+
+<task-notification>
+<task-id>b275xzvaq</task-id>
+<tool-use-id>toolu_013TFSe4CKDvASuKWjoqof3q</tool-use-id>
+<output-file>/private/tmp/claude-501/-Users-alisha--marvin-worktrees-cli-entire-labs-investigate/eafa7516-abea-4d1a-9342-081c946eff23/tasks/b275xzvaq.output</output-file>
+<status>completed</status>
+<summary>Background command "Render the investigate demo tape (real agents, ~2-8 min)" completed (exit code 0)</summary>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bp3b1jtxc</task-id>
+<tool-use-id>toolu_01LJiT6wm3xJyXmwkyx97xgs</tool-use-id>
+<output-file>/private/tmp/claude-501/-Users-alisha--marvin-worktrees-cli-entire-labs-investigate/eafa7516-abea-4d1a-9342-081c946eff23/tasks/bp3b1jtxc.output</output-file>
+<status>completed</status>
+<summary>Background command "Re-render demo tape with agents installed" completed (exit code 0)</summary>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>becsqakno</task-id>
+<tool-use-id>toolu_01YZWVvZMRRbcCMtJQVvBE4W</tool-use-id>
+<output-file>/private/tmp/claude-501/-Users-alisha--marvin-worktrees-cli-entire-labs-investigate/eafa7516-abea-4d1a-9342-081c946eff23/tasks/becsqakno.output</output-file>
+<status>completed</status>
+<summary>Background command "Re-render with --agents flag" completed (exit code 0)</summary>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bs5ai9ud1</task-id>
+<tool-use-id>toolu_013TDJBJFTrahLLaZzEhXbaE</tool-use-id>
+<output-file>/private/tmp/claude-501/-Users-alisha--marvin-worktrees-cli-entire-labs-investigate/eafa7516-abea-4d1a-9342-081c946eff23/tasks/bs5ai9ud1.output</output-file>
+<status>completed</status>
+<summary>Background command "Re-render with Wait+Screen" completed (exit code 0)</summary>
+</task-notification>
+
+---
+
+how do I view it
+
+---
+
+need to updaet the code. at the end it says fix: entire .... then findings: captured in manifests. can you update that to use the entire investigation show id cmmand then redo the vhs
+
+---
+
+<task-notification>
+<task-id>b1y828du6</task-id>
+<tool-use-id>toolu_01DH7bCCouzanqktmuH2xqFW</tool-use-id>
+<output-file>/private/tmp/claude-501/-Users-alisha--marvin-worktrees-cli-entire-labs-investigate/eafa7516-abea-4d1a-9342-081c946eff23/tasks/b1y828du6.output</output-file>
+<status>completed</status>
+<summary>Background command "Re-render with show command at end" completed (exit code 0)</summary>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>b3lbke90z</task-id>
+<tool-use-id>REDACTED</tool-use-id>
+<output-file>/private/tmp/claude-501/-Users-alisha--marvin-worktrees-cli-entire-labs-investigate/eafa7516-abea-4d1a-9342-081c946eff23/tasks/b3lbke90z.output</output-file>
+<status>completed</status>
+<summary>Background command "Re-render with auto-clean and show command" completed (exit code 0)</summary>
+</task-notification>
+
+---
+
+can you pull down pr comment and fix if real issues and also fix failing lint
+
+---
+
+<task-notification>
+<task-id>bcnfug2ud</task-id>
+<tool-use-id>toolu_011f9HNy9eXzq3Za93aedhJZ</tool-use-id>
+<output-file>/private/tmp/claude-501/-Users-alisha--marvin-worktrees-cli-entire-labs-investigate/eafa7516-abea-4d1a-9342-081c946eff23/tasks/bcnfug2ud.output</output-file>
+<status>completed</status>
+<summary>Background command "Re-render demo with playback speedup" completed (exit code 0)</summary>
+</task-notification>
