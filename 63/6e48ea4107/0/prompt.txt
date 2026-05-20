@@ -1,5 +1,1 @@
-commit the changes
-
----
-
 Push the changes, respond to the comments and resolve them
