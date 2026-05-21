@@ -3,22 +3,22 @@
   "checkpoint_id": "3b02d2cbf01a",
   "session_id": "27c10fbd-3055-4d96-8e88-8a95ee2d9e1e",
   "strategy": "manual-commit",
-  "created_at": "2026-05-21T17:28:50.313385Z",
+  "created_at": "2026-05-21T18:08:45.959575Z",
   "branch": "feat/antigravity-agent",
   "checkpoints_count": 1,
   "files_touched": [],
   "agent": "Claude Code",
   "model": "claude-opus-4-7[1m]",
-  "turn_id": "836ba0e22f2f",
+  "turn_id": "28f1bb6f25fa",
   "token_usage": {
-    "input_tokens": 6436,
-    "cache_creation_tokens": 2535513,
-    "cache_read_tokens": 166330451,
-    "output_tokens": 408600,
-    "api_call_count": 330
+    "input_tokens": 6489,
+    "cache_creation_tokens": 2584941,
+    "cache_read_tokens": 193418620,
+    "output_tokens": 444440,
+    "api_call_count": 363
   },
   "session_metrics": {
-    "turn_count": 33
+    "turn_count": 37
   },
   "prompt_attributions": [
     {
