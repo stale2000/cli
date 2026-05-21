@@ -1,0 +1,26 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "2422cd59643f",
+  "strategy": "manual-commit",
+  "branch": "trail-watch-review-events-endpoint",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/trail_watch_cmd.go",
+    "cmd/entire/cli/trail_watch_cmd_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/24/22cd59643f/0/metadata.json",
+      "transcript": "/24/22cd59643f/0/full.jsonl",
+      "content_hash": "/24/22cd59643f/0/content_hash.txt",
+      "prompt": ""
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 3757,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 1360384,
+    "output_tokens": 975,
+    "api_call_count": 7
+  }
+}
