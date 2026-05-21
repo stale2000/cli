@@ -1,1 +1,8 @@
 No need to fall back, legacy is dead already.
+
+---
+
+Watching trail #409 (github.com/entireio/cli, id 019e4b08-f343-728c-b5c8-3b0d9647c349) — Ctrl+C to stop
+stream disconnected (trail API: API error: Invalid host. Must be one of: gh, et (status 400)), reconnecting in 500ms
+stream disconnected (trail API: API error: Invalid host. Must be one of: gh, et (status 400)), reconnecting in 1s
+stream disconnected (trail API: API error: Invalid host. Must be one of: gh, et (status 400)), reconnecting in 2s
