@@ -1,0 +1,40 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "9fcc9c678071",
+  "session_id": "58ea4463-8f4c-4d99-9a40-a61b6d54552f",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-21T09:09:26.396644Z",
+  "branch": "soph/auth-go",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "mise.toml",
+    ".github/workflows/lint.yml"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-7[1m]",
+  "turn_id": "1d7091bb03ea",
+  "checkpoint_transcript_start": 1368,
+  "transcript_lines_at_start": 1368,
+  "token_usage": {
+    "input_tokens": 24,
+    "cache_creation_tokens": 923707,
+    "cache_read_tokens": 10107140,
+    "output_tokens": 6738,
+    "api_call_count": 24
+  },
+  "session_metrics": {
+    "turn_count": 11
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-21T09:09:26.361105Z",
+    "agent_lines": 5,
+    "agent_removed": 2,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 5,
+    "total_lines_changed": 7,
+    "agent_percentage": 100,
+    "metric_version": 2
+  }
+}
