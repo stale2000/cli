@@ -2,3 +2,7 @@ entire trail watch
 trail for branch "trail-watch-review-events-endpoint" has no id yet
 
 But it exists https://entire.io/gh/entireio/cli/trails/409/trail-watch-review-events-endpoint
+
+---
+
+No need to fall back, legacy is dead already.

@@ -7,6 +7,7 @@
   "files_touched": [
     "cmd/entire/cli/api/trail_types.go",
     "cmd/entire/cli/api/trail_types_test.go",
+    "cmd/entire/cli/trail_cmd.go",
     "cmd/entire/cli/trail_watch_cmd.go"
   ],
   "sessions": [
@@ -18,10 +19,10 @@
     }
   ],
   "token_usage": {
-    "input_tokens": 224159,
+    "input_tokens": 33270,
     "cache_creation_tokens": 0,
-    "cache_read_tokens": 4021248,
-    "output_tokens": 4168,
-    "api_call_count": 20
+    "cache_read_tokens": 2619392,
+    "output_tokens": 2670,
+    "api_call_count": 12
   }
 }
