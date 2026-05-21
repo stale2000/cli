@@ -196,3 +196,15 @@ Run: entire review
 peytonmontei@Peytons-MacBook-Pro /t/smoke-test (main)> /tmp/entire-pr2 review
 No agents are configured as Reviewers.
 Run: entire review setup
+
+---
+
+can i test myself?
+
+---
+
+how do i get to the build binary
+
+---
+
+i still don't see the checkpoints or sessions, Reviewing main vs main: 0 commits, 0 files changed, 2 uncommitted
