@@ -1,0 +1,5 @@
+Are all review comments addressed?
+
+---
+
+Update one more time to listen to "GET /api/v1/trails/:trail_id/review/events # SSE with Accept: text/event-stream" instead

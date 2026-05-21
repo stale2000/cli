@@ -1,0 +1,53 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "cfd8dc622a16",
+  "session_id": "019e46f2-a47b-785d-b00c-25c31a328548",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-21T14:52:55.961231Z",
+  "branch": "trail-watch-review-session-events",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/trail_watch_cmd.go",
+    "cmd/entire/cli/trail_watch_cmd_test.go"
+  ],
+  "agent": "Pi",
+  "model": "",
+  "turn_id": "ab534422935b",
+  "checkpoint_transcript_start": 256,
+  "transcript_lines_at_start": 256,
+  "token_usage": {
+    "input_tokens": 195843,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 961536,
+    "output_tokens": 1031,
+    "api_call_count": 6
+  },
+  "session_metrics": {
+    "turn_count": 7
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-21T14:52:55.94196Z",
+    "agent_lines": 3,
+    "agent_removed": 6,
+    "human_added": 64,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 67,
+    "total_lines_changed": 79,
+    "agent_percentage": 11.39240506329114,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 193,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".pi/extensions/entire.ts": 120,
+        ".pi/extensions/entire/index.ts": 73
+      }
+    }
+  ]
+}
