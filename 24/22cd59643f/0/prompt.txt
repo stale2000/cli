@@ -1,7 +1,3 @@
-Update one more time to listen to "GET /api/v1/trails/:trail_id/review/events # SSE with Accept: text/event-stream" instead
-
----
-
 entire trail watch
 trail for branch "trail-watch-review-events-endpoint" has no id yet
 
