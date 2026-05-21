@@ -3,9 +3,8 @@
   "checkpoint_id": "887eb28f1586",
   "strategy": "manual-commit",
   "branch": "review-cutover",
-  "checkpoints_count": 0,
+  "checkpoints_count": 1,
   "files_touched": [
-    "cmd/entire/cli/review/cmd.go",
     "cmd/entire/cli/review/setup.go"
   ],
   "sessions": [
@@ -17,10 +16,10 @@
     }
   ],
   "token_usage": {
-    "input_tokens": 779,
-    "cache_creation_tokens": 1348786,
-    "cache_read_tokens": 167628269,
-    "output_tokens": 427237,
-    "api_call_count": 408
+    "input_tokens": 792,
+    "cache_creation_tokens": 2763753,
+    "cache_read_tokens": 168359830,
+    "output_tokens": 436272,
+    "api_call_count": 411
   }
 }
