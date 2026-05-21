@@ -5,10 +5,8 @@
   "branch": "trail-watch-review-session-events",
   "checkpoints_count": 1,
   "files_touched": [
-    "cmd/entire/cli/api/client.go",
-    "cmd/entire/cli/api/client_test.go",
-    "cmd/entire/cli/trail_watch_cmd.go",
-    "cmd/entire/cli/trail_watch_cmd_test.go"
+    "cmd/entire/cli/trail_cmd.go",
+    "cmd/entire/cli/trail_watch_cmd.go"
   ],
   "sessions": [
     {
@@ -19,10 +17,10 @@
     }
   ],
   "token_usage": {
-    "input_tokens": 357895,
+    "input_tokens": 526307,
     "cache_creation_tokens": 0,
-    "cache_read_tokens": 8981504,
-    "output_tokens": 29076,
-    "api_call_count": 80
+    "cache_read_tokens": 2078208,
+    "output_tokens": 12600,
+    "api_call_count": 16
   }
 }

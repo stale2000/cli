@@ -1,1 +1,10 @@
 Create a PR
+
+---
+
+Usage:
+  entire trail watch <review-session-id> wouldn't that be the trail id?
+
+---
+
+New endpoint is available, make sure you use that instead https://github.com/entirehq/entire.io/pull/2039
