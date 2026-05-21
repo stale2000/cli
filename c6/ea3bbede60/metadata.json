@@ -3,9 +3,8 @@
   "checkpoint_id": "c6ea3bbede60",
   "strategy": "manual-commit",
   "branch": "trail-watch-review-session-events",
-  "checkpoints_count": 1,
+  "checkpoints_count": 0,
   "files_touched": [
-    "cmd/entire/cli/trail_cmd.go",
     "cmd/entire/cli/trail_watch_cmd.go"
   ],
   "sessions": [
@@ -17,10 +16,10 @@
     }
   ],
   "token_usage": {
-    "input_tokens": 526307,
+    "input_tokens": 188237,
     "cache_creation_tokens": 0,
-    "cache_read_tokens": 2078208,
-    "output_tokens": 12600,
-    "api_call_count": 16
+    "cache_read_tokens": 1464832,
+    "output_tokens": 2823,
+    "api_call_count": 9
   }
 }
