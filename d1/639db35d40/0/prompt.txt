@@ -1,1 +1,1 @@
-No need to explain the why, 1.26.3 is out and stable, let's use it
+can you read the PR comments

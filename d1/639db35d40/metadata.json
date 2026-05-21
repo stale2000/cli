@@ -6,7 +6,7 @@
   "checkpoints_count": 0,
   "files_touched": [
     ".github/workflows/lint.yml",
-    "mise.toml"
+    "go.mod"
   ],
   "sessions": [
     {
@@ -17,10 +17,10 @@
     }
   ],
   "token_usage": {
-    "input_tokens": 9,
-    "cache_creation_tokens": 1886,
-    "cache_read_tokens": 1888369,
-    "output_tokens": 1289,
-    "api_call_count": 4
+    "input_tokens": 15,
+    "cache_creation_tokens": 7712,
+    "cache_read_tokens": 4794799,
+    "output_tokens": 2794,
+    "api_call_count": 10
   }
 }
