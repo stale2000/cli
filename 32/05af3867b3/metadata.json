@@ -1,0 +1,29 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "3205af3867b3",
+  "strategy": "manual-commit",
+  "branch": "initial-v1.1-setup",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "CLAUDE.md",
+    "cmd/entire/cli/checkpoint/metadata_ref_preserve_test.go",
+    "cmd/entire/cli/integration_test/v1_metadata_ref_workflow_test.go",
+    "cmd/entire/cli/strategy/common.go",
+    "cmd/entire/cli/strategy/common_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/32/05af3867b3/0/metadata.json",
+      "transcript": "/32/05af3867b3/0/full.jsonl",
+      "content_hash": "/32/05af3867b3/0/content_hash.txt",
+      "prompt": "/32/05af3867b3/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 675,
+    "cache_creation_tokens": 765278,
+    "cache_read_tokens": 200530573,
+    "output_tokens": 328859,
+    "api_call_count": 556
+  }
+}
