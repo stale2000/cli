@@ -39,3 +39,7 @@ can you take a look at ../entiredb too, this is where core lives which is what d
 ---
 
 Can you check if there is any device code logic in core?
+
+---
+
+ok, are the last fixes on this branch pushed?
