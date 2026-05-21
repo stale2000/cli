@@ -3,7 +3,7 @@
   "checkpoint_id": "8ba065797dd8",
   "session_id": "385b045a-e657-40ab-847a-dacebe67cae4",
   "strategy": "manual-commit",
-  "created_at": "2026-05-21T17:10:14.660152Z",
+  "created_at": "2026-05-21T17:33:32.181646Z",
   "branch": "review-cutover",
   "checkpoints_count": 1,
   "files_touched": [
@@ -14,34 +14,25 @@
   "model": "",
   "turn_id": "f12148ee6ed6",
   "token_usage": {
-    "input_tokens": 873,
-    "cache_creation_tokens": 3555662,
-    "cache_read_tokens": 198736827,
-    "output_tokens": 484034,
-    "api_call_count": 452
+    "input_tokens": 874,
+    "cache_creation_tokens": 3562243,
+    "cache_read_tokens": 199528736,
+    "output_tokens": 486540,
+    "api_call_count": 453
   },
   "session_metrics": {
     "turn_count": 4
   },
   "initial_attribution": {
-    "calculated_at": "2026-05-21T17:10:14.595764Z",
+    "calculated_at": "2026-05-21T17:33:32.116229Z",
     "agent_lines": 0,
     "agent_removed": 0,
-    "human_added": 337,
+    "human_added": 371,
     "human_modified": 0,
     "human_removed": 0,
-    "total_committed": 337,
-    "total_lines_changed": 375,
+    "total_committed": 371,
+    "total_lines_changed": 408,
     "agent_percentage": 0,
     "metric_version": 2
-  },
-  "prompt_attributions": [
-    {
-      "checkpoint_number": 2,
-      "user_lines_added": 0,
-      "user_lines_removed": 0,
-      "agent_lines_added": 0,
-      "agent_lines_removed": 0
-    }
-  ]
+  }
 }
