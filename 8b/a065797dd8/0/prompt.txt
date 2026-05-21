@@ -182,3 +182,17 @@ Add context for this run? (↩ to skip)
 ---
 
 yes fix
+
+---
+
+peytonmontei@Peytons-MacBook-Pro /t/smoke-test (main)> /tmp/entire-pr2 review setup
+
+Review configured.
+  Reviewers: (none)
+  Fixer:     Claude Code
+
+Edit later: entire review setup
+Run: entire review
+peytonmontei@Peytons-MacBook-Pro /t/smoke-test (main)> /tmp/entire-pr2 review
+No agents are configured as Reviewers.
+Run: entire review setup
