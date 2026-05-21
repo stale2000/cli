@@ -1,0 +1,49 @@
+/simplify
+
+---
+
+explain `PreserveV1HistoryAndLog`. as it stands, it feels clunky and a bit awkward right now the way it is.
+
+---
+
+I think it should just be inlined
+
+---
+
+Let's avoid the copying of the legacy branch for now. For now, this branch should just write to v1.1 if it's enabled and not worry about v1
+
+---
+
+Review the changes for dead code
+
+---
+
+Review the PR comments
+
+---
+
+The project convention requires execx.NonInteractive for subprocess spawning in tests to detach from the controlling TTY.
+
+---
+
+The project convention requires execx.NonInteractive for subprocess spawning in tests to detach from the controlling TTY. It is in the CLAUDE.md convention
+
+---
+
+➜  test-repo git:(test-v1-1) ✗ git push origin HEAD
+[entire] Pushing checkpoints/v1 to origin.... done
+Enumerating objects: 9, done.
+Counting objects: 100% (9/9), done.
+Delta compression using up to 10 threads
+Compressing objects: 100% (5/5), done.
+Writing objects: 100% (5/5), 652 bytes | 652.00 KiB/s, done.
+Total 5 (delta 3), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (3/3), completed with 2 local objects.
+To https://github.com/computermode/test-repo.git
+   cd36d5b..edadc8a  HEAD -> test-v1-1
+
+why is it still showing the [entire] Pushing checkpoints/v1 to origin.... done message? is that v1 or v1.1?
+
+---
+
+Does the branch also include support for other commands such as attach, explain, etc. to work properly if 1.1 is enabled? for the 1.1 checkpoints
