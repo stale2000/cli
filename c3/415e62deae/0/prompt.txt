@@ -1,0 +1,142 @@
+Fix only the selected review findings.
+Do not rewrite unrelated code. Run targeted tests where practical, then report what changed and what verification passed.
+
+Reviewed commit: d0ef3bff7f27fbf83bb22e6da4aef136e07b167e
+Worktree: /Users/ninawork/entire/devenv/cli
+
+## Selected findings
+
+## Full selected review output
+
+## Claude Code findings
+
+I'll perform a high-effort code review on this branch. Starting by gathering the full scope of changes.
+The working tree has only untracked scratch files (transcripts, review notes, playground HTML) — out of scope. The review focuses on the 23 commits ahead of origin/main. Let me capture the diff and metadata for the agents.
+I'll skip the scratch file and have the agents fetch the diff themselves with `git diff origin/main...HEAD`. Let me first scan the diff myself so I can give them precise pointers.
+I have enough context. Dispatching the three review agents in parallel at xhigh effort.
+All three agents reported. Aggregating findings now. Let me verify the locations before making changes.
+Let me set up a tracking list and verify the other reported sites before making fixes.
+I'm skipping task #5 — the os.Stderr write is intentional and user-facing (alerts users to a typo in settings); routing to `logging.Warn` would bury it in `.entire/logs/`. The current behavior is correct.
+I'm being blocked on file writes. Let me ask the user how to proceed — I have all the findings aggregated and triaged.
+Edits are blocked. I'll deliver the consolidated findings instead, so you can apply the fixes (or grant write permission and ask me to apply them).
+
+---
+
+## Code Review Summary — `initial-v1.1-setup` (xhigh effort)
+
+Three agents reviewed the 22 commits ahead of `origin/main` (31 files, +838/-220). Working tree has only untracked scratch files (out of scope).
+
+### Must-fix (4)
+
+1. **Dead, legacy-only `GetMetadataRef` in `cmd/entire/cli/strategy/manual_commit_logs.go:68-75`.**
+   No callers anywhere in the repo. Returns `paths.MetadataBranchName + ":" + ...` literally, ignoring 1.1. The sibling `GetSessionMetadataRef` (line 79) was correctly updated to use the resolver in this branch — this site was missed. Per CLAUDE.md ("If you are certain that something is unused, you can delete it completely") and the branch's existing dead-code-removal posture (commits `b47ffc5e5`, `ea2362bbc`): **delete the function**.
+
+2. **Broken fetch-hint in `cmd/entire/cli/resume.go:841-843`.**
+   Prints `git fetch origin entire/checkpoints/v1:entire/checkpoints/v1` unconditionally. On a 1.1 repo this targets the wrong namespace; the user pastes it and nothing happens.
+   Fix: compose the refspec from the resolver. Suggested form:
+   ```go
+   refspec := paths.MetadataBranchName + ":" + paths.MetadataBranchName
+   if settings.UsesCustomMetadataRef(ctx) {
+       refspec = "+" + paths.MetadataRefName + ":" + paths.MetadataTrackingRefName
+   }
+   fmt.Fprintf(errW, "  git fetch origin %s\n", refspec)
+   ```
+   The "entire/checkpoints/v1 branch is not available" preamble also needs `checkpoint.RefDisplayName(checkpoint.MetadataRef(ctx))`.
+
+3. **`cmd/entire/cli/attach.go:409` + `suggestCheckpointFetchCommand` at `:464-475`** — same bug. The `v2Only` branch is correct; the v1 fallback hard-codes `"entire/checkpoints/v1:entire/checkpoints/v1"`. Add a 1.1 case mirroring the resume.go fix. The `branchDescription` string at line 409 should also use `RefDisplayName(MetadataRef(ctx))`.
+
+4. **User-facing error message in `cmd/entire/cli/checkpoint/committed.go:341`** suggests running `git ls-tree entire/checkpoints/v1 %s/` as a diagnostic. Broken on 1.1.
+   Fix: `git ls-tree %s %s/` with the ref display name from the resolver — `checkpoint.RefDisplayName(checkpoint.MetadataRef(ctx))`. The function already has `ctx`.
+
+### Should-fix (1)
+
+5. **Unexport `MetadataTrackingRefPrefix` / `MetadataTrackingRefSuffix` in `cmd/entire/cli/paths/paths.go:54-55`.**
+   Confirmed via grep — only used internally in `paths.go` (in `MetadataTrackingRefName` const initializer and `BuildMetadataTrackingRef`). Exporting them invites callers to do their own concatenation instead of using `BuildMetadataTrackingRef`. Rename to lowercase; the exported `MetadataTrackingRefName` const value is unaffected.
+
+### Considered and skipped
+
+- **Quality #9 (`fmt.Fprintf(os.Stderr, ...)` in `settings.CheckpointsVersion`).** Skipped — this is intentional. The warning alerts users to a typo in their settings file; routing through `logging.Warn` would write it to `.entire/logs/` where users won't see it. Convention violation is mild and the alternative is worse.
+- **Efficiency #1 (`settings.Load` called multiple times per `WriteCommitted`/`PrePush`).** Real but cost is bounded (~15-60ms per checkpoint write). Eliminating it requires threading a resolved-ref snapshot through several internal helpers — non-trivial refactor disproportionate to a sub-100ms improvement on a non-hot path. Defer.
+- **Quality #3 (`RefDisplayName` ambiguity for the legacy-vs-1.1 tracking refs in `push_common.go:335` temp-ref name).** Edge case, internal-only temp ref name, not user-facing. Skip.
+- **Quality #6 (`settings.UsesCustomMetadataRef(ctx)` silent fallback to false on Load error).** Documented behavior; legacy is a safe fallback. The agent's concern is theoretical — Load failures mid-checkpoint are rare and the test surface would have to grow significantly to pin behavior that hasn't broken in practice. Skip.
+- **Quality #8 (doc comment density in `metadata_ref.go`).** Subjective; the "why custom ref" and "migration command" context paragraphs are load-bearing for a future reader trying to understand the namespace choice. Leave.
+- **Quality #10 (`refDisplayName` package-local alias in `push_common.go`).** Two-line alias, two callers, harmless. Skip.
+- **Reuse #5 (`paths.BuildMetadataFetchRefspec` helper).** With only 3 call sites (one prod + two test mirrors), the helper would centralize but not significantly simplify. The must-fix #2/#3 above introduce 2 more inline call sites — at 5 sites the helper becomes justified. Worth doing, but lower priority than the broken hints; consider as a follow-up after #2/#3 land.
+
+### Positive findings (no action)
+
+- Push hook signature `pushRefIfNeeded(ctx, target, localRef, trackingRef)` is genuinely cleaner than what it replaced — not just argument shuffling.
+- `parseCheckpointsVersion` correctly extends the v2 string/float-literal pattern rather than introducing a parallel parser.
+- New tests use `execx.NonInteractive` and `testutil.InitRepo` per CLAUDE.md conventions; integration test reuses every helper from `testenv.go` / `v2_push_test.go` without re-implementation.
+- `setup.go` `installMetadataRefspec` is idempotent (read `--get-all`, conditionally `--add`); spawn count per `entire enable` is 2-3 subprocesses, acceptable.
+- No new unbounded caches or maps.
+- `sync.Once` is the right primitive for the unsupported-version warning.
+- `EnsureMetadataBranch` correctly does NOT load legacy branch history into memory (the "preserve v1 history" feature was reverted in `341bb900b` / `de53c9d3b`).
+
+### Overall
+
+Clean, well-shaped refactor. The resolver pattern (`MetadataRef` / `MetadataTrackingRef` / `MetadataTrackingRefForRemote` + `RefDisplayName`) is consistently used in **write** paths. The gaps are entirely in **read/display** paths: dead code that nobody updated, plus three user-facing strings that legitimately should have been routed through the resolver and weren't. None block correctness on 1.1 write paths; they just print legacy-only commands when something goes wrong, which is a poor UX but not a data risk.
+
+If you'd like me to apply the fixes, grant write access on this turn and tell me to proceed.
+
+## Codex findings
+
+I’ll review only the branch delta against `origin/HEAD` plus the working tree, and I’ll treat this as a code review: findings first, scoped to correctness/regression/security/test gaps.
+The branch is `initial-v1.1-setup`; `origin/HEAD` resolves to `origin/main`. I’m going to use the merge-base with `origin/main` for committed changes, then separately check tracked and untracked working-tree changes.
+The committed diff is a focused v1.1 metadata-ref change across checkpoint resolution, push/fetch handling, setup, and command readers. I’m reading those paths now for behavioral gaps rather than style issues.
+I’ve confirmed the main mechanics are custom ref selection, tracking-ref selection, and push/fetch recovery. Next I’m checking for leftover hard-coded `entire/checkpoints/v1` readers/writers inside the touched surface, because those are the highest-risk regressions for 1.1.
+A couple of hard-coded legacy strings remain in user recovery paths, which may or may not be accepted depending on how strict the 1.1 UX needs to be. I’m also going to run focused unit tests for the touched packages to catch compile/runtime regressions in the changed surface.
+The focused unit packages pass. I’m going to run just the new v1.1 integration tests next; they are simulated-hook integration tests, not the real-agent E2E suite.
+**Findings**
+
+- **P2** [setup.go](/Users/ninawork/entire/devenv/cli/cmd/entire/cli/setup.go:867): `entire enable` skips the new 1.1 refspec install when the repo is already enabled. The documented opt-in flow is “edit settings to `checkpoints_version: 1.1`, then run `entire enable`”, but this path returns at lines 867-874 before `runEnable()` and `installMetadataRefspec()` run. Result: normal `git fetch` still won’t fetch `refs/entire/checkpoints/v1`. Add command-level coverage for already-enabled 1.1 repos and run the refspec install before this early return.
+
+- **P2** [attach.go](/Users/ninawork/entire/devenv/cli/cmd/entire/cli/attach.go:465) and [resume.go](/Users/ninawork/entire/devenv/cli/cmd/entire/cli/resume.go:841): recovery messages still suggest fetching the legacy branch. In a 1.1 repo, `git fetch origin entire/checkpoints/v1:entire/checkpoints/v1` fetches the wrong namespace or fails, so users cannot recover after automatic fetch fails. These hints should use `refs/entire/checkpoints/v1:refs/entire/checkpoints/v1` when `checkpoint.MetadataRef(ctx)` resolves to the custom ref.
+
+- **P3** [v1_metadata_ref_workflow_test.go](/Users/ninawork/entire/devenv/cli/cmd/entire/cli/integration_test/v1_metadata_ref_workflow_test.go:66): the “NonFF” integration test does not create two diverging clones; line 92 explicitly says the second push is fast-forward. This leaves the custom-ref non-fast-forward fetch/rebase path untested, which is one of the higher-risk changes in this branch.
+
+**Notes**
+
+No tracked uncommitted changes were present. There are many untracked local artifacts, including transcript/debug files such as `full-example.jsonl`, `transcript-output.jsonl`, and `compact-debug`; keep those out of commits unless they are intentional fixtures.
+
+**Verification**
+
+Ran:
+
+```bash
+go test ./cmd/entire/cli/checkpoint ./cmd/entire/cli/settings ./cmd/entire/cli/strategy ./cmd/entire/cli
+go test -tags=integration ./cmd/entire/cli/integration_test -run 'TestV1MetadataRef|TestLegacyV1_StillWorks' -count=1
+```
+
+## Aggregate summary
+
+## Unified Review Verdict
+
+### Common Findings
+Both agents flagged the same core issue: **hard-coded legacy recovery hints in `attach.go` and `resume.go`** that suggest `git fetch origin entire/checkpoints/v1:...` on 1.1 repos — wrong namespace, confusing to users, silently fails.
+
+### Unique Findings
+
+**claude-code only:**
+- Dead `GetMetadataRef` function in `manual_commit_logs.go:68-75` — no callers, incorrect for 1.1, should be deleted
+- Hard-coded ref in user-facing error in `checkpoint/committed.go:341` (`git ls-tree entire/checkpoints/v1 ...`)
+- Unexported `MetadataTrackingRefPrefix`/`MetadataTrackingRefSuffix` constants that invite bypassing `BuildMetadataTrackingRef`
+
+**codex only:**
+- `entire enable` skips `installMetadataRefspec` for already-enabled repos (`setup.go:867-874`) — the documented opt-in flow ("edit settings, re-run `entire enable`") silently does nothing
+- The "NonFF" integration test (`v1_metadata_ref_workflow_test.go:66`) doesn't actually test non-fast-forward divergence — the highest-risk code path goes uncovered
+
+### Disagreements
+None. The agents covered different surface area rather than reaching conflicting conclusions.
+
+### Priority Order
+
+| # | Issue | File | Severity |
+|---|-------|------|----------|
+| 1 | `entire enable` no-ops on already-enabled 1.1 repo | `setup.go:867` | P1 — breaks the documented adoption flow |
+| 2 | Wrong fetch hint in `resume.go` | `resume.go:841` | P2 — misleads users during recovery |
+| 3 | Wrong fetch hint in `attach.go` | `attach.go:465` | P2 — same, different entry point |
+| 4 | `git ls-tree` hint broken on 1.1 | `committed.go:341` | P2 — wrong diagnostic command |
+| 5 | Dead `GetMetadataRef` + NonFF test gap | `manual_commit_logs.go:68` / integration test | P3 — dead code risk + untested path |
+
+The write paths are solid; all gaps are in recovery/display paths and the `enable` re-run flow. The `setup.go` finding from codex is the only one that blocks a documented user workflow — fix that first.
