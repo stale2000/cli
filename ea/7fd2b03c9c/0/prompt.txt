@@ -1,0 +1,17 @@
+/simplify
+
+---
+
+explain `PreserveV1HistoryAndLog`. as it stands, it feels clunky and a bit awkward right now the way it is.
+
+---
+
+I think it should just be inlined
+
+---
+
+Let's avoid the copying of the legacy branch for now. For now, this branch should just write to v1.1 if it's enabled and not worry about v1
+
+---
+
+Review the changes for dead code
