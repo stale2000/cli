@@ -43,3 +43,7 @@ Can you check if there is any device code logic in core?
 ---
 
 ok, are the last fixes on this branch pushed?
+
+---
+
+I talked with a coworker and we think the cli is not sending the code correctly during flow initiating, can you validate everything is wired up correctly
