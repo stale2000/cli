@@ -15,3 +15,7 @@ cmd/entire/cli/attach.go still seems to support writing with v2
 ---
 
 Anything that relies on `IsPushV2RefsEnabled` can go away too: we're no longer allowing push from v2
+
+---
+
+`IsCheckpointsV2WriteEnabled` also can go away now
