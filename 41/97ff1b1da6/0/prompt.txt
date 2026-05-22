@@ -1,0 +1,68 @@
+continue verifying the fix
+
+---
+
+<task-notification>
+<task-id>bvt5khat3</task-id>
+<summary>Monitor event: "PR #1252 CI status changes"</summary>
+<event>binary-size: pass
+check-licenses / license-check: pass
+lint: pass
+test-canary: pass
+test-core: pending
+test-integration (a): pending
+test-integration (b): pending
+test-integration (c): pending</event>
+If this event is something the user would act on now, send a PushNotification. Routine or benign output doesn't need one.
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bvt5khat3</task-id>
+<summary>Monitor event: "PR #1252 CI status changes"</summary>
+<event>test-core: pass
+test-integration (b): pass
+test-integration (c): pass</event>
+If this event is something the user would act on now, send a PushNotification. Routine or benign output doesn't need one.
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bvt5khat3</task-id>
+<summary>Monitor event: "PR #1252 CI status changes"</summary>
+<event>test-integration (a): pass
+test: pass</event>
+If this event is something the user would act on now, send a PushNotification. Routine or benign output doesn't need one.
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bvt5khat3</task-id>
+<tool-use-id>REDACTED</tool-use-id>
+<output-file>/private/tmp/claude-501/-Users-soph-Work-entire-devenv-cli-experiments/fa75a20c-a2c3-4672-adcb-04791182a2bb/tasks/bvt5khat3.output</output-file>
+<status>completed</status>
+<summary>Monitor "PR #1252 CI status changes" stream ended</summary>
+</task-notification>
+
+---
+
+can you commit and open a pr?
+
+---
+
+can you review the comment on the pr
+
+---
+
+but what if I have a branch with new commits that I did not pushed yet, but do a resume on another remote branch, then the local checkpoints would be overwritten?
+
+---
+
+> though FetchMetadataBranch already had the same risk in other code paths.
+
+---
+
+yeah we should do it globably
