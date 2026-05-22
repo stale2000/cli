@@ -1,0 +1,25 @@
+Awesome, looks good, let's push that up
+
+---
+
+`if settings.CheckpointsWriteVersion(ctx) != 2 {` in cmd/entire/cli/strategy/manual_commit_push.go: shouldn't this always be true now? we're not writing to v2 anymore
+
+---
+
+cmd/entire/cli/attach.go still seems to support writing with v2
+
+---
+
+`WarnIfCheckpointsV2Disallowed` checkpoints v2 should always be disallowed and the message should be printed until they remove v2 from their settings.json
+
+---
+
+Anything that relies on `IsPushV2RefsEnabled` can go away too: we're no longer allowing push from v2
+
+---
+
+`IsCheckpointsV2WriteEnabled` also can go away now
+
+---
+
+all the v2 dual-write and v2 push tests can go away now too
