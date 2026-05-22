@@ -1,7 +1,1 @@
-In this branch, `disallow-checkpoints-v2-setting`, check the changes to ensure that `push_v2`, `checkpoints_v2`, and `checkpoints_version: 2` are no longer allowed. No other logic should be changed as part of this branch.
-
-When I say "no longer allowed," I mean when someone tries to push with that version enabled, it should print `[entire] strategy_options.checkpoints_version %v is no longer supported. Falling back to version 1` as a warning and use version 1 instead. It should do that for anything that attempts to write to v2 - just use v1 instead, and warn on push. If someone tries to attach a session, it should use v1 instead of v2. When they push, it should let them know the message I said.
-
----
-
-Reads should not be impacted by these changes - review all the changes to ensure that fallback code is not touched.
+Awesome, looks good, let's push that up
