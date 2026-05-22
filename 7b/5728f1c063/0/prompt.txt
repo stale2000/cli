@@ -1,0 +1,9 @@
+We need to disallow `checkpoints_version: "2"` or `checkpoints_version: 2`. If this is passed, the CLI should ignore it and warn that it's using v1 instead. As part of this change, v2 pushes will no longer be allowed (and all relevant code should be removed)
+
+---
+
+`warnIfCheckpointsVersionConfigured` is inaccurate. we are about to introduce a different version instead. it should only warn if version 2 is configured
+
+---
+
+Let's branch off this branch and pull in all the changes beyond just disallowing / ignoring / warning if someone has the v2 setting in their settings.json file. disallow-checkpoints-v2-setting should only include the v2 setting warning changes. Everything else can go in a new branch called `remove-v2-write-paths`

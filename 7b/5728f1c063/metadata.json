@@ -1,0 +1,44 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "7b5728f1c063",
+  "strategy": "manual-commit",
+  "branch": "remove-v2-write-paths",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/attach.go",
+    "cmd/entire/cli/checkpoint/committed_reader_resolve.go",
+    "cmd/entire/cli/checkpoint/committed_reader_resolve_test.go",
+    "cmd/entire/cli/clean.go",
+    "cmd/entire/cli/clean_test.go",
+    "cmd/entire/cli/doctor.go",
+    "cmd/entire/cli/doctor_test.go",
+    "cmd/entire/cli/explain_export.go",
+    "cmd/entire/cli/integration_test/explain_test.go",
+    "cmd/entire/cli/resume.go",
+    "cmd/entire/cli/strategy/checkpoint_remote.go",
+    "cmd/entire/cli/strategy/manual_commit.go",
+    "cmd/entire/cli/strategy/manual_commit_condensation.go",
+    "cmd/entire/cli/strategy/manual_commit_condensation_test.go",
+    "cmd/entire/cli/strategy/manual_commit_hooks.go",
+    "cmd/entire/cli/strategy/manual_commit_push.go",
+    "cmd/entire/cli/strategy/manual_commit_test.go",
+    "cmd/entire/cli/strategy/manual_commit_types.go",
+    "cmd/entire/cli/strategy/phase_postcommit_test.go",
+    "cmd/entire/cli/strategy/push_common.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/7b/5728f1c063/0/metadata.json",
+      "transcript": "/7b/5728f1c063/0/full.jsonl",
+      "content_hash": "/7b/5728f1c063/0/content_hash.txt",
+      "prompt": "/7b/5728f1c063/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 433,
+    "cache_creation_tokens": 936758,
+    "cache_read_tokens": 116991022,
+    "output_tokens": 165293,
+    "api_call_count": 404
+  }
+}
