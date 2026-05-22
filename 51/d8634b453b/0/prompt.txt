@@ -1,0 +1,5 @@
+open a draft pr with a summary for disallow-checkpoints-v2-setting
+
+---
+
+`push_v2_refs` and `checkpoints_v2` should also be removed in disallow-checkpoints-v2-setting
