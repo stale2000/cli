@@ -1,0 +1,5 @@
+Awesome, looks good, let's push that up
+
+---
+
+`if settings.CheckpointsWriteVersion(ctx) != 2 {` in cmd/entire/cli/strategy/manual_commit_push.go: shouldn't this always be true now? we're not writing to v2 anymore
