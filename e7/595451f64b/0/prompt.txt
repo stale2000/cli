@@ -1,0 +1,45 @@
+ok, that PR is merged, let's go back to the other
+
+---
+
+Ok, what's now needed to test this against entire.io, can you take a look into the codebase ../entire.io
+
+---
+
+whyx does local have these urls but not entire.io?
+
+---
+
+ok, let's try partial then
+
+---
+
+Hmm, so partial does redirect on login to us.auth.partial.to so that is up but running the login command gets me a 404
+
+---
+
+ok, the url is opening now, the redirects happening in the UI but I never land on a page to enter the device code
+
+---
+
+Invalid or expired code
+
+---
+
+also it's partial.to/cli/auth, right?
+
+---
+
+yeah I got invalid, also now tried https://us.auth.partial.to/cli/auth?user_code= again with a code, this just redirects to partial.to/overview
+
+---
+
+can you take a look at ../entiredb too, this is where core lives which is what drives us.auth.partial.to
+
+---
+
+Can you check if there is any device code logic in core?
+
+---
+
+ok, are the last fixes on this branch pushed?
