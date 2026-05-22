@@ -1,0 +1,53 @@
+Create a standalone migration script that converts legacy v2 checkpoints to v1.
+
+For repos with `refs/entire/checkpoints/v2/full` and `refs/entire/checkpoints/v2/full/*`, it needs to go through and find the folders containing metadata for checkpoints that are newer than a commit (the user will be prompted to supply the commit). For now, just show the path to each of the folders containing these v2 checkpoints. We need the raw_transcript file, the metadata.json, and any session metadata as well so we can ultimately convert them back to v1 checkpoints.
+
+---
+
+you can run a check against /Users/ninawork/entire/test-repos/test-repo
+
+---
+
+why the /main metadata? it should be the full transcripts.
+
+---
+
+It should also request the path to the repo locally
+
+---
+
+➜  cli git:(disallow-checkpoints-v2-setting) ✗ ./scripts/migrate-v2-checkpoints-to-v1.sh \
+  --repo /Users/ninawork/entire/test-repos/test-repo \
+  --since 58a850309d3c407768860a57c7c6cdff708971f1
+Repository: /Users/ninawork/entire/test-repos/test-repo
+Scanning commits: 58a850309d3c407768860a57c7c6cdff708971f1..ec9622142580677fc5454432e2edc21063e7df82
+Companion metadata ref: refs/entire/checkpoints/v2/main
+Full refs:
+  refs/entire/checkpoints/v2/full/current
+
+warning: no raw_transcript artifacts found for checkpoint 4edc24166f46
+
+it didn't print any of the checkpoints? there were a bunch of v2 checkpoints pushed up to various branches in that repo
+
+---
+
+Ok, the current output where all it does is read and print it out should become --dry-run flag output.
+Now, let's brainstorm the best way to copy these v2 checkpoints to the v1 format in a single commit. Dont' copy anything yet, but put the code in place to support that
+
+---
+
+what is this? `/full/*:<cp>/<session>/raw_transcript.NNN -> <cp>/<session>/full.jsonl.NNN`
+
+I don't think checkpoints v1 has support for files with that shape. double check it.
+
+---
+
+there should be a `--list` option that shows the number of checkpoints and enumerates all the checkpoints (don't show the whole path, just the ids)
+
+---
+
+there should be a `--list` option that shows the number of checkpoints and enumerates all the checkpoints and the commits they are associated with (don't show the whole path, just the ids)
+
+---
+
+It should have a heading for if it's the commit or checkpoint id because otherwise it's unclear. also it should show the full commit id
