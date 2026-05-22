@@ -1,0 +1,25 @@
+can you take a look, I'm trying to use "entire resume" in ../entire.io and I'm getting this error: 
+
+entire.io on  soph/resolve-checkpoint-sync-always-v1 [$] via  v22.16.0 took 6s
+❯ entire resume soph/resolve-checkpoint-sync-always-v1
+Command "resume" is deprecated, use 'entire session resume' instead
+Session 'b51b455f-404e-4df0-9624-83d8af522e36' found in commit trailer but session log not available
+
+To continue this session:
+  claude -r b51b455f-404e-4df0-9624-83d8af522e36
+
+but I think the session log is in the checkpoint, what is not working?
+
+---
+
+yes, add a replicating integration test first then implement
+
+---
+
+<task-notification>
+<task-id>bbvtlnvw0</task-id>
+<tool-use-id>REDACTED</tool-use-id>
+<output-file>/private/tmp/claude-501/-Users-soph-Work-entire-devenv-cli-experiments/fa75a20c-a2c3-4672-adcb-04791182a2bb/tasks/bbvtlnvw0.output</output-file>
+<status>completed</status>
+<summary>Background command "Run all tests (unit + integration + canary)" completed (exit code 0)</summary>
+</task-notification>
