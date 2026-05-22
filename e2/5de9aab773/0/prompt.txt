@@ -1,0 +1,31 @@
+➜  cli git:(tmp-migrate-v2-script) ✗ ./scripts/migrate-v2-checkpoints-to-v1.sh \
+  --repo /Users/ninawork/entire/test-repos/test-repo \
+  --since 58a850309d3c407768860a57c7c6cdff708971f1
+Repository: /Users/ninawork/entire/test-repos/test-repo
+Scanning commits: local branches/remotes after 58a850309d3c407768860a57c7c6cdff708971f1
+Companion metadata ref: refs/entire/checkpoints/v2/main
+Full refs:
+  refs/entire/checkpoints/v2/full/current
+
+warning: no raw_transcript artifacts found for checkpoint 4edc24166f46
+warning: no raw_transcript artifacts found for checkpoint 8643c3e2f37e
+Migration plan:
+  target ref: refs/heads/entire/checkpoints/v1
+  checkpoints with raw transcripts: 38
+  sessions with raw transcripts: 40
+  raw transcript base files: 40
+  planned v1 tree entries: 195 (195 unique target paths)
+  missing raw-transcript checkpoints: 2
+  missing companion checkpoint metadata: 0
+  missing companion session metadata: 0
+
+No refs were written. Use --dry-run to print every source and target artifact.
+The single-commit apply path is scaffolded but blocked before updating refs/heads/entire/checkpoints/v1.
+
+
+
+it says no refs were written?
+
+---
+
+ok let's allow that. also, some of the repos have thousands of checkpoints. we need to account for that.
