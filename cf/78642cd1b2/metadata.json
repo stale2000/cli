@@ -1,0 +1,51 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "cf78642cd1b2",
+  "strategy": "manual-commit",
+  "branch": "remove-v2-doctor-clean",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "CLAUDE.md",
+    "cmd/entire/cli/checkpoint/checkpoint.go",
+    "cmd/entire/cli/checkpoint/git_common_dir.go",
+    "cmd/entire/cli/checkpoint/parse_tree.go",
+    "cmd/entire/cli/checkpoint/v2_archived.go",
+    "cmd/entire/cli/checkpoint/v2_committed.go",
+    "cmd/entire/cli/checkpoint/v2_generation.go",
+    "cmd/entire/cli/checkpoint/v2_generation_test.go",
+    "cmd/entire/cli/checkpoint/v2_pending_rotation.go",
+    "cmd/entire/cli/checkpoint/v2_read_test.go",
+    "cmd/entire/cli/checkpoint/v2_store.go",
+    "cmd/entire/cli/checkpoint/v2_store_test.go",
+    "cmd/entire/cli/clean.go",
+    "cmd/entire/cli/clean_test.go",
+    "cmd/entire/cli/doctor.go",
+    "cmd/entire/cli/doctor_test.go",
+    "cmd/entire/cli/paths/paths.go",
+    "cmd/entire/cli/settings/settings.go",
+    "cmd/entire/cli/settings/settings_test.go",
+    "cmd/entire/cli/strategy/clean_test.go",
+    "cmd/entire/cli/strategy/cleanup.go",
+    "cmd/entire/cli/strategy/generation_repair.go",
+    "cmd/entire/cli/strategy/generation_repair_test.go",
+    "cmd/entire/cli/strategy/metadata_reconcile.go",
+    "cmd/entire/cli/strategy/metadata_reconcile_test.go",
+    "docs/architecture/checkpoints-v2-rotation.md",
+    "e2e/tests/doctor_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/cf/78642cd1b2/0/metadata.json",
+      "transcript": "/cf/78642cd1b2/0/full.jsonl",
+      "content_hash": "/cf/78642cd1b2/0/content_hash.txt",
+      "prompt": "/cf/78642cd1b2/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 750368,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 19573632,
+    "output_tokens": 51003,
+    "api_call_count": 146
+  }
+}
