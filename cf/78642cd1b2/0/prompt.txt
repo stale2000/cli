@@ -1,5 +1,1 @@
-Remove all the remaining checkpoints v2 rotation and cleanup and doctor logic
-
----
-
-Remove all the remaining checkpoints v2 rotation and cleanup and doctor logic
+Push up the changes to `remove-v2-doctor-clean`
