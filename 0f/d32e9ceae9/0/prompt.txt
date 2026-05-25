@@ -1,0 +1,5 @@
+How would you design the trail review experience for the entire CLI? https://entire.io/api/openapi.json?
+
+---
+
+Looks good. Let's do it.
