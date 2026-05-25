@@ -1,0 +1,1 @@
+given on the findings and the work in this PR and #1252 (can you take a look) - can we craft a few integration tests or even E2E test (outside of the agent related E2E tests) that focus on these scenarios? can you make a plan and then we start a new branch/PR

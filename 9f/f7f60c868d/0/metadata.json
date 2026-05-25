@@ -1,0 +1,39 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "9ff7f60c868d",
+  "session_id": "6db3bf15-4853-41a8-864f-e7054ed571cc",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-25T09:26:46.292081Z",
+  "branch": "test/checkpoint-ref-sync-scenarios",
+  "checkpoints_count": 1,
+  "files_touched": [],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "6ffc73c0623b",
+  "token_usage": {
+    "input_tokens": 141,
+    "cache_creation_tokens": 276635,
+    "cache_read_tokens": 17017365,
+    "output_tokens": 74352,
+    "api_call_count": 126
+  },
+  "session_metrics": {
+    "turn_count": 1
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 1,
+      "agent_lines_removed": 1
+    }
+  ]
+}
