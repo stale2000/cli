@@ -1,0 +1,7 @@
+repo.Reference can fail for reasons other than the ref being missing. Advancing the ref unconditionally on any error could mask real repository issues (e.g., storage errors) and potentially clobber state. Consider only treating plumbing.ErrReferenceNotFound as the “missing ref” case, and returning a wrapped error for other failures.
+
+Routing errNoMergeBase directly to the “disconnected replay full local chain” path can be incorrect in shallow/depth=1 fetch scenarios: git merge-base can report no merge-base simply because the fetched tip is shallow and its ancestors aren’t present locally. In that case, replaying the full local chain onto targetHash can re-apply old deltas on top of a newer remote tree (potentially reintroducing deleted files/undoing cleanup commits). Consider detecting shallow history and avoiding the disconnected-replay fallback unless you’ve confirmed true disconnection (or deepen the fetch / use a different ancestry check that doesn’t break under shallow history).
+
+---
+
+Go ahead with the update on a single commit
