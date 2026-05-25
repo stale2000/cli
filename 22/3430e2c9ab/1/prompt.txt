@@ -1,0 +1,15 @@
+We've noticed that users running this cli from commit 3a4c6f608 are rebasing the checkpoints incorrectly. Instead of getting latest, and then cherry picking the local
+   changes into the metadata branch to be pushed. It feels like the other way around is happening, as shown by the GitHub history (authored by X and committed by Y).
+  Investigate the issue, find root cause and what change caused it.
+
+---
+
+Review the staged changes and proposed concise, but insightful and useful commit title and message that explains the issue, the changes and their impact.
+
+---
+
+Are you sure this is accurate?
+
+---
+
+Commit the changes
