@@ -1,0 +1,23 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "fc68295fe7ae",
+  "strategy": "manual-commit",
+  "branch": "chore/add-pi-extension",
+  "checkpoints_count": 0,
+  "files_touched": null,
+  "sessions": [
+    {
+      "metadata": "/fc/68295fe7ae/0/metadata.json",
+      "transcript": "/fc/68295fe7ae/0/full.jsonl",
+      "content_hash": "/fc/68295fe7ae/0/content_hash.txt",
+      "prompt": "/fc/68295fe7ae/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 7446,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 1128448,
+    "output_tokens": 884,
+    "api_call_count": 8
+  }
+}
