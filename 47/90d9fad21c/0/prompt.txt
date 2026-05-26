@@ -23,3 +23,14 @@ Actually, let's get all repo opening points to call the new package instead. Tha
 ---
 
 repo creation should be followed by a defer r.Close(). Ensure that's the case across the board.
+
+---
+
+Commit the changes using a very descriptive message that explains:
+- why this was done - repos with alternates were silently failing, resulting in checkpoints not being pushed to the remote
+- better structure the code so that opening repositories are consistent across the code base
+- close repos as that is an upstream requirement to release resources
+
+---
+
+go ahead with the commit
