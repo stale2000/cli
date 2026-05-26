@@ -1,17 +1,1 @@
-Commit and continue
-
----
-
-Use the pfleidi:pr skill to open a draft pull request against the tmp-migrate-v2-script branch
-
----
-
-I have updated the remote branch so it should be clean now
-
----
-
-Don't rebase anything, just open a PR based on the base branch I told you. I've already pulled in the base branch again.
-
----
-
-I think in cmd/entire/cli/checkpoint/temporary.go, createCommit could continue to delegate to CreateCommit
+commit and push the changes
