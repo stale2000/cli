@@ -1,9 +1,1 @@
-Push up the changes to `remove-v2-doctor-clean`
-
----
-
-Why was cmd/entire/cli/checkpoint/git_common_dir.go created?
-
----
-
 the tests in cmd/entire/cli/strategy/clean_test.go that have `refName := "refs/entire/test[...]` can be removed because we're not cleaning up those v2 refs anymore
