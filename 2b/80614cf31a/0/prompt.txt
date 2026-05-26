@@ -1,19 +1,1 @@
-Address comments on [entireio/cli#1269](https://github.com/entireio/cli/pull/1269).
-
-```
-Archived v2 transcripts unreadable
-
-High Severity
-
-V2 resume and related read paths now look for raw transcripts only on refs/entire/checkpoints/v2/full/current and no longer search archived refs/entire/checkpoints/v2/full/* generations or fetch them from the remote. Checkpoints whose raw transcripts were rotated off /full/current under the old layout can no longer be loaded, even when archived refs still exist locally or on origin.
-```
-
-^ This is a real issue for now, we want those resume commands to work for the time being
-
----
-
-There should be no more v2 write paths as part of these changes on this branch
-
----
-
 Address remaining comments on [entireio/cli#1269](https://github.com/entireio/cli/pull/1269)
