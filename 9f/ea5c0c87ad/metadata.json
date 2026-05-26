@@ -1,0 +1,41 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "9fea5c0c87ad",
+  "strategy": "manual-commit",
+  "branch": "fix/remove-v2-dual-writes",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/checkpoint/committed_reader_resolve_test.go",
+    "cmd/entire/cli/checkpoint/v2_committed.go",
+    "cmd/entire/cli/checkpoint/v2_committed_tripwire_test.go",
+    "cmd/entire/cli/checkpoint/v2_fixture_test.go",
+    "cmd/entire/cli/checkpoint/v2_precompute_test.go",
+    "cmd/entire/cli/checkpoint/v2_read.go",
+    "cmd/entire/cli/checkpoint/v2_read_test.go",
+    "cmd/entire/cli/checkpoint/v2_resolve_test.go",
+    "cmd/entire/cli/checkpoint/v2_store.go",
+    "cmd/entire/cli/checkpoint/v2_store_test.go",
+    "cmd/entire/cli/explain_export_test.go",
+    "cmd/entire/cli/explain_test.go",
+    "cmd/entire/cli/resume_test.go",
+    "cmd/entire/cli/strategy/manual_commit_test.go",
+    "cmd/entire/cli/strategy/session_test.go",
+    "cmd/entire/cli/strategy/v2_checkpoint_fixture_test.go",
+    "cmd/entire/cli/v2_checkpoint_fixture_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/9f/ea5c0c87ad/0/metadata.json",
+      "transcript": "/9f/ea5c0c87ad/0/full.jsonl",
+      "content_hash": "/9f/ea5c0c87ad/0/content_hash.txt",
+      "prompt": "/9f/ea5c0c87ad/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 684014,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 19972736,
+    "output_tokens": 53198,
+    "api_call_count": 125
+  }
+}
