@@ -1,0 +1,65 @@
+Address review comments on the PR
+[entireio/cli#1257](https://github.com/entireio/cli/pull/1257)
+
+---
+
+how do I push up the migration commit for the test-repo?
+
+```
+➜  cli git:(tmp-migrate-v2-script) ✗ ./scripts/migrate-v2-checkpoints-to-v1.sh \
+  --repo /Users/ninawork/entire/test-repos/test-repo \
+  --since 58a850309d3c407768860a57c7c6cdff708971f1 --apply
+Repository: /Users/ninawork/entire/test-repos/test-repo
+Scanning commits: local branches/remotes containing 58a850309d3c407768860a57c7c6cdff708971f1
+Companion metadata ref: refs/entire/checkpoints/v2/main
+Full refs:
+  refs/entire/checkpoints/v2/full/current
+
+warning: 2 checkpoint trailer(s) do not have raw_transcript artifacts and will be skipped
+Migration plan:
+  target ref: refs/heads/entire/checkpoints/v1
+  checkpoints with raw transcripts: 9
+  sessions with raw transcripts: 10
+  raw transcript base files: 10
+  planned v1 tree entries: 49 (49 unique target paths)
+  missing raw-transcript checkpoints: 2
+  missing companion checkpoint metadata: 0
+  missing companion session metadata: 0
+
+refs/heads/entire/checkpoints/v1 is already up to date; no migration commit created.
+```
+
+---
+
+```
+➜  cli git:(tmp-migrate-v2-script) ✗ git -C /Users/ninawork/entire/test-repos/test-repo push origin \
+  refs/heads/entire/checkpoints/v1:refs/heads/entire/checkpoints/v1
+[entire] Syncing and pushing v2 checkpoints...
+[entire] Pushing v2/main, v2/full/current...
+[entire] All v2 checkpoints pushed
+Everything up-to-date
+```
+
+why does it say v2?
+
+---
+
+➜  cli git:(tmp-migrate-v2-script) ✗ git -C /Users/ninawork/entire/test-repos/test-repo push origin \
+  refs/heads/entire/checkpoints/v1:refs/heads/entire/checkpoints/v1
+Everything up-to-date
+
+---
+
+How do I see the commit now in github?
+
+---
+
+how do I see the associated commit for a checkpoint?
+
+---
+
+So I'm looking at some checkpoints but they're all tied to the same commit ([https://github.com/computermode/test-repo/commit/8d456efefb4704f96f02f3b71547b595e036670d](https://github.com/computermode/test-repo/commit/8d456efefb4704f96f02f3b71547b595e036670d)), and https://entire.io/gh/computermode/test-repo/commit/8d456efefb4704f96f02f3b71547b595e036670d cannot show it.. that seems like a problem - we need a 1:1 for commit to checkpoint I believe...
+
+---
+
+is it possible to make each commit match the point in time it was created based on the metadata?
