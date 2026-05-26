@@ -1,0 +1,56 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "69824b9bbc89",
+  "session_id": "019e654e-8039-7683-be34-355f432d8815",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-26T21:51:42.93464Z",
+  "branch": "fix/remove-v2-dual-writes",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/agent/pi/pijsonl/pijsonl.go",
+    "cmd/entire/cli/paths/paths.go"
+  ],
+  "agent": "Codex",
+  "model": "gpt-5.5",
+  "turn_id": "1befd5de9cc0",
+  "checkpoint_transcript_start": 2177,
+  "transcript_lines_at_start": 2177,
+  "token_usage": {
+    "input_tokens": 22682,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 1672832,
+    "output_tokens": 3930,
+    "api_call_count": 11
+  },
+  "session_metrics": {
+    "turn_count": 10
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-26T21:51:42.840717Z",
+    "agent_lines": 6,
+    "agent_removed": 6,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 6,
+    "total_lines_changed": 12,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 6,
+      "agent_lines_removed": 6
+    }
+  ]
+}
