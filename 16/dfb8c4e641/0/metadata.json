@@ -1,0 +1,66 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "16dfb8c4e641",
+  "session_id": "019e654e-8039-7683-be34-355f432d8815",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-26T18:39:37.383043Z",
+  "branch": "fix/remove-v2-dual-writes",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "cmd/entire/cli/attach.go"
+  ],
+  "agent": "Codex",
+  "model": "gpt-5.5",
+  "turn_id": "3fc46ff7062d",
+  "token_usage": {
+    "input_tokens": 506085,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 10475776,
+    "output_tokens": 40770,
+    "api_call_count": 111
+  },
+  "session_metrics": {
+    "turn_count": 4
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-26T18:39:37.34535Z",
+    "agent_lines": 0,
+    "agent_removed": 36,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 7,
+    "total_committed": 0,
+    "total_lines_changed": 43,
+    "agent_percentage": 83.72093023255815,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 1,
+      "user_lines_removed": 7,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        "cmd/entire/cli/attach.go": 1
+      },
+      "user_removed_per_file": {
+        "cmd/entire/cli/attach.go": 7
+      }
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 1,
+      "agent_lines_removed": 7
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 43
+    }
+  ]
+}
