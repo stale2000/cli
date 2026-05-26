@@ -1,0 +1,5 @@
+[entire] Warning: failed to push entire/checkpoints/v1 after sync: push failed: error: src refspec entire/checkpoints/v1 matches more than one
+
+---
+
+> main and entire/checkpoints/v1 are entirely different commit histories.
