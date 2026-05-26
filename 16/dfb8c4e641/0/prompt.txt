@@ -36,3 +36,7 @@ I've run `mise trust` if you want to use it from now on
 ---
 
 You can remove compactTranscriptForStartLine but leave the `compact` package in place. Are there any tests that need to be updated here as well?
+
+---
+
+commit and continue
