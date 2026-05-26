@@ -1,0 +1,25 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "d4f6517be448",
+  "strategy": "manual-commit",
+  "branch": "tmp-migrate-v2-script",
+  "checkpoints_count": 5,
+  "files_touched": [
+    "scripts/migrate-v2-checkpoints-to-v1.sh"
+  ],
+  "sessions": [
+    {
+      "metadata": "/d4/f6517be448/0/metadata.json",
+      "transcript": "/d4/f6517be448/0/full.jsonl",
+      "content_hash": "/d4/f6517be448/0/content_hash.txt",
+      "prompt": "/d4/f6517be448/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 1463439,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 45409024,
+    "output_tokens": 174805,
+    "api_call_count": 367
+  }
+}

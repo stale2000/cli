@@ -1,0 +1,25 @@
+[entire] Warning: failed to push entire/checkpoints/v1 after sync: push failed: error: src refspec entire/checkpoints/v1 matches more than one
+
+---
+
+> main and entire/checkpoints/v1 are entirely different commit histories.
+
+---
+
+Now when I look at a commit for a checkpoint, I see no files though.
+
+[https://github.com/computermode/test-repo/commit/466eeb3fb805c073b8666e5548645b98b503b552](https://github.com/computermode/test-repo/commit/466eeb3fb805c073b8666e5548645b98b503b552)
+
+---
+
+Ok so that pushed up the metadata but https://entire.io/gh/computermode/test-repo/commit/2d4f45dc33b227c21caed0568d497c65f0acf203 doesn't show any data
+
+---
+
+how do I make sure for the migrated checkpoints from v2 to v1 that they're discoverable and in the right place for the UI and CLI lookups?
+
+---
+
+> validate the project commit SHA, not the metadata commit SHA.
+
+this isn't how it works for v1, right? I am concerned there will be unexpected behavior if someone uses the metadata commit SHA to view the metadata in the entire.io view
