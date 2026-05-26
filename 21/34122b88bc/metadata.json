@@ -5,7 +5,8 @@
   "branch": "tmp-migrate-v2-script",
   "checkpoints_count": 2,
   "files_touched": [
-    "cmd/entire/cli/strategy/push_common.go"
+    "cmd/entire/cli/strategy/push_common.go",
+    "cmd/entire/cli/strategy/push_common_test.go"
   ],
   "sessions": [
     {
@@ -13,13 +14,19 @@
       "transcript": "/21/34122b88bc/0/full.jsonl",
       "content_hash": "/21/34122b88bc/0/content_hash.txt",
       "prompt": "/21/34122b88bc/0/prompt.txt"
+    },
+    {
+      "metadata": "/21/34122b88bc/1/metadata.json",
+      "transcript": "/21/34122b88bc/1/full.jsonl",
+      "content_hash": "/21/34122b88bc/1/content_hash.txt",
+      "prompt": "/21/34122b88bc/1/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 1143063,
+    "input_tokens": 1257780,
     "cache_creation_tokens": 0,
-    "cache_read_tokens": 64016512,
-    "output_tokens": 116917,
-    "api_call_count": 421
+    "cache_read_tokens": 65609728,
+    "output_tokens": 124112,
+    "api_call_count": 447
   }
 }
