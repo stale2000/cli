@@ -1,5 +1,1 @@
-the tests in cmd/entire/cli/strategy/clean_test.go that have `refName := "refs/entire/test[...]` can be removed because we're not cleaning up those v2 refs anymore
-
----
-
 Why is cmd/entire/cli/checkpoint/v2_archived.go still around? We should be able to remove that now
