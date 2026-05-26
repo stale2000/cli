@@ -137,3 +137,7 @@ I think this change might be adding additional unecessary complexity for no good
 ---
 
 Do it
+
+---
+
+Commit and continue
