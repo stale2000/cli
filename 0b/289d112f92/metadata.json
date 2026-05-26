@@ -1,0 +1,43 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "0b289d112f92",
+  "strategy": "manual-commit",
+  "branch": "fix/remove-v2-dual-writes",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/checkpoint/checkpoint.go",
+    "cmd/entire/cli/checkpoint/committed.go",
+    "cmd/entire/cli/checkpoint/committed_reader_resolve_test.go",
+    "cmd/entire/cli/checkpoint/v2_fixture_test.go",
+    "cmd/entire/cli/checkpoint/v2_read_test.go",
+    "cmd/entire/cli/checkpoint/v2_resolve_test.go",
+    "cmd/entire/cli/checkpoint/v2_store_test.go",
+    "cmd/entire/cli/explain_export_test.go",
+    "cmd/entire/cli/explain_test.go",
+    "cmd/entire/cli/resume_test.go",
+    "cmd/entire/cli/session/state.go",
+    "cmd/entire/cli/session/state_test.go",
+    "cmd/entire/cli/strategy/manual_commit_condensation.go",
+    "cmd/entire/cli/strategy/manual_commit_hooks.go",
+    "cmd/entire/cli/strategy/manual_commit_test.go",
+    "cmd/entire/cli/strategy/session_test.go",
+    "cmd/entire/cli/strategy/v2_checkpoint_fixture_test.go",
+    "cmd/entire/cli/v2_checkpoint_fixture_test.go",
+    "docs/architecture/external-agent-protocol.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/0b/289d112f92/0/metadata.json",
+      "transcript": "/0b/289d112f92/0/full.jsonl",
+      "content_hash": "/0b/289d112f92/0/content_hash.txt",
+      "prompt": "/0b/289d112f92/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 205517,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 8855680,
+    "output_tokens": 24113,
+    "api_call_count": 72
+  }
+}
