@@ -1,0 +1,25 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "f6114cf1b13f",
+  "strategy": "manual-commit",
+  "branch": "remove-v2-doctor-clean",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/attach_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/f6/114cf1b13f/0/metadata.json",
+      "transcript": "/f6/114cf1b13f/0/full.jsonl",
+      "content_hash": "/f6/114cf1b13f/0/content_hash.txt",
+      "prompt": "/f6/114cf1b13f/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 160313,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 4140288,
+    "output_tokens": 10440,
+    "api_call_count": 36
+  }
+}

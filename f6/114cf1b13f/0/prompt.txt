@@ -1,0 +1,1 @@
+Why is cmd/entire/cli/checkpoint/v2_archived.go still around? We should be able to remove that now
