@@ -1,0 +1,25 @@
+The TestFetchAndRebase_SharedCloneLocalCommitInAlternate confirms that local clones depending on alternates work. It is currently failing. This is due to the AlternateFS not being properly set on go-git. Make the test pass without changing the test. A copy of the go-git code can be found at ../go-git.
+
+---
+
+We need to also support multiple alternates.
+
+---
+
+Are there other places in the code base that open repositories without using the OpenRepository logic?
+
+---
+
+Can those points use the new func or are we better off extracting that logic into a separate package?
+
+---
+
+Let's do that. Add a comment on the non-converted sites explaining the reasoning of not migrating now.
+
+---
+
+Actually, let's get all repo opening points to call the new package instead. That's a cleaner change.
+
+---
+
+repo creation should be followed by a defer r.Close(). Ensure that's the case across the board.
