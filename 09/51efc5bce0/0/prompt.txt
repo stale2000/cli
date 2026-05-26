@@ -1,10 +1,2 @@
-push up the changes to the tmp-migrate-v2-script branch
-
----
-
-how do I push up the change after it runs? or verify first?
-
----
-
 Address review comments on the PR
 [entireio/cli#1257](https://github.com/entireio/cli/pull/1257)
