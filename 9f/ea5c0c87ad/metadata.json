@@ -3,7 +3,7 @@
   "checkpoint_id": "9fea5c0c87ad",
   "strategy": "manual-commit",
   "branch": "fix/remove-v2-dual-writes",
-  "checkpoints_count": 4,
+  "checkpoints_count": 5,
   "files_touched": [
     "cmd/entire/cli/checkpoint/committed_reader_resolve_test.go",
     "cmd/entire/cli/checkpoint/v2_committed.go",
@@ -35,13 +35,19 @@
       "transcript": "/9f/ea5c0c87ad/1/full.jsonl",
       "content_hash": "/9f/ea5c0c87ad/1/content_hash.txt",
       "prompt": "/9f/ea5c0c87ad/1/prompt.txt"
+    },
+    {
+      "metadata": "/9f/ea5c0c87ad/2/metadata.json",
+      "transcript": "/9f/ea5c0c87ad/2/full.jsonl",
+      "content_hash": "/9f/ea5c0c87ad/2/content_hash.txt",
+      "prompt": "/9f/ea5c0c87ad/2/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 707872,
+    "input_tokens": 728851,
     "cache_creation_tokens": 0,
-    "cache_read_tokens": 20052096,
-    "output_tokens": 54804,
-    "api_call_count": 129
+    "cache_read_tokens": 20056576,
+    "output_tokens": 55356,
+    "api_call_count": 130
   }
 }
