@@ -1,1 +1,1 @@
-Why is cmd/entire/cli/checkpoint/v2_archived.go still around? We should be able to remove that now
+If attach still supports v2, we should remove it from there as well
