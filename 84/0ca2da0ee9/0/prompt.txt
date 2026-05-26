@@ -1,0 +1,42 @@
+Can you double check if there's any code left doing checkpoint v2 dual writes in this codebase?
+
+Please thoroughly read the project plan in ~/entire/cli/docs/superpowers/specs/2026-03-19-checkpoints-v2-design.md and the RFD in ~/entire/company-knowledge/rfds/rfd-009-transcript-compaction.md and the docs on the current implementation of the checkpoints rotation: ~/entire/cli/docs/architecture/checkpoints-v2-rotation.md.
+
+We're currently in the process of rolling back checkpoints v2 and all repositories should be off it now. Which means we can remove dual reads for now.
+
+Please note that this branch was branched off `remove-v2-doctor-clean` and needs to target it in a PR unless it's been merged.
+
+---
+
+Can we ignore dual writes and focus on v2 writes generally? `DualCheckpointReader.UpdateSummary` would be an example of a write/update to v2. Are there any other examples where we're writing to v2 refs, updating v2 data etc? What about cases where we're writing compacted transcripts?
+
+---
+
+Okay, what I'd like you to do:
+
+- Remove all the V2GitStore write methods and their tests
+- Remove the generated v2 summaries from DualCheckpointReader.UpdateSummary
+- Remove the unused compacted transcript generation from `attach`
+- Leave the compact transcript generation in place in a dormant state since it'll be used again soon
+
+Are there any findings that weren't addressed by this list specifically?
+
+---
+
+Yes, that should work. Can you split up these changes into logical parts so they can be composed into sensible commits? Once you've identified these parts, please remove the code we've talked about and wait for me to review the changes before committing. Iterate through the list until we're done.
+
+---
+
+Make it so
+
+---
+
+I've run `mise trust` if you want to use it from now on
+
+---
+
+You can remove compactTranscriptForStartLine but leave the `compact` package in place. Are there any tests that need to be updated here as well?
+
+---
+
+commit and continue
