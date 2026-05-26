@@ -1,0 +1,139 @@
+Commit and continue
+
+---
+
+$pfleidi:review
+
+---
+
+You are Agent 3: Simplification & Efficiency reviewer. Review current working tree against BASE=origin/main using `git diff origin/main`. Include committed, staged, and unstaged changes. Do not edit files.
+
+Changed files are the 56 files in `git diff origin/main --name-only`; use that command for the authoritative list.
+
+Review philosophy: It is OK to find nothing. Do not manufacture findings. Be opinionated and consistent. Do not flag trade-offs with no clear winner. High confidence only: every finding must be a concrete problem with a clear consequence.
+
+Simplification focus: dead code, duplicate functionality, copy-paste with variation, unnecessary abstractions, redundant work, missed safe concurrency, hot-path bloat, unnecessary pre-checks, and unnecessary comments. Verify suggestions against call sites and existing behavior. Discard cosmetic-only suggestions.
+
+Return only findings, each with severity, classification Required/Improvement, file:line, issue, impact, evidence, suggested fix. If clean, say simplification review is clean.
+
+---
+
+You are Agent 2: Correctness & Quality reviewer. Review current working tree against BASE=origin/main using `git diff origin/main`. Include committed, staged, and unstaged changes. Do not edit files.
+
+Changed files are the 56 files in `git diff origin/main --name-only`; use that command for the authoritative list.
+
+Review philosophy: It is OK to find nothing. Do not manufacture findings. Be opinionated and consistent. Do not flag trade-offs with no clear winner. High confidence only: every finding must be a concrete problem with a clear failure mode.
+
+Correctness focus: logic errors, nil handling, missing error checks, concurrency edge cases, redundant state, parameter sprawl, leaky abstractions, raw strings where constants/types exist, and missing test coverage for changed behavior. Verify claims by reading source and call sites; discard hypothetical findings.
+
+Return only findings, each with severity, classification Required/Improvement, file:line, issue, impact, evidence, suggested fix. If clean, say correctness review is clean.
+
+---
+
+You are Agent 5: Clean Go & Modern Go reviewer. Review current working tree against BASE=origin/main using `git diff origin/main`. Include committed, staged, and unstaged changes. Do not edit files.
+
+Use `/Users/pfleidi/.agents/skills/pfleidi/clean-go/SKILL.md` as source of truth. Read the relevant go.mod and only suggest modern Go changes supported by the target version. Review only changed Go code plus surrounding source/tests/interfaces/call sites needed to verify findings.
+
+Changed Go files are in `git diff origin/main --name-only -- '*.go'`.
+
+Review philosophy: It is OK to find nothing. Do not manufacture findings. Findings must be concrete, source-backed, and limited to changed code. Prefer small local changes; do not propose broad rewrites.
+
+Clean Go focus: abstraction level, composable functions, function size/signatures, errors, pointers/mutation, small interfaces, any/interface{}, comments, and modern standard-library helpers where they materially improve changed code.
+
+Return only findings, each with severity, classification Required/Improvement, file:line, issue, impact, evidence, suggested fix. If clean, say clean-go review is clean.
+
+---
+
+You are Agent 1: Security & Adversarial reviewer for a code review. Review the current working tree against BASE=origin/main using `git diff origin/main`. Include committed, staged, and unstaged changes. Do not edit files.
+
+Changed files (56):
+CLAUDE.md
+cmd/entire/cli/agent/pi/pijsonl/pijsonl.go
+cmd/entire/cli/attach.go
+cmd/entire/cli/attach_test.go
+cmd/entire/cli/checkpoint/checkpoint.go
+cmd/entire/cli/checkpoint/committed.go
+cmd/entire/cli/checkpoint/committed_reader_resolve.go
+cmd/entire/cli/checkpoint/committed_reader_resolve_test.go
+cmd/entire/cli/checkpoint/git_common_dir.go
+cmd/entire/cli/checkpoint/parse_tree.go
+cmd/entire/cli/checkpoint/v2_committed.go
+cmd/entire/cli/checkpoint/v2_committed_tripwire_test.go
+cmd/entire/cli/checkpoint/v2_fixture_test.go
+cmd/entire/cli/checkpoint/v2_generation.go
+cmd/entire/cli/checkpoint/v2_generation_test.go
+cmd/entire/cli/checkpoint/v2_pending_rotation.go
+cmd/entire/cli/checkpoint/v2_precompute_test.go
+cmd/entire/cli/checkpoint/v2_read.go
+cmd/entire/cli/checkpoint/v2_read_test.go
+cmd/entire/cli/checkpoint/v2_resolve_test.go
+cmd/entire/cli/checkpoint/v2_store.go
+cmd/entire/cli/checkpoint/v2_store_test.go
+cmd/entire/cli/clean.go
+cmd/entire/cli/clean_test.go
+cmd/entire/cli/doctor.go
+cmd/entire/cli/doctor_test.go
+cmd/entire/cli/explain.go
+cmd/entire/cli/explain_export.go
+cmd/entire/cli/explain_export_test.go
+cmd/entire/cli/explain_test.go
+cmd/entire/cli/integration_test/v2_resume_test.go
+cmd/entire/cli/paths/paths.go
+cmd/entire/cli/resume.go
+cmd/entire/cli/resume_test.go
+cmd/entire/cli/session/state.go
+cmd/entire/cli/session/state_test.go
+cmd/entire/cli/settings/settings.go
+cmd/entire/cli/settings/settings_test.go
+cmd/entire/cli/strategy/clean_test.go
+cmd/entire/cli/strategy/cleanup.go
+cmd/entire/cli/strategy/generation_repair.go
+cmd/entire/cli/strategy/generation_repair_test.go
+cmd/entire/cli/strategy/manual_commit_condensation.go
+cmd/entire/cli/strategy/manual_commit_hooks.go
+cmd/entire/cli/strategy/manual_commit_test.go
+cmd/entire/cli/strategy/metadata_reconcile.go
+cmd/entire/cli/strategy/metadata_reconcile_test.go
+cmd/entire/cli/strategy/session_test.go
+cmd/entire/cli/strategy/v2_checkpoint_fixture_test.go
+cmd/entire/cli/v2_checkpoint_fixture_test.go
+docs/architecture/checkpoints-v2-rotation.md
+docs/architecture/external-agent-protocol.md
+e2e/tests/doctor_test.go
+e2e/tests/explain_test.go
+e2e/tests/resume_remote_test.go
+e2e/testutil/repo.go
+
+Review philosophy: It is OK to find nothing. Do not manufacture findings. Be opinionated and consistent. Do not flag trade-offs with no clear winner. High confidence only: every finding must be a concrete problem with a clear failure mode.
+
+Security/adversarial focus: injection, command injection, path traversal, TOCTOU/races, unvalidated external input, auth/authz gaps, secrets/credentials. For each potential finding, read the actual source and trace whether the code path is reachable in production. Discard anything unconfirmed.
+
+Return only findings, each with severity, classification Required/Improvement, file:line, issue, impact, evidence, suggested fix. If clean, say security review is clean.
+
+---
+
+You are Agent 4: Readability & Go Idioms reviewer. Review current working tree against BASE=origin/main using `git diff origin/main`. Include committed, staged, and unstaged changes. Do not edit files.
+
+Changed files are the 56 files in `git diff origin/main --name-only`; use that command for the authoritative list.
+
+Review philosophy: It is OK to find nothing. Do not manufacture findings. Be opinionated and consistent. Do not flag trade-offs with no clear winner. High confidence only: every finding must be a concrete maintenance problem.
+
+Readability focus: poor factoring, mixed abstraction levels, generated-code smell, data-flow opacity, control-flow complexity, naming clarity, Go API readability, and error readability. Explain concrete maintenance cost. Prefer small local refactor suggestions; discard formatting-only or personal taste.
+
+Return only findings, each with severity, classification Required/Improvement, file:line, issue, impact, evidence, suggested fix. If clean, say readability review is clean.
+
+---
+
+There are no repositories outside of our control with v2 data so customers aren't affected. #2 is therefore not worth doing since we'll be manually cleaning up these refs for our own repos. Fix #1 for now supervised and 3-6 as a batch afterwards.
+
+---
+
+I think this change might be adding additional unecessary complexity for no good reason!
+
+- V2 was never rolled out to customers, fallback are just for internal company repositories that have not been backfilled, yet
+- `explain --generate` is used very rarely generally
+- Using code like `dual.v1.ReadCommitted(ctx, checkpointID)` just doesn't seem right
+
+---
+
+Do it

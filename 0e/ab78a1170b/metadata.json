@@ -1,0 +1,39 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "0eab78a1170b",
+  "strategy": "manual-commit",
+  "branch": "fix/remove-v2-dual-writes",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "cmd/entire/cli/checkpoint/committed_reader_resolve_test.go",
+    "cmd/entire/cli/checkpoint/git_common_dir.go",
+    "cmd/entire/cli/checkpoint/v2_fixture_test.go",
+    "cmd/entire/cli/checkpoint/v2_read.go",
+    "cmd/entire/cli/checkpoint/v2_read_test.go",
+    "cmd/entire/cli/checkpoint/v2_resolve_test.go",
+    "cmd/entire/cli/checkpoint/v2_store_test.go",
+    "cmd/entire/cli/explain_export_test.go",
+    "cmd/entire/cli/explain_test.go",
+    "cmd/entire/cli/resume_test.go",
+    "cmd/entire/cli/strategy/cleanup.go",
+    "cmd/entire/cli/strategy/manual_commit_test.go",
+    "cmd/entire/cli/strategy/session_test.go",
+    "cmd/entire/cli/strategy/v2_checkpoint_fixture_test.go",
+    "cmd/entire/cli/v2_checkpoint_fixture_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/0e/ab78a1170b/0/metadata.json",
+      "transcript": "/0e/ab78a1170b/0/full.jsonl",
+      "content_hash": "/0e/ab78a1170b/0/content_hash.txt",
+      "prompt": "/0e/ab78a1170b/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 438848,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 10711168,
+    "output_tokens": 39467,
+    "api_call_count": 88
+  }
+}
