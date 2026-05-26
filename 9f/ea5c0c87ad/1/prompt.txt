@@ -1,0 +1,9 @@
+How can I allow running tools like `gofmt` and `golangci-lint` permanently to ensure I'm not being prompted to allow them every time they're being run?
+
+---
+
+Yes, but how do I add those approvals?
+
+---
+
+Request permanent approval for gofmt
