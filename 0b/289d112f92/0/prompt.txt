@@ -1,13 +1,1 @@
-Commit and continue
-
----
-
-Updating local v2 refs is fine for now. Is there anything else that needs to be removed or updated here?
-
----
-
-Do it
-
----
-
-Do it also remove the v2 related docs to avoid any future confusion.
+commit and continue
