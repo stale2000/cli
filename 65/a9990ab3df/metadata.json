@@ -1,0 +1,32 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "65a9990ab3df",
+  "strategy": "manual-commit",
+  "branch": "remove-v2-doctor-clean",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/checkpoint/v2_archived.go",
+    "cmd/entire/cli/checkpoint/v2_committed.go",
+    "cmd/entire/cli/checkpoint/v2_read.go",
+    "cmd/entire/cli/checkpoint/v2_read_test.go",
+    "cmd/entire/cli/explain.go",
+    "cmd/entire/cli/integration_test/v2_resume_test.go",
+    "cmd/entire/cli/paths/paths.go",
+    "cmd/entire/cli/resume.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/65/a9990ab3df/0/metadata.json",
+      "transcript": "/65/a9990ab3df/0/full.jsonl",
+      "content_hash": "/65/a9990ab3df/0/content_hash.txt",
+      "prompt": "/65/a9990ab3df/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 57819,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 5933824,
+    "output_tokens": 10365,
+    "api_call_count": 34
+  }
+}
