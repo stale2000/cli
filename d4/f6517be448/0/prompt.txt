@@ -23,3 +23,7 @@ how do I make sure for the migrated checkpoints from v2 to v1 that they're disco
 > validate the project commit SHA, not the metadata commit SHA.
 
 this isn't how it works for v1, right? I am concerned there will be unexpected behavior if someone uses the metadata commit SHA to view the metadata in the entire.io view
+
+---
+
+In the commit message, maybe we put "original associated commit id:" and the id so it's easier to pull from entire.io if needed
