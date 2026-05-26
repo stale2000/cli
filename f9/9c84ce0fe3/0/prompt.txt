@@ -1,13 +1,3 @@
-E2E testutil still has v2-dual-write / v2-only modes:repo.go (line 26)
-
-this can go away
-
----
-
-What's left to support v2 dual-writes?
-
----
-
 Address comments on [entireio/cli#1269](https://github.com/entireio/cli/pull/1269).
 
 ```
