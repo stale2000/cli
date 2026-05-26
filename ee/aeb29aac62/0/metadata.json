@@ -1,0 +1,41 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "eeaeb29aac62",
+  "session_id": "57dabcec-e55a-489a-9d5c-1b853abb3311",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-26T23:29:12.507922Z",
+  "branch": "fix/remove-v2-dual-writes",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/checkpoint/v2_read.go"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-7[1m]",
+  "turn_id": "e08c6f303029",
+  "token_usage": {
+    "input_tokens": 47,
+    "cache_creation_tokens": 116544,
+    "cache_read_tokens": 2605650,
+    "output_tokens": 25979,
+    "api_call_count": 28
+  },
+  "session_metrics": {
+    "turn_count": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 9,
+      "agent_lines_removed": 4
+    }
+  ]
+}

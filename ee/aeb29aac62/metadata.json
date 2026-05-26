@@ -1,0 +1,25 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "eeaeb29aac62",
+  "strategy": "manual-commit",
+  "branch": "fix/remove-v2-dual-writes",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/checkpoint/v2_read.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/ee/aeb29aac62/0/metadata.json",
+      "transcript": "/ee/aeb29aac62/0/full.jsonl",
+      "content_hash": "/ee/aeb29aac62/0/content_hash.txt",
+      "prompt": "/ee/aeb29aac62/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 47,
+    "cache_creation_tokens": 116544,
+    "cache_read_tokens": 2605650,
+    "output_tokens": 25979,
+    "api_call_count": 28
+  }
+}
