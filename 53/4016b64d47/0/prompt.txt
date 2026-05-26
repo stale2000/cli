@@ -1,0 +1,7 @@
+If attach still supports v2, we should remove it from there as well
+
+---
+
+E2E testutil still has v2-dual-write / v2-only modes:repo.go (line 26)
+
+this can go away
