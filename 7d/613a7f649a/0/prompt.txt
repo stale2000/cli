@@ -1,0 +1,44 @@
+How much code would it be to port over the scripts/migrate-v2-checkpoints-to-v1.sh script to a new go binary under `cmd/migrate-v2-checkpoints` re-using as much of the existing go code infrastructure in this repo as possible?
+
+---
+
+I think a version re-using more production code would produce a more faithful representation of the v2 data migrated to v1. Are there any gaps in the production code that the script addresses but the production code doesn't?
+
+---
+
+I think without v2 metadata, the transcripts aren't useful so 1) would be acceptable
+2 could be re-implemented in a go-based tool
+3 sounds like it would be more accurate than what the script does?
+4 this could be part of the orchestration code
+5 this should be added
+
+---
+
+I think without v2 metadata, the transcripts aren't useful so 1) would be acceptable
+2 could be re-implemented in a go-based tool
+3 sounds like it would be more accurate than what the script does?
+4 this could be part of the new orchestration code for the converted go version
+5 this should be added for the tool
+6 this might be nice to have for the new go-based tool
+
+Does that sound reasonable?
+
+---
+
+Also just to make this clear: the goal is a reasonable migration to restore v2-only data to v1, not the most faithful port of the bash script. If there's existing code to already do something we should re-use it, though.
+
+---
+
+Okay. Can you create an easy to understand and maintainable go version including a comprehensible test suite?
+
+---
+
+Make it so
+
+---
+
+I think it would be cleaner if CreateCommit passed the current time rather than the conditional logic for adding it in createCommitObject
+
+---
+
+Same thing for createCommit
