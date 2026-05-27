@@ -1,0 +1,37 @@
+--- FAIL: TestFetchMetadataBranch_ShallowBoundary_ErrorIsActionable (0.20s)
+644
+    replay_disconnected_test.go:478: 
+645
+        	Error Trace:	/home/runner/work/cli/cli/cmd/entire/cli/strategy/replay_disconnected_test.go:478
+646
+        	Error:      	Should be true
+647
+        	Test:       	TestFetchMetadataBranch_ShallowBoundary_ErrorIsActionable
+648
+        	Messages:   	shallow-boundary fetch error must include a user-actionable hint (entire doctor / git fetch --unshallow); got: failed to advance local entire/checkpoints/v1: no merge base for refs/heads/entire/checkpoints/v1, and reachable shallow history prevents proving refs are disconnected
+649
+[entire] Warning: failed to reset shadow branch: checkpoint has no Entire-Session trailer
+650
+[entire] Warning: failed to reset shadow branch: checkpoint has no Entire-Session trailer
+651
+2026/05/27 09:02:33 ERROR action handler error during transition component=session session_id=test-error-handler event=GitCommit error="Condense: test condense error"
+652
+✓ Created local branch 'entire/checkpoints/v1' from origin
+653
+✓ Created local branch 'entire/checkpoints/v1' from origin
+654
+✓ Created local branch 'entire/checkpoints/v1' from origin
+655
+✓ Created local branch 'entire/checkpoints/v1' from origin
+656
+✓ Created local branch 'entire/checkpoints/v1' from origin
+657
+  ✓ Created orphan branch entire/checkpoints/v1 for session metadata
+658
+[entire] Updated local branch 'entire/checkpoints/v1' from origin
+659
+✓ Created local branch 'entire/checkpoints/v1' from origin
+660
+FAIL
+661
+FAIL	github.com/entireio/cli/cmd/entire/cli/strategy	21.278s
