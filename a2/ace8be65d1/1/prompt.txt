@@ -87,3 +87,7 @@ okay need to address these comments. lets go over each one before fixing.
 ---
 
 fix all. and for #3 be strict
+
+---
+
+commit
