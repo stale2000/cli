@@ -1,0 +1,24 @@
+That doesn't seem to have fixed my issue, the push seems to keep on going forever. How can we debug this further?
+
+$ git push
+[entire] Pushing entire/checkpoints/v1 to origin................................................................
+
+---
+
+In the "entire repo mirror" in ~/git/entirehq/entiredb, it changes the origin url to entire://. Does it save the previous value somewhere? If so, let's use that value to determine the auth method.
+
+---
+
+[remote "origin"]
+    url = entire://aws-eu-central-1.entire.io/gh/entireio/cli
+    fetch = +refs/heads/*:refs/remotes/origin/*
+    entiredb-original-url = git@github.com:entireio/cli.git
+
+---
+
+Use the entiredb-original-url as the first priority call to decide what auth to use:
+
+[remote "origin"]
+    url = entire://aws-eu-central-1.entire.io/gh/entireio/cli
+    fetch = +refs/heads/*:refs/remotes/origin/*
+    entiredb-original-url = git@github.com:entireio/cli.git
