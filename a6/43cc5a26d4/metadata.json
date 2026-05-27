@@ -1,0 +1,26 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "a643cc5a26d4",
+  "strategy": "manual-commit",
+  "branch": "checkpoint-version",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/fetch_no_config_pollution_test.go",
+    "cmd/entire/cli/versioninfo/versioninfo_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/a6/43cc5a26d4/0/metadata.json",
+      "transcript": "/a6/43cc5a26d4/0/full.jsonl",
+      "content_hash": "/a6/43cc5a26d4/0/content_hash.txt",
+      "prompt": "/a6/43cc5a26d4/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 325136,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 12872320,
+    "output_tokens": 21447,
+    "api_call_count": 115
+  }
+}
