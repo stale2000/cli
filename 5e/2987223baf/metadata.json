@@ -1,0 +1,23 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "5e2987223baf",
+  "strategy": "manual-commit",
+  "branch": "soph/fix-e2e-gemini-opencode",
+  "checkpoints_count": 1,
+  "files_touched": null,
+  "sessions": [
+    {
+      "metadata": "/5e/2987223baf/0/metadata.json",
+      "transcript": "/5e/2987223baf/0/full.jsonl",
+      "content_hash": "/5e/2987223baf/0/content_hash.txt",
+      "prompt": "/5e/2987223baf/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 14441,
+    "cache_creation_tokens": 408220,
+    "cache_read_tokens": 14513161,
+    "output_tokens": 74645,
+    "api_call_count": 97
+  }
+}
