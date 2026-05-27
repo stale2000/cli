@@ -1,0 +1,9 @@
+Use the brainstorming skill. We're currently in the process of rolling back checkpoints v2 and would like to make the checkpoints v1 branch the main source of truth for checkpoints data again. Can you thoroughly inspect all the places where we're doing dual reads from v2 and v1 and update the code to only read from v1 only? The goal here is that by the end of this task, all the checkpoints v2 related code should be gone. The one exception is that the compact package should be kept around since we'll be using it for a new iteration of v1 soon.
+
+---
+
+make it so
+
+---
+
+I ran mise trust manually. It should be unblocked now
