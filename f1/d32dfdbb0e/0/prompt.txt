@@ -1,0 +1,7 @@
+Error: cmd/entire/cli/fetch_no_config_pollution_test.go:127:83: cannot use checkpoint.WriteCommittedOptions{…} (value of struct type checkpoint.WriteCommittedOptions) as v2CheckpointFixtureOptions value in argument to writeV2CheckpointForExport (typecheck)
+49
+  package cli
+50
+  1 issues:
+51
+  * typecheck: 1
