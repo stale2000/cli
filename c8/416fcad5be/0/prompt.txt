@@ -1,0 +1,21 @@
+Investigate the issue below: this repository which uses a checkpoint_remote (entireio/cli-checkpoints) takes a very long time (and fail) when the origin is changed from github to a entire:// endpoint. Note that the latter depends on a git remote helper. Here's both output:
+
+
+[entire] Pushing entire/checkpoints/v1 to origin......
+[entire] Syncing entire/checkpoints/v1 with remote...........................................................................................................................
+[entire] Warning: couldn't sync entire/checkpoints/v1: fetch failed: fatal: couldn't find remote ref refs/heads/entire/checkpoints/v1
+git-remote-entire: shutdown taking longer than expected; press Ctrl-C again to force-quit
+
+
+git push github pjbgf/resync -f
+[entire] Pushing entire/checkpoints/v1 to checkpoint remote......
+[entire] Syncing entire/checkpoints/v1 with remote.........[entire] Detected disconnected session metadata (local and remote share no common ancestor)
+[entire] Cherry-picking 3 local checkpoint(s) onto remote...
+.............[entire] Done — all local and remote checkpoints preserved
+
+
+The code for the remote helper can be see in ~/git/entirehq/entiredb
+
+---
+
+go ahead
