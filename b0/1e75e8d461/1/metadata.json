@@ -1,0 +1,47 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "b01e75e8d461",
+  "session_id": "01fe78bb-d977-44f5-811d-233355f6a826",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-27T20:20:26.408355Z",
+  "branch": "tmp-migrate-v2-script-go",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "cmd/entire/cli/checkpoint/v2_store.go",
+    "cmd/entire/cli/checkpoint/v2_store_test.go"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-7[1m]",
+  "turn_id": "aae4d857a9f7",
+  "token_usage": {
+    "input_tokens": 88,
+    "cache_creation_tokens": 279216,
+    "cache_read_tokens": 8102797,
+    "output_tokens": 30257,
+    "api_call_count": 65
+  },
+  "session_metrics": {
+    "turn_count": 2
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-27T20:20:26.399703Z",
+    "agent_lines": 53,
+    "agent_removed": 1,
+    "human_added": 59,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 112,
+    "total_lines_changed": 121,
+    "agent_percentage": 44.62809917355372,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}
