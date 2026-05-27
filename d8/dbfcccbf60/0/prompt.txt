@@ -1,0 +1,9 @@
+can you look at the latest failures on chttps://github.com/entireio/cli/actions/workflows/e2e.yml
+
+---
+
+yeah, lets try the skill
+
+---
+
+ok, let's fix gemini and opencode in a new branch

@@ -1,0 +1,49 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "d8dbfcccbf60",
+  "session_id": "57fb95ec-deb8-4db3-aa41-e517e79dfd19",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-27T13:35:01.69962Z",
+  "branch": "soph/fix-e2e-gemini-opencode",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "e2e/agents/opencode.go",
+    "e2e/agents/gemini.go",
+    "e2e/agents/gemini_test.go",
+    "e2e/agents/opencode_test.go"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-7[1m]",
+  "turn_id": "091030ca0615",
+  "token_usage": {
+    "input_tokens": 13437,
+    "cache_creation_tokens": 138143,
+    "cache_read_tokens": 7947783,
+    "output_tokens": 41511,
+    "api_call_count": 62
+  },
+  "session_metrics": {
+    "turn_count": 2
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-27T13:35:01.688401Z",
+    "agent_lines": 132,
+    "agent_removed": 1,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 132,
+    "total_lines_changed": 133,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}
