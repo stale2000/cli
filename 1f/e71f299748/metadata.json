@@ -3,8 +3,9 @@
   "checkpoint_id": "1fe71f299748",
   "strategy": "manual-commit",
   "branch": "pjbgf/resync",
-  "checkpoints_count": 1,
+  "checkpoints_count": 2,
   "files_touched": [
+    "cmd/entire/cli/fetch_no_config_pollution_test.go",
     "cmd/entire/cli/git_operations.go"
   ],
   "sessions": [
@@ -13,13 +14,19 @@
       "transcript": "/1f/e71f299748/0/full.jsonl",
       "content_hash": "/1f/e71f299748/0/content_hash.txt",
       "prompt": "/1f/e71f299748/0/prompt.txt"
+    },
+    {
+      "metadata": "/1f/e71f299748/1/metadata.json",
+      "transcript": "/1f/e71f299748/1/full.jsonl",
+      "content_hash": "/1f/e71f299748/1/content_hash.txt",
+      "prompt": "/1f/e71f299748/1/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 256541,
+    "input_tokens": 661926,
     "cache_creation_tokens": 0,
-    "cache_read_tokens": 1564160,
-    "output_tokens": 9349,
-    "api_call_count": 36
+    "cache_read_tokens": 16248192,
+    "output_tokens": 32237,
+    "api_call_count": 149
   }
 }

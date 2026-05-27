@@ -1,0 +1,73 @@
+?   	github.com/entireio/cli/cmd/entire	[no test files]
+Command "attach" is deprecated, use 'entire session attach' instead
+Attached session test-attach-review-no-leak
+  Created checkpoint 41bbcc0c698e
+
+Last commit: 1dae709 init
+Amended commit 1dae709 with Entire-Checkpoint: 41bbcc0c698e
+Attached session test-review-attach-cmd-001
+  Created checkpoint 3ba98062a943
+
+Last commit: 1dae709 init
+Amended commit 1dae709 with Entire-Checkpoint: 3ba98062a943
+Command "attach" is deprecated, use 'entire session attach' instead
+Attached session test-attach-review-no-skills
+  Created checkpoint 34a2d42f6a8f
+
+Last commit: 1dae709 init
+Amended commit 1dae709 with Entire-Checkpoint: 34a2d42f6a8f
+Error: not a git repository
+
+--- FAIL: REDACTED (0.20s)
+    explain_export_test.go:156: 
+        	Error Trace:	/home/runner/work/cli/cli/cmd/entire/cli/explain_export_test.go:156
+        	Error:      	Received unexpected error:
+        	            	checkpoint not found: aaaa9999
+        	Test:       	REDACTED
+        	Messages:   	stderr: 
+{"systemMessage":"\n\nEntire CLI will link this conversation to your next commit."}
+{"systemMessage":"\n\nEntire CLI will link this conversation to your next commit."}
+  ✓ Created orphan branch entire/checkpoints/v1 for session metadata
+  ✓ Created orphan branch entire/checkpoints/v1 for session metadata
+  ✓ Created orphan branch entire/checkpoints/v1 for session metadata
+  ✓ Created orphan branch entire/checkpoints/v1 for session metadata
+  ✓ Created orphan branch entire/checkpoints/v1 for session metadata
+  ✓ Created orphan branch entire/checkpoints/v1 for session metadata
+  ✓ Created orphan branch entire/checkpoints/v1 for session metadata
+  ✓ Created orphan branch entire/checkpoints/v1 for session metadata
+  ✓ Created orphan branch entire/checkpoints/v1 for session metadata
+  ✓ Created orphan branch entire/checkpoints/v1 for session metadata
+  ✓ Created orphan branch entire/checkpoints/v1 for session metadata
+  ✓ Created orphan branch entire/checkpoints/v1 for session metadata
+  ✓ Created orphan branch entire/checkpoints/v1 for session metadata
+  ✓ Created orphan branch entire/checkpoints/v1 for session metadata
+  ✓ Created orphan branch entire/checkpoints/v1 for session metadata
+  ✓ Created orphan branch entire/checkpoints/v1 for session metadata
+  ✓ Created orphan branch entire/checkpoints/v1 for session metadata
+  ✓ Created orphan branch entire/checkpoints/v1 for session metadata
+  ✓ Created orphan branch entire/checkpoints/v1 for session metadata
+  ✓ Created orphan branch entire/checkpoints/v1 for session metadata
+  ✓ Created orphan branch entire/checkpoints/v1 for session metadata
+  ✓ Created orphan branch entire/checkpoints/v1 for session metadata
+  ✓ Created orphan branch entire/checkpoints/v1 for session metadata
+  ✓ Created orphan branch entire/checkpoints/v1 for session metadata
+Checkpoint 'aaa111bbb222' found in commit but the entire/checkpoints/v1 branch is not available locally or on the remote.
+This can happen if the metadata branch was not pushed. Try:
+  git fetch origin entire/checkpoints/v1:entire/checkpoints/v1
+  ✓ Created orphan branch entire/checkpoints/v1 for session metadata
+Checkpoint 'abcd12345678' found in commit but the entire/checkpoints/v1 branch is not available locally or on the remote.
+This can happen if the metadata branch was not pushed. Try:
+  git fetch origin entire/checkpoints/v1:entire/checkpoints/v1
+  ✓ Created orphan branch entire/checkpoints/v1 for session metadata
+  ✓ Created orphan branch entire/checkpoints/v1 for session metadata
+  ✓ Created orphan branch entire/checkpoints/v1 for session metadata
+  ✓ Created orphan branch entire/checkpoints/v1 for session metadata
+Error: not a git repository
+  ✓ Created orphan branch entire/checkpoints/v1 for session metadata
+  ✓ Created orphan branch entire/checkpoints/v1 for session metadata
+  ✓ Created orphan branch entire/checkpoints/v1 for session metadata
+  ✓ Created orphan branch entire/checkpoints/v1 for session metadata
+Error: --last must be at least 1, got 0
+Error: --last must be at least 1, got -1
+FAIL
+FAIL	github.com/entireio/cli/cmd/entire/cli	13.281s
