@@ -1,9 +1,1 @@
-commit and continue
-
----
-
-$pfleidi:pr-feedback
-
----
-
-Fix them in a batch
+Also push the changes, respond to the comments, and resolve them.
