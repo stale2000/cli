@@ -1,0 +1,10 @@
+a customer repoted this error: 
+
+lentirel Pushing entire/checkpoints/v1 to origin..
+[entirel Syncing entire/checkpoints/v1 with remote........warning: failed to load global git config: path escapes from parent:
+"Users/jag/.config/git/config"
+..warning: failed to load global git config: path escapes from parent: "Users/jag/.config/git/config" ...warning: failed to load global git config: path escapes from parent: "Users/jag/.config/git/config" ...warning: failed to load global git config: path escapes from parent: "Users/jag/.config/git/config" ..warning: failed to load global git config: path escapes from parent: "Users/jag/.config/git/config" ...warning: failed to load global git config: path escapes from parent: "Users/jag/.config/git/config" ..warning: failed to load global git config: path escapes from parent: "Users/jag/.config/git/config"
+
+---
+
+Would it be easier to submit a pr against go-git?
