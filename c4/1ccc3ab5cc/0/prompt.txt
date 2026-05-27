@@ -1,0 +1,68 @@
+Awesome, looks good, let's push that up
+
+---
+
+`if settings.CheckpointsWriteVersion(ctx) != 2 {` in cmd/entire/cli/strategy/manual_commit_push.go: shouldn't this always be true now? we're not writing to v2 anymore
+
+---
+
+cmd/entire/cli/attach.go still seems to support writing with v2
+
+---
+
+`WarnIfCheckpointsV2Disallowed` checkpoints v2 should always be disallowed and the message should be printed until they remove v2 from their settings.json
+
+---
+
+Anything that relies on `IsPushV2RefsEnabled` can go away too: we're no longer allowing push from v2
+
+---
+
+`IsCheckpointsV2WriteEnabled` also can go away now
+
+---
+
+all the v2 dual-write and v2 push tests can go away now too
+
+---
+
+Update the PR description to reflect the new diff
+
+---
+
+I'm surprised `IsCheckpointsV2Enabled` is still checking the v2 setting in settings.json: there was code merged in to make sure it checks the existence of the v2 ref instead? Maybe that lives somewhere else
+
+---
+
+don't change anything yet, just check where/why it's not using the ref fallback instead
+
+---
+
+```
+➜  test-repo git:(remove-v2-check) ✗ git push origin HEAD
+[entire] strategy_options.checkpoints_version 2 is no longer supported. Falling back to version 1
+[entire] Pushing entire/checkpoints/v1 to origin...
+[entire] Syncing entire/checkpoints/v1 with remote... done
+[entire] Pushing entire/checkpoints/v1 to origin...
+[entire] Warning: failed to push entire/checkpoints/v1 after sync: push failed: error: src refspec entire/checkpoints/v1 matches more than one
+error: failed to push some refs to 'https://github.com/computermode/test-repo.git'
+```
+
+---
+
+don't update the code
+
+---
+
+why would that be happening? it was a change I made as part of a different branch to introduce that custom ref code
+
+---
+
+➜  test-repo git:(remove-v2-check) ✗ git for-each-ref --format='%(refname)' | rg '(^refs/heads/|^refs/entire/)entire/checkpoints/v1$'
+refs/heads/entire/checkpoints/v1
+
+---
+
+➜  test-repo git:(remove-v2-check) ✗ git for-each-ref --format='%(refname)' | rg '(^refs/heads/entire/checkpoints/v1$|^refs/entire/checkpoints/v1$|^refs/tags/entire/checkpoints/v1$)'
+refs/entire/checkpoints/v1
+refs/heads/entire/checkpoints/v1
