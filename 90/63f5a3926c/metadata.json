@@ -1,0 +1,48 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "9063f5a3926c",
+  "strategy": "manual-commit",
+  "branch": "hook-dev",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "cmd/entire/cli/agent/claudecode/hooks.go",
+    "cmd/entire/cli/agent/claudecode/hooks_test.go",
+    "cmd/entire/cli/agent/codex/hooks.go",
+    "cmd/entire/cli/agent/codex/hooks_test.go",
+    "cmd/entire/cli/agent/copilotcli/hooks.go",
+    "cmd/entire/cli/agent/copilotcli/hooks_test.go",
+    "cmd/entire/cli/agent/cursor/hooks.go",
+    "cmd/entire/cli/agent/cursor/hooks_test.go",
+    "cmd/entire/cli/agent/factoryaidroid/hooks.go",
+    "cmd/entire/cli/agent/factoryaidroid/hooks_test.go",
+    "cmd/entire/cli/agent/geminicli/hooks.go",
+    "cmd/entire/cli/agent/geminicli/hooks_test.go",
+    "cmd/entire/cli/agent/hook_command.go",
+    "cmd/entire/cli/agent/opencode/hooks.go",
+    "cmd/entire/cli/agent/opencode/hooks_test.go",
+    "cmd/entire/cli/agent/pi/hooks.go",
+    "cmd/entire/cli/agent/pi/hooks_test.go",
+    "cmd/entire/cli/integration_test/agent_test.go",
+    "cmd/entire/cli/strategy/hook_managers.go",
+    "cmd/entire/cli/strategy/hook_managers_test.go",
+    "cmd/entire/cli/strategy/hooks.go",
+    "cmd/entire/cli/strategy/hooks_test.go",
+    "docs/architecture/agent-guide.md",
+    "scripts/entire-dev"
+  ],
+  "sessions": [
+    {
+      "metadata": "/90/63f5a3926c/0/metadata.json",
+      "transcript": "/90/63f5a3926c/0/full.jsonl",
+      "content_hash": "/90/63f5a3926c/0/content_hash.txt",
+      "prompt": "/90/63f5a3926c/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 12160,
+    "cache_creation_tokens": 295047,
+    "cache_read_tokens": 27337880,
+    "output_tokens": 108200,
+    "api_call_count": 178
+  }
+}

@@ -1,0 +1,9 @@
+In development mode the use of entire on this project is based on compiling the cli on demand. That is problematic when the project isn't building, for example when an agent is tasked with fixing a merge conflict. Add a test and ensure that when the project isn't building, it falls back to the binary in PATH
+
+---
+
+What other cleaner ways to achieve the same result? Using sh and ifs are not great for cross-platform support.
+
+---
+
+yes, extend to them all
