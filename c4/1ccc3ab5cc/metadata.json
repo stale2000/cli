@@ -3,7 +3,7 @@
   "checkpoint_id": "c41ccc3ab5cc",
   "strategy": "manual-commit",
   "branch": "codex/remove-v2-transcript-fallback",
-  "checkpoints_count": 1,
+  "checkpoints_count": 4,
   "files_touched": [
     "cmd/entire/cli/checkpoint/committed_reader_resolve.go"
   ],
@@ -13,13 +13,19 @@
       "transcript": "/c4/1ccc3ab5cc/0/full.jsonl",
       "content_hash": "/c4/1ccc3ab5cc/0/content_hash.txt",
       "prompt": "/c4/1ccc3ab5cc/0/prompt.txt"
+    },
+    {
+      "metadata": "/c4/1ccc3ab5cc/1/metadata.json",
+      "transcript": "/c4/1ccc3ab5cc/1/full.jsonl",
+      "content_hash": "/c4/1ccc3ab5cc/1/content_hash.txt",
+      "prompt": "/c4/1ccc3ab5cc/1/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 1143063,
+    "input_tokens": 2640607,
     "cache_creation_tokens": 0,
-    "cache_read_tokens": 64016512,
-    "output_tokens": 116917,
-    "api_call_count": 421
+    "cache_read_tokens": 113861760,
+    "output_tokens": 300483,
+    "api_call_count": 814
   }
 }
