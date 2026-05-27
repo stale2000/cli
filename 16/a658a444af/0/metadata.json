@@ -1,0 +1,57 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "16a658a444af",
+  "session_id": "cb9f1883-21d5-4307-aaea-77a7659719cd",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-27T11:36:42.869002203Z",
+  "branch": "checkpoint-version",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/versioninfo/versioninfo_test.go",
+    "cmd/entire/cli/checkpoint/checkpoint_test.go",
+    "cmd/entire/cli/versioninfo/versioninfo.go",
+    "cmd/entire/cli/trailers/trailers.go",
+    "cmd/entire/cli/checkpoint/committed.go"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-7[1m]",
+  "turn_id": "29f648335dc6",
+  "token_usage": {
+    "input_tokens": 67,
+    "cache_creation_tokens": 70016,
+    "cache_read_tokens": 1950197,
+    "output_tokens": 15791,
+    "api_call_count": 34
+  },
+  "session_metrics": {
+    "turn_count": 1
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-27T11:36:42.865320613Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 0,
+    "total_lines_changed": 0,
+    "agent_percentage": 0,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 60,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        "cmd/entire/cli/checkpoint/checkpoint_test.go": 6,
+        "cmd/entire/cli/checkpoint/committed.go": 1,
+        "cmd/entire/cli/trailers/trailers.go": 5,
+        "cmd/entire/cli/versioninfo/versioninfo.go": 19,
+        "cmd/entire/cli/versioninfo/versioninfo_test.go": 29
+      }
+    }
+  ]
+}

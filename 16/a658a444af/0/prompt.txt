@@ -1,0 +1,9 @@
+The checkpoint commits include metadata such as Entire-Session, Entire-Agent and Ephemeral-branch. Add a new Entire-Version, which includes the precise version it originated like: final release v0.0.1, nightly releases, or a dev/commit digest.
+
+---
+
+yep, go ahead
+
+---
+
+commit the changes
