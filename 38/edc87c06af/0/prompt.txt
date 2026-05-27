@@ -1,0 +1,91 @@
+when entiredb is enabled (/Users/ninawork/entire/devenv/entiredb), pushes of checkpoints take forever.
+
+what's going on? we can add debugging output as needed (doctor trace spans/hooks etc.)
+
+---
+
+So v2 is being removed and entiredb isn't using it anymore. I don't have a new slow push example yet - it's being reported by others
+
+---
+
+this is what other people are seeing:
+```
+[entire] Pushing entire/checkpoints/v1 to origin.............................................
+[entire] Syncing entire/checkpoints/v1 with remote...........................................................................................................................
+```
+
+but my last push was fast
+
+---
+
+I just checked out an old branch that is definitely out of date and it was even faster:
+```
+➜  entiredb git:(test-2) git push origin HEAD
+[entire] Pushing entire/checkpoints/v1 to origin...... done
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 10 threads
+Compressing objects: 100% (5/5), done.
+Writing objects: 100% (5/5), 7.11 KiB | 7.11 MiB/s, done.
+Total 5 (delta 0), reused 2 (delta 0), pack-reused 0 (from 0)
+remote: Sending to replicas: 7.1 KiB, done.
+remote: Storing objects: 5 (3 replicas), done.
+remote: tlog: entry #939 recorded
+To entire://aws-us-east-2.entire.io/gh/entirehq/entiredb
+   2e7bc092de..eeaf9f57e9  HEAD -> test-2
+```
+
+---
+
+Ok so I'm testing now with entire.io and I'm able to reproduce:
+
+➜  entire.io git:(test-slow) ✗ git push origin HEAD
+[entire] Pushing entire/checkpoints/v1 to origin....
+[entire] Syncing entire/checkpoints/v1 with remote................ done
+[entire] Pushing entire/checkpoints/v1 to origin...............................................................
+..............    .......................
+
+it's "stuck." I'll share the debug output once I have it.
+
+what's the doctor trace command I need to run for this?
+
+---
+
+➜  entire.io git:(test-slow) ✗ entire doctor trace --hook pre-push --last 5
+pre-push  3502176ms  2026-05-27T12:06:27-07:00
+
+  STEP                                                        DURATION
+  push_checkpoints_branch                                     3502176ms
+    ├─ push_checkpoints_branch.fetch_and_rebase                13695ms
+    │  └─ push_checkpoints_branch.fetch_and_rebase.git_fetch   12612ms
+    ├─ push_checkpoints_branch.git_push                         1163ms  x
+    └─ push_checkpoints_branch.git_push~1                     3487316ms  x
+  resolve_push_settings                                            0ms
+
+pre-push  807ms  2026-05-27T10:53:01-07:00
+
+  STEP                                                        DURATION
+  push_checkpoints_branch                                        807ms
+    ├─ push_checkpoints_branch.fetch_and_rebase                    0ms  x
+    │  └─ push_checkpoints_branch.fetch_and_rebase.git_fetch       0ms  x
+    └─ push_checkpoints_branch.git_push                          806ms  x
+  resolve_push_settings                                            0ms
+
+pre-push  6598ms  2026-05-27T10:52:53-07:00
+
+  STEP                                                        DURATION
+  push_checkpoints_branch                                       6598ms
+    ├─ push_checkpoints_branch.fetch_and_rebase                 5618ms  x
+    │  └─ push_checkpoints_branch.fetch_and_rebase.git_fetch    5618ms  x
+    └─ push_checkpoints_branch.git_push                          978ms  x
+  resolve_push_settings                                            0ms
+
+pre-push  0ms  2026-05-22T10:35:52-07:00
+
+  STEP                     DURATION
+  push_checkpoints_branch       0ms
+
+pre-push  0ms  2026-05-22T10:22:08-07:00
+
+  STEP                     DURATION
+  push_checkpoints_branch       0ms

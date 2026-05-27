@@ -1,0 +1,26 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "38edc87c06af",
+  "strategy": "manual-commit",
+  "branch": "hooks-slow-push-db-mirror",
+  "checkpoints_count": 5,
+  "files_touched": [
+    "cmd/entire/cli/strategy/manual_commit_push.go",
+    "cmd/entire/cli/strategy/push_common.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/38/edc87c06af/0/metadata.json",
+      "transcript": "/38/edc87c06af/0/full.jsonl",
+      "content_hash": "/38/edc87c06af/0/content_hash.txt",
+      "prompt": "/38/edc87c06af/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 15899,
+    "cache_creation_tokens": 417484,
+    "cache_read_tokens": 5657649,
+    "output_tokens": 90770,
+    "api_call_count": 50
+  }
+}
