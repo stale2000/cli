@@ -1,0 +1,22 @@
+Can you commit the changes
+
+---
+
+$pfleidi:pr-feedback
+
+---
+
+do it
+
+---
+
+When running the binary of the CLI tool in ~/entire/marvin, I get the following warnings:
+
+2026/05/27 11:24:50 WARN GetRefState: go-git commit read failed, used git rev-parse fallback ref=refs/entire/checkpoints/v2/full/current commit=83e2523c0338 gogit_error="object not found"
+2026/05/27 11:24:50 WARN GetRefState: go-git commit read failed, used git rev-parse fallback ref=refs/entire/checkpoints/v2/full/current commit=83e2523c0338 gogit_error="object not found"
+2026/05/27 11:24:52 WARN GetRefState: go-git commit read failed, used git rev-parse fallback ref=refs/entire/checkpoints/v2/full/current commit=83e2523c0338 gogit_error="object not found"
+2026/05/27 11:24:52 WARN GetRefState: go-git commit read failed, used git rev-parse fallback ref=refs/entire/checkpoints/v2/full/current commit=83e2523c0338 gogit_error="object not found"
+
+I ran the following command:
+
+~/entire/cli/.worktrees/review/migrate-v2-checkpoints --dry-run
