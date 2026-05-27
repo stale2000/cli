@@ -5,11 +5,11 @@
   "branch": "harden-checkpoint-git-timeout",
   "checkpoints_count": 0,
   "files_touched": [
-    "cmd/entire/cli/checkpoint/remote/command_harden.go",
-    "cmd/entire/cli/checkpoint/remote/command_harden_test.go",
-    "cmd/entire/cli/checkpoint/remote/command_harden_unix.go",
-    "cmd/entire/cli/checkpoint/remote/command_harden_unix_test.go",
-    "cmd/entire/cli/checkpoint/remote/command_harden_windows.go",
+    "cmd/entire/cli/checkpoint/remote/command_cancel.go",
+    "cmd/entire/cli/checkpoint/remote/command_cancel_test.go",
+    "cmd/entire/cli/checkpoint/remote/command_cancel_unix.go",
+    "cmd/entire/cli/checkpoint/remote/command_cancel_unix_test.go",
+    "cmd/entire/cli/checkpoint/remote/command_cancel_windows.go",
     "cmd/entire/cli/checkpoint/remote/git.go"
   ],
   "sessions": [
@@ -17,14 +17,14 @@
       "metadata": "/1d/96e0531da7/0/metadata.json",
       "transcript": "/1d/96e0531da7/0/full.jsonl",
       "content_hash": "/1d/96e0531da7/0/content_hash.txt",
-      "prompt": ""
+      "prompt": "/1d/96e0531da7/0/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 1023,
-    "cache_creation_tokens": 36071,
-    "cache_read_tokens": 4987758,
-    "output_tokens": 32113,
-    "api_call_count": 23
+    "input_tokens": 284,
+    "cache_creation_tokens": 19585,
+    "cache_read_tokens": 3167479,
+    "output_tokens": 19184,
+    "api_call_count": 13
   }
 }

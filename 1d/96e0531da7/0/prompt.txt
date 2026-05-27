@@ -1,0 +1,5 @@
+Yup push up harden-checkpoint-git-timeout and open a PR for it
+
+---
+
+`harden` is a weird name for it. it's not very descriptive. `command_harden` is also very generic
