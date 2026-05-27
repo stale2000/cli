@@ -1,0 +1,25 @@
+/team-onboarding
+
+---
+
+/team-onboarding
+
+---
+
+what is cmd/entire/cli/head_checkpoint_flags_test.go was it accidentally readded?
+
+---
+
+can you use entire recall to figure it out
+
+---
+
+is it still necessary since checkpoints v2 is being rolled back?
+
+---
+
+should it live in a different folder? I don't see any accompanying cmd/entire/cli/head_checkpoint_flags.go file
+
+---
+
+yes
