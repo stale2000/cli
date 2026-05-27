@@ -1,0 +1,27 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "752c67fbcfe7",
+  "strategy": "manual-commit",
+  "branch": "soph/fix-e2e-gemini-opencode",
+  "checkpoints_count": 0,
+  "files_touched": [
+    ".github/workflows/e2e.yml",
+    "e2e/agents/gemini.go",
+    "e2e/agents/gemini_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/75/2c67fbcfe7/0/metadata.json",
+      "transcript": "/75/2c67fbcfe7/0/full.jsonl",
+      "content_hash": "/75/2c67fbcfe7/0/content_hash.txt",
+      "prompt": "/75/2c67fbcfe7/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 14053,
+    "cache_creation_tokens": 182680,
+    "cache_read_tokens": 13193854,
+    "output_tokens": 70042,
+    "api_call_count": 89
+  }
+}

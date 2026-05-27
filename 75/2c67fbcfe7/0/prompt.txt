@@ -1,0 +1,9 @@
+hmm, is this PR related to the open code changes: c https://github.com/entireio/cli/pull/1235
+
+---
+
+let's create a PR for the changes we made and I run e2e in remote
+
+---
+
+https://github.com/entireio/cli/actions/runs/26514939235 so opencode worked, gemini can you take a look again?
