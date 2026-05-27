@@ -1,0 +1,25 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "aca9cffaedaa",
+  "strategy": "manual-commit",
+  "branch": "soph/changelog-0-6-3",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/gitrepo/alternates_fs.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/ac/a9cffaedaa/0/metadata.json",
+      "transcript": "/ac/a9cffaedaa/0/full.jsonl",
+      "content_hash": "/ac/a9cffaedaa/0/content_hash.txt",
+      "prompt": "/ac/a9cffaedaa/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 9682,
+    "cache_creation_tokens": 56348,
+    "cache_read_tokens": 1105942,
+    "output_tokens": 9632,
+    "api_call_count": 16
+  }
+}

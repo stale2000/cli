@@ -1,0 +1,43 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "aca9cffaedaa",
+  "session_id": "9abd6831-fc89-4285-ade2-dede7589d300",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-27T19:22:49.548432Z",
+  "branch": "soph/changelog-0-6-3",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/gitrepo/alternates_fs.go"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-7[1m]",
+  "turn_id": "1d0b2a7c53d4",
+  "token_usage": {
+    "input_tokens": 9682,
+    "cache_creation_tokens": 56348,
+    "cache_read_tokens": 1105942,
+    "output_tokens": 9632,
+    "api_call_count": 16
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-27T19:22:49.542811Z",
+    "agent_lines": 1,
+    "agent_removed": 1,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 1,
+    "total_lines_changed": 2,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}
