@@ -6,7 +6,7 @@
   "checkpoints_count": 4,
   "files_touched": [
     "cmd/entire/cli/checkpoint/committed_reader_resolve.go",
-    "cmd/entire/cli/settings/settings_test.go"
+    "cmd/entire/cli/strategy/manual_commit_push.go"
   ],
   "sessions": [
     {
@@ -25,15 +25,15 @@
       "metadata": "/c4/1ccc3ab5cc/2/metadata.json",
       "transcript": "/c4/1ccc3ab5cc/2/full.jsonl",
       "content_hash": "/c4/1ccc3ab5cc/2/content_hash.txt",
-      "prompt": "/c4/1ccc3ab5cc/2/prompt.txt"
+      "prompt": ""
     }
   ],
   "token_usage": {
-    "input_tokens": 2656884,
+    "input_tokens": 2682772,
     "cache_creation_tokens": 0,
-    "cache_read_tokens": 115217920,
-    "output_tokens": 305280,
-    "api_call_count": 824
+    "cache_read_tokens": 120316928,
+    "output_tokens": 305506,
+    "api_call_count": 851
   },
   "combined_attribution": {
     "calculated_at": "2026-05-27T22:26:04.142566Z",
