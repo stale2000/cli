@@ -1,0 +1,25 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "1dfe9e3ab575",
+  "strategy": "manual-commit",
+  "branch": "soph/config-bug",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/checkpoint/configloader_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/1d/fe9e3ab575/0/metadata.json",
+      "transcript": "/1d/fe9e3ab575/0/full.jsonl",
+      "content_hash": "/1d/fe9e3ab575/0/content_hash.txt",
+      "prompt": "/1d/fe9e3ab575/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 2680,
+    "cache_creation_tokens": 43634,
+    "cache_read_tokens": 2344722,
+    "output_tokens": 24307,
+    "api_call_count": 11
+  }
+}

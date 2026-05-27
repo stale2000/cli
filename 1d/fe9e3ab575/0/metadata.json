@@ -1,0 +1,48 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "1dfe9e3ab575",
+  "session_id": "2030dcf4-fc71-483b-9d3d-2534aa76f7c3",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-27T15:46:45.683884Z",
+  "branch": "soph/config-bug",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/checkpoint/configloader_test.go"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-7[1m]",
+  "turn_id": "f769cd5a3b0f",
+  "checkpoint_transcript_start": 342,
+  "transcript_lines_at_start": 342,
+  "token_usage": {
+    "input_tokens": 2680,
+    "cache_creation_tokens": 43634,
+    "cache_read_tokens": 2344722,
+    "output_tokens": 24307,
+    "api_call_count": 11
+  },
+  "session_metrics": {
+    "turn_count": 3
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-27T15:46:45.668631Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 3,
+    "human_modified": 14,
+    "human_removed": 0,
+    "total_committed": 3,
+    "total_lines_changed": 19,
+    "agent_percentage": 0,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}
