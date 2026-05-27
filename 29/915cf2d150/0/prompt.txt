@@ -1,0 +1,78 @@
+Fix only the selected review findings.
+Do not rewrite unrelated code. Run targeted tests where practical, then report what changed and what verification passed.
+
+Reviewed commit: 4dfd7447fde915677dc2d32fbb8e78db44aa7dc9
+Worktree: /Users/ninawork/entire/devenv/cli
+
+## Selected findings
+
+## Full selected review output
+
+## Claude Code findings
+
+I'll follow the review process. Let me start by gathering the diff scope.
+Single commit in scope, no relevant uncommitted changes (the untracked files are stray artifacts). Let me get the diff.
+Now let me read the enclosing context in `git.go` to understand how `newCommand` is used and whether anything bypasses it.
+Let me check the platform-split landscape in this package and verify a couple of Go semantics concerns.
+Build targets are darwin/linux/windows only — no plan9/js/wasm — so the `unix`+`windows` split fully covers the build matrix.
+
+The diff is small (one ~50-line logic file plus tests). Rather than spin up 9 redundant agents on the same 50 lines, I'll dispatch 3 focused finders covering the distinct concern clusters in parallel, to maximize recall on the genuinely tricky parts (Go exec/process-group semantics, coverage/removed-behavior, and test correctness).
+Three finders are in. Let me synthesize and verify the candidates against the actual Go `os/exec` semantics before deciding what to fix. The key contract detail to check: when a process is SIGKILLed (non-success exit), `Wait` returns the *exit* error ("signal: killed"), not the Cancel error or context error — which determines whether finding A (EPERM masking) is real.
+
+Let me read the test file to confirm exact text for the one fix I'm confident in.
+I've verified the candidates against Go's `os/exec` contract. Now applying the one clean, safe fix and recording why I'm skipping the rest.
+
+**Verification of the top candidate (EPERM masking, finding A):** Refuted. Per the documented `exec.Cmd.Cancel` contract, when the process exits with a **non-success** status (a SIGKILLed git → "signal: killed"), `Wait` returns the command's usual exit information — *not* the `Cancel` error and *not* the context error. The `Cancel` return value only surfaces if the command exits *successfully* after cancel (a vanishingly narrow race), and signaling our own child cannot realistically yield EPERM. The prior default `Cancel` returned `Process.Kill()`'s error with the same shape, so there's no regression. Not actionable.
+
+The one finding worth fixing: the test's `5 * time.Second` assertion deadline is a magic number silently coupled to `killWaitDelay` (10s). If `killWaitDelay` is ever lowered below 5s, `WaitDelay` would force the pipe closed under 5s even with group-kill removed — so the test would pass *without the fix*, silently ceasing to be a regression test. Deriving the deadline from `killWaitDelay` removes that latent rot.
+The edit is awaiting your write permission. Let me run the package tests in the meantime to confirm the baseline is green (the fix swaps the literal `5 * time.Second` for `killWaitDelay / 2`, which evaluates to the same 5s, so a passing baseline confirms the fix passes too).
+Baseline tests pass. The fix is a comment + replacing the literal `5 * time.Second` with `killWaitDelay / 2` (same 5s value), so it passes identically — it just needs your write approval to land.
+
+## Review summary
+
+Scope: one commit, `4dfd7447f` "Bound checkpoint git subprocesses to their context deadline" (the untracked working-tree files are stray artifacts, out of scope). The change adds `terminateOnCancel` to every git subprocess built by `newCommand` — a cross-platform `WaitDelay` backstop plus, on unix, a process-group SIGKILL so a stuck transport helper (e.g. `git-remote-entire`) can't outlive the caller's deadline.
+
+I ran three parallel finders (exec semantics, coverage/cross-platform, test correctness) and verified candidates against the Go `os/exec` contract. **The production code is sound and well-tested** — correct `Setpgid`/negative-PID group kill, ESRCH tolerance, nil-Process guard, exhaustive `unix`+`windows` build split (the only release targets are darwin/linux/windows), and all four transport ops (Fetch, FetchBlobs, Push, LsRemote) route through `newCommand`.
+
+### Fixed (1)
+- **`command_cancel_unix_test.go:52`** — The `5 * time.Second` assertion deadline was a magic number silently coupled to `killWaitDelay` (10s). If `killWaitDelay` were ever lowered below 5s, `WaitDelay` would force the pipe closed under 5s even with group-kill removed, so the test would pass *without the fix* — silently ceasing to be a regression test. Derived the deadline from `killWaitDelay` and documented the required window.
+
+### Skipped, with reasons
+- **EPERM/non-ESRCH kill error masks the context error** (highest-ranked finder candidate) — **refuted**. A SIGKILLed git exits non-success, so `Wait` returns its exit info ("signal: killed"), not the `Cancel` return value; the `Cancel` error only surfaces on a near-impossible "command succeeded *and* kill returned EPERM" race, and the prior default `Cancel` had the same shape. No regression, not worth changing.
+- **Test leak on the `t.Fatal` failure path** (leaked goroutine + `sleep 60`) — real but only on an already-red build, and a safe fix is non-trivial: killing `-pid` in cleanup risks a pid-reuse hazard, and re-reading the already-drained `done` channel would deadlock cleanup. The cure is worse than the disease; left as-is.
+- **Windows still doesn't reap transport-helper grandchildren** — explicitly documented as out of scope in `command_cancel_windows.go`; the `WaitDelay` backstop still bounds blocking there.
+- **Mechanism is inert if a caller passes a deadline-less context** — true but it's a caller contract, not a defect in this diff; every current transport caller supplies a deadline.
+- **Duplication with `e2e/agents` `setupProcessGroup`** — behind the `e2e` build tag with intentional differences (nil/ESRCH guards); cross-build-tag sharing would add more complexity than it removes.
+- **Latent `SysProcAttr`/`Setpgid` ordering couplings, thin Windows test coverage, minor comment-nuance items** — robustness observations, not active bugs.
+
+One file changed (pending your approval); no behavior change in production code.
+
+## Aggregate summary
+
+## Unified Review Verdict
+
+### Common Findings
+Both agents agreed the **production code is correct**: `Setpgid`/negative-PID group kill, ESRCH tolerance, nil-Process guard, and the `unix`+`windows` build split are all sound. Both ran the package tests and confirmed they pass, including the repeated-run stress test.
+
+### Unique Findings
+
+**claude-code only:**
+- `command_cancel_unix_test.go:52` — the `5 * time.Second` assertion deadline is a magic number silently coupled to `killWaitDelay` (10s). If `killWaitDelay` is ever lowered below 5s, the test would pass *without the fix*, becoming a silent no-op regression test. Fix: derive the deadline from `killWaitDelay / 2`.
+
+**codex only:**
+- Untracked working-tree artifacts (`full-example.jsonl`, `transcript-output.jsonl`, `compact-debug`) contain raw assistant thinking/signature data, session content, and absolute local paths. These should not be committed; add them to `.gitignore` or delete them.
+
+### Disagreements
+None. The agents examined overlapping areas (exec semantics, EPERM/cancel error surfacing, cross-platform coverage) and reached the same conclusions independently.
+
+### Priority Order
+
+| # | Issue | Severity |
+|---|-------|----------|
+| 1 | **Scrub/ignore untracked artifacts** (`*.jsonl`, `compact-debug`) before any push — contains sensitive local data | High |
+| 2 | **Fix test magic number** — derive `5 * time.Second` from `killWaitDelay / 2` to prevent the regression test from silently becoming inert | Low |
+| 3 | *(Skipped)* EPERM masking — refuted; `Wait` returns exit info, not the `Cancel` error, on a SIGKILLed process | — |
+| 4 | *(Skipped)* Test goroutine leak on failure path — real but only on red builds; safe fix is non-trivial | — |
+| 5 | *(Skipped)* Windows grandchild reaping — explicitly documented out of scope; `WaitDelay` backstop still bounds blocking | — |
+
+**Bottom line:** The committed change is shippable. Do two things before pushing: add the untracked debug files to `.gitignore`, and fix the magic-number deadline in the test.

@@ -1,0 +1,25 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "29915cf2d150",
+  "strategy": "manual-commit",
+  "branch": "harden-checkpoint-git-timeout",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/checkpoint/remote/command_cancel_unix_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/29/915cf2d150/0/metadata.json",
+      "transcript": "/29/915cf2d150/0/full.jsonl",
+      "content_hash": "/29/915cf2d150/0/content_hash.txt",
+      "prompt": "/29/915cf2d150/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 27,
+    "cache_creation_tokens": 49910,
+    "cache_read_tokens": 661850,
+    "output_tokens": 8922,
+    "api_call_count": 14
+  }
+}
