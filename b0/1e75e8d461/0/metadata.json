@@ -1,0 +1,109 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "b01e75e8d461",
+  "session_id": "019e6628-27cf-7320-9310-9b6afc4bae27",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-27T20:20:25.324649Z",
+  "branch": "tmp-migrate-v2-script-go",
+  "checkpoints_count": 6,
+  "files_touched": [
+    "cmd/entire/cli/checkpoint/v2_store.go",
+    "cmd/entire/cli/checkpoint/v2_store_test.go",
+    "cmd/migrate-v2-checkpoints/history.go",
+    "cmd/migrate-v2-checkpoints/main_test.go",
+    "cmd/migrate-v2-checkpoints/migration.go"
+  ],
+  "agent": "Codex",
+  "model": "gpt-5.5",
+  "turn_id": "651b3377d199",
+  "token_usage": {
+    "input_tokens": 2818893,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 85424896,
+    "output_tokens": 256136,
+    "api_call_count": 665
+  },
+  "session_metrics": {
+    "turn_count": 22
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-27T20:20:25.202416Z",
+    "agent_lines": 68,
+    "agent_removed": 9,
+    "human_added": 44,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 112,
+    "total_lines_changed": 121,
+    "agent_percentage": 63.63636363636363,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 55,
+      "agent_lines_removed": 1
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 44,
+      "user_lines_removed": 0,
+      "agent_lines_added": 55,
+      "agent_lines_removed": 1,
+      "user_added_per_file": {
+        "cmd/migrate-v2-checkpoints/main_test.go": 4,
+        "cmd/migrate-v2-checkpoints/migration.go": 40
+      }
+    },
+    {
+      "checkpoint_number": 4,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 100,
+      "agent_lines_removed": 1
+    },
+    {
+      "checkpoint_number": 5,
+      "user_lines_added": 57,
+      "user_lines_removed": 53,
+      "agent_lines_added": 100,
+      "agent_lines_removed": 1,
+      "user_added_per_file": {
+        ".opencode/package-lock.json": 57
+      },
+      "user_removed_per_file": {
+        ".opencode/package-lock.json": 53
+      }
+    },
+    {
+      "checkpoint_number": 6,
+      "user_lines_added": 57,
+      "user_lines_removed": 53,
+      "agent_lines_added": 100,
+      "agent_lines_removed": 1,
+      "user_added_per_file": {
+        ".opencode/package-lock.json": 57
+      },
+      "user_removed_per_file": {
+        ".opencode/package-lock.json": 53
+      }
+    },
+    {
+      "checkpoint_number": 7,
+      "user_lines_added": 157,
+      "user_lines_removed": 66,
+      "agent_lines_added": 807,
+      "agent_lines_removed": 9,
+      "user_added_per_file": {
+        ".opencode/package-lock.json": 57,
+        "cmd/migrate-v2-checkpoints/VALIDATION.md": 100
+      },
+      "user_removed_per_file": {
+        ".opencode/package-lock.json": 53,
+        "cmd/migrate-v2-checkpoints/VALIDATION.md": 13
+      }
+    }
+  ]
+}
