@@ -115,3 +115,7 @@ The migration tool fails for the ~/entire/entiredb repository:
 
 ❯ ~/entire/cli/.worktrees/review/migrate-v2-checkpoints --repo /Users/pfleidi/entire/entiredb --dry-run
 error: read v1 checkpoint 0322a12d0b22 session 1 metadata: checkpoint not found: session 1 not found: tree 1: directory not found
+
+---
+
+Commit the changes
