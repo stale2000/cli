@@ -1,0 +1,36 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "a64caa818a4f",
+  "strategy": "manual-commit",
+  "branch": "entire-labs-investigate",
+  "checkpoints_count": 0,
+  "files_touched": [
+    ".github/workflows/e2e.yml",
+    "CHANGELOG.md",
+    "cmd/entire/cli/checkpoint/remote/util.go",
+    "cmd/entire/cli/checkpoint/remote/util_test.go",
+    "cmd/entire/cli/gitremote/gitremote.go",
+    "cmd/entire/cli/gitremote/gitremote_test.go",
+    "cmd/entire/cli/gitrepo/alternates_fs.go",
+    "e2e/agents/gemini.go",
+    "e2e/agents/gemini_test.go",
+    "e2e/agents/opencode.go",
+    "e2e/agents/opencode_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/a6/4caa818a4f/0/metadata.json",
+      "transcript": "/a6/4caa818a4f/0/full.jsonl",
+      "content_hash": "/a6/4caa818a4f/0/content_hash.txt",
+      "prompt": ""
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 0,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 0,
+    "output_tokens": 0,
+    "api_call_count": 0
+  },
+  "has_investigation": true
+}

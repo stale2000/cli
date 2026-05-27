@@ -1,0 +1,49 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "a64caa818a4f",
+  "session_id": "89a43d29-39bb-49c6-91b7-92ed431693e6",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-27T21:46:08.157204Z",
+  "branch": "entire-labs-investigate",
+  "checkpoints_count": 0,
+  "files_touched": [
+    ".github/workflows/e2e.yml",
+    "CHANGELOG.md",
+    "cmd/entire/cli/checkpoint/remote/util.go",
+    "cmd/entire/cli/checkpoint/remote/util_test.go",
+    "cmd/entire/cli/gitremote/gitremote.go",
+    "cmd/entire/cli/gitremote/gitremote_test.go",
+    "cmd/entire/cli/gitrepo/alternates_fs.go",
+    "e2e/agents/gemini.go",
+    "e2e/agents/gemini_test.go",
+    "e2e/agents/opencode.go",
+    "e2e/agents/opencode_test.go"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "c84d4fb25f93",
+  "checkpoint_transcript_start": 13,
+  "transcript_lines_at_start": 13,
+  "token_usage": {
+    "input_tokens": 0,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 0,
+    "output_tokens": 0,
+    "api_call_count": 0
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-27T21:46:08.153667Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 506,
+    "human_modified": 6,
+    "human_removed": 0,
+    "total_committed": 506,
+    "total_lines_changed": 512,
+    "agent_percentage": 0,
+    "metric_version": 2
+  },
+  "kind": "agent_investigate",
+  "investigate_run_id": "2fe50915348a",
+  "investigate_topic": "entire status outputs literal ←[ instead of ANSI escape codes under TERM=cygwin"
+}
