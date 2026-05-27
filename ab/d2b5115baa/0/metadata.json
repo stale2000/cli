@@ -1,0 +1,54 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "abd2b5115baa",
+  "session_id": "5ca81dc5-0a10-43a1-bb47-9a3032fdd7f9",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-27T12:16:39.466744Z",
+  "branch": "fix/remove-v2-dual-writes",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/checkpoint/git_common_dir.go",
+    "cmd/entire/cli/strategy/manual_commit.go"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-7[1m]",
+  "turn_id": "b977a91b2aa2",
+  "token_usage": {
+    "input_tokens": 9316,
+    "cache_creation_tokens": 114251,
+    "cache_read_tokens": 2486284,
+    "output_tokens": 22500,
+    "api_call_count": 27
+  },
+  "session_metrics": {
+    "turn_count": 2
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-27T12:16:39.458486Z",
+    "agent_lines": 10,
+    "agent_removed": 4,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 10,
+    "total_lines_changed": 14,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 10,
+      "agent_lines_removed": 4
+    }
+  ]
+}
