@@ -1,0 +1,466 @@
+Can you commit the changes
+
+---
+
+$pfleidi:pr-feedback
+
+---
+
+do it
+
+---
+
+When running the binary of the CLI tool in ~/entire/marvin, I get the following warnings:
+
+2026/05/27 11:24:50 WARN GetRefState: go-git commit read failed, used git rev-parse fallback ref=refs/entire/checkpoints/v2/full/current commit=83e2523c0338 gogit_error="object not found"
+2026/05/27 11:24:50 WARN GetRefState: go-git commit read failed, used git rev-parse fallback ref=refs/entire/checkpoints/v2/full/current commit=83e2523c0338 gogit_error="object not found"
+2026/05/27 11:24:52 WARN GetRefState: go-git commit read failed, used git rev-parse fallback ref=refs/entire/checkpoints/v2/full/current commit=83e2523c0338 gogit_error="object not found"
+2026/05/27 11:24:52 WARN GetRefState: go-git commit read failed, used git rev-parse fallback ref=refs/entire/checkpoints/v2/full/current commit=83e2523c0338 gogit_error="object not found"
+
+I ran the following command:
+
+~/entire/cli/.worktrees/review/migrate-v2-checkpoints --dry-run
+
+---
+
+Okay, this might be a case of data that was missing locally. However, I noticed an issue with the output: We should be showing a list of checkpoints to be migrated so we can properly inspect and validate them after the migration
+
+---
+
+Make it so
+
+---
+
+These test constants are bad because they make the tests SO much harder to read. Disable them via //nolint directives instead
+
+---
+
+The output shows the following:
+
+  checkpoints to migrate:
+    02d9783342a2 sessions=1 commits=c7369a3901f2
+    05e30c5e0e86 sessions=1 commits=c7369a3901f2
+    08038dd4fa61 sessions=1 commits=c7369a3901f2
+    172307b3db76 sessions=1 commits=c7369a3901f2
+    4050c8cfe921 sessions=1 commits=c7369a3901f2
+    497e4d2dc487 sessions=1 commits=ecba1213bd7d
+    4abba766fe30 sessions=1 commits=467c611c5f73
+    5055d9efb52f sessions=1 commits=c7369a3901f2
+    603f2439a86c sessions=1 commits=c7369a3901f2
+    6b4c5939064c sessions=1 commits=c7369a3901f2
+    72ff95b9248e sessions=1 commits=c7369a3901f2
+    748483e6bde6 sessions=1 commits=c7369a3901f2
+    760a7635ce2c sessions=1 commits=c7369a3901f2
+    810fa3c23098 sessions=1 commits=c7369a3901f2
+    90f0a89601e5 sessions=1 commits=326ba892d8e9
+    a5832a3f8bc2 sessions=1 commits=c7369a3901f2
+    b1cd1691ee29 sessions=1 commits=c7369a3901f2
+    b281adeda1dd sessions=1 commits=467c611c5f73
+    bbf3c30859cb sessions=1 commits=c7369a3901f2
+    cdcea4567461 sessions=1 commits=467c611c5f73
+    cfd9c614ee69 sessions=1 commits=c7369a3901f2
+    d03147a7c583 sessions=1 commits=c7369a3901f2
+    d1a3972f1ca9 sessions=1 commits=c7369a3901f2
+    d2e8188858db sessions=1 commits=c7369a3901f2
+    e1a25ca2d928 sessions=1 commits=ecba1213bd7d
+    e20bf4bf6751 sessions=1 commits=c7369a3901f2
+    e49b8847220b sessions=1 commits=c7369a3901f2
+    e64a3d1c4984 sessions=1 commits=c7369a3901f2
+
+That's a lot of checkpoints/sessions for the same commits. Can you validate that these are actually accurate?
+
+---
+
+$pfleidi:review
+
+---
+
+Code review task: Security & Adversarial lens.
+
+Repository: /Users/pfleidi/entire/cli/.worktrees/review
+Base ref: origin/main
+Review command: git diff origin/main (include committed, staged, and unstaged changes in working tree). Do not use local main, merge-base, PR base, or alternate base.
+Changed files:
+- .opencode/package-lock.json
+- cmd/entire/cli/checkpoint/checkpoint.go
+- cmd/entire/cli/checkpoint/committed.go
+- cmd/entire/cli/checkpoint/committed_commit_time_test.go
+- cmd/entire/cli/checkpoint/temporary.go
+- cmd/entire/cli/checkpoint/v2_read.go
+- cmd/entire/cli/checkpoint/v2_store.go
+- cmd/entire/cli/checkpoint/v2_store_test.go
+- cmd/entire/cli/strategy/push_common.go
+- cmd/entire/cli/strategy/push_common_test.go
+- cmd/migrate-v2-checkpoints/history.go
+- cmd/migrate-v2-checkpoints/main.go
+- cmd/migrate-v2-checkpoints/main_test.go
+- cmd/migrate-v2-checkpoints/migration.go
+- cmd/migrate-v2-checkpoints/v2_fixture_test.go
+- mise-tasks/build
+
+Review philosophy:
+- It is OK to find nothing. A clean review is valid; do not manufacture findings.
+- Be opinionated and consistent. If a pattern is acceptable, do not flag it.
+- Do not flag trade-offs with no clear winner.
+- High confidence only: every finding must explain specifically what goes wrong if not fixed.
+
+Lens: review for injection, TOCTOU/races, unvalidated input at system boundaries, auth/authz gaps, and leaked secrets/credentials. For each finding, read actual source and trace reachability. Return only confirmed findings with file:line evidence, severity, required vs improvement, impact, and suggested fix. Do not modify files.
+
+---
+
+Code review task: Readability & Go Idioms lens.
+
+Repository: /Users/pfleidi/entire/cli/.worktrees/review
+Base ref: origin/main
+Review command: git diff origin/main (include committed, staged, and unstaged changes in working tree). Do not use local main, merge-base, PR base, or alternate base.
+Changed files:
+- .opencode/package-lock.json
+- cmd/entire/cli/checkpoint/checkpoint.go
+- cmd/entire/cli/checkpoint/committed.go
+- cmd/entire/cli/checkpoint/committed_commit_time_test.go
+- cmd/entire/cli/checkpoint/temporary.go
+- cmd/entire/cli/checkpoint/v2_read.go
+- cmd/entire/cli/checkpoint/v2_store.go
+- cmd/entire/cli/checkpoint/v2_store_test.go
+- cmd/entire/cli/strategy/push_common.go
+- cmd/entire/cli/strategy/push_common_test.go
+- cmd/migrate-v2-checkpoints/history.go
+- cmd/migrate-v2-checkpoints/main.go
+- cmd/migrate-v2-checkpoints/main_test.go
+- cmd/migrate-v2-checkpoints/migration.go
+- cmd/migrate-v2-checkpoints/v2_fixture_test.go
+- mise-tasks/build
+
+Review philosophy:
+- It is OK to find nothing. A clean review is valid; do not manufacture findings.
+- Be opinionated and consistent. If a pattern is acceptable, do not flag it.
+- Do not flag trade-offs with no clear winner.
+- High confidence only: every finding must explain specifically what goes wrong if not fixed.
+
+Lens: poor factoring, mixed abstraction levels, generated-code smell, data-flow opacity, control-flow complexity, naming clarity, Go API readability, and error readability. Explain maintenance cost concretely. Prefer small local suggestions; discard formatting-only/personal taste. Return only confirmed findings with file:line evidence, severity, required vs improvement, impact, and suggested fix. Do not modify files.
+
+---
+
+Code review task: Correctness & Quality lens.
+
+Repository: /Users/pfleidi/entire/cli/.worktrees/review
+Base ref: origin/main
+Review command: git diff origin/main (include committed, staged, and unstaged changes in working tree). Do not use local main, merge-base, PR base, or alternate base.
+Changed files:
+- .opencode/package-lock.json
+- cmd/entire/cli/checkpoint/checkpoint.go
+- cmd/entire/cli/checkpoint/committed.go
+- cmd/entire/cli/checkpoint/committed_commit_time_test.go
+- cmd/entire/cli/checkpoint/temporary.go
+- cmd/entire/cli/checkpoint/v2_read.go
+- cmd/entire/cli/checkpoint/v2_store.go
+- cmd/entire/cli/checkpoint/v2_store_test.go
+- cmd/entire/cli/strategy/push_common.go
+- cmd/entire/cli/strategy/push_common_test.go
+- cmd/migrate-v2-checkpoints/history.go
+- cmd/migrate-v2-checkpoints/main.go
+- cmd/migrate-v2-checkpoints/main_test.go
+- cmd/migrate-v2-checkpoints/migration.go
+- cmd/migrate-v2-checkpoints/v2_fixture_test.go
+- mise-tasks/build
+
+Review philosophy:
+- It is OK to find nothing. A clean review is valid; do not manufacture findings.
+- Be opinionated and consistent. If a pattern is acceptable, do not flag it.
+- Do not flag trade-offs with no clear winner.
+- High confidence only: every finding must explain specifically what goes wrong if not fixed.
+
+Lens: logic errors, nil/error handling, concurrency edge cases, redundant state, parameter sprawl, leaky abstractions, stringly-typed code where typed values already exist, and test coverage gaps. Verify claims by reading source and call sites. Return only confirmed findings with file:line evidence, severity, required vs improvement, impact, and suggested fix. Do not modify files.
+
+---
+
+Code review task: Clean Go & Modern Go lens.
+
+Repository: /Users/pfleidi/entire/cli/.worktrees/review
+Base ref: origin/main
+Review command: git diff origin/main (include committed, staged, and unstaged changes in working tree). Do not use local main, merge-base, PR base, or alternate base.
+Changed files:
+- .opencode/package-lock.json
+- cmd/entire/cli/checkpoint/checkpoint.go
+- cmd/entire/cli/checkpoint/committed.go
+- cmd/entire/cli/checkpoint/committed_commit_time_test.go
+- cmd/entire/cli/checkpoint/temporary.go
+- cmd/entire/cli/checkpoint/v2_read.go
+- cmd/entire/cli/checkpoint/v2_store.go
+- cmd/entire/cli/checkpoint/v2_store_test.go
+- cmd/entire/cli/strategy/push_common.go
+- cmd/entire/cli/strategy/push_common_test.go
+- cmd/migrate-v2-checkpoints/history.go
+- cmd/migrate-v2-checkpoints/main.go
+- cmd/migrate-v2-checkpoints/main_test.go
+- cmd/migrate-v2-checkpoints/migration.go
+- cmd/migrate-v2-checkpoints/v2_fixture_test.go
+- mise-tasks/build
+
+Use /Users/pfleidi/.agents/skills/pfleidi/clean-go/SKILL.md as source of truth. Detect go.mod target version and only suggest features available for that version; do not do blanket modernization.
+
+Review philosophy:
+- It is OK to find nothing. A clean review is valid; do not manufacture findings.
+- Be opinionated and consistent. If a pattern is acceptable, do not flag it.
+- Do not flag trade-offs with no clear winner.
+- High confidence only: every finding must explain specifically what goes wrong if not fixed.
+
+Focus on concrete changed-code findings around composable functions, abstraction level, function size/signatures, errors, pointers, small interfaces, any/interface{}, and modern stdlib helpers. Return only confirmed findings with file:line evidence, severity, required vs improvement, impact, and suggested fix. Do not modify files.
+
+---
+
+Code review task: Simplification & Efficiency lens.
+
+Repository: /Users/pfleidi/entire/cli/.worktrees/review
+Base ref: origin/main
+Review command: git diff origin/main (include committed, staged, and unstaged changes in working tree). Do not use local main, merge-base, PR base, or alternate base.
+Changed files:
+- .opencode/package-lock.json
+- cmd/entire/cli/checkpoint/checkpoint.go
+- cmd/entire/cli/checkpoint/committed.go
+- cmd/entire/cli/checkpoint/committed_commit_time_test.go
+- cmd/entire/cli/checkpoint/temporary.go
+- cmd/entire/cli/checkpoint/v2_read.go
+- cmd/entire/cli/checkpoint/v2_store.go
+- cmd/entire/cli/checkpoint/v2_store_test.go
+- cmd/entire/cli/strategy/push_common.go
+- cmd/entire/cli/strategy/push_common_test.go
+- cmd/migrate-v2-checkpoints/history.go
+- cmd/migrate-v2-checkpoints/main.go
+- cmd/migrate-v2-checkpoints/main_test.go
+- cmd/migrate-v2-checkpoints/migration.go
+- cmd/migrate-v2-checkpoints/v2_fixture_test.go
+- mise-tasks/build
+
+Review philosophy:
+- It is OK to find nothing. A clean review is valid; do not manufacture findings.
+- Be opinionated and consistent. If a pattern is acceptable, do not flag it.
+- Do not flag trade-offs with no clear winner.
+- High confidence only: every finding must explain specifically what goes wrong if not fixed.
+
+Lens: dead code, code reuse, copy-paste with variation, unnecessary abstractions, redundant work, missed concurrency, hot-path bloat, unnecessary existence checks, and unnecessary comments. Verify suggestions against call sites/usages and discard cosmetic-only issues. Return only confirmed findings with file:line evidence, severity, required vs improvement, impact, and suggested fix. Do not modify files.
+
+---
+
+Second-pass coverage code review sweep.
+
+Repository: /Users/pfleidi/entire/cli/.worktrees/review
+Base ref: origin/main
+Review command: git diff origin/main (include committed, staged, and unstaged changes in working tree). Do not use local main, merge-base, PR base, or alternate base.
+Changed files:
+- .opencode/package-lock.json
+- cmd/entire/cli/checkpoint/checkpoint.go
+- cmd/entire/cli/checkpoint/committed.go
+- cmd/entire/cli/checkpoint/committed_commit_time_test.go
+- cmd/entire/cli/checkpoint/temporary.go
+- cmd/entire/cli/checkpoint/v2_read.go
+- cmd/entire/cli/checkpoint/v2_store.go
+- cmd/entire/cli/checkpoint/v2_store_test.go
+- cmd/entire/cli/strategy/push_common.go
+- cmd/entire/cli/strategy/push_common_test.go
+- cmd/migrate-v2-checkpoints/history.go
+- cmd/migrate-v2-checkpoints/main.go
+- cmd/migrate-v2-checkpoints/main_test.go
+- cmd/migrate-v2-checkpoints/migration.go
+- cmd/migrate-v2-checkpoints/v2_fixture_test.go
+- mise-tasks/build
+
+Review philosophy:
+- It is OK to find nothing. A clean review is valid; do not manufacture findings.
+- Be opinionated and consistent. If a pattern is acceptable, do not flag it.
+- Do not flag trade-offs with no clear winner.
+- High confidence only: every finding must explain specifically what goes wrong if not fixed.
+
+Task: independently re-read the changed files and surrounding code needed to understand each changed path. Trace changed behavior through callers, callees, tests, configuration, migrations, generated interfaces, and user/API entry points where relevant. Search for related patterns, duplicated logic, existing helpers, and test gaps. Look across all lenses together: security, correctness, tests, simplification, readability, performance, and Go cleanliness.
+
+Return only high-confidence findings with concrete file:line evidence, severity, required vs improvement, impact, trade-offs, and suggested fix. Do not modify files. Do not include optional cosmetic comments.
+
+---
+
+1 is pretty much as intended and fetching git refs is an accepted side-effect
+2 is a temporary change but feel free to ignore the output since this branch will most likely not be merged anyways
+
+The rest can be fixed batched
+
+---
+
+Commit the changes
+
+---
+
+$pfleidi:review
+
+---
+
+Code review task: Security & Adversarial lens.
+
+Repository: /Users/pfleidi/entire/cli/.worktrees/review
+Base ref: origin/main
+Review command: git diff origin/main (include committed, staged, and unstaged tracked changes in working tree). Do not use local main, merge-base, PR base, or alternate base.
+Changed files:
+- .opencode/package-lock.json
+- cmd/entire/cli/checkpoint/checkpoint.go
+- cmd/entire/cli/checkpoint/committed.go
+- cmd/entire/cli/checkpoint/committed_commit_time_test.go
+- cmd/entire/cli/checkpoint/temporary.go
+- cmd/entire/cli/checkpoint/v2_read.go
+- cmd/entire/cli/checkpoint/v2_store.go
+- cmd/entire/cli/checkpoint/v2_store_test.go
+- cmd/entire/cli/strategy/push_common.go
+- cmd/entire/cli/strategy/push_common_test.go
+- cmd/migrate-v2-checkpoints/history.go
+- cmd/migrate-v2-checkpoints/main.go
+- cmd/migrate-v2-checkpoints/main_test.go
+- cmd/migrate-v2-checkpoints/migration.go
+- cmd/migrate-v2-checkpoints/v2_fixture_test.go
+- mise-tasks/build
+
+Review philosophy:
+- It is OK to find nothing. A clean review is valid; do not manufacture findings.
+- Be opinionated and consistent. If a pattern is acceptable, do not flag it.
+- Do not flag trade-offs with no clear winner.
+- High confidence only: every finding must explain specifically what goes wrong if not fixed.
+
+Lens: injection, TOCTOU/races, unvalidated input at system boundaries, auth/authz gaps, and leaked secrets/credentials. For each finding, read actual source and trace reachability. Return only confirmed findings with file:line evidence, severity, required vs improvement, impact, trade-offs, and suggested fix. Do not modify files.
+
+---
+
+Code review task: Clean Go & Modern Go lens.
+
+Repository: /Users/pfleidi/entire/cli/.worktrees/review
+Base ref: origin/main
+Review command: git diff origin/main (include committed, staged, and unstaged tracked changes in working tree). Do not use local main, merge-base, PR base, or alternate base.
+Changed files:
+- .opencode/package-lock.json
+- cmd/entire/cli/checkpoint/checkpoint.go
+- cmd/entire/cli/checkpoint/committed.go
+- cmd/entire/cli/checkpoint/committed_commit_time_test.go
+- cmd/entire/cli/checkpoint/temporary.go
+- cmd/entire/cli/checkpoint/v2_read.go
+- cmd/entire/cli/checkpoint/v2_store.go
+- cmd/entire/cli/checkpoint/v2_store_test.go
+- cmd/entire/cli/strategy/push_common.go
+- cmd/entire/cli/strategy/push_common_test.go
+- cmd/migrate-v2-checkpoints/history.go
+- cmd/migrate-v2-checkpoints/main.go
+- cmd/migrate-v2-checkpoints/main_test.go
+- cmd/migrate-v2-checkpoints/migration.go
+- cmd/migrate-v2-checkpoints/v2_fixture_test.go
+- mise-tasks/build
+
+Use /Users/pfleidi/.agents/skills/pfleidi/clean-go/SKILL.md as source of truth. Detect go.mod target version and only suggest features available for that version; do not do blanket modernization.
+
+Review philosophy:
+- It is OK to find nothing. A clean review is valid; do not manufacture findings.
+- Be opinionated and consistent. If a pattern is acceptable, do not flag it.
+- Do not flag trade-offs with no clear winner.
+- High confidence only: every finding must explain specifically what goes wrong if not fixed.
+
+Focus on concrete changed-code findings around composable functions, abstraction level, function size/signatures, errors, pointers, small interfaces, any/interface{}, and modern stdlib helpers. Return only confirmed findings with file:line evidence, severity, required vs improvement, impact, trade-offs, and suggested fix. Do not modify files.
+
+---
+
+Code review task: Correctness & Quality lens.
+
+Repository: /Users/pfleidi/entire/cli/.worktrees/review
+Base ref: origin/main
+Review command: git diff origin/main (include committed, staged, and unstaged tracked changes in working tree). Do not use local main, merge-base, PR base, or alternate base.
+Changed files:
+- .opencode/package-lock.json
+- cmd/entire/cli/checkpoint/checkpoint.go
+- cmd/entire/cli/checkpoint/committed.go
+- cmd/entire/cli/checkpoint/committed_commit_time_test.go
+- cmd/entire/cli/checkpoint/temporary.go
+- cmd/entire/cli/checkpoint/v2_read.go
+- cmd/entire/cli/checkpoint/v2_store.go
+- cmd/entire/cli/checkpoint/v2_store_test.go
+- cmd/entire/cli/strategy/push_common.go
+- cmd/entire/cli/strategy/push_common_test.go
+- cmd/migrate-v2-checkpoints/history.go
+- cmd/migrate-v2-checkpoints/main.go
+- cmd/migrate-v2-checkpoints/main_test.go
+- cmd/migrate-v2-checkpoints/migration.go
+- cmd/migrate-v2-checkpoints/v2_fixture_test.go
+- mise-tasks/build
+
+Review philosophy:
+- It is OK to find nothing. A clean review is valid; do not manufacture findings.
+- Be opinionated and consistent. If a pattern is acceptable, do not flag it.
+- Do not flag trade-offs with no clear winner.
+- High confidence only: every finding must explain specifically what goes wrong if not fixed.
+
+Lens: logic errors, nil/error handling, concurrency edge cases, redundant state, parameter sprawl, leaky abstractions, stringly-typed code where typed values already exist, and test coverage gaps. Verify claims by reading source and call sites. Return only confirmed findings with file:line evidence, severity, required vs improvement, impact, trade-offs, and suggested fix. Do not modify files.
+
+---
+
+Code review task: Readability & Go Idioms lens.
+
+Repository: /Users/pfleidi/entire/cli/.worktrees/review
+Base ref: origin/main
+Review command: git diff origin/main (include committed, staged, and unstaged tracked changes in working tree). Do not use local main, merge-base, PR base, or alternate base.
+Changed files:
+- .opencode/package-lock.json
+- cmd/entire/cli/checkpoint/checkpoint.go
+- cmd/entire/cli/checkpoint/committed.go
+- cmd/entire/cli/checkpoint/committed_commit_time_test.go
+- cmd/entire/cli/checkpoint/temporary.go
+- cmd/entire/cli/checkpoint/v2_read.go
+- cmd/entire/cli/checkpoint/v2_store.go
+- cmd/entire/cli/checkpoint/v2_store_test.go
+- cmd/entire/cli/strategy/push_common.go
+- cmd/entire/cli/strategy/push_common_test.go
+- cmd/migrate-v2-checkpoints/history.go
+- cmd/migrate-v2-checkpoints/main.go
+- cmd/migrate-v2-checkpoints/main_test.go
+- cmd/migrate-v2-checkpoints/migration.go
+- cmd/migrate-v2-checkpoints/v2_fixture_test.go
+- mise-tasks/build
+
+Review philosophy:
+- It is OK to find nothing. A clean review is valid; do not manufacture findings.
+- Be opinionated and consistent. If a pattern is acceptable, do not flag it.
+- Do not flag trade-offs with no clear winner.
+- High confidence only: every finding must explain specifically what goes wrong if not fixed.
+
+Lens: poor factoring, mixed abstraction levels, generated-code smell, data-flow opacity, control-flow complexity, naming clarity, Go API readability, and error readability. Explain maintenance cost concretely. Prefer small local suggestions; discard formatting-only/personal taste. Return only confirmed findings with file:line evidence, severity, required vs improvement, impact, trade-offs, and suggested fix. Do not modify files.
+
+---
+
+Code review task: Simplification & Efficiency lens.
+
+Repository: /Users/pfleidi/entire/cli/.worktrees/review
+Base ref: origin/main
+Review command: git diff origin/main (include committed, staged, and unstaged tracked changes in working tree). Do not use local main, merge-base, PR base, or alternate base.
+Changed files:
+- .opencode/package-lock.json
+- cmd/entire/cli/checkpoint/checkpoint.go
+- cmd/entire/cli/checkpoint/committed.go
+- cmd/entire/cli/checkpoint/committed_commit_time_test.go
+- cmd/entire/cli/checkpoint/temporary.go
+- cmd/entire/cli/checkpoint/v2_read.go
+- cmd/entire/cli/checkpoint/v2_store.go
+- cmd/entire/cli/checkpoint/v2_store_test.go
+- cmd/entire/cli/strategy/push_common.go
+- cmd/entire/cli/strategy/push_common_test.go
+- cmd/migrate-v2-checkpoints/history.go
+- cmd/migrate-v2-checkpoints/main.go
+- cmd/migrate-v2-checkpoints/main_test.go
+- cmd/migrate-v2-checkpoints/migration.go
+- cmd/migrate-v2-checkpoints/v2_fixture_test.go
+- mise-tasks/build
+
+Review philosophy:
+- It is OK to find nothing. A clean review is valid; do not manufacture findings.
+- Be opinionated and consistent. If a pattern is acceptable, do not flag it.
+- Do not flag trade-offs with no clear winner.
+- High confidence only: every finding must explain specifically what goes wrong if not fixed.
+
+Lens: dead code, code reuse, copy-paste with variation, unnecessary abstractions, redundant work, missed concurrency, hot-path bloat, unnecessary existence checks, and unnecessary comments. Verify suggestions against call sites/usages and discard cosmetic-only issues. Return only confirmed findings with file:line evidence, severity, required vs improvement, impact, trade-offs, and suggested fix. Do not modify files.
+
+---
+
+$pfleidi:pr-feedback
+
+---
+
+Address the applicable ones all in a batch
