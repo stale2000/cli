@@ -5,8 +5,7 @@
   "branch": "codex/remove-v2-transcript-fallback",
   "checkpoints_count": 4,
   "files_touched": [
-    "cmd/entire/cli/checkpoint/committed_reader_resolve.go",
-    "cmd/entire/cli/strategy/manual_commit_push.go"
+    "cmd/entire/cli/checkpoint/committed_reader_resolve.go"
   ],
   "sessions": [
     {
@@ -29,11 +28,11 @@
     }
   ],
   "token_usage": {
-    "input_tokens": 2682772,
+    "input_tokens": 2645267,
     "cache_creation_tokens": 0,
-    "cache_read_tokens": 120316928,
-    "output_tokens": 305506,
-    "api_call_count": 851
+    "cache_read_tokens": 115578368,
+    "output_tokens": 301423,
+    "api_call_count": 823
   },
   "combined_attribution": {
     "calculated_at": "2026-05-27T22:28:11.348447Z",
