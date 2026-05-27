@@ -14,6 +14,12 @@
       "transcript": "/04/4a43137ce2/0/full.jsonl",
       "content_hash": "/04/4a43137ce2/0/content_hash.txt",
       "prompt": ""
+    },
+    {
+      "metadata": "/04/4a43137ce2/1/metadata.json",
+      "transcript": "/04/4a43137ce2/1/full.jsonl",
+      "content_hash": "/04/4a43137ce2/1/content_hash.txt",
+      "prompt": ""
     }
   ]
 }
