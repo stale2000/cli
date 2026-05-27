@@ -5,3 +5,41 @@ Error: cmd/entire/cli/fetch_no_config_pollution_test.go:127:83: cannot use check
   1 issues:
 51
   * typecheck: 1
+
+---
+
+commit changes
+
+---
+
+The the changed ...hooks.go files:
+
+nilerr is enabled and will flag swallowing err here (err != nil but return nil). If the hook must never fail hard when no sessions are found, add an explanatory //nolint:nilerr (or return/wrap the error).
+
+nilerr is enabled and will flag returning nil here while err is non-nil. If PostCommit must be silent on repo open failure, add an explanatory //nolint:nilerr so lint passes.
+
+---
+
+cmd/entire/cli/strategy/checkpoint_remote.go:
+nilerr is enabled and will flag swallowing the fetch error here (if err := FetchMetadataBranch(...); err != nil { return nil }). If this is intentionally fail-open as described in the comment above, restore //nolint:nilerr with an explanation (or log the error and return it).
+
+cmd/entire/cli/strategy/push_common.go:
+Same nilerr issue here: when repo.Reference(...) fails, the code intentionally returns nil, but without //nolint:nilerr this will be reported by golangci-lint. Add an explanatory //nolint:nilerr (or change behavior to return/wrap the error).
+
+---
+
+cmd/entire/cli/gitrepo/repository.go:
+When the alternates-aware opener fails, OpenPath falls back to git.PlainOpen, which does not use AlternatesFS. Shared clones that rely on absolute paths in objects/info/alternates can again fail to resolve checkpoint objects through go-git, recreating the missing-metadata behavior this change is meant to fix.
+
+---
+
+cmd/entire/cli/attach.go:
+ensureCheckpointAvailable replaces the attach-scoped repository with a fresh handle from refreshCheckpointRefs without closing the original. The command’s defer repo.Close() only runs on the final pointer, so the first open can leak filesystem storage until process exit.
+
+---
+
+commit the changes
+
+---
+
+I run the checks, they pass, go ahead with the commit
