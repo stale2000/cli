@@ -1,3 +1,1 @@
-We need to remove the "if the v2 refs exist" fallback that was added in [entirehq/entire.io#1994](https://github.com/entirehq/entire.io/pull/1994).
-
-V2 is going away completely, let's remove that fallback and any other version 2 checks. Only use checkpoint version 1 for displaying and processing the transcripts. The unified parsing can stay for now.
+push it up and open a PR
