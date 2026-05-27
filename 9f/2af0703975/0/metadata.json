@@ -1,0 +1,72 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "9f2af0703975",
+  "session_id": "74d99c34-121c-45d0-90b6-2072e6cedb3e",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-27T13:53:35.10834603Z",
+  "branch": "checkpoint-version",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/checkpoint/checkpoint_test.go",
+    "cmd/entire/cli/checkpoint/committed.go",
+    "cmd/entire/cli/checkpoint/v2_committed.go",
+    "cmd/entire/cli/versioninfo/versioninfo.go",
+    "cmd/entire/cli/versioninfo/versioninfo_test.go"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-7[1m]",
+  "turn_id": "81bfa5940a9a",
+  "token_usage": {
+    "input_tokens": 7924,
+    "cache_creation_tokens": 81049,
+    "cache_read_tokens": 2610236,
+    "output_tokens": 29017,
+    "api_call_count": 42
+  },
+  "session_metrics": {
+    "turn_count": 1
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-27T13:53:35.102448264Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 31,
+    "total_committed": 0,
+    "total_lines_changed": 31,
+    "agent_percentage": 0,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 125,
+      "user_lines_removed": 36,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        "cmd/entire/cli/checkpoint/checkpoint_test.go": 3,
+        "cmd/entire/cli/checkpoint/committed.go": 2,
+        "cmd/entire/cli/checkpoint/v2_committed.go": 2,
+        "cmd/entire/cli/versioninfo/versioninfo.go": 60,
+        "cmd/entire/cli/versioninfo/versioninfo_test.go": 58
+      },
+      "user_removed_per_file": {
+        "cmd/entire/cli/checkpoint/checkpoint_test.go": 4,
+        "cmd/entire/cli/checkpoint/committed.go": 3,
+        "cmd/entire/cli/checkpoint/v2_committed.go": 2,
+        "cmd/entire/cli/trailers/trailers.go": 5,
+        "cmd/entire/cli/versioninfo/versioninfo.go": 13,
+        "cmd/entire/cli/versioninfo/versioninfo_test.go": 9
+      }
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 125,
+      "agent_lines_removed": 36
+    }
+  ]
+}

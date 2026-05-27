@@ -1,0 +1,5 @@
+Pivot the approach in the current commit. This information is already presetn on the metadata.json, so just enrich it so that it is easier to identify what version it came from. I'd like to know what was the last known tag and whether or not the local version is dirty. Potentially using a similar approach as the pseudo version in Go.
+
+---
+
+just run the specific tests affected by the change
