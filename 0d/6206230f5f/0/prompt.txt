@@ -1,0 +1,9 @@
+/changelog
+
+---
+
+Split-host auth via auth-go
+
+---
+
+Split-host auth via auth-go -> basically we are working on an improved auth, debating if we should remove it or keep it more vague

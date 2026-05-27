@@ -1,0 +1,25 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "0d6206230f5f",
+  "strategy": "manual-commit",
+  "branch": "soph/changelog-0-6-3",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "CHANGELOG.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/0d/6206230f5f/0/metadata.json",
+      "transcript": "/0d/6206230f5f/0/full.jsonl",
+      "content_hash": "/0d/6206230f5f/0/content_hash.txt",
+      "prompt": "/0d/6206230f5f/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 9673,
+    "cache_creation_tokens": 58838,
+    "cache_read_tokens": 795844,
+    "output_tokens": 14636,
+    "api_call_count": 12
+  }
+}
