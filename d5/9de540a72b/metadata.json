@@ -1,0 +1,63 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "d59de540a72b",
+  "strategy": "manual-commit",
+  "branch": "fix/checkpoints-v2-remove-dual-reads",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "CLAUDE.md",
+    "cmd/entire/cli/attach.go",
+    "cmd/entire/cli/checkpoint/checkpoint.go",
+    "cmd/entire/cli/checkpoint/committed_reader_resolve.go",
+    "cmd/entire/cli/checkpoint/committed_reader_resolve_test.go",
+    "cmd/entire/cli/checkpoint/v2_fixture_test.go",
+    "cmd/entire/cli/checkpoint/v2_read.go",
+    "cmd/entire/cli/checkpoint/v2_read_test.go",
+    "cmd/entire/cli/checkpoint/v2_resolve.go",
+    "cmd/entire/cli/checkpoint/v2_resolve_test.go",
+    "cmd/entire/cli/checkpoint/v2_store.go",
+    "cmd/entire/cli/checkpoint/v2_store_test.go",
+    "cmd/entire/cli/clean_test.go",
+    "cmd/entire/cli/dispatch/mode_local_test.go",
+    "cmd/entire/cli/explain_export_test.go",
+    "cmd/entire/cli/explain_test.go",
+    "cmd/entire/cli/fetch_no_config_pollution_test.go",
+    "cmd/entire/cli/git_operations.go",
+    "cmd/entire/cli/integration_test/explain_test.go",
+    "cmd/entire/cli/integration_test/testenv.go",
+    "cmd/entire/cli/integration_test/v2_resume_test.go",
+    "cmd/entire/cli/migrate.go",
+    "cmd/entire/cli/migrate_test.go",
+    "cmd/entire/cli/paths/paths.go",
+    "cmd/entire/cli/resume_test.go",
+    "cmd/entire/cli/root.go",
+    "cmd/entire/cli/settings/settings.go",
+    "cmd/entire/cli/settings/settings_test.go",
+    "cmd/entire/cli/strategy/checkpoint_remote.go",
+    "cmd/entire/cli/strategy/checkpoint_remote_test.go",
+    "cmd/entire/cli/strategy/common.go",
+    "cmd/entire/cli/strategy/manual_commit_push.go",
+    "cmd/entire/cli/strategy/manual_commit_test.go",
+    "cmd/entire/cli/strategy/metadata_reconcile.go",
+    "cmd/entire/cli/strategy/push_common_test.go",
+    "cmd/entire/cli/strategy/session_test.go",
+    "cmd/entire/cli/strategy/v2_checkpoint_fixture_test.go",
+    "cmd/entire/cli/v2_checkpoint_fixture_test.go",
+    "e2e/tests/doctor_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/d5/9de540a72b/0/metadata.json",
+      "transcript": "/d5/9de540a72b/0/full.jsonl",
+      "content_hash": "/d5/9de540a72b/0/content_hash.txt",
+      "prompt": "/d5/9de540a72b/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 473428,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 17554688,
+    "output_tokens": 59358,
+    "api_call_count": 123
+  }
+}

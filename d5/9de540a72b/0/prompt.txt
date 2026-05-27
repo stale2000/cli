@@ -1,0 +1,1 @@
+setupCommittedReaderRepo seems to be the wrong abstraction for tests. It only makes them harder to read. We should also avoid `git.PlainInit()` in tests as per instructions in AGENTS.md
