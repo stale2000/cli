@@ -1,0 +1,5 @@
+Fix the linter issue on https://github.com/entireio/cli/pull/1282
+
+---
+
+Now address the PR comments on https://github.com/entireio/cli/pull/1282 and push up any applicable changes. Some of the comments may be unneeded or already addressed
