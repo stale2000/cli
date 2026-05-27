@@ -1,0 +1,44 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "1d96e0531da7",
+  "session_id": "c1175775-e6c7-4724-af52-54395d532b29",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-27T20:32:30.358404Z",
+  "branch": "harden-checkpoint-git-timeout",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/checkpoint/remote/command_harden.go",
+    "cmd/entire/cli/checkpoint/remote/command_harden_unix.go",
+    "cmd/entire/cli/checkpoint/remote/command_harden_windows.go",
+    "cmd/entire/cli/checkpoint/remote/git.go",
+    "cmd/entire/cli/checkpoint/remote/command_harden_test.go",
+    "cmd/entire/cli/checkpoint/remote/command_harden_unix_test.go"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-7[1m]",
+  "turn_id": "88c38ebd3613",
+  "checkpoint_transcript_start": 321,
+  "transcript_lines_at_start": 321,
+  "token_usage": {
+    "input_tokens": 1023,
+    "cache_creation_tokens": 36071,
+    "cache_read_tokens": 4987758,
+    "output_tokens": 32113,
+    "api_call_count": 23
+  },
+  "session_metrics": {
+    "turn_count": 5
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-27T20:32:30.339101Z",
+    "agent_lines": 187,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 187,
+    "total_lines_changed": 187,
+    "agent_percentage": 100,
+    "metric_version": 2
+  }
+}
