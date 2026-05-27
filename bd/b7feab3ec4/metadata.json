@@ -1,0 +1,25 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "bdb7feab3ec4",
+  "strategy": "manual-commit",
+  "branch": "entire-labs-investigate",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/gitrepo/alternates_fs.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/bd/b7feab3ec4/0/metadata.json",
+      "transcript": "/bd/b7feab3ec4/0/full.jsonl",
+      "content_hash": "/bd/b7feab3ec4/0/content_hash.txt",
+      "prompt": "/bd/b7feab3ec4/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 46279,
+    "cache_creation_tokens": 403560,
+    "cache_read_tokens": 9797947,
+    "output_tokens": 83959,
+    "api_call_count": 77
+  }
+}
