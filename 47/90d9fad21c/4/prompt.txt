@@ -1,0 +1,5 @@
+rebase the current branch against origin/main and fix any conflicts
+
+---
+
+remote is already fetched go ahead with the rebase

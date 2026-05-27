@@ -1,9 +1,11 @@
 {
   "cli_version": "dev",
   "checkpoint_id": "4790d9fad21c",
+  "session_id": "019e6959-fb56-72a1-a03a-02f35a43ca75",
   "strategy": "manual-commit",
+  "created_at": "2026-05-27T13:52:42.869622615Z",
   "branch": "alternates",
-  "checkpoints_count": 7,
+  "checkpoints_count": 0,
   "files_touched": [
     "cmd/entire/cli/attach.go",
     "cmd/entire/cli/benchutil/benchutil.go",
@@ -34,7 +36,6 @@
     "cmd/entire/cli/strategy/checkpoint_remote.go",
     "cmd/entire/cli/strategy/cleanup.go",
     "cmd/entire/cli/strategy/common.go",
-    "cmd/entire/cli/strategy/generation_repair.go",
     "cmd/entire/cli/strategy/manual_commit.go",
     "cmd/entire/cli/strategy/manual_commit_condensation.go",
     "cmd/entire/cli/strategy/manual_commit_git.go",
@@ -51,55 +52,35 @@
     "cmd/entire/cli/testutil/testutil.go",
     "cmd/entire/cli/trail_cmd.go"
   ],
-  "sessions": [
-    {
-      "metadata": "/47/90d9fad21c/0/metadata.json",
-      "transcript": "/47/90d9fad21c/0/full.jsonl",
-      "content_hash": "/47/90d9fad21c/0/content_hash.txt",
-      "prompt": "/47/90d9fad21c/0/prompt.txt"
-    },
-    {
-      "metadata": "/47/90d9fad21c/1/metadata.json",
-      "transcript": "/47/90d9fad21c/1/full.jsonl",
-      "content_hash": "/47/90d9fad21c/1/content_hash.txt",
-      "prompt": "/47/90d9fad21c/1/prompt.txt"
-    },
-    {
-      "metadata": "/47/90d9fad21c/2/metadata.json",
-      "transcript": "/47/90d9fad21c/2/full.jsonl",
-      "content_hash": "/47/90d9fad21c/2/content_hash.txt",
-      "prompt": "/47/90d9fad21c/2/prompt.txt"
-    },
-    {
-      "metadata": "/47/90d9fad21c/3/metadata.json",
-      "transcript": "/47/90d9fad21c/3/full.jsonl",
-      "content_hash": "/47/90d9fad21c/3/content_hash.txt",
-      "prompt": ""
-    },
-    {
-      "metadata": "/47/90d9fad21c/4/metadata.json",
-      "transcript": "/47/90d9fad21c/4/full.jsonl",
-      "content_hash": "/47/90d9fad21c/4/content_hash.txt",
-      "prompt": "/47/90d9fad21c/4/prompt.txt"
-    }
-  ],
+  "agent": "Codex",
+  "model": "gpt-5.5",
+  "turn_id": "b60bfe052322",
   "token_usage": {
-    "input_tokens": 1935962,
+    "input_tokens": 71769,
     "cache_creation_tokens": 0,
-    "cache_read_tokens": 67018496,
-    "output_tokens": 160251,
-    "api_call_count": 520
+    "cache_read_tokens": 558464,
+    "output_tokens": 4943,
+    "api_call_count": 17
   },
-  "combined_attribution": {
-    "calculated_at": "2026-05-27T12:28:12.349124801Z",
-    "agent_lines": 749,
-    "agent_removed": 169,
+  "initial_attribution": {
+    "calculated_at": "2026-05-27T13:52:42.851668199Z",
+    "agent_lines": 365,
+    "agent_removed": 71,
     "human_added": 0,
     "human_modified": 0,
     "human_removed": 0,
-    "total_committed": 749,
-    "total_lines_changed": 918,
+    "total_committed": 365,
+    "total_lines_changed": 436,
     "agent_percentage": 100,
     "metric_version": 2
-  }
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
 }
