@@ -281,3 +281,7 @@ Return only high-confidence findings with concrete file:line evidence, severity,
 2 is a temporary change but feel free to ignore the output since this branch will most likely not be merged anyways
 
 The rest can be fixed batched
+
+---
+
+Commit the changes
