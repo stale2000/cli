@@ -1,0 +1,49 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "904733f9c40f",
+  "session_id": "019e6936-7d88-7071-88e1-d8b5bb314cc1",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-27T12:05:13.023387686Z",
+  "branch": "pjbgf/resync",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/strategy/common.go"
+  ],
+  "agent": "Codex",
+  "model": "gpt-5.5",
+  "turn_id": "d67086277ae3",
+  "token_usage": {
+    "input_tokens": 349241,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 11617408,
+    "output_tokens": 30995,
+    "api_call_count": 95
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-27T12:05:12.986261556Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 7,
+    "total_committed": 0,
+    "total_lines_changed": 7,
+    "agent_percentage": 0,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 15,
+      "user_lines_removed": 7,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        "cmd/entire/cli/strategy/common.go": 15
+      },
+      "user_removed_per_file": {
+        "cmd/entire/cli/strategy/common.go": 7
+      }
+    }
+  ]
+}
