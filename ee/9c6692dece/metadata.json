@@ -1,0 +1,25 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "ee9c6692dece",
+  "strategy": "manual-commit",
+  "branch": "hooks-slow-push-db-mirror",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/gitrepo/alternates_fs.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/ee/9c6692dece/0/metadata.json",
+      "transcript": "/ee/9c6692dece/0/full.jsonl",
+      "content_hash": "/ee/9c6692dece/0/content_hash.txt",
+      "prompt": "/ee/9c6692dece/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 51721,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 792320,
+    "output_tokens": 4284,
+    "api_call_count": 14
+  }
+}

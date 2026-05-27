@@ -1,0 +1,1 @@
+Fix linter errors on [entireio/cli#1281](https://github.com/entireio/cli/pull/1281)
