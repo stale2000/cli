@@ -1,0 +1,110 @@
+Commit the changes
+
+---
+
+Context for implementation agent: migrate-v2-checkpoints validation follow-up
+
+Repo under validation:
+- /Users/pfleidi/entire/fleet
+
+Tool/runbook:
+- Tool: /Users/pfleidi/entire/cli/.worktrees/review/migrate-v2-checkpoints
+- Validation instructions: /Users/pfleidi/entire/cli/.worktrees/review/cmd/migrate-v2-checkpoints/VALIDATION.md
+- Applied migration output: /tmp/migrate.applied
+
+Critical safety constraint:
+- Do NOT push entire/checkpoints/v1 or any checkpoint ref while investigating.
+- Local v1 has advanced; remote tracking v1 has not.
+
+Current refs after manual apply:
+- refs/heads/entire/checkpoints/v1 = 12b9344a
+- refs/remotes/origin/entire/checkpoints/v1 = 58750292
+- main working tree status was clean: `## main...origin/main`
+
+What was validated successfully:
+- /tmp/migrate.applied reported:
+  - discovered checkpoints: 220
+  - already present v1 sessions: 91
+  - missing v2 checkpoint metadata: 27
+  - missing required v2 session metadata: 0
+  - missing raw transcripts: 32
+  - checkpoints eligible for migration: 81
+  - sessions eligible for migration: 84
+  - migrated checkpoints: 81
+  - migrated sessions: 84
+- I reconstructed migrated sessions by comparing pre-apply baseline `refs/remotes/origin/entire/checkpoints/v1` to local `entire/checkpoints/v1`:
+  - candidate_count=81
+  - identified_migrated_sessions=84
+  - agent_count=Claude Code 84
+- Per-session metadata parity against v2 for expected migrated fields:
+  - command checked 84 sessions
+  - output: `session_metadata_checked=84`
+  - exit 0
+- Prompt validation:
+  - output: `prompt_sessions_checked=84`, `prompt_hash_checked=69`, `prompt_absent_checked=15`
+  - exit 0
+  - Note: 15 sessions have no v2 prompt.txt and v1 also wrote no prompt.txt; root session prompt path is empty for those, which is source-consistent but stricter than the runbook's assumed hard requirement.
+- Transcript/content hash validation:
+  - output: `transcript_sessions_checked=84`, `self_hash_ok=84`, `raw_hash_ok=84`, `codex_raw_hash_skipped=0`
+  - exit 0
+
+Important residual failure after apply:
+A fresh dry-run after the manual migration still reports eligible work:
+
+```
+Migration plan:
+  discovered checkpoints: 229
+  already present v1 sessions: 180
+  missing v2 checkpoint metadata: 27
+  missing required v2 session metadata: 0
+  missing raw transcripts: 32
+  checkpoints eligible for migration: 4
+  v2 orphan checkpoints eligible for migration: 4
+  sessions eligible for migration: 5
+  checkpoints to migrate:
+    514b37510d64 sessions=2 commits=(orphan)
+    60688d6dbc88 sessions=1 commits=(orphan)
+    7b6836cc97bd sessions=1 commits=(orphan)
+    c074a33d618c sessions=1 commits=(orphan)
+```
+
+Focused inspection of those residual IDs:
+- 514b37510d64: v1=absent, v2_sessions=2, raw_sessions=2
+- 60688d6dbc88: v1=absent, v2_sessions=1, raw_sessions=1
+- 7b6836cc97bd: v1=absent, v2_sessions=1, raw_sessions=1
+- c074a33d618c: v1=absent, v2_sessions=1, raw_sessions=1
+
+Earlier pre-apply dry run did NOT include these as candidates because they were not discovered from commit history. They existed as v2-only checkpoint IDs not discovered by history:
+- 514b37510d64
+- 60688d6dbc88
+- 7b6836cc97bd
+- c074a33d618c
+
+Hypothesis to investigate:
+- The tool appears to include v2 orphan checkpoints in post-apply discovery, but they were not included in the original /tmp/migrate.applied run. Determine whether this is intended behavior, an idempotency/reporting bug, or whether the migration needs a second apply pass for orphan checkpoints.
+- If intended, update validation/runbook expectations and/or tool output semantics.
+- If not intended, fix candidate discovery/apply consistency so a single apply fully migrates all eligible v2 checkpoints, including orphans, or ensure dry-run/apply reports are stable and explicit.
+
+Commands useful for reproduction:
+- `/Users/pfleidi/entire/cli/.worktrees/review/migrate-v2-checkpoints --repo /Users/pfleidi/entire/fleet --dry-run | tee /tmp/migrate.postplan`
+- `git -C /Users/pfleidi/entire/fleet for-each-ref --format='%(refname) %(objectname:short)' 'refs/heads/entire/checkpoints/v1' 'refs/remotes/*/entire/checkpoints/v1'`
+- For each residual ID, inspect v2/v1:
+  - `ID=514b37510d64; SHARD=${ID:0:2}/${ID:2}`
+  - `git -C /Users/pfleidi/entire/fleet cat-file -p refs/entire/checkpoints/v2/main:"$SHARD/metadata.json" | jq .`
+  - `git -C /Users/pfleidi/entire/fleet cat-file -p entire/checkpoints/v1:"$SHARD/metadata.json" 2>/dev/null || echo absent`
+
+---
+
+Can you update the runbook to list the command like this: ```
+entire/cli/.worktrees/review/migrate-v2-checkpoints --repo /Users/pfleidi/entire/fleet --apply | tee /tmp/migrate-${repo-name}.applied
+```
+
+But don't run the migration yourself. That's a task that should be done manually
+
+---
+
+It looks like linter jobs fail for the pull request are failing
+
+---
+
+These changes ALL look unrelated to the ones failing in CI. That's not good enough since most of them seem unnecessary!
