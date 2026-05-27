@@ -208,3 +208,7 @@ I just ran into a situation where the remote v2 ref was not available locally. I
 ---
 
 Do it
+
+---
+
+commit the changes
