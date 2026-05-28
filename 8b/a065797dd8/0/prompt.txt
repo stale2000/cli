@@ -208,3 +208,25 @@ how do i get to the build binary
 ---
 
 i still don't see the checkpoints or sessions, Reviewing main vs main: 0 commits, 0 files changed, 2 uncommitted
+
+---
+
+can you tell me steps again
+
+---
+
+peytonmontei@Peytons-MacBook-Pro /t/smoke-test (main)> /tmp/entire-pr2 review --help
+fish: Unknown command: /tmp/entire-pr2
+
+---
+
+can you replace/rewrite
+
+---
+
+okay i see, can we test on a branch with both checkpoints and sessions so i can see it wokring
+
+---
+
+i want it to actually like sessioons and checkpoints, Including session and checkpoint context from this branch's
+  history. - not just generic message

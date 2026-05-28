@@ -3,7 +3,7 @@
   "checkpoint_id": "8ba065797dd8",
   "session_id": "385b045a-e657-40ab-847a-dacebe67cae4",
   "strategy": "manual-commit",
-  "created_at": "2026-05-21T18:12:33.5591Z",
+  "created_at": "2026-05-28T07:17:10.809417Z",
   "branch": "review-cutover",
   "checkpoints_count": 1,
   "files_touched": [
@@ -12,26 +12,26 @@
   ],
   "agent": "Claude Code",
   "model": "",
-  "turn_id": "09ec33004e62",
+  "turn_id": "c7f0a59b4505",
   "token_usage": {
-    "input_tokens": 902,
-    "cache_creation_tokens": 3571026,
-    "cache_read_tokens": 205960021,
-    "output_tokens": 493901,
-    "api_call_count": 461
+    "input_tokens": 939,
+    "cache_creation_tokens": 3586872,
+    "cache_read_tokens": 215744280,
+    "output_tokens": 504844,
+    "api_call_count": 473
   },
   "session_metrics": {
-    "turn_count": 7
+    "turn_count": 12
   },
   "initial_attribution": {
-    "calculated_at": "2026-05-21T18:12:33.49268Z",
+    "calculated_at": "2026-05-28T07:17:10.742742Z",
     "agent_lines": 0,
     "agent_removed": 0,
-    "human_added": 388,
+    "human_added": 590,
     "human_modified": 0,
     "human_removed": 0,
-    "total_committed": 388,
-    "total_lines_changed": 425,
+    "total_committed": 590,
+    "total_lines_changed": 659,
     "agent_percentage": 0,
     "metric_version": 2
   },
