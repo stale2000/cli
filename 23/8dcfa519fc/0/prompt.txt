@@ -224,3 +224,7 @@ Can we ensure that the commits made via the migration tool have the same author 
 ---
 
 Do it
+
+---
+
+Commit and continue
