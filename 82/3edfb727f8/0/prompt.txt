@@ -1,0 +1,9 @@
+Ok, I want us to integrate the commands from https://github.com/entirehq/entiredb/pull/1339 (it's checked out in ../entiredb) directly into the cli, can you take a look what that would mean? Basically we want "entire repo" (hidden) but show up under "entire labs".
+
+---
+
+The issue is a bit that the cli is open source, entiredb isn't yet. Also these parts should move fully into the cli repo going forward but I guess there is more code that is shared between db and cli?
+
+---
+
+yeah sorry, maybe just start with vendoring
