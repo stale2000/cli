@@ -1,0 +1,58 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "6de31b509acf",
+  "session_id": "019e6dab-229c-72c3-9675-4fa3e250b172",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-28T09:20:23.081907278Z",
+  "branch": "alter2",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/gitrepo/repository.go",
+    "cmd/entire/cli/gitrepo/repository_test.go",
+    "cmd/entire/cli/strategy/push_common_test.go",
+    "cmd/entire/cli/testutil/testutil.go"
+  ],
+  "agent": "Codex",
+  "model": "gpt-5.5",
+  "turn_id": "7ca75bb64f37",
+  "token_usage": {
+    "input_tokens": 227053,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 6006400,
+    "output_tokens": 21015,
+    "api_call_count": 51
+  },
+  "session_metrics": {
+    "turn_count": 1
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-28T09:20:23.056548858Z",
+    "agent_lines": 172,
+    "agent_removed": 3,
+    "human_added": 137,
+    "human_modified": 2,
+    "human_removed": 0,
+    "total_committed": 311,
+    "total_lines_changed": 314,
+    "agent_percentage": 55.73248407643312,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 280,
+      "user_lines_removed": 2,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        "cmd/entire/cli/gitrepo/alternates_rewrite.go": 102,
+        "cmd/entire/cli/gitrepo/repository.go": 6,
+        "cmd/entire/cli/gitrepo/repository_test.go": 32,
+        "e2e/tests/alternates_test.go": 140
+      },
+      "user_removed_per_file": {
+        "cmd/entire/cli/gitrepo/repository.go": 2
+      }
+    }
+  ]
+}
