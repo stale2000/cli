@@ -1,0 +1,64 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "dc5a3c686792",
+  "session_id": "019e6b5e-625c-7793-a614-f57c4e6d03f1",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-28T00:38:08.865508Z",
+  "branch": "fix/checkpoints-v2-remove-dual-reads",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/explain.go",
+    "cmd/entire/cli/resume.go"
+  ],
+  "agent": "Codex",
+  "model": "gpt-5.5",
+  "turn_id": "9067fe9c953d",
+  "checkpoint_transcript_start": 2376,
+  "transcript_lines_at_start": 2376,
+  "token_usage": {
+    "input_tokens": 135193,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 4985984,
+    "output_tokens": 11718,
+    "api_call_count": 44
+  },
+  "session_metrics": {
+    "turn_count": 11
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-28T00:38:08.761058Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 4,
+    "total_committed": 0,
+    "total_lines_changed": 4,
+    "agent_percentage": 0,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 4,
+      "user_lines_removed": 4,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        "cmd/entire/cli/explain.go": 2,
+        "cmd/entire/cli/resume.go": 2
+      },
+      "user_removed_per_file": {
+        "cmd/entire/cli/explain.go": 2,
+        "cmd/entire/cli/resume.go": 2
+      }
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 4,
+      "agent_lines_removed": 4
+    }
+  ]
+}
