@@ -1,0 +1,17 @@
+Update absolutizedAlternates so that instead of ReadAll, we only read the first line, limiting it to 4096 length.
+
+---
+
+Add table driven tests to confirm: limit of data being loaded, lines starting with # are ignored
+
+---
+
+Add a TestOpenPath_MultipleAlternates to consider nested relative alternates
+
+---
+
+Add a test to confirm linked worktree + relative alternate in common dir works
+
+---
+
+Review the current logic, ensuring that we support multiple uncommented lines - therefore supporting multiple alternates
