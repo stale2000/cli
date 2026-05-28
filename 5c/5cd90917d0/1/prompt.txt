@@ -1,0 +1,1 @@
+Address Soph's comment on https://github.com/entireio/cli/pull/1282. Don't update the PR comments, just make the necessary code changes
