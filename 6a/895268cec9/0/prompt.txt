@@ -413,3 +413,13 @@ it opened the browser and started an auth process
 <status>completed</status>
 <summary>Background command "Smoke test with real HOME (no isolation)" completed (exit code 0)</summary>
 </task-notification>
+
+---
+
+<task-notification>
+<task-id>bzuybjckk</task-id>
+<tool-use-id>toolu_013EK9xbX7PAst3sf7o8Umzp</tool-use-id>
+<output-file>/private/tmp/claude-501/-Users-soph-Work-entire-devenv-cli-experiments-2/3d34e347-ea61-4dbf-adcc-3aac69de1140/tasks/bzuybjckk.output</output-file>
+<status>completed</status>
+<summary>Background command "Smoke test with --add-dir fix" completed (exit code 0)</summary>
+</task-notification>
