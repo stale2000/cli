@@ -3,7 +3,7 @@
   "checkpoint_id": "b13ed8c7932b",
   "strategy": "manual-commit",
   "branch": "tmp-migrate-v2-script-go",
-  "checkpoints_count": 2,
+  "checkpoints_count": 3,
   "files_touched": [
     "cmd/entire/cli/checkpoint/committed.go",
     "cmd/entire/cli/checkpoint/committed_signing_test.go",
@@ -16,13 +16,19 @@
       "transcript": "/b1/3ed8c7932b/0/full.jsonl",
       "content_hash": "/b1/3ed8c7932b/0/content_hash.txt",
       "prompt": "/b1/3ed8c7932b/0/prompt.txt"
+    },
+    {
+      "metadata": "/b1/3ed8c7932b/1/metadata.json",
+      "transcript": "/b1/3ed8c7932b/1/full.jsonl",
+      "content_hash": "/b1/3ed8c7932b/1/content_hash.txt",
+      "prompt": "/b1/3ed8c7932b/1/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 5264189,
+    "input_tokens": 5324491,
     "cache_creation_tokens": 0,
-    "cache_read_tokens": 153318528,
-    "output_tokens": 468056,
-    "api_call_count": 1179
+    "cache_read_tokens": 154426496,
+    "output_tokens": 476251,
+    "api_call_count": 1203
   }
 }
