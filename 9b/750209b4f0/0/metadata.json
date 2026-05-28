@@ -1,0 +1,67 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "9b750209b4f0",
+  "session_id": "d0e4f93c-559a-4d88-8100-9fbcad6a7190",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-28T10:05:36.737437985Z",
+  "branch": "alter2",
+  "checkpoints_count": 3,
+  "files_touched": [
+    "cmd/entire/cli/gitrepo/alternates_rewrite_test.go"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-7[1m]",
+  "turn_id": "d6215f1e4861",
+  "token_usage": {
+    "input_tokens": 35,
+    "cache_creation_tokens": 46210,
+    "cache_read_tokens": 840637,
+    "output_tokens": 3843,
+    "api_call_count": 15
+  },
+  "session_metrics": {
+    "turn_count": 3
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-28T10:05:36.732989286Z",
+    "agent_lines": 11,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 11,
+    "total_lines_changed": 11,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 5,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 11,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 4,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 11,
+      "agent_lines_removed": 0
+    }
+  ]
+}

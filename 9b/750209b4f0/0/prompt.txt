@@ -1,0 +1,9 @@
+In TestAbsolutizedAlternates add a test case for empty lines too
+
+---
+
+It should also include a test case whereby there are empty lines in between two alternate paths
+
+---
+
+commit

@@ -1,0 +1,25 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "9b750209b4f0",
+  "strategy": "manual-commit",
+  "branch": "alter2",
+  "checkpoints_count": 3,
+  "files_touched": [
+    "cmd/entire/cli/gitrepo/alternates_rewrite_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/9b/750209b4f0/0/metadata.json",
+      "transcript": "/9b/750209b4f0/0/full.jsonl",
+      "content_hash": "/9b/750209b4f0/0/content_hash.txt",
+      "prompt": "/9b/750209b4f0/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 35,
+    "cache_creation_tokens": 46210,
+    "cache_read_tokens": 840637,
+    "output_tokens": 3843,
+    "api_call_count": 15
+  }
+}
