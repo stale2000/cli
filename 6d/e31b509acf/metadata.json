@@ -3,8 +3,9 @@
   "checkpoint_id": "6de31b509acf",
   "strategy": "manual-commit",
   "branch": "alter2",
-  "checkpoints_count": 1,
+  "checkpoints_count": 2,
   "files_touched": [
+    "cmd/entire/cli/gitrepo/alternates_rewrite.go",
     "cmd/entire/cli/gitrepo/repository.go",
     "cmd/entire/cli/gitrepo/repository_test.go",
     "cmd/entire/cli/strategy/push_common_test.go",
@@ -16,13 +17,19 @@
       "transcript": "/6d/e31b509acf/0/full.jsonl",
       "content_hash": "/6d/e31b509acf/0/content_hash.txt",
       "prompt": "/6d/e31b509acf/0/prompt.txt"
+    },
+    {
+      "metadata": "/6d/e31b509acf/1/metadata.json",
+      "transcript": "/6d/e31b509acf/1/full.jsonl",
+      "content_hash": "/6d/e31b509acf/1/content_hash.txt",
+      "prompt": "/6d/e31b509acf/1/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 227053,
-    "cache_creation_tokens": 0,
-    "cache_read_tokens": 6006400,
-    "output_tokens": 21015,
-    "api_call_count": 51
+    "input_tokens": 227127,
+    "cache_creation_tokens": 392608,
+    "cache_read_tokens": 17531602,
+    "output_tokens": 92660,
+    "api_call_count": 88
   }
 }

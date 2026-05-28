@@ -1,0 +1,10 @@
+Using the current version of this branch, when pushing ~/git/tasks/wire-proto/entirehq-entiredb I get the error:
+gpsup
+[entire] Pushing entire/checkpoints/v1 to origin.....
+[entire] Syncing entire/checkpoints/v1 with remote......
+[entire] Warning: couldn't sync entire/checkpoints/v1: failed to collect local commits: failed to get commit 4bcc908c98a26d48b1b4b818a77a2d36759c281e: object not found
+
+However, the commit actually exists:
+git cat-file -p 4bcc908c98a26d48b1b4b818a77a2d36759c281e
+tree 1bfa40fc9f55fed229e69974f4d81a39d97bd1fe
+parent 42ff5a7f6672635f094dc676839dc4fb6867ba32
