@@ -3,7 +3,7 @@
   "checkpoint_id": "79dde9bf9b95",
   "strategy": "manual-commit",
   "branch": "fix/checkpoints-v2-remove-dual-reads",
-  "checkpoints_count": 1,
+  "checkpoints_count": 2,
   "files_touched": [
     ".github/workflows/e2e.yml",
     ".golangci.yaml",
@@ -125,13 +125,19 @@
       "transcript": "/79/dde9bf9b95/0/full.jsonl",
       "content_hash": "/79/dde9bf9b95/0/content_hash.txt",
       "prompt": "/79/dde9bf9b95/0/prompt.txt"
+    },
+    {
+      "metadata": "/79/dde9bf9b95/1/metadata.json",
+      "transcript": "/79/dde9bf9b95/1/full.jsonl",
+      "content_hash": "/79/dde9bf9b95/1/content_hash.txt",
+      "prompt": "/79/dde9bf9b95/1/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 178266,
-    "cache_creation_tokens": 0,
-    "cache_read_tokens": 2736896,
-    "output_tokens": 10078,
-    "api_call_count": 26
+    "input_tokens": 178311,
+    "cache_creation_tokens": 126944,
+    "cache_read_tokens": 5407598,
+    "output_tokens": 30833,
+    "api_call_count": 53
   }
 }

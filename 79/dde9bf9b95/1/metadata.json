@@ -1,0 +1,37 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "79dde9bf9b95",
+  "session_id": "e186db7c-c54f-446b-a2ee-97fd3519fb42",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-28T00:53:19.701793Z",
+  "branch": "fix/checkpoints-v2-remove-dual-reads",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/strategy/manual_commit_condensation.go"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-7[1m]",
+  "turn_id": "6e328c89ffbb",
+  "token_usage": {
+    "input_tokens": 45,
+    "cache_creation_tokens": 126944,
+    "cache_read_tokens": 2670702,
+    "output_tokens": 20755,
+    "api_call_count": 27
+  },
+  "session_metrics": {
+    "turn_count": 3
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-28T00:53:19.694292Z",
+    "agent_lines": 3,
+    "agent_removed": 0,
+    "human_added": 14951,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 14954,
+    "total_lines_changed": 15359,
+    "agent_percentage": 0.019532521648544826,
+    "metric_version": 2
+  }
+}
