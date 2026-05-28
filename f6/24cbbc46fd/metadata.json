@@ -1,0 +1,28 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "f624cbbc46fd",
+  "strategy": "manual-commit",
+  "branch": "fix/checkpoints-v2-remove-dual-reads",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "cmd/entire/cli/checkpoint/committed_reader_resolve.go",
+    "cmd/entire/cli/explain.go",
+    "cmd/entire/cli/explain_export_test.go",
+    "cmd/entire/cli/resume.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/f6/24cbbc46fd/0/metadata.json",
+      "transcript": "/f6/24cbbc46fd/0/full.jsonl",
+      "content_hash": "/f6/24cbbc46fd/0/content_hash.txt",
+      "prompt": "/f6/24cbbc46fd/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 129328,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 8598016,
+    "output_tokens": 19501,
+    "api_call_count": 48
+  }
+}

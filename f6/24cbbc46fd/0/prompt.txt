@@ -1,0 +1,204 @@
+commit and continue
+
+---
+
+$pfleidi:review
+
+---
+
+Code review Agent 1: Security & Adversarial.
+
+Base ref: origin/main. Review exactly `git diff origin/main` in the current working tree. Do not use local main, merge-base, or any alternate base. Include committed and uncommitted changes.
+
+Changed files (50):
+CLAUDE.md
+cmd/entire/cli/attach.go
+cmd/entire/cli/checkpoint/checkpoint.go
+cmd/entire/cli/checkpoint/committed_reader_resolve.go
+cmd/entire/cli/checkpoint/committed_reader_resolve_test.go
+cmd/entire/cli/checkpoint/v2_fixture_test.go
+cmd/entire/cli/checkpoint/v2_read.go
+cmd/entire/cli/checkpoint/v2_read_test.go
+cmd/entire/cli/checkpoint/v2_resolve.go
+cmd/entire/cli/checkpoint/v2_resolve_test.go
+cmd/entire/cli/checkpoint/v2_store.go
+cmd/entire/cli/checkpoint/v2_store_test.go
+cmd/entire/cli/clean_test.go
+cmd/entire/cli/dispatch/mode_local.go
+cmd/entire/cli/dispatch/mode_local_test.go
+cmd/entire/cli/explain.go
+cmd/entire/cli/explain_export.go
+cmd/entire/cli/explain_export_test.go
+cmd/entire/cli/explain_test.go
+cmd/entire/cli/fetch_no_config_pollution_test.go
+cmd/entire/cli/git_operations.go
+cmd/entire/cli/integration_test/explain_test.go
+cmd/entire/cli/integration_test/testenv.go
+cmd/entire/cli/integration_test/v2_resume_test.go
+cmd/entire/cli/migrate.go
+cmd/entire/cli/migrate_test.go
+cmd/entire/cli/paths/paths.go
+cmd/entire/cli/resume.go
+cmd/entire/cli/resume_test.go
+cmd/entire/cli/review_context.go
+cmd/entire/cli/review_helpers.go
+cmd/entire/cli/rewind.go
+cmd/entire/cli/root.go
+cmd/entire/cli/settings/settings.go
+cmd/entire/cli/settings/settings_test.go
+cmd/entire/cli/strategy/checkpoint_remote.go
+cmd/entire/cli/strategy/checkpoint_remote_test.go
+cmd/entire/cli/strategy/common.go
+cmd/entire/cli/strategy/manual_commit.go
+cmd/entire/cli/strategy/manual_commit_condensation.go
+cmd/entire/cli/strategy/manual_commit_push.go
+cmd/entire/cli/strategy/manual_commit_rewind.go
+cmd/entire/cli/strategy/manual_commit_test.go
+cmd/entire/cli/strategy/metadata_reconcile.go
+cmd/entire/cli/strategy/push_common_test.go
+cmd/entire/cli/strategy/session.go
+cmd/entire/cli/strategy/session_test.go
+cmd/entire/cli/strategy/v2_checkpoint_fixture_test.go
+cmd/entire/cli/v2_checkpoint_fixture_test.go
+e2e/tests/doctor_test.go
+
+Review philosophy:
+- It is OK to find nothing. A clean review is valid. Do not manufacture findings.
+- Be opinionated and consistent. If a pattern is acceptable, do not flag it.
+- Do not flag trade-offs with no clear winner.
+- High confidence only: every finding must be a concrete problem you can explain specifically.
+
+Security/adversarial focus: injection, command injection, path traversal, TOCTOU/race conditions, unvalidated input at system boundaries, auth/authz gaps, secrets/credentials. For each finding, read actual source and trace reachability in production. Discard anything you cannot confirm with concrete code references.
+
+Return findings only. For each finding include severity, Required vs Improvement, exact file:line, issue, impact, evidence, and suggested fix. If no high-confidence findings, say so clearly.
+
+---
+
+Code review Agent 2: Correctness & Quality.
+
+Base ref: origin/main. Review exactly `git diff origin/main` in the current working tree. Do not use local main, merge-base, or any alternate base. Include committed and uncommitted changes.
+
+Changed files (50): CLAUDE.md; cmd/entire/cli/attach.go; cmd/entire/cli/checkpoint/checkpoint.go; cmd/entire/cli/checkpoint/committed_reader_resolve.go; cmd/entire/cli/checkpoint/committed_reader_resolve_test.go; cmd/entire/cli/checkpoint/v2_fixture_test.go; cmd/entire/cli/checkpoint/v2_read.go; cmd/entire/cli/checkpoint/v2_read_test.go; cmd/entire/cli/checkpoint/v2_resolve.go; cmd/entire/cli/checkpoint/v2_resolve_test.go; cmd/entire/cli/checkpoint/v2_store.go; cmd/entire/cli/checkpoint/v2_store_test.go; cmd/entire/cli/clean_test.go; cmd/entire/cli/dispatch/mode_local.go; cmd/entire/cli/dispatch/mode_local_test.go; cmd/entire/cli/explain.go; cmd/entire/cli/explain_export.go; cmd/entire/cli/explain_export_test.go; cmd/entire/cli/explain_test.go; cmd/entire/cli/fetch_no_config_pollution_test.go; cmd/entire/cli/git_operations.go; cmd/entire/cli/integration_test/explain_test.go; cmd/entire/cli/integration_test/testenv.go; cmd/entire/cli/integration_test/v2_resume_test.go; cmd/entire/cli/migrate.go; cmd/entire/cli/migrate_test.go; cmd/entire/cli/paths/paths.go; cmd/entire/cli/resume.go; cmd/entire/cli/resume_test.go; cmd/entire/cli/review_context.go; cmd/entire/cli/review_helpers.go; cmd/entire/cli/rewind.go; cmd/entire/cli/root.go; cmd/entire/cli/settings/settings.go; cmd/entire/cli/settings/settings_test.go; cmd/entire/cli/strategy/checkpoint_remote.go; cmd/entire/cli/strategy/checkpoint_remote_test.go; cmd/entire/cli/strategy/common.go; cmd/entire/cli/strategy/manual_commit.go; cmd/entire/cli/strategy/manual_commit_condensation.go; cmd/entire/cli/strategy/manual_commit_push.go; cmd/entire/cli/strategy/manual_commit_rewind.go; cmd/entire/cli/strategy/manual_commit_test.go; cmd/entire/cli/strategy/metadata_reconcile.go; cmd/entire/cli/strategy/push_common_test.go; cmd/entire/cli/strategy/session.go; cmd/entire/cli/strategy/session_test.go; cmd/entire/cli/strategy/v2_checkpoint_fixture_test.go; cmd/entire/cli/v2_checkpoint_fixture_test.go; e2e/tests/doctor_test.go.
+
+Review philosophy: clean review is valid; do not manufacture findings; be consistent; skip trade-offs with no clear winner; high confidence only.
+
+Correctness/quality focus: logic errors, nil handling, missing error checks, concurrency edge cases, redundant state, parameter sprawl, leaky abstractions, stringly typed code, changed code paths not exercised by tests. Verify each claim by reading source and call sites.
+
+Return findings only with severity, Required vs Improvement, exact file:line, issue, impact, evidence, suggested fix. If no high-confidence findings, say so clearly.
+
+---
+
+Code review Agent 3: Simplification & Efficiency.
+
+Base ref: origin/main. Review exactly `git diff origin/main` in the current working tree. Do not use local main, merge-base, or any alternate base. Include committed and uncommitted changes.
+
+Changed files (50): CLAUDE.md; cmd/entire/cli/attach.go; cmd/entire/cli/checkpoint/checkpoint.go; cmd/entire/cli/checkpoint/committed_reader_resolve.go; cmd/entire/cli/checkpoint/committed_reader_resolve_test.go; cmd/entire/cli/checkpoint/v2_fixture_test.go; cmd/entire/cli/checkpoint/v2_read.go; cmd/entire/cli/checkpoint/v2_read_test.go; cmd/entire/cli/checkpoint/v2_resolve.go; cmd/entire/cli/checkpoint/v2_resolve_test.go; cmd/entire/cli/checkpoint/v2_store.go; cmd/entire/cli/checkpoint/v2_store_test.go; cmd/entire/cli/clean_test.go; cmd/entire/cli/dispatch/mode_local.go; cmd/entire/cli/dispatch/mode_local_test.go; cmd/entire/cli/explain.go; cmd/entire/cli/explain_export.go; cmd/entire/cli/explain_export_test.go; cmd/entire/cli/explain_test.go; cmd/entire/cli/fetch_no_config_pollution_test.go; cmd/entire/cli/git_operations.go; cmd/entire/cli/integration_test/explain_test.go; cmd/entire/cli/integration_test/testenv.go; cmd/entire/cli/integration_test/v2_resume_test.go; cmd/entire/cli/migrate.go; cmd/entire/cli/migrate_test.go; cmd/entire/cli/paths/paths.go; cmd/entire/cli/resume.go; cmd/entire/cli/resume_test.go; cmd/entire/cli/review_context.go; cmd/entire/cli/review_helpers.go; cmd/entire/cli/rewind.go; cmd/entire/cli/root.go; cmd/entire/cli/settings/settings.go; cmd/entire/cli/settings/settings_test.go; cmd/entire/cli/strategy/checkpoint_remote.go; cmd/entire/cli/strategy/checkpoint_remote_test.go; cmd/entire/cli/strategy/common.go; cmd/entire/cli/strategy/manual_commit.go; cmd/entire/cli/strategy/manual_commit_condensation.go; cmd/entire/cli/strategy/manual_commit_push.go; cmd/entire/cli/strategy/manual_commit_rewind.go; cmd/entire/cli/strategy/manual_commit_test.go; cmd/entire/cli/strategy/metadata_reconcile.go; cmd/entire/cli/strategy/push_common_test.go; cmd/entire/cli/strategy/session.go; cmd/entire/cli/strategy/session_test.go; cmd/entire/cli/strategy/v2_checkpoint_fixture_test.go; cmd/entire/cli/v2_checkpoint_fixture_test.go; e2e/tests/doctor_test.go.
+
+Review philosophy: clean review is valid; do not manufacture findings; be consistent; skip trade-offs with no clear winner; high confidence only.
+
+Simplification/efficiency focus: dead code, existing utilities that could replace new code, copy-paste with variation, unnecessary abstractions, unnecessary work, missed concurrency, hot-path bloat, TOCTOU existence checks, unnecessary comments. Verify suggestions do not break behavior by checking call sites and usages. Discard cosmetic-only suggestions.
+
+Return findings only with severity, Required vs Improvement, exact file:line, issue, impact, evidence, suggested fix. If no high-confidence findings, say so clearly.
+
+---
+
+Code review Agent 4: Readability & Go Idioms.
+
+Base ref: origin/main. Review exactly `git diff origin/main` in the current working tree. Do not use local main, merge-base, or any alternate base. Include committed and uncommitted changes.
+
+Changed files (50): CLAUDE.md; cmd/entire/cli/attach.go; cmd/entire/cli/checkpoint/checkpoint.go; cmd/entire/cli/checkpoint/committed_reader_resolve.go; cmd/entire/cli/checkpoint/committed_reader_resolve_test.go; cmd/entire/cli/checkpoint/v2_fixture_test.go; cmd/entire/cli/checkpoint/v2_read.go; cmd/entire/cli/checkpoint/v2_read_test.go; cmd/entire/cli/checkpoint/v2_resolve.go; cmd/entire/cli/checkpoint/v2_resolve_test.go; cmd/entire/cli/checkpoint/v2_store.go; cmd/entire/cli/checkpoint/v2_store_test.go; cmd/entire/cli/clean_test.go; cmd/entire/cli/dispatch/mode_local.go; cmd/entire/cli/dispatch/mode_local_test.go; cmd/entire/cli/explain.go; cmd/entire/cli/explain_export.go; cmd/entire/cli/explain_export_test.go; cmd/entire/cli/explain_test.go; cmd/entire/cli/fetch_no_config_pollution_test.go; cmd/entire/cli/git_operations.go; cmd/entire/cli/integration_test/explain_test.go; cmd/entire/cli/integration_test/testenv.go; cmd/entire/cli/integration_test/v2_resume_test.go; cmd/entire/cli/migrate.go; cmd/entire/cli/migrate_test.go; cmd/entire/cli/paths/paths.go; cmd/entire/cli/resume.go; cmd/entire/cli/resume_test.go; cmd/entire/cli/review_context.go; cmd/entire/cli/review_helpers.go; cmd/entire/cli/rewind.go; cmd/entire/cli/root.go; cmd/entire/cli/settings/settings.go; cmd/entire/cli/settings/settings_test.go; cmd/entire/cli/strategy/checkpoint_remote.go; cmd/entire/cli/strategy/checkpoint_remote_test.go; cmd/entire/cli/strategy/common.go; cmd/entire/cli/strategy/manual_commit.go; cmd/entire/cli/strategy/manual_commit_condensation.go; cmd/entire/cli/strategy/manual_commit_push.go; cmd/entire/cli/strategy/manual_commit_rewind.go; cmd/entire/cli/strategy/manual_commit_test.go; cmd/entire/cli/strategy/metadata_reconcile.go; cmd/entire/cli/strategy/push_common_test.go; cmd/entire/cli/strategy/session.go; cmd/entire/cli/strategy/session_test.go; cmd/entire/cli/strategy/v2_checkpoint_fixture_test.go; cmd/entire/cli/v2_checkpoint_fixture_test.go; e2e/tests/doctor_test.go.
+
+Review philosophy: clean review is valid; do not manufacture findings; be consistent; skip trade-offs with no clear winner; high confidence only.
+
+Readability/Go idiom focus: poor factoring, mixed abstraction levels, generated-code smell, data-flow opacity, control-flow complexity, naming clarity, Go API readability, error readability. Explain concrete maintenance costs. Prefer small local refactor suggestions. Discard formatting-only or personal taste comments.
+
+Return findings only with severity, Required vs Improvement, exact file:line, issue, impact, evidence, suggested fix. If no high-confidence findings, say so clearly.
+
+---
+
+Code review Agent 5: Clean Go & Modern Go.
+
+Base ref: origin/main. Review exactly `git diff origin/main` in the current working tree. Do not use local main, merge-base, or any alternate base. Include committed and uncommitted changes.
+
+Use the local `pfleidi:clean-go` skill as the source of truth: `/Users/pfleidi/.agents/skills/pfleidi/clean-go/SKILL.md`. Detect the Go version from go.mod and only suggest modern Go features available for that version. Do not do blanket modernization.
+
+Changed files (50): CLAUDE.md; cmd/entire/cli/attach.go; cmd/entire/cli/checkpoint/checkpoint.go; cmd/entire/cli/checkpoint/committed_reader_resolve.go; cmd/entire/cli/checkpoint/committed_reader_resolve_test.go; cmd/entire/cli/checkpoint/v2_fixture_test.go; cmd/entire/cli/checkpoint/v2_read.go; cmd/entire/cli/checkpoint/v2_read_test.go; cmd/entire/cli/checkpoint/v2_resolve.go; cmd/entire/cli/checkpoint/v2_resolve_test.go; cmd/entire/cli/checkpoint/v2_store.go; cmd/entire/cli/checkpoint/v2_store_test.go; cmd/entire/cli/clean_test.go; cmd/entire/cli/dispatch/mode_local.go; cmd/entire/cli/dispatch/mode_local_test.go; cmd/entire/cli/explain.go; cmd/entire/cli/explain_export.go; cmd/entire/cli/explain_export_test.go; cmd/entire/cli/explain_test.go; cmd/entire/cli/fetch_no_config_pollution_test.go; cmd/entire/cli/git_operations.go; cmd/entire/cli/integration_test/explain_test.go; cmd/entire/cli/integration_test/testenv.go; cmd/entire/cli/integration_test/v2_resume_test.go; cmd/entire/cli/migrate.go; cmd/entire/cli/migrate_test.go; cmd/entire/cli/paths/paths.go; cmd/entire/cli/resume.go; cmd/entire/cli/resume_test.go; cmd/entire/cli/review_context.go; cmd/entire/cli/review_helpers.go; cmd/entire/cli/rewind.go; cmd/entire/cli/root.go; cmd/entire/cli/settings/settings.go; cmd/entire/cli/settings/settings_test.go; cmd/entire/cli/strategy/checkpoint_remote.go; cmd/entire/cli/strategy/checkpoint_remote_test.go; cmd/entire/cli/strategy/common.go; cmd/entire/cli/strategy/manual_commit.go; cmd/entire/cli/strategy/manual_commit_condensation.go; cmd/entire/cli/strategy/manual_commit_push.go; cmd/entire/cli/strategy/manual_commit_rewind.go; cmd/entire/cli/strategy/manual_commit_test.go; cmd/entire/cli/strategy/metadata_reconcile.go; cmd/entire/cli/strategy/push_common_test.go; cmd/entire/cli/strategy/session.go; cmd/entire/cli/strategy/session_test.go; cmd/entire/cli/strategy/v2_checkpoint_fixture_test.go; cmd/entire/cli/v2_checkpoint_fixture_test.go; e2e/tests/doctor_test.go.
+
+Review philosophy: clean review is valid; do not manufacture findings; be consistent; skip trade-offs with no clear winner; high confidence only.
+
+Focus on concrete changed-code findings around composable functions, abstraction level, function size/signatures, errors, pointers, small interfaces, `any`/`interface{}`, and modern standard-library helpers. Discard findings that merely restyle existing code or require a broad unrelated rewrite.
+
+Return findings only with severity, Required vs Improvement, exact file:line, issue, impact, evidence, suggested fix. If no high-confidence findings, say so clearly.
+
+---
+
+Second-pass coverage sweep for code review.
+
+Base ref: origin/main. Review exactly `git diff origin/main` in the current working tree. Do not use local main, merge-base, or any alternate base. Include committed and uncommitted changes.
+
+Changed files (50):
+CLAUDE.md
+cmd/entire/cli/attach.go
+cmd/entire/cli/checkpoint/checkpoint.go
+cmd/entire/cli/checkpoint/committed_reader_resolve.go
+cmd/entire/cli/checkpoint/committed_reader_resolve_test.go
+cmd/entire/cli/checkpoint/v2_fixture_test.go
+cmd/entire/cli/checkpoint/v2_read.go
+cmd/entire/cli/checkpoint/v2_read_test.go
+cmd/entire/cli/checkpoint/v2_resolve.go
+cmd/entire/cli/checkpoint/v2_resolve_test.go
+cmd/entire/cli/checkpoint/v2_store.go
+cmd/entire/cli/checkpoint/v2_store_test.go
+cmd/entire/cli/clean_test.go
+cmd/entire/cli/dispatch/mode_local.go
+cmd/entire/cli/dispatch/mode_local_test.go
+cmd/entire/cli/explain.go
+cmd/entire/cli/explain_export.go
+cmd/entire/cli/explain_export_test.go
+cmd/entire/cli/explain_test.go
+cmd/entire/cli/fetch_no_config_pollution_test.go
+cmd/entire/cli/git_operations.go
+cmd/entire/cli/integration_test/explain_test.go
+cmd/entire/cli/integration_test/testenv.go
+cmd/entire/cli/integration_test/v2_resume_test.go
+cmd/entire/cli/migrate.go
+cmd/entire/cli/migrate_test.go
+cmd/entire/cli/paths/paths.go
+cmd/entire/cli/resume.go
+cmd/entire/cli/resume_test.go
+cmd/entire/cli/review_context.go
+cmd/entire/cli/review_helpers.go
+cmd/entire/cli/rewind.go
+cmd/entire/cli/root.go
+cmd/entire/cli/settings/settings.go
+cmd/entire/cli/settings/settings_test.go
+cmd/entire/cli/strategy/checkpoint_remote.go
+cmd/entire/cli/strategy/checkpoint_remote_test.go
+cmd/entire/cli/strategy/common.go
+cmd/entire/cli/strategy/manual_commit.go
+cmd/entire/cli/strategy/manual_commit_condensation.go
+cmd/entire/cli/strategy/manual_commit_push.go
+cmd/entire/cli/strategy/manual_commit_rewind.go
+cmd/entire/cli/strategy/manual_commit_test.go
+cmd/entire/cli/strategy/metadata_reconcile.go
+cmd/entire/cli/strategy/push_common_test.go
+cmd/entire/cli/strategy/session.go
+cmd/entire/cli/strategy/session_test.go
+cmd/entire/cli/strategy/v2_checkpoint_fixture_test.go
+cmd/entire/cli/v2_checkpoint_fixture_test.go
+e2e/tests/doctor_test.go
+
+Review philosophy:
+- It is OK to find nothing. A clean review is valid. Do not manufacture findings.
+- Be opinionated and consistent. If a pattern is acceptable, do not flag it.
+- Do not flag trade-offs with no clear winner.
+- High confidence only: every finding must be a concrete problem you can explain specifically.
+
+Task:
+Re-read changed files and surrounding code needed to understand each changed path. Trace changed behavior through callers, callees, tests, configuration, migrations, generated interfaces, and user/API entry points where relevant. Search related patterns, duplicated logic, and existing helpers that affect changed code. Look across security, correctness, tests, simplification, readability, performance, and Go cleanliness.
+
+Prioritize missed Required findings over optional improvements. Return only high-confidence findings with concrete file:line evidence, impact, and suggested fix. If there are no high-confidence findings, say so clearly.
+
+---
+
+Apply the findings as a batch
