@@ -1,0 +1,20 @@
+this part: 
+
+ entire-core --base-url https://eu.auth.entire.io auth login   # populates contexts.json
+
+
+should be done by "entire login"
+
+---
+
+❯ go run cmd/entire/main.go repo ls gh/entireio/cli
+repo path "entireio/cli" must start with a surface prefix: "et/" (native), "git/" (legacy native), or "gh/" (GitHub mirror) — e.g. et/entireio/cli
+exit status 1
+
+---
+
+what other commands are there now in entiredb, org?
+
+---
+
+yes, let's do this
