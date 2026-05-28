@@ -1,0 +1,23 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "a0cda907b1c5",
+  "strategy": "manual-commit",
+  "branch": "soph/vendor-entiredb-repo",
+  "checkpoints_count": 2,
+  "files_touched": null,
+  "sessions": [
+    {
+      "metadata": "/a0/cda907b1c5/0/metadata.json",
+      "transcript": "/a0/cda907b1c5/0/full.jsonl",
+      "content_hash": "/a0/cda907b1c5/0/content_hash.txt",
+      "prompt": "/a0/cda907b1c5/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 522,
+    "cache_creation_tokens": 526516,
+    "cache_read_tokens": 125105705,
+    "output_tokens": 208878,
+    "api_call_count": 452
+  }
+}
