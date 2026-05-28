@@ -4,20 +4,46 @@
   "strategy": "manual-commit",
   "branch": "review-cutover",
   "checkpoints_count": 1,
-  "files_touched": null,
+  "files_touched": [
+    "cmd/entire/cli/agent/claudecode/reviewer.go",
+    "cmd/entire/cli/agent/claudecode/reviewer_test.go",
+    "cmd/entire/cli/agent/claudecode/testdata/stream_with_deltas.jsonl",
+    "cmd/entire/cli/agent/codex/reviewer.go",
+    "cmd/entire/cli/agent/codex/reviewer_test.go",
+    "cmd/entire/cli/review/banner.go",
+    "cmd/entire/cli/review/banner_test.go",
+    "cmd/entire/cli/review/cmd.go",
+    "cmd/entire/cli/review/cmd_test.go",
+    "cmd/entire/cli/review/flags_test.go",
+    "cmd/entire/cli/review/post_review.go",
+    "cmd/entire/cli/review/post_review_test.go",
+    "cmd/entire/cli/review/setup.go",
+    "cmd/entire/cli/review/setup_test.go",
+    "cmd/entire/cli/review/tui_model.go",
+    "cmd/entire/cli/review/tui_model_test.go",
+    "cmd/entire/cli/review_context.go",
+    "cmd/entire/cli/review_context_test.go"
+  ],
   "sessions": [
     {
       "metadata": "/35/3e3b52a575/0/metadata.json",
       "transcript": "/35/3e3b52a575/0/full.jsonl",
       "content_hash": "/35/3e3b52a575/0/content_hash.txt",
       "prompt": "/35/3e3b52a575/0/prompt.txt"
+    },
+    {
+      "metadata": "/35/3e3b52a575/1/metadata.json",
+      "transcript": "/35/3e3b52a575/1/full.jsonl",
+      "content_hash": "/35/3e3b52a575/1/content_hash.txt",
+      "prompt": "/35/3e3b52a575/1/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 967,
-    "cache_creation_tokens": 4428954,
-    "cache_read_tokens": 221582478,
-    "output_tokens": 517209,
-    "api_call_count": 481
-  }
+    "input_tokens": 974,
+    "cache_creation_tokens": 4491761,
+    "cache_read_tokens": 221640928,
+    "output_tokens": 521681,
+    "api_call_count": 483
+  },
+  "has_review": true
 }

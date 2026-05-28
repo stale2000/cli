@@ -1,0 +1,18 @@
+/review
+/security-review
+/simplify
+/pr-review-toolkit:review-pr
+
+Scope: review the commits unique to this branch vs origin/HEAD, plus any uncommitted changes in the working tree. Ignore code outside this scope.
+
+Checkpoint context from commits in scope:
+- 8ba065797dd8: prompt: i want it to actually like sessioons and checkpoints, Including session and checkpoint context from this branch's history. - not just generic message
+- 887eb28f1586: prompt: proceed for pr 2
+- 4efdb600636d: prompt: but is that actually how you navigate? like ↑↓ navigate is this accurate
+- 5ecddc347c0f: no summary or prompt recorded
+- 0c902d094d5c: checkpoint metadata unavailable
+
+Use `entire explain <id>` for full checkpoint context, or `entire explain <id> --raw-transcript` for raw transcripts.
+
+In-progress session context (uncommitted):
+  385b045a Claude Code (touched: 18 files) prompt: did you run the full, new review workflow via smoke tests
