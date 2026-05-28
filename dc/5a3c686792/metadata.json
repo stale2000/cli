@@ -3,7 +3,7 @@
   "checkpoint_id": "dc5a3c686792",
   "strategy": "manual-commit",
   "branch": "fix/checkpoints-v2-remove-dual-reads",
-  "checkpoints_count": 1,
+  "checkpoints_count": 2,
   "files_touched": [
     "cmd/entire/cli/explain.go",
     "cmd/entire/cli/resume.go"
@@ -14,13 +14,19 @@
       "transcript": "/dc/5a3c686792/0/full.jsonl",
       "content_hash": "/dc/5a3c686792/0/content_hash.txt",
       "prompt": "/dc/5a3c686792/0/prompt.txt"
+    },
+    {
+      "metadata": "/dc/5a3c686792/1/metadata.json",
+      "transcript": "/dc/5a3c686792/1/full.jsonl",
+      "content_hash": "/dc/5a3c686792/1/content_hash.txt",
+      "prompt": "/dc/5a3c686792/1/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 135193,
-    "cache_creation_tokens": 0,
-    "cache_read_tokens": 4985984,
-    "output_tokens": 11718,
-    "api_call_count": 44
+    "input_tokens": 135212,
+    "cache_creation_tokens": 23686,
+    "cache_read_tokens": 6158505,
+    "output_tokens": 19781,
+    "api_call_count": 54
   }
 }
