@@ -1,0 +1,9 @@
+what do I need to set with the cli to do a login against partial using the new auth?
+
+---
+
+can you look at the branch / PR and review it, I also think ci is falling right now
+
+---
+
+do 1,2 and 4 please

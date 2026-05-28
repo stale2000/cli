@@ -1,0 +1,53 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "035b5f21e289",
+  "session_id": "5704cef0-20c5-4d3e-b188-165d3300e2ff",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-28T11:32:49.115225Z",
+  "branch": "soph/auth-status-followup",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/api_client.go"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "573fa5b78ce6",
+  "token_usage": {
+    "input_tokens": 2347,
+    "cache_creation_tokens": 173828,
+    "cache_read_tokens": 8098693,
+    "output_tokens": 44209,
+    "api_call_count": 54
+  },
+  "session_metrics": {
+    "turn_count": 2
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-28T11:32:49.102107Z",
+    "agent_lines": 8,
+    "agent_removed": 7,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 8,
+    "total_lines_changed": 15,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 283,
+      "agent_lines_removed": 8
+    }
+  ]
+}
