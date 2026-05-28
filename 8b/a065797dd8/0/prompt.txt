@@ -230,3 +230,18 @@ okay i see, can we test on a branch with both checkpoints and sessions so i can 
 
 i want it to actually like sessioons and checkpoints, Including session and checkpoint context from this branch's
   history. - not just generic message
+
+---
+
+did you run the full, new review workflow via smoke tests
+
+---
+
+I ran this, peytonmontei@Peytons-MacBook-Pro /t/smoke-test> cd /Users/peytonmontei/Documents/entire/devenv/entireio/cli/.worktrees/review-review
+                                                ~/bin/entire-pr2 review
+Reviewing review-cutover vs origin/HEAD: 7 commits, 37 files changed, 0 uncommitted
+Including 5 checkpoints and 1 session from this branch's history., and codex tokens didn't work, claude outoput one token adn streaming took a while to start
+
+---
+
+b
