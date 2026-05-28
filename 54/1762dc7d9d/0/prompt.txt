@@ -33,3 +33,7 @@ wait: do we need to set ENTIRE_AUTH_BASE_URL ?
 ---
 
 I'm trying to get this working with entire.io, can you check if the main domain supports this?
+
+---
+
+Ok, yeah let's do Option 2 then
