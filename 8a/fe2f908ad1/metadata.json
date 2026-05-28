@@ -1,0 +1,26 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "8afe2f908ad1",
+  "strategy": "manual-commit",
+  "branch": "slim-claude-md",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "CLAUDE.md",
+    "docs/architecture/review-command.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/8a/fe2f908ad1/0/metadata.json",
+      "transcript": "/8a/fe2f908ad1/0/full.jsonl",
+      "content_hash": "/8a/fe2f908ad1/0/content_hash.txt",
+      "prompt": "/8a/fe2f908ad1/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 11941,
+    "cache_creation_tokens": 184318,
+    "cache_read_tokens": 1058607,
+    "output_tokens": 29045,
+    "api_call_count": 16
+  }
+}

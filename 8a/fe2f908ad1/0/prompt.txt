@@ -1,0 +1,9 @@
+Look for ways to trim the CLAUDE.md file based on advice provided in https://medium.com/@cem.karaca/my-claude-md-was-eating-42-000-tokens-per-conversation-heres-how-i-fixed-it-85ffba809bd4.
+
+---
+
+The medium article talks about skills instead of docs, no?
+
+---
+
+Ok so I don't see a reference to the new review doc in the claude.md - am I missing it?
