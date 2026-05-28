@@ -1,0 +1,50 @@
+❯ go run cmd/entire/main.go repo ls gh/entireio/cli
+dial entire.io: resolve "gh/entireio/cli": resolve repo: rpc error: code = PermissionDenied desc = unexpected HTTP status code received from server: 403 (Forbidden); transport: received unexpected content-type "text/html"
+exit status 1
+
+cli on  soph/vendor-entiredb-repo [$] via 🐹 v1.26.3
+❯ go run cmd/entire/main.go auth status
+Logged in to https://us.auth.entire.io
+  Token: stored in OS keychain
+  Active tokens on this account: 5
+
+cli on  soph/vendor-entiredb-repo [$] via 🐹 v1.26.3 took 2s
+❯ go run cmd/entire/main.go repo ls gh/entireio/cli
+dial entire.io: resolve "gh/entireio/cli": resolve repo: rpc error: code = PermissionDenied desc = unexpected HTTP status code received from server: 403 (Forbidden); transport: received unexpected content-type "text/html"
+exit status 1
+
+---
+
+can we pause: what is the cli in the entiredb folder doing where does it get URLs from?
+
+---
+
+hmm:
+
+~ ❯ entire-core --base-url https://eu.auth.entire.io auth login
+Authenticating against https://eu.auth.entire.io
+If a browser didn't open automatically, visit:
+  https://eu.auth.entire.io/cli/login?client_id=entire-core-cli&REDACTED&code_challenge_method=S256&redirect_uri=http%3A%2F%2F127.0.0.1%3A52795%2Fcallback&REDACTED
+Logged in as nodo (01KS54AYRKYJGMGPQ5J0SHPPJR) on https://eu.auth.entire.io
+Activated context "github:nodo@eu.auth.entire.io" — run 'entire-core context list' to see all contexts
+
+~ ❯ entire repo list
+{
+  "refs": []
+}
+
+~ ❯ entire org list
+[]
+
+~ ❯ entire org create nodo
+{
+  "CreatedAt": "2026-05-28T18:25:45.980519Z",
+  "ID": "01KSQXBNZT7NJ99ESWJECKABJR",
+  "Name": "nodo",
+  "Region": "eu",
+  "WorkOSOrganizationID": ""
+}
+
+---
+
+wait, so a coworker who has the entire cli installed built out of entiredb repo and the entire-core cli did just run the above, he did not had to specify an API host for the repo parts

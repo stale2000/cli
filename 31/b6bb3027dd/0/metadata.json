@@ -1,0 +1,51 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "31b6bb3027dd",
+  "session_id": "138968af-0dcf-4467-b380-48e358d14fb5",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-28T20:12:49.198054Z",
+  "branch": "soph/vendor-entiredb-repo",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "internal/entiredb/client/client.go",
+    "internal/entiredb/internal/cliauth/creds.go",
+    ".golangci.yaml",
+    "internal/entiredb/slogutil/log.go"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-7[1m]",
+  "turn_id": "9aceafae6d75",
+  "checkpoint_transcript_start": 711,
+  "transcript_lines_at_start": 711,
+  "token_usage": {
+    "input_tokens": 179,
+    "cache_creation_tokens": 131533,
+    "cache_read_tokens": 54212137,
+    "output_tokens": 76308,
+    "api_call_count": 159
+  },
+  "session_metrics": {
+    "turn_count": 5
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-28T20:12:49.180957Z",
+    "agent_lines": 989,
+    "agent_removed": 243,
+    "human_added": 9011,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 10000,
+    "total_lines_changed": 10246,
+    "agent_percentage": 12.02420456763615,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}

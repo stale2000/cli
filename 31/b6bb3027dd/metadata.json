@@ -1,0 +1,28 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "31b6bb3027dd",
+  "strategy": "manual-commit",
+  "branch": "soph/vendor-entiredb-repo",
+  "checkpoints_count": 0,
+  "files_touched": [
+    ".golangci.yaml",
+    "internal/entiredb/client/client.go",
+    "internal/entiredb/internal/cliauth/creds.go",
+    "internal/entiredb/slogutil/log.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/31/b6bb3027dd/0/metadata.json",
+      "transcript": "/31/b6bb3027dd/0/full.jsonl",
+      "content_hash": "/31/b6bb3027dd/0/content_hash.txt",
+      "prompt": "/31/b6bb3027dd/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 179,
+    "cache_creation_tokens": 131533,
+    "cache_read_tokens": 54212137,
+    "output_tokens": 76308,
+    "api_call_count": 159
+  }
+}
