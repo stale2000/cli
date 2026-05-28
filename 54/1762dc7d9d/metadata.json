@@ -1,0 +1,23 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "541762dc7d9d",
+  "strategy": "manual-commit",
+  "branch": "soph/v2-default-on-split-host",
+  "checkpoints_count": 5,
+  "files_touched": null,
+  "sessions": [
+    {
+      "metadata": "/54/1762dc7d9d/0/metadata.json",
+      "transcript": "/54/1762dc7d9d/0/full.jsonl",
+      "content_hash": "/54/1762dc7d9d/0/content_hash.txt",
+      "prompt": "/54/1762dc7d9d/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 2470,
+    "cache_creation_tokens": 526921,
+    "cache_read_tokens": 27759360,
+    "output_tokens": 101186,
+    "api_call_count": 132
+  }
+}

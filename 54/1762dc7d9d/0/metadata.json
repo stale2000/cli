@@ -1,0 +1,60 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "541762dc7d9d",
+  "session_id": "5704cef0-20c5-4d3e-b188-165d3300e2ff",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-28T14:56:11.70618Z",
+  "branch": "soph/v2-default-on-split-host",
+  "checkpoints_count": 5,
+  "files_touched": [],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "35c8920bb858",
+  "token_usage": {
+    "input_tokens": 2470,
+    "cache_creation_tokens": 526921,
+    "cache_read_tokens": 27759360,
+    "output_tokens": 101186,
+    "api_call_count": 132
+  },
+  "session_metrics": {
+    "turn_count": 4
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 2,
+      "agent_lines_removed": 2
+    },
+    {
+      "checkpoint_number": 4,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 2,
+      "agent_lines_removed": 2
+    },
+    {
+      "checkpoint_number": 5,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 2,
+      "agent_lines_removed": 2
+    },
+    {
+      "checkpoint_number": 6,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 2,
+      "agent_lines_removed": 2
+    }
+  ]
+}
