@@ -1,13 +1,1 @@
 Commit and continue
-
----
-
-Use the pfleidi:pr skill to create a draft PR
-
----
-
-Wait for the push to succeed
-
----
-
-Okay, I've pushed manually. Continue
