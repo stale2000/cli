@@ -556,3 +556,7 @@ Just to double check: Given that the migration will use the author of a particul
 ---
 
 Okay, we should update the migration tool to never use commit signing since the signatures won't match the authors
+
+---
+
+Commit the changes
