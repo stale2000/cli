@@ -522,3 +522,7 @@ Make it so
 ---
 
 In which modes will shouldEnsureCheckpointRefs return true? It sounds like it's covering all of the relevant modes already
+
+---
+
+Commit and continue
