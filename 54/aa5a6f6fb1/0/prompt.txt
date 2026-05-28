@@ -1,0 +1,566 @@
+Commit the changes
+
+---
+
+Context for implementation agent: migrate-v2-checkpoints validation follow-up
+
+Repo under validation:
+- /Users/pfleidi/entire/fleet
+
+Tool/runbook:
+- Tool: /Users/pfleidi/entire/cli/.worktrees/review/migrate-v2-checkpoints
+- Validation instructions: /Users/pfleidi/entire/cli/.worktrees/review/cmd/migrate-v2-checkpoints/VALIDATION.md
+- Applied migration output: /tmp/migrate.applied
+
+Critical safety constraint:
+- Do NOT push entire/checkpoints/v1 or any checkpoint ref while investigating.
+- Local v1 has advanced; remote tracking v1 has not.
+
+Current refs after manual apply:
+- refs/heads/entire/checkpoints/v1 = 12b9344a
+- refs/remotes/origin/entire/checkpoints/v1 = 58750292
+- main working tree status was clean: `## main...origin/main`
+
+What was validated successfully:
+- /tmp/migrate.applied reported:
+  - discovered checkpoints: 220
+  - already present v1 sessions: 91
+  - missing v2 checkpoint metadata: 27
+  - missing required v2 session metadata: 0
+  - missing raw transcripts: 32
+  - checkpoints eligible for migration: 81
+  - sessions eligible for migration: 84
+  - migrated checkpoints: 81
+  - migrated sessions: 84
+- I reconstructed migrated sessions by comparing pre-apply baseline `refs/remotes/origin/entire/checkpoints/v1` to local `entire/checkpoints/v1`:
+  - candidate_count=81
+  - identified_migrated_sessions=84
+  - agent_count=Claude Code 84
+- Per-session metadata parity against v2 for expected migrated fields:
+  - command checked 84 sessions
+  - output: `session_metadata_checked=84`
+  - exit 0
+- Prompt validation:
+  - output: `prompt_sessions_checked=84`, `prompt_hash_checked=69`, `prompt_absent_checked=15`
+  - exit 0
+  - Note: 15 sessions have no v2 prompt.txt and v1 also wrote no prompt.txt; root session prompt path is empty for those, which is source-consistent but stricter than the runbook's assumed hard requirement.
+- Transcript/content hash validation:
+  - output: `transcript_sessions_checked=84`, `self_hash_ok=84`, `raw_hash_ok=84`, `codex_raw_hash_skipped=0`
+  - exit 0
+
+Important residual failure after apply:
+A fresh dry-run after the manual migration still reports eligible work:
+
+```
+Migration plan:
+  discovered checkpoints: 229
+  already present v1 sessions: 180
+  missing v2 checkpoint metadata: 27
+  missing required v2 session metadata: 0
+  missing raw transcripts: 32
+  checkpoints eligible for migration: 4
+  v2 orphan checkpoints eligible for migration: 4
+  sessions eligible for migration: 5
+  checkpoints to migrate:
+    514b37510d64 sessions=2 commits=(orphan)
+    60688d6dbc88 sessions=1 commits=(orphan)
+    7b6836cc97bd sessions=1 commits=(orphan)
+    c074a33d618c sessions=1 commits=(orphan)
+```
+
+Focused inspection of those residual IDs:
+- 514b37510d64: v1=absent, v2_sessions=2, raw_sessions=2
+- 60688d6dbc88: v1=absent, v2_sessions=1, raw_sessions=1
+- 7b6836cc97bd: v1=absent, v2_sessions=1, raw_sessions=1
+- c074a33d618c: v1=absent, v2_sessions=1, raw_sessions=1
+
+Earlier pre-apply dry run did NOT include these as candidates because they were not discovered from commit history. They existed as v2-only checkpoint IDs not discovered by history:
+- 514b37510d64
+- 60688d6dbc88
+- 7b6836cc97bd
+- c074a33d618c
+
+Hypothesis to investigate:
+- The tool appears to include v2 orphan checkpoints in post-apply discovery, but they were not included in the original /tmp/migrate.applied run. Determine whether this is intended behavior, an idempotency/reporting bug, or whether the migration needs a second apply pass for orphan checkpoints.
+- If intended, update validation/runbook expectations and/or tool output semantics.
+- If not intended, fix candidate discovery/apply consistency so a single apply fully migrates all eligible v2 checkpoints, including orphans, or ensure dry-run/apply reports are stable and explicit.
+
+Commands useful for reproduction:
+- `/Users/pfleidi/entire/cli/.worktrees/review/migrate-v2-checkpoints --repo /Users/pfleidi/entire/fleet --dry-run | tee /tmp/migrate.postplan`
+- `git -C /Users/pfleidi/entire/fleet for-each-ref --format='%(refname) %(objectname:short)' 'refs/heads/entire/checkpoints/v1' 'refs/remotes/*/entire/checkpoints/v1'`
+- For each residual ID, inspect v2/v1:
+  - `ID=514b37510d64; SHARD=${ID:0:2}/${ID:2}`
+  - `git -C /Users/pfleidi/entire/fleet cat-file -p refs/entire/checkpoints/v2/main:"$SHARD/metadata.json" | jq .`
+  - `git -C /Users/pfleidi/entire/fleet cat-file -p entire/checkpoints/v1:"$SHARD/metadata.json" 2>/dev/null || echo absent`
+
+---
+
+Can you update the runbook to list the command like this: ```
+entire/cli/.worktrees/review/migrate-v2-checkpoints --repo /Users/pfleidi/entire/fleet --apply | tee /tmp/migrate-${repo-name}.applied
+```
+
+But don't run the migration yourself. That's a task that should be done manually
+
+---
+
+It looks like linter jobs fail for the pull request are failing
+
+---
+
+These changes ALL look unrelated to the ones failing in CI. That's not good enough since most of them seem unnecessary!
+
+---
+
+The migration tool fails for the ~/entire/entiredb repository:
+
+❯ ~/entire/cli/.worktrees/review/migrate-v2-checkpoints --repo /Users/pfleidi/entire/entiredb --dry-run
+error: read v1 checkpoint 0322a12d0b22 session 1 metadata: checkpoint not found: session 1 not found: tree 1: directory not found
+
+---
+
+Commit the changes
+
+---
+
+Can you update the validation instructions further? I'm currently working on a branch to remove the fall forward logic that will try to read from v2 storage first and then fall back to v1 in this worktree: /Users/pfleidi/entire/cli/.worktrees/fix/checkpoints-v2-remove-dual-reads
+
+Can you update the instructions to include running `entire explain` using a current build of the changes in the `fix/checkpoints-v2-remove-dual-reads` branch on every single checkpoint that was migrated and comparing the output to `entire explain` installed via homebrew? Both of the results should be identical. If they're not, we should flag it and record it for further investigation.
+
+---
+
+# Handover: migrate-v2-checkpoints on ~/entire/gitsync
+
+## TL;DR
+- 323 checkpoints / 486 sessions are eligible for migration in this repo.
+- Of the 323, 18 are v2-only orphans (not reachable from any commit history tip); the other 305 are reachable.
+- The v2 refs are now fetched locally, so the dry-run is trustworthy.
+- Runbook to follow: ~/entire/cli/.worktrees/review/cmd/migrate-v2-checkpoints/VALIDATION.md
+
+## Repo state (verified 2026-05-27)
+- v1 branch (`entire/checkpoints/v1`) tip: `63e31d8f`, last commit 2026-04-30 11:35 +0100, 18 commits total, 6 unique checkpoint IDs from late April. v1 essentially froze 2026-04-30.
+- v2 main (`refs/entire/checkpoints/v2/main`) tip: `81a82240`, last commit 2026-05-26 11:54 +0200.
+- All 9 v2 refs present locally: `refs/entire/checkpoints/v2/main`, `/full/current`, and 7 archived `/full/00000000000{08..14}`.
+- On disk: 6 checkpoints in v1, 355 in v2 → 352 v2-only after dedup. So ~4 weeks of v2-only activity never landed on v1.
+
+## Dry-run counters (`migrate-v2-checkpoints --repo ~/entire/gitsync --dry-run`)
+- discovered checkpoints: 382
+- already present v1 sessions: 4
+- missing v2 checkpoint metadata: 27
+- missing required v2 session metadata: 0
+- missing raw transcripts: 30
+- checkpoints eligible for migration: 323
+- v2 orphan checkpoints eligible for migration: 18 (subset of the 323)
+- sessions eligible for migration: 486
+- Σ of `sessions=` across candidate lines = 486 ✓
+- Predicate `EC + M1 + M3 = 380 ≥ v2-only count 352` ✓ (nothing silently dropped)
+
+## Skipped buckets are genuine, not tool bugs (spot-checked)
+- `missing raw transcripts` example `0ae6b701b541`: v2 /main has the compact form (`transcript.jsonl` + `transcript_hash.txt`) but no `raw_transcript*` blob in `/full/current` or any archived `/full/00*`. Nothing to write to v1.
+- `missing v2 checkpoint metadata` example `02df05259255`: trailer recorded on commit `6eee9067` (2026-04-30). Already present in v1, absent from v2 /main. Also nothing to do.
+
+## CRITICAL: fetch gotcha
+- `origin`'s default fetch refspec is `+refs/heads/*:refs/remotes/origin/*` — it does NOT mirror `refs/entire/*`.
+- A "clean" dry-run from an un-fetched repo (0 eligible, everything in `missing v2 checkpoint metadata`) is INDISTINGUISHABLE from a genuinely-already-migrated repo. Always confirm v2 refs exist locally before trusting the verdict.
+- Already done for this repo:
+  ```
+  git -C ~/entire/gitsync fetch origin \
+      'refs/entire/checkpoints/v2/*:refs/entire/checkpoints/v2/*' --no-tags
+  ```
+
+## Next steps for the implementation agent
+1. Re-read VALIDATION.md §4 (apply) and §5 (post-apply validation) end-to-end before doing anything.
+2. Heed the §4 push warning: do NOT `git push entire/checkpoints/v1` at any point. Confirm no auto-push hook, scheduler, or `checkpoint_remote` will publish it. Push is a separate manual decision after §5 passes.
+3. Snapshot v1 tip before applying:
+   ```
+   PRE_APPLY_TIP=$(git -C ~/entire/gitsync rev-parse entire/checkpoints/v1)
+   echo "$PRE_APPLY_TIP"   # expect 63e31d8f0ed2a533df554979f6aa73c68f79cf19
+   ```
+4. Apply and tee the report:
+   ```
+   ~/entire/cli/.worktrees/review/migrate-v2-checkpoints --repo ~/entire/gitsync --apply \
+     | tee /tmp/migrate-gitsync.applied
+   ```
+5. Expected on success: `migrated checkpoints: 323`, `migrated sessions: 486`. Anything lower = partial write — re-run (idempotent), inspect logs.
+6. Confirm v1 advanced:
+   ```
+   git -C ~/entire/gitsync rev-parse entire/checkpoints/v1   # should differ from PRE_APPLY_TIP
+   ```
+7. Confirm no remote ref moved:
+   ```
+   git -C ~/entire/gitsync for-each-ref --format='%(refname) %(objectname:short)' \
+       'refs/remotes/*/entire/checkpoints/v1'
+   # should still be 63e31d8f
+   ```
+8. Run §5 validation in full. §5.6 requires building the dual-reads-removed binary from `~/entire/cli/.worktrees/fix/checkpoints-v2-remove-dual-reads` and diffing `entire explain` output against the Homebrew binary for every migrated ID. Do not skip mismatches.
+9. Rollback if §5 fails (cheap, local — only safe before any push):
+   ```
+   git -C ~/entire/gitsync update-ref refs/heads/entire/checkpoints/v1 "$PRE_APPLY_TIP"
+   ```
+
+## Files already produced
+- `/tmp/migrate-gitsync.plan` — full dry-run output
+- `/tmp/gs_v1_ids.txt`, `/tmp/gs_v2_ids.txt`, `/tmp/gs_v2_only_ids.txt` — sharded ID sets used for cross-checks
+
+---
+
+I just ran into a situation where the remote v2 ref was not available locally. I think the migration tool should ensure that the most recent v2 ref is actually available locally to ensure that it finds the appropriate checkpoints
+
+---
+
+Do it
+
+---
+
+commit the changes
+
+---
+
+Can you update the runbook to ensure it's clear that the `--apply` command will only ever be run by the user and NOT by an agent?
+
+---
+
+Can we ensure that the commits made via the migration tool have the same author line as the original checkpoints? This seems to be a difference found so far
+
+---
+
+Do it
+
+---
+
+Commit and continue
+
+---
+
+Can you review the whole cmd/migrate-v2-checkpoints/VALIDATION.md document to validate that it's still correct?
+
+---
+
+Update the doc accordingly
+
+---
+
+Commit and push the changes
+
+---
+
+# `migrate-v2-checkpoints` validation findings — implementation handoff
+
+Source of findings: end-to-end validation of `migrate-v2-checkpoints` against `~/entire/entiredb` per
+`~/entire/cli/.worktrees/review/cmd/migrate-v2-checkpoints/VALIDATION.md`. Apply was run by the
+operator on 2026-05-27 (753 migrated checkpoints / 941 migrated sessions, all counters matched).
+
+Validation paths used here:
+
+- migrate-v2-checkpoints worktree: `~/entire/cli/.worktrees/review`
+- fix-branch (removes v2 dual reads) worktree: `~/entire/cli/.worktrees/fix/checkpoints-v2-remove-dual-reads`
+- brew-installed entire: `/opt/homebrew/bin/entire` (0.6.3-nightly.202605270736.c94e9573)
+
+Six findings below. Each says where the code lives, what the operator decided, and what acceptance
+looks like so another agent can pick them up cold.
+
+---
+
+## Finding 1 — `ensureSessionsBranch` creates empty orphan instead of seeding from origin (FIX IN TOOL)
+
+### What's happening
+`getSessionsBranchTree` (cmd/entire/cli/checkpoint/committed.go:1738-1748, in the fix worktree) falls
+back to `refs/remotes/origin/entire/checkpoints/v1` for **reads** when the local branch is missing.
+But `ensureSessionsBranch` (committed.go:1681-1712) **writes** an orphan commit with an *empty* tree
+when the local branch is missing — it never seeds from the remote-tracking ref.
+
+Net effect on a clone with no local v1 branch (e.g. `~/entire/infra`, `~/entire/peregrine`):
+
+- Migration's read path counts existing v1 sessions on remote-tracking ref as `already present v1 sessions`.
+- Migration's write path creates a fresh orphan local branch carrying only the newly-migrated
+  checkpoints. The 247+ existing v1 checkpoints on `origin` are **not** on the local branch.
+- A subsequent `git push` is a non-fast-forward against origin; a force-push would wipe the
+  pre-existing v1 history on the remote.
+
+### What the operator wants
+Fetch the latest v1 branch from the remote at the start of the tool's run. If the remote v1
+ref doesn't exist or the fetch fails, **abort with a clear error** rather than silently
+constructing an orphan local branch.
+
+Treat this the same way the existing `v2_preflight.go` treats v2 refs: pre-flight fetch is part of
+the contract, hard-fail on absence.
+
+### Implementation notes
+- `cmd/migrate-v2-checkpoints/v2_preflight.go:24-51` already implements this pattern for v2 refs
+  (`ensureLatestV2Refs`). Mirror it for v1: a new `ensureLatestV1Ref` that resolves the v1 ref on the
+  remote and fetches it into `refs/heads/entire/checkpoints/v1` locally (or fails with
+  `error: refs/heads/entire/checkpoints/v1 not found on remote …` matching the v2 wording at line
+  41).
+- The migration `main.go` should call the v1 preflight *before* the v2 preflight (or alongside),
+  so we never start writing without a baseline.
+- After preflight succeeds, `ensureSessionsBranch` should be unreachable in the "branch missing"
+  path. Belt-and-braces: keep `ensureSessionsBranch` but have it `return errors.New("sessions
+  branch missing after preflight")` instead of constructing an orphan, so a regression in preflight
+  fails loudly.
+
+### Acceptance
+- Running the tool on a repo with no local v1 branch and no remote v1 ref exits non-zero with a
+  message naming `refs/heads/entire/checkpoints/v1`.
+- Running on a repo with no local v1 branch but a present remote v1 ref creates the local branch
+  pointing at the remote-tracking commit *before* the migration loop runs, so the first write is a
+  child of the remote tip, not an orphan.
+- Existing tests in `cmd/migrate-v2-checkpoints/main_test.go` still pass; add a test for the
+  "remote v1 ref absent" failure path and a test for the "remote v1 ref present, local absent"
+  happy path.
+
+### Affected repos in this org
+- `~/entire/infra` (EC=137; not yet applied — must wait for this fix or pre-seed v1 manually)
+- `~/entire/peregrine` (EC=0; safe today but exposes the same bug)
+
+---
+
+## Finding 2 — Auto-fetch on `--dry-run` (NO CHANGE; document only)
+
+Operator decision: keep as-is. The `v2_preflight.go` fetch is intentional. Runbook should make
+operators aware that `--dry-run` is not pure read-only; it writes `refs/entire/checkpoints/v2/*`
+and can fail when:
+
+- origin rejects a non-fast-forward archive ref (observed on `~/entire/marvin`)
+- origin doesn't have v2/main (observed on `~/entire/pfleidi-test-repo`)
+- origin uses `entire://` and falls back to an alternate URL that lacks v2 (observed on `~/entire/cli`)
+
+These are not bugs — they're the tool refusing to operate against a stale snapshot. Just document.
+
+### Runbook patch
+Update `VALIDATION.md` §3.1 to:
+> Note: the binary always tries to refresh v2 refs from the origin remote, even in `--dry-run`. If
+> the origin lacks v2/main or rejects fetches of `refs/entire/checkpoints/v2/full/*`, the tool will
+> exit non-zero before any analysis runs. This is intentional; ensure the repo can reach a v2-having
+> remote before running. To work against a strictly-local copy, temporarily remove the origin remote.
+
+---
+
+## Finding 3 — Undocumented counter `v2 orphan checkpoints eligible for migration` (DOC ONLY; counter stays)
+
+The report line emitted at `cmd/migrate-v2-checkpoints/migration.go:261` is intentional and stays
+in the binary. It's incremented at `migration.go:74-77` for every eligible candidate whose
+discovered-commits list is empty (i.e. a checkpoint present in v2 `/main` but unreferenced by any
+trailer in history; see `cmd/migrate-v2-checkpoints/history.go:364-391` for the discovery side).
+
+The runbook just doesn't list it.
+
+### Runbook patch
+Update `VALIDATION.md` §2 to add the counter to the "expected report shape" block, in the order
+the binary actually prints (between `EC` and `ES`):
+
+```
+  checkpoints eligible for migration: EC
+  v2 orphan checkpoints eligible for migration: V2O
+  sessions eligible for migration: ES
+```
+
+And update the invariants list under that block:
+
+- `V2O ≤ EC` (every orphan is also eligible).
+- A `<id> sessions=N commits=(orphan)` line in the candidate list corresponds to one of these V2O
+  checkpoints — its trailer never appears on any history tip.
+- `D = (eligible non-orphan) + V2O + (already-present) + M1 + M3` is **not** required; orphans are
+  in addition to D, not part of it. Don't try to balance the books with D alone.
+
+Magnitudes observed: entiredb 167/753=22%, gitsync 18/323=6%, infra 6/137=4%, entire.io 17/29=59%.
+
+---
+
+## Finding 4 — §3.3 reverse-check must use effective-v1 baseline (DOC ONLY)
+
+Today `VALIDATION.md` §3.3 instructs the operator to enumerate v1 checkpoint IDs via
+`git ls-tree -r entire/checkpoints/v1 …`. On a repo without a local v1 branch (e.g. fresh clone),
+that resolves to nothing, and the operator sees a spurious "EC + M1 + M3 < v2-only" failure.
+
+The binary's actual v1 lookup is `GitStore.getSessionsBranchTree` (committed.go:1738-1748): try
+`refs/heads/entire/checkpoints/v1`, fall back to `refs/remotes/origin/entire/checkpoints/v1`.
+
+### Runbook patch
+Update `VALIDATION.md` §3.3 to:
+> Note: enumerate v1 IDs from the **effective** v1 ref the binary uses, not just the local branch.
+> The binary tries `refs/heads/entire/checkpoints/v1` first and falls back to
+> `refs/remotes/origin/entire/checkpoints/v1` if the local branch is missing. The §3.3 reverse-check
+> only holds against that effective baseline.
+
+Replace the `git -C "$REPO" ls-tree -r entire/checkpoints/v1 …` snippet with:
+
+```sh
+if git -C "$REPO" rev-parse --verify --quiet refs/heads/entire/checkpoints/v1 >/dev/null; then
+    V1_REF=refs/heads/entire/checkpoints/v1
+else
+    V1_REF=refs/remotes/origin/entire/checkpoints/v1
+fi
+git -C "$REPO" ls-tree -r "$V1_REF" 2>/dev/null \
+    | awk '$4 ~ /^[0-9a-f]{2}\/[0-9a-f]{10}\/metadata\.json$/ { ... }' \
+    | sort -u > /tmp/v1_ids.txt
+```
+
+(Note: this is only the runbook fix; the tool-side root cause of the "no local v1" case is
+addressed in **Finding 1**, which makes this scenario uncommon. Keep both fixes — the runbook
+note covers cloned-but-not-yet-migrated repos, the tool fix prevents broken applies.)
+
+---
+
+## Finding 5 — §5.2 false-positive on M3 skips (DOC ONLY)
+
+Today `VALIDATION.md` §5.2 instructs the operator to find each v2 session in post-apply v1 by
+`session_id`. For sessions the migration skipped because the raw transcript was unavailable
+(counted in M3 = `missing raw transcripts` in the report), the session_id is in v2 `/main` but not
+in v1 — and a naïve §5.2 sweep flags it as "missing in v1 post-apply" when it's actually expected.
+
+Observed on entiredb: 8 sessions across 8 checkpoints (6ab4e14c0eaf, 81fa6a2b1cba, a4a0255d7638,
+ad9c7d637ec7, ce33d8398ffb, e5a4f7f4f7d7, ef5d9e8353fd, ff4c699825dd). Each had no
+`raw_transcript[.NNN]` blob in any v2 `/full/*` ref. Migration deliberately skipped them
+(`cmd/migrate-v2-checkpoints/migration.go:138-141`), counted toward M3=181 in entiredb's report.
+
+### Runbook patch
+Update `VALIDATION.md` §5.2 to:
+> When a v2 session_id is present in v2 `/main` but absent from v1 post-apply, verify before
+> flagging that the session wasn't an M3 skip. Check whether any v2 `/full/*` ref has
+> `<shard>/<v2_slot>/raw_transcript` or `<shard>/<v2_slot>/raw_transcript.001`. If neither exists,
+> the session was skipped by design (counted in `missing raw transcripts`); no action required.
+
+Add a helper snippet near the existing per-session diff snippet:
+
+```sh
+# Check whether v2 has a raw transcript for this session before flagging "missing in v1".
+RAW_FOUND=
+for r in $V2_FULL_REFS; do
+    if git -C "$REPO" cat-file -e "$r:$SHARD/$V2_SLOT/raw_transcript" 2>/dev/null \
+       || git -C "$REPO" cat-file -e "$r:$SHARD/$V2_SLOT/raw_transcript.001" 2>/dev/null; then
+        RAW_FOUND=1; break
+    fi
+done
+[ -z "$RAW_FOUND" ] && echo "  (M3 skip — expected)" && continue
+```
+
+Also: M1/M3 are global counters today, with no IDs surfaced. Worth a sentence in §6 noting that
+manual inspection requires re-walking v2 yourself; the report doesn't enumerate the affected IDs.
+
+---
+
+## Finding 6 — Author preservation already fixed in tool, not applied to migrated repos (PARTIALLY FIXED)
+
+### What's happening
+`cmd/migrate-v2-checkpoints/migration.go:54` derives the v1 commit author from
+`checkpoint.GetGitAuthorFromRepo(repo)` (i.e. the local operator's git config). The original v2
+commit author is discarded. After apply on entiredb, every one of the 753 migrated v1 commits is
+authored by sven@entire.io, regardless of who originally produced the v2 data.
+
+Effect on `entire explain`:
+
+- brew (dual-read, falls through to v2 commit author): shows original author.
+- fix branch (v1-only, removes dual reads): shows the migration operator.
+
+Of the 753 migrated checkpoints, 569 had author divergence between brew and fix:
+- 198 author-only diffs
+- 371 author+transcript diffs
+
+Of the 753, 167 are orphan (no associated trailer commit) — for these, the binary unconditionally
+shows v1 commit author. For the remaining 402 affected non-orphans, the trailer commit exists but
+isn't reachable from the explain command's `getAssociatedCommits` walk, so it falls back to
+`GetCheckpointAuthor` which yields the v1 commit author.
+
+### What the operator wants
+Per the operator: **the tool was supposed to preserve original author and a fix exists but wasn't
+applied to the migrated repos.** Operator will clear the migrated repos and re-migrate after the
+fix is in place.
+
+### Implementation pointer for the next agent
+Confirm the fix is in `cmd/migrate-v2-checkpoints/migration.go` (or wherever the per-session
+write options are constructed — `writeOptionsFromV2Content` at line 214 is the obvious spot). The
+fix should read the v2 commit author (i.e. the author of the v2 commit that originally introduced
+this checkpoint, accessible via the v2 git history) and pass it as `AuthorName`/`AuthorEmail` on
+`WriteCommittedOptions`, instead of `GetGitAuthorFromRepo`. Confirm the change is committed on the
+correct branch and not stale on a worktree.
+
+### Acceptance
+- Each migrated v1 commit has `AuthorName`/`AuthorEmail` matching the v2 commit author that
+  introduced that checkpoint.
+- After re-migration, the §5.6 explain-parity sweep produces ≤ 167 author-only diffs (orphans only
+  — those legitimately have no upstream author; v1 commit author is acceptable there). The 402
+  non-orphan author diffs should disappear, leaving 0 author-only diffs for non-orphans.
+
+### Repos to re-migrate after fix
+Per operator: all repos will be cleared and re-migrated. Today's migrated state:
+- `~/entire/entiredb` — applied 2026-05-27; pre-apply tip was `be156aa7c`. Rollback if needed:
+  `git -C ~/entire/entiredb update-ref refs/heads/entire/checkpoints/v1 be156aa7c`.
+
+---
+
+## Validation results that *did* pass cleanly (no action required, for confidence)
+
+These ran across the 753 migrated checkpoints / 941 migrated sessions on entiredb:
+
+- §5.1 root metadata: 745/753 match exactly on `checkpoint_id`, `strategy`, `branch`,
+  `checkpoints_count`, `files_touched`, `combined_attribution`, `has_review`, `token_usage`. The 8
+  drifting checkpoints have higher v1 `token_usage` / `checkpoints_count` because v1 has additional
+  pre-existing sessions v2 doesn't list — runbook explicitly calls this acceptable.
+- §5.2 per-session metadata: 0 field mismatches across 941 sessions on the runbook's strict field
+  set (checkpoint_id, session_id, strategy, branch, files_touched, checkpoints_count, agent, model,
+  turn_id, is_task, tool_use_id, transcript_identifier_at_start, checkpoint_transcript_start,
+  token_usage, session_metrics, initial_attribution, prompt_attributions, summary, kind,
+  review_skills, review_prompt).
+- §5.3 prompt.txt parity: 941/941 sha256 matches.
+- §5.4 content_hash self-consistency: 941/941 stored `content_hash.txt` == recomputed
+  sha256 of reassembled chunks.
+- §5.4 cross-store match: 912/941 v1 `content_hash` == v2 `raw_transcript_hash`. The 29 mismatches
+  are all `agent="Codex"`; sanitization applied at write time per
+  `cmd/entire/cli/checkpoint/committed.go:745-747`. Expected per runbook.
+
+§5.6 (explain parity) is the only post-apply check that produces widespread diffs, and they are
+fully explained by Findings 6 (author) and the compact-vs-raw transcript format change (which the
+operator deemed out of scope for now).
+
+---
+
+I had to fix a merge conflict. Please continue
+
+---
+
+Make it so
+
+---
+
+In which modes will shouldEnsureCheckpointRefs return true? It sounds like it's covering all of the relevant modes already
+
+---
+
+Commit and continue
+
+---
+
+Commit and continue
+
+---
+
+The preflight validation found the following things:
+
+  1. v2 main staleness — gitsync and entiredb are still being dual-written
+    - fleet:    v2/main HEAD = 2026-05-21 Merge remote v2/main (~1 week stale — matches rollback narrative)
+    - gitsync:  v2/main HEAD = 2026-05-28 12:05 Merge remote v2/main (today)
+    - entiredb: v2/main HEAD = 2026-05-28 08:49 Checkpoint: cd62d4a5effe (today, a real checkpoint write)
+
+  Per §3.1: "a recent commit means v2 was being dual-written; a long-stale v2 head matches the rollback narrative." If v2 dual-writes are intentionally ongoing
+   in gitsync/entiredb, any apply you do now will need to be re-run later to pick up subsequently-written v2 checkpoints (the tool is idempotent, so that's
+  safe — just a planning consideration).
+  2. refs/heads/entire/checkpoints/v1 was NOT created locally after --dry-run
+
+  2. §3.1 of the runbook claims: "after plan/--dry-run or --apply, the v1 preflight should have created the local branch from the remote baseline." But in all
+  three repos, only refs/remotes/origin/entire/checkpoints/v1 exists after the dry-run; no local refs/heads/…/v1. v2 refs were fetched correctly. My checks
+  worked via the documented fallback to the remote tracking ref. Not a validation blocker, but a doc-vs-behavior divergence worth knowing for §3.3 wording.
+
+---
+
+Just to double check: Given that the migration will use the author of a particular v2 commit, we shouldn't be using commit signing in the migration tool. Are we? How do I check for existing migrated checkpoints?
+
+---
+
+Okay, we should update the migration tool to never use commit signing since the signatures won't match the authors
+
+---
+
+Commit the changes
+
+---
+
+Can you update the runbook accordingly and indicate that commits shouldn't be signed?
