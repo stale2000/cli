@@ -1,0 +1,1 @@
+Address the PR review in https://github.com/entireio/cli/pull/1242.
