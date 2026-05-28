@@ -1,0 +1,32 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "3254d0d36ccf",
+  "strategy": "manual-commit",
+  "branch": "initial-v1.1-setup",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/checkpoint/remote/command_cancel.go",
+    "cmd/entire/cli/checkpoint/remote/command_cancel_test.go",
+    "cmd/entire/cli/checkpoint/remote/command_cancel_unix.go",
+    "cmd/entire/cli/checkpoint/remote/command_cancel_unix_test.go",
+    "cmd/entire/cli/checkpoint/remote/command_cancel_windows.go",
+    "cmd/entire/cli/checkpoint/remote/git.go",
+    "cmd/entire/cli/strategy/push_common.go",
+    "cmd/entire/cli/strategy/push_common_budget_unix_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/32/54d0d36ccf/0/metadata.json",
+      "transcript": "/32/54d0d36ccf/0/full.jsonl",
+      "content_hash": "/32/54d0d36ccf/0/content_hash.txt",
+      "prompt": "/32/54d0d36ccf/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 16049,
+    "cache_creation_tokens": 72285,
+    "cache_read_tokens": 1978615,
+    "output_tokens": 14504,
+    "api_call_count": 29
+  }
+}
