@@ -245,3 +245,8 @@ Including 5 checkpoints and 1 session from this branch's history., and codex tok
 ---
 
 b
+
+---
+
+- Codex run: TOKENS column stays blank during the run;
+  final tally appears at end. - this was working before, with iterative token counts, not just at the end
