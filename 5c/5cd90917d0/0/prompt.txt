@@ -1,0 +1,69 @@
+➜  entiredb git:(test-2) git push origin HEAD
+[entire] Pushing entire/checkpoints/v1 to origin...........................................................................................................................
+[entire] Syncing entire/checkpoints/v1 with remote..... done
+[entire] Pushing entire/checkpoints/v1 to origin...........................................................................................................................
+[entire] Warning: failed to push entire/checkpoints/v1 after sync: push failed: remote: Sending to replicas.remote: Sending to replicas: 211.3 KiB, done.
+remote: Storing objects: 25 (3 replicas), done.
+
+Enumerating objects: 3, done.
+Counting objects: 100% (3/3), done.
+Delta compression using up to 10 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 6.93 KiB | 6.93 MiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Sending to replicas: 6.9 KiB, done.
+remote: Storing objects: 3 (3 replicas), done.
+remote: tlog: entry #940 recorded
+To entire://aws-us-east-2.entire.io/gh/entirehq/entiredb
+   eeaf9f57e9..04c0d0872a  HEAD -> test-2
+➜  entiredb git:(test-2) entire doctor trace --hook pre-push --last 5
+pre-push  242378ms  2026-05-27T16:50:27-07:00
+
+  STEP                                                        DURATION
+  push_checkpoints_branch                                     242378ms
+    ├─ push_checkpoints_branch.fetch_and_rebase                 2370ms
+    │  └─ push_checkpoints_branch.fetch_and_rebase.git_fetch     842ms
+    ├─ push_checkpoints_branch.git_push                       120003ms  x
+    └─ push_checkpoints_branch.git_push~1                     120003ms  x
+  resolve_push_settings                                            0ms
+
+pre-push  29781ms  2026-05-27T16:46:20-07:00
+
+  STEP                                                        DURATION
+  push_checkpoints_branch                                      29781ms
+    ├─ push_checkpoints_branch.fetch_and_rebase                    0ms  x
+    │  └─ push_checkpoints_branch.fetch_and_rebase.git_fetch       0ms  x
+    └─ push_checkpoints_branch.git_push                        29779ms  x
+  resolve_push_settings                                            0ms
+
+pre-push  3527ms  2026-05-27T10:35:05-07:00
+
+  STEP                                   DURATION
+  push_checkpoints_branch                  3527ms
+    └─ push_checkpoints_branch.git_push    3526ms
+  resolve_push_settings                       0ms
+
+pre-push  6842ms  2026-05-27T10:26:19-07:00
+
+  STEP                                                        DURATION
+  push_checkpoints_branch                                       6842ms
+    ├─ push_checkpoints_branch.fetch_and_rebase                 1607ms
+    │  └─ push_checkpoints_branch.fetch_and_rebase.git_fetch    1028ms
+    ├─ push_checkpoints_branch.git_push                         1132ms  x
+    └─ push_checkpoints_branch.git_push~1                       4101ms
+  resolve_push_settings                                            0ms
+
+pre-push  3916ms  2026-05-14T17:12:43-07:00
+
+  STEP                                                                                                       DURATION
+  fetch_and_merge_v2_full_current                                                                              2559ms
+    ├─ fetch_and_merge_v2_full_current.fetch_related_remote_rotation_archive                                   1829ms
+    │  ├─ fetch_and_merge_v2_full_current.fetch_related_remote_rotation_archive.fetch_archive_refs_blobless     772ms
+    │  └─ fetch_and_merge_v2_full_current.fetch_related_remote_rotation_archive.walk_archive_ancestry           923ms
+    └─ fetch_and_merge_v2_full_current.fetch_tree_merge_refs_blobless                                           706ms
+  push_v2_refs                                                                                                 3916ms
+  try_push_v2_refs                                                                                             1343ms  x
+
+---
+
+Simplify the comments and push up the changes

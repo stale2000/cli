@@ -1,0 +1,37 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "5c5cd90917d0",
+  "session_id": "037f5f6f-0333-4310-aa5a-16b53da05a86",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-28T16:55:24.411406Z",
+  "branch": "harden-checkpoint-git-timeout",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/checkpoint/committed_reader_resolve.go"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-7[1m]",
+  "turn_id": "7baa5c8161ad",
+  "token_usage": {
+    "input_tokens": 16794,
+    "cache_creation_tokens": 330532,
+    "cache_read_tokens": 7030116,
+    "output_tokens": 90159,
+    "api_call_count": 52
+  },
+  "session_metrics": {
+    "turn_count": 2
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-28T16:55:24.393778Z",
+    "agent_lines": 1,
+    "agent_removed": 1,
+    "human_added": 4,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 5,
+    "total_lines_changed": 10,
+    "agent_percentage": 20,
+    "metric_version": 2
+  }
+}
