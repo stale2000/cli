@@ -1,0 +1,21 @@
+a windows user got this error: 
+
+$ curl -fsSL https://entire.io/install.sh | bash
+==> Installing Entire CLI...
+Error: Unsupported operating system: mingw64_nt-10.0-26200
+
+---
+
+Could we, as part of install.sh, check if scoop is available on windows and then use that?
+
+---
+
+ok, do the small thing for now and just point to scoop
+
+---
+
+but is windows not supported at all? we do have a windows build?
+
+---
+
+Error: install.sh does not support Windows, you can install the entire CLI using scoop:

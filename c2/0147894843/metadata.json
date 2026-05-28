@@ -1,0 +1,25 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "c20147894843",
+  "strategy": "manual-commit",
+  "branch": "soph/win-install-improvement",
+  "checkpoints_count": 3,
+  "files_touched": [
+    "scripts/install.sh"
+  ],
+  "sessions": [
+    {
+      "metadata": "/c2/0147894843/0/metadata.json",
+      "transcript": "/c2/0147894843/0/full.jsonl",
+      "content_hash": "/c2/0147894843/0/content_hash.txt",
+      "prompt": "/c2/0147894843/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 47,
+    "cache_creation_tokens": 168775,
+    "cache_read_tokens": 1217641,
+    "output_tokens": 10884,
+    "api_call_count": 17
+  }
+}
