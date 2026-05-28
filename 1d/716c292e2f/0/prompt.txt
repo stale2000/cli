@@ -232,3 +232,11 @@ Commit and continue
 ---
 
 Can you review the whole cmd/migrate-v2-checkpoints/VALIDATION.md document to validate that it's still correct?
+
+---
+
+Update the doc accordingly
+
+---
+
+Commit and push the changes
