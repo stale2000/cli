@@ -1,0 +1,75 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "8ba065797dd8",
+  "session_id": "98013c70-c160-4b84-a7c2-20f06f8a1ea2",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-28T08:35:31.314543Z",
+  "branch": "review-cutover",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/agent/claudecode/reviewer.go",
+    "cmd/entire/cli/agent/claudecode/reviewer_test.go",
+    "cmd/entire/cli/agent/claudecode/testdata/stream_with_deltas.jsonl",
+    "cmd/entire/cli/agent/codex/reviewer.go",
+    "cmd/entire/cli/agent/codex/reviewer_test.go",
+    "cmd/entire/cli/review/tui_model.go",
+    "cmd/entire/cli/review/tui_model_test.go"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "6dcbe4f674c6",
+  "token_usage": {
+    "input_tokens": 10,
+    "cache_creation_tokens": 71941,
+    "cache_read_tokens": 0,
+    "output_tokens": 214,
+    "api_call_count": 1
+  },
+  "session_metrics": {
+    "turn_count": 1
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-28T08:35:31.312081Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 459,
+    "human_modified": 64,
+    "human_removed": 0,
+    "total_committed": 459,
+    "total_lines_changed": 589,
+    "agent_percentage": 0,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 184,
+      "user_lines_removed": 69,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        "cmd/entire/cli/agent/claudecode/reviewer.go": 26,
+        "cmd/entire/cli/agent/claudecode/reviewer_test.go": 35,
+        "cmd/entire/cli/agent/claudecode/testdata/stream_with_deltas.jsonl": 7,
+        "cmd/entire/cli/agent/codex/reviewer.go": 12,
+        "cmd/entire/cli/agent/codex/reviewer_test.go": 34,
+        "cmd/entire/cli/review/tui_model.go": 14,
+        "cmd/entire/cli/review/tui_model_test.go": 56
+      },
+      "user_removed_per_file": {
+        "cmd/entire/cli/agent/claudecode/reviewer.go": 12,
+        "cmd/entire/cli/agent/claudecode/reviewer_test.go": 8,
+        "cmd/entire/cli/agent/claudecode/testdata/stream_with_deltas.jsonl": 4,
+        "cmd/entire/cli/agent/codex/reviewer.go": 14,
+        "cmd/entire/cli/agent/codex/reviewer_test.go": 25,
+        "cmd/entire/cli/agent/codex/testdata/stream_with_item_usage.jsonl": 5,
+        "cmd/entire/cli/review/tui_model.go": 1
+      }
+    }
+  ],
+  "kind": "agent_review",
+  "review_skills": [
+    "/review"
+  ],
+  "review_prompt": "/review\n\nBrief check — just write one sentence acknowledgment, do not run any tools or skills.\n\nScope: review the commits unique to this branch vs origin/HEAD, plus any uncommitted changes in the working tree. Ignore code outside this scope.\n\nCheckpoint context from commits in scope:\n- 8ba065797dd8: prompt: i want it to actually like sessioons and checkpoints, Including session and checkpoint context from this branch's history. - not just generic message\n- 887eb28f1586: prompt: proceed for pr 2\n- 4efdb600636d: prompt: but is that actually how you navigate? like ↑↓ navigate is this accurate\n- 5ecddc347c0f: no summary or prompt recorded\n- 0c902d094d5c: checkpoint metadata unavailable\n\nUse `entire explain <id>` for full checkpoint context, or `entire explain <id> --raw-transcript` for raw transcripts.\n\nIn-progress session context (uncommitted):\n  385b045a Claude Code (touched: 18 files) prompt: b"
+}

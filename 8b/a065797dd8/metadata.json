@@ -3,10 +3,17 @@
   "checkpoint_id": "8ba065797dd8",
   "strategy": "manual-commit",
   "branch": "review-cutover",
-  "checkpoints_count": 1,
+  "checkpoints_count": 2,
   "files_touched": [
+    "cmd/entire/cli/agent/claudecode/reviewer.go",
+    "cmd/entire/cli/agent/claudecode/reviewer_test.go",
+    "cmd/entire/cli/agent/claudecode/testdata/stream_with_deltas.jsonl",
+    "cmd/entire/cli/agent/codex/reviewer.go",
+    "cmd/entire/cli/agent/codex/reviewer_test.go",
     "cmd/entire/cli/review/setup.go",
-    "cmd/entire/cli/review/setup_test.go"
+    "cmd/entire/cli/review/setup_test.go",
+    "cmd/entire/cli/review/tui_model.go",
+    "cmd/entire/cli/review/tui_model_test.go"
   ],
   "sessions": [
     {
@@ -14,13 +21,20 @@
       "transcript": "/8b/a065797dd8/0/full.jsonl",
       "content_hash": "/8b/a065797dd8/0/content_hash.txt",
       "prompt": "/8b/a065797dd8/0/prompt.txt"
+    },
+    {
+      "metadata": "/8b/a065797dd8/1/metadata.json",
+      "transcript": "/8b/a065797dd8/1/full.jsonl",
+      "content_hash": "/8b/a065797dd8/1/content_hash.txt",
+      "prompt": "/8b/a065797dd8/1/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 967,
-    "cache_creation_tokens": 4428954,
+    "input_tokens": 977,
+    "cache_creation_tokens": 4500895,
     "cache_read_tokens": 221582478,
-    "output_tokens": 517209,
-    "api_call_count": 481
-  }
+    "output_tokens": 517423,
+    "api_call_count": 482
+  },
+  "has_review": true
 }
