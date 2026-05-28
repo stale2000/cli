@@ -18,3 +18,11 @@ what other commands are there now in entiredb, org?
 ---
 
 yes, let's do this
+
+---
+
+can we, and I now this is a diff from the source, do what we do in other places already and also show help instead of this simple error: 
+
+❯ go run cmd/entire/main.go project create
+accepts 1 arg(s), received 0
+exit status 1
