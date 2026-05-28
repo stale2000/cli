@@ -526,3 +526,7 @@ In which modes will shouldEnsureCheckpointRefs return true? It sounds like it's 
 ---
 
 Commit and continue
+
+---
+
+Commit and continue
