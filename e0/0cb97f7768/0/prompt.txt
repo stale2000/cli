@@ -1,0 +1,43 @@
+cli_experiments on  soph/auth-status-followup [$] via 🐹 v1.26.3 took 17s
+❯ go run cmd/entire/main.go auth list
+No active tokens.
+
+cli_experiments on  soph/auth-status-followup [$] via 🐹 v1.26.3 took 2s
+❯ go run cmd/entire/main.go auth status
+Logged in to https://us.auth.partial.to
+  Token: stored in OS keychain
+  Active tokens on this account: 0
+
+these tokens are now legacy tokens from the old auht?
+
+---
+
+there is no entire auth create
+
+---
+
+can you look at the open cursor/copilot comments if some of them are still relevant?
+
+---
+
+add it, then comment / resolve the open comments on the PR
+
+---
+
+ok, it's merged, let's do a followup pr that enables v2 login by default
+
+---
+
+wait: do we need to set ENTIRE_AUTH_BASE_URL ?
+
+---
+
+I'm trying to get this working with entire.io, can you check if the main domain supports this?
+
+---
+
+Ok, yeah let's do Option 2 then
+
+---
+
+/simplify
