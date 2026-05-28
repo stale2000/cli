@@ -1,0 +1,6 @@
+this part: 
+
+ entire-core --base-url https://eu.auth.entire.io auth login   # populates contexts.json
+
+
+should be done by "entire login"

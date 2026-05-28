@@ -1,0 +1,41 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "53e4db72cf5b",
+  "session_id": "138968af-0dcf-4467-b380-48e358d14fb5",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-28T20:23:26.023091Z",
+  "branch": "soph/vendor-entiredb-repo",
+  "checkpoints_count": 1,
+  "files_touched": [],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-7[1m]",
+  "turn_id": "16d78cd26dc1",
+  "checkpoint_transcript_start": 1226,
+  "transcript_lines_at_start": 1226,
+  "token_usage": {
+    "input_tokens": 34,
+    "cache_creation_tokens": 23363,
+    "cache_read_tokens": 12103193,
+    "output_tokens": 12508,
+    "api_call_count": 29
+  },
+  "session_metrics": {
+    "turn_count": 6
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 1,
+      "agent_lines_removed": 1
+    }
+  ]
+}
