@@ -1,0 +1,41 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "5feaff8a3854",
+  "session_id": "138968af-0dcf-4467-b380-48e358d14fb5",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-28T16:45:40.360953Z",
+  "branch": "soph/vendor-entiredb-repo",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "internal/entiredb/cli/creds.go",
+    "internal/entiredb/cli/ops_token.go",
+    "internal/entiredb/client/auth_interceptor.go"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-7[1m]",
+  "turn_id": "95c418f8d215",
+  "checkpoint_transcript_start": 660,
+  "transcript_lines_at_start": 660,
+  "token_usage": {
+    "input_tokens": 12,
+    "cache_creation_tokens": 10362,
+    "cache_read_tokens": 3149757,
+    "output_tokens": 7465,
+    "api_call_count": 12
+  },
+  "session_metrics": {
+    "turn_count": 3
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-28T16:45:40.346634Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 0,
+    "total_lines_changed": 0,
+    "agent_percentage": 0,
+    "metric_version": 2
+  }
+}
