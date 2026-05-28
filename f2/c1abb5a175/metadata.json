@@ -3,7 +3,7 @@
   "checkpoint_id": "f2c1abb5a175",
   "strategy": "manual-commit",
   "branch": "harden-checkpoint-git-timeout",
-  "checkpoints_count": 1,
+  "checkpoints_count": 2,
   "files_touched": [
     "cmd/entire/cli/checkpoint/remote/command_cancel.go",
     "cmd/entire/cli/checkpoint/remote/command_cancel_test.go",
@@ -20,13 +20,19 @@
       "transcript": "/f2/c1abb5a175/0/full.jsonl",
       "content_hash": "/f2/c1abb5a175/0/content_hash.txt",
       "prompt": "/f2/c1abb5a175/0/prompt.txt"
+    },
+    {
+      "metadata": "/f2/c1abb5a175/1/metadata.json",
+      "transcript": "/f2/c1abb5a175/1/full.jsonl",
+      "content_hash": "/f2/c1abb5a175/1/content_hash.txt",
+      "prompt": "/f2/c1abb5a175/1/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 60,
-    "cache_creation_tokens": 147173,
-    "cache_read_tokens": 3623187,
-    "output_tokens": 23506,
-    "api_call_count": 41
+    "input_tokens": 161,
+    "cache_creation_tokens": 253439,
+    "cache_read_tokens": 7577242,
+    "output_tokens": 68076,
+    "api_call_count": 92
   }
 }
