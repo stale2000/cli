@@ -985,3 +985,7 @@ Task: Re-read the changed files and surrounding code needed to understand each c
 ---
 
 Batched
+
+---
+
+Commit the changes
