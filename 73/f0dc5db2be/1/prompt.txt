@@ -1,0 +1,26 @@
+Fix only the selected review findings.
+Do not rewrite unrelated code. Run targeted tests where practical, then report what changed and what verification passed.
+
+Reviewed commit: 23431ebb6be674446bc95a6df7cad74692693d46
+Worktree: /Users/ninawork/entire/devenv/cli
+
+## Selected findings
+
+## Full selected review output
+
+## Codex findings
+
+I’ll review only the branch delta against `origin/HEAD` plus the current working tree. I’m starting by mapping the branch, commit range, and changed files so the findings stay inside that scope.
+There are no commits ahead of `origin/HEAD`; the review scope is the staged working tree plus untracked files. The meaningful tracked code delta is staged, so I’m reading that diff first and will only pull untracked content in if it looks review-relevant.
+The staged change adds an opt-in `checkpoints_version: "1.1"` path that mirrors the existing v1 metadata branch into a custom ref. I’m checking the surrounding settings parsing and strategy write paths now, because the risk is mostly whether the mirror is triggered at the right time and whether settings are read from the right repo context.
+The untracked set is mostly local skill/config artifacts and review/debug files. I’m checking their size and file types for obvious security or repo-hygiene issues, then I’ll focus findings on code paths with behavioral impact.
+The code path itself is small, but it crosses settings, metadata writes, and pre-push behavior. I’m running the targeted unit tests added around this feature, not E2E tests.
+**Findings**
+- P1: Untracked raw agent artifacts should not be committed. [full-example.jsonl](/Users/ninawork/entire/devenv/cli/full-example.jsonl:4) and [transcript-output.jsonl](/Users/ninawork/entire/devenv/cli/transcript-output.jsonl:63) include raw prompts, request/session IDs, absolute paths, and tool-output file contents. `compact-debug` is also an untracked Mach-O executable. Remove these from the working tree or add an explicit ignore rule before committing/pushing.
+
+- P2: The mirror integration points are not directly covered. Tests exercise `mirrorMetadataToV1CustomRef` itself, but not the actual call sites after committed writes in [manual_commit_condensation.go](/Users/ninawork/entire/devenv/cli/cmd/entire/cli/strategy/manual_commit_condensation.go:255) and turn-end finalization in [manual_commit_hooks.go](/Users/ninawork/entire/devenv/cli/cmd/entire/cli/strategy/manual_commit_hooks.go:2807). A regression could leave the helper passing while real condensation/finalization fails to advance `refs/entire/checkpoints/v1.1`.
+
+**Notes**
+No committed changes exist vs `origin/HEAD`; this review covered the staged code changes and untracked working tree files.
+
+Verification run: `go test ./cmd/entire/cli/settings ./cmd/entire/cli/strategy -run 'Test(MirrorsToV1CustomRef|V1CustomRef|PrePush_DoesNotPushV1CustomRef)'` passed.
