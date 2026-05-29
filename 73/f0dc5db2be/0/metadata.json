@@ -1,0 +1,98 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "73f0dc5db2be",
+  "session_id": "019e74ea-3ba8-7502-b555-a3f95ab66fe3",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-29T18:51:01.03274Z",
+  "branch": "v1.1-mirror-populate",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/paths/paths.go",
+    "cmd/entire/cli/settings/settings.go",
+    "cmd/entire/cli/settings/settings_test.go",
+    "cmd/entire/cli/strategy/manual_commit_condensation.go",
+    "cmd/entire/cli/strategy/manual_commit_hooks.go",
+    "cmd/entire/cli/strategy/v1_custom_ref_mirror.go",
+    "cmd/entire/cli/strategy/v1_custom_ref_mirror_test.go"
+  ],
+  "agent": "Codex",
+  "model": "gpt-5.5",
+  "turn_id": "71f35cbf6f95",
+  "token_usage": {
+    "input_tokens": 147164,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 1418752,
+    "output_tokens": 9810,
+    "api_call_count": 16
+  },
+  "session_metrics": {
+    "turn_count": 1
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-29T18:51:01.01448Z",
+    "agent_lines": 94,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 94,
+    "total_lines_changed": 94,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 7711,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".agents/skills/agent-integration/README.md": 71,
+        ".agents/skills/agent-integration/SKILL.md": 107,
+        ".agents/skills/agent-integration/implementer.md": 346,
+        ".agents/skills/agent-integration/researcher.md": 161,
+        ".agents/skills/agent-integration/test-writer.md": 211,
+        ".agents/skills/changelog/SKILL.md": 88,
+        ".agents/skills/e2e/SKILL.md": 32,
+        ".agents/skills/e2e/debug.md": 88,
+        ".agents/skills/e2e/implement.md": 117,
+        ".agents/skills/e2e/triage-ci.md": 176,
+        ".agents/skills/explain/SKILL.md": 34,
+        ".agents/skills/search/SKILL.md": 70,
+        ".agents/skills/session-handoff/SKILL.md": 120,
+        ".agents/skills/session-to-skill/SKILL.md": 210,
+        ".agents/skills/test-repo/README.md": 65,
+        ".agents/skills/test-repo/SKILL.md": 230,
+        ".agents/skills/test-repo/test-harness.sh": 245,
+        ".agents/skills/what-happened/SKILL.md": 333,
+        ".cursor/hooks.json": 40,
+        ".factory/settings.json": 93,
+        ".github/hooks/entire.json": 61,
+        "cmd/entire/cli/paths/paths.go": 7,
+        "cmd/entire/cli/settings/settings.go": 38,
+        "cmd/entire/cli/settings/settings_test.go": 41,
+        "cmd/entire/cli/strategy/manual_commit_condensation.go": 4,
+        "cmd/entire/cli/strategy/manual_commit_hooks.go": 5,
+        "cmd/entire/cli/strategy/v1_custom_ref_mirror.go": 51,
+        "cmd/entire/cli/strategy/v1_custom_ref_mirror_test.go": 140,
+        "entire-checkpoints-playground.html": 698,
+        "full-example.jsonl": 129,
+        "metadata-example.json": 32,
+        "plan.md": 389,
+        "pr864-files-pretty.json": 170,
+        "pr864-patches.txt": 2703,
+        "review-01.md": 95,
+        "review-02.md": 82,
+        "review-03.md": 77,
+        "skills-lock.json": 35,
+        "transcript-output.jsonl": 117
+      }
+    }
+  ],
+  "kind": "agent_review",
+  "review_skills": [
+    "/review"
+  ],
+  "review_prompt": "Review the current branch changes and report actionable findings. Prioritize correctness, regressions, security, and missing test coverage. Do not make code changes.\n\nScope: review the commits unique to this branch vs origin/HEAD, plus any uncommitted changes in the working tree. Ignore code outside this scope.\n\nIn-progress session context (uncommitted):\n  b1c319c4 Claude Code (touched: 9 files) prompt: /simplify"
+}
