@@ -1,0 +1,34 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "13bdc2a14cbd",
+  "strategy": "manual-commit",
+  "branch": "tmp-migrate-v2-script-go",
+  "checkpoints_count": 1,
+  "files_touched": [
+    ".golangci.yaml",
+    "cmd/entire/cli/logging/logger_test.go",
+    "cmd/entire/cli/settings/settings_test.go",
+    "cmd/entire/cli/strategy/hook_managers_test.go",
+    "cmd/entire/cli/strategy/manual_commit_test.go",
+    "cmd/entire/cli/versioncheck/versioncheck_test.go",
+    "cmd/migrate-v2-checkpoints/VALIDATION.md",
+    "cmd/migrate-v2-checkpoints/main_test.go",
+    "cmd/migrate-v2-checkpoints/v2_author.go",
+    "cmd/migrate-v2-checkpoints/v2_author_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/13/bdc2a14cbd/0/metadata.json",
+      "transcript": "/13/bdc2a14cbd/0/full.jsonl",
+      "content_hash": "/13/bdc2a14cbd/0/content_hash.txt",
+      "prompt": "/13/bdc2a14cbd/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 6030822,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 174492288,
+    "output_tokens": 544505,
+    "api_call_count": 1371
+  }
+}
