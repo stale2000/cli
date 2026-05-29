@@ -1,0 +1,19 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "114879e30651",
+  "strategy": "manual-commit",
+  "branch": "soph/entire-control-plane-client",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/corecmd.go",
+    "cmd/entire/cli/corecmd_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/11/4879e30651/0/metadata.json",
+      "transcript": "/11/4879e30651/0/full.jsonl",
+      "content_hash": "/11/4879e30651/0/content_hash.txt",
+      "prompt": ""
+    }
+  ]
+}
