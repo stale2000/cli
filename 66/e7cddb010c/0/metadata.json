@@ -1,0 +1,69 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "66e7cddb010c",
+  "session_id": "d3c97f81-4391-4a4d-8b31-49a29cddc4f5",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-29T16:39:52.875821Z",
+  "branch": "soph/pi-model-backfill",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "cmd/entire/cli/agent/agent.go",
+    "cmd/entire/cli/agent/capabilities.go",
+    "cmd/entire/cli/agent/capabilities_test.go",
+    "cmd/entire/cli/agent/pi/pijsonl/pijsonl.go",
+    "cmd/entire/cli/agent/pi/pijsonl/pijsonl_test.go",
+    "cmd/entire/cli/agent/pi/transcript.go",
+    "cmd/entire/cli/agent/pi/transcript_test.go",
+    "cmd/entire/cli/strategy/manual_commit_condensation.go",
+    "cmd/entire/cli/strategy/manual_commit_condensation_test.go",
+    "docs/architecture/agent-guide.md"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-8[1m]",
+  "turn_id": "e6b5420c15a9",
+  "token_usage": {
+    "input_tokens": 16095,
+    "cache_creation_tokens": 276468,
+    "cache_read_tokens": 13707409,
+    "output_tokens": 69651,
+    "api_call_count": 105
+  },
+  "session_metrics": {
+    "turn_count": 3
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-29T16:39:52.86201Z",
+    "agent_lines": 352,
+    "agent_removed": 62,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 352,
+    "total_lines_changed": 414,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 259,
+      "agent_lines_removed": 2
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 353,
+      "agent_lines_removed": 63
+    }
+  ]
+}
