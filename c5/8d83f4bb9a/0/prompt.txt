@@ -1,0 +1,16 @@
+commit the changes
+
+---
+
+I just ran the tool and was prompted to sign a commit. Can you confirm that the migration tool has signing commits fully disabled?
+
+---
+
+This wasn't in preflight validation it was a manual `--apply` call only
+
+❯   REPO=/Users/pfleidi/entire/entiredb
+  TOOL=/Users/pfleidi/entire/cli/.worktrees/review/migrate-v2-checkpoints
+  APPLIED_REPORT=/tmp/migrate-entiredb.applied
+  PRE_APPLY_TIP=$(git -C "$REPO" rev-parse entire/checkpoints/v1)
+  echo "pre-apply v1 tip: $PRE_APPLY_TIP"
+  "$TOOL" --repo "$REPO" --apply | tee "$APPLIED_REPORT"
