@@ -1,0 +1,1 @@
+can we make the urls proper urls so terminals figure out it's one string? if I click now right on the clone url it's not selecting "entire:" too
