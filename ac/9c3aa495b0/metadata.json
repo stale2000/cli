@@ -1,0 +1,23 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "ac9c3aa495b0",
+  "strategy": "manual-commit",
+  "branch": "soph/entire-control-plane-client",
+  "checkpoints_count": 1,
+  "files_touched": null,
+  "sessions": [
+    {
+      "metadata": "/ac/9c3aa495b0/0/metadata.json",
+      "transcript": "/ac/9c3aa495b0/0/full.jsonl",
+      "content_hash": "/ac/9c3aa495b0/0/content_hash.txt",
+      "prompt": "/ac/9c3aa495b0/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 18721,
+    "cache_creation_tokens": 1936483,
+    "cache_read_tokens": 181234072,
+    "output_tokens": 299890,
+    "api_call_count": 583
+  }
+}
