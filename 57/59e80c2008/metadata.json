@@ -1,0 +1,26 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "5759e80c2008",
+  "strategy": "manual-commit",
+  "branch": "v1.1-checkpoints-local-mirror",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "cmd/entire/cli/checkpoint/mirroring_committed_store.go",
+    "cmd/entire/cli/checkpoint/mirroring_committed_store_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/57/59e80c2008/0/metadata.json",
+      "transcript": "/57/59e80c2008/0/full.jsonl",
+      "content_hash": "/57/59e80c2008/0/content_hash.txt",
+      "prompt": "/57/59e80c2008/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 98303,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 9025536,
+    "output_tokens": 14634,
+    "api_call_count": 56
+  }
+}

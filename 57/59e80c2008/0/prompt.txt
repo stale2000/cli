@@ -1,0 +1,5 @@
+commit and continue
+
+---
+
+Shouldn't the CommittedStore interface live in the place that consumes it?
