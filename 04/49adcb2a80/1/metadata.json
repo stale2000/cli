@@ -1,0 +1,73 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "0449adcb2a80",
+  "session_id": "81ae9c1f-447c-4c99-b89a-1dc212d97203",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-29T12:24:10.97073Z",
+  "branch": "soph/pin-auth-base-url",
+  "checkpoints_count": 3,
+  "files_touched": [
+    "cmd/entire/cli/api/base_url.go",
+    "cmd/entire/cli/api/base_url_test.go",
+    "cmd/entire/cli/auth.go",
+    "cmd/entire/cli/auth/provider.go",
+    "cmd/entire/cli/auth/provider_test.go",
+    "cmd/entire/cli/auth/store.go",
+    "cmd/entire/cli/auth/store_test.go"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-7[1m]",
+  "turn_id": "86b1cbbd7efd",
+  "token_usage": {
+    "input_tokens": 58,
+    "cache_creation_tokens": 228724,
+    "cache_read_tokens": 3489112,
+    "output_tokens": 18188,
+    "api_call_count": 38
+  },
+  "session_metrics": {
+    "turn_count": 3
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-29T12:24:10.965011Z",
+    "agent_lines": 45,
+    "agent_removed": 31,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 45,
+    "total_lines_changed": 76,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 45,
+      "agent_lines_removed": 31
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 45,
+      "agent_lines_removed": 31
+    },
+    {
+      "checkpoint_number": 4,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 45,
+      "agent_lines_removed": 31
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+Let's change auth so that if ENTIRE_AUTH_BASE_URL is not set, we will use https://us.auth.entire.io
+
+---
+
+Local-dev setups that only set ENTIRE_API_BASE_URL will now need to also set ENTIRE_AUTH_BASE_URL to
+  point auth at the same host.
+
+could we do this smarter?
+
+---
+
+But if we kill the old auth, this is useless, right?
