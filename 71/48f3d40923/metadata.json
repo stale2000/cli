@@ -1,0 +1,21 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "7148f3d40923",
+  "strategy": "manual-commit",
+  "branch": "soph/entire-control-plane-client",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/corecmd_test.go",
+    "cmd/entire/cli/project_test.go",
+    "cmd/entire/cli/repo_mirror.go",
+    "cmd/entire/cli/repo_mirror_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/71/48f3d40923/0/metadata.json",
+      "transcript": "/71/48f3d40923/0/full.jsonl",
+      "content_hash": "/71/48f3d40923/0/content_hash.txt",
+      "prompt": ""
+    }
+  ]
+}

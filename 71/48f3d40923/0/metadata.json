@@ -1,0 +1,32 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "7148f3d40923",
+  "session_id": "019e751f-4d01-7160-89e0-350232a4a05f",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-29T21:34:32.205746Z",
+  "branch": "soph/entire-control-plane-client",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/corecmd_test.go",
+    "cmd/entire/cli/project_test.go",
+    "cmd/entire/cli/repo_mirror.go",
+    "cmd/entire/cli/repo_mirror_test.go"
+  ],
+  "agent": "Codex",
+  "model": "gpt-5.5",
+  "turn_id": "9e1483fd9b82",
+  "checkpoint_transcript_start": 7,
+  "transcript_lines_at_start": 7,
+  "initial_attribution": {
+    "calculated_at": "2026-05-29T21:34:32.199658Z",
+    "agent_lines": 183,
+    "agent_removed": 7,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 183,
+    "total_lines_changed": 190,
+    "agent_percentage": 100,
+    "metric_version": 2
+  }
+}
