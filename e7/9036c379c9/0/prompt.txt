@@ -1,0 +1,94 @@
+Compare the contents of this PR against the plan in plan.md and state how they differ and the pros/cons of each
+
+---
+
+I don't understand how/why dual-write would be safer right away. Is the plan just for dual-write but nothing reads yet?
+
+---
+
+So the plan might make more sense for a pr #1, and the the current changes would become pr #2 building on top of it?
+
+---
+
+What's MirroringCommittedStore and is it needed? For the simplest way to implement a dual-write v1.1 and v1 (where nothing from v1.1 is read *yet*)
+
+---
+
+So MirroringCommittedStore does actually implement the dual-writing? Not just advancing the ref's commit pointer?
+
+---
+
+Ok so is the "simplest dual-write" option the same as the mirroringcommittedstore in terms of function while still fitting in with the plan?
+
+---
+
+It sounds like MirroringCommittedStore is safer
+
+---
+
+Basically we ultimately want to get to a place where v1.1 can replace v1, but the safest way to roll it out along the way with a dual-write option until we can verify v1.1 can be read and used without issues
+
+---
+
+Ok, let's open a new branch (off main) to start the populate + nothing reads first step.
+
+---
+
+Yes everything for phase 1 to make the smallest incremental change for plan.md with the end-state intent being v1.1 is read/write with an option to switch to it fully (as a future PR)
+
+---
+
+No I think it's ok to not update the dev docs. Simplify the comments and tests now. Also, `v11` is a clumsy/clunky name, I think `v11_mirror` can just be `v1_custom_ref_mirror`, and all the `v11` notes can be come `v1 custom ref`
+
+---
+
+/simplify
+
+---
+
+Summarize what the new tests are testing
+
+---
+
+and they don't check for jsonls being written?
+
+---
+
+Compare the diff against what's on plan.md
+
+---
+
+Open a PR and include a description of what changed and what the divergences are from that plan and why
+
+---
+
+Ok let's simplify to make `checkpoints_version` be "1.1" a string only, don't support a float
+
+---
+
+is summary_timeout_seconds in settings.json handled as a string or int?
+
+---
+
+Review the remaining comments on https://github.com/entireio/cli/pull/1300
+
+---
+
+`MetadataRefName` is fine with me. 
+We should ensure all the places are mirrored though
+
+---
+
+How is that private helper different from the original plan's mirroring setup
+
+---
+
+We should stick with the plan option and satisfy the "all the places" requirement while doing so
+
+---
+
+Defer it for now
+
+---
+
+Recommendation is fine but document the change decision in the PR description + commit message, keep the code comments minimal
