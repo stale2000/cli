@@ -92,3 +92,8 @@ Defer it for now
 ---
 
 Recommendation is fine but document the change decision in the PR description + commit message, keep the code comments minimal
+
+---
+
+Ok, let's actually ignore that for now - it can be deferred as per the review comments on the PR.
+Address the other open comment instead. Clear away any changes that were made as part of this
