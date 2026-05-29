@@ -1,0 +1,13 @@
+double click is not working :(
+
+---
+
+double click is not working to select the whole thing is not working, it's not taking the schmea
+
+---
+
+ok, two things next, looking at `entire repo mirror create` I think we want a default for the target for now so `aws-us-east-2.entire.io` can be skipped. But then also: 
+
+❯ go run cmd/entire/main.go repo mirror create github.com/entirehq/go-git-api aws-us-east-2.entire.io
+decode response: default (code 201): unexpected Content-Type: application/json
+exit status 1
