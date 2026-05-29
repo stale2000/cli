@@ -59,3 +59,7 @@ Compare the diff against what's on plan.md
 ---
 
 Open a PR and include a description of what changed and what the divergences are from that plan and why
+
+---
+
+Ok let's simplify to make `checkpoints_version` be "1.1" a string only, don't support a float
