@@ -1,0 +1,1 @@
+/goal find and combine or remove redundant tests that test for the exact same functionality in cli/strategy
