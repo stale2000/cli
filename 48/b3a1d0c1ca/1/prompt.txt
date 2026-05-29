@@ -1,0 +1,9 @@
+3. DeleteMirror still receives resolved.Response.RepoId
+     - cmd/entire/cli/repo_mirror.go:197-206
+     - This may be correct if the server invariant in the comment is true, but from the
+       client contract alone it still looks mismatched:
+         - lookup response field: repoId
+         - delete path param: mirrorId
+     - So this is no longer a clear correctness bug, but it is still an API-contract
+       ambiguity unless backed by a test or by a schema/server change that exposes
+       mirrorId explicitly.
