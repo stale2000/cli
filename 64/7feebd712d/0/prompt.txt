@@ -1,0 +1,13 @@
+this branch is implementing an openapi client for entiredb (../entiredb) it adds new commands to create a repo or a mirror, to actually make the cloning work we also need a git helper, the entiredb repo has git-remote-entire for this. Ideally we ship both with the cli (this repo) in the future. I wonder if we could just make this an alias of the entire cli and make it behave like the helper if invoked by the alias name? this way we only need to add a symlink and don't need to ship two binaries?
+
+---
+
+/Users/soph/Work/entire/devenv/entiredb <- is the right driectory
+
+---
+
+in case 1, the contexts.json: where do the secrets live?
+
+---
+
+ok, let's do the proper thing
