@@ -1,0 +1,27 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "e0c9102fc8fb",
+  "strategy": "manual-commit",
+  "branch": "soph/git-helper",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "internal/remotehelper/githelper/consts.go",
+    "internal/remotehelper/githelper/consts_test.go",
+    "internal/remotehelper/gitproto/consts_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/e0/c9102fc8fb/0/metadata.json",
+      "transcript": "/e0/c9102fc8fb/0/full.jsonl",
+      "content_hash": "/e0/c9102fc8fb/0/content_hash.txt",
+      "prompt": ""
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 1536,
+    "cache_creation_tokens": 32004,
+    "cache_read_tokens": 5169454,
+    "output_tokens": 23503,
+    "api_call_count": 27
+  }
+}

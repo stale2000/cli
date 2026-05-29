@@ -1,0 +1,41 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "e0c9102fc8fb",
+  "session_id": "5fda6480-ca4c-467e-9433-b9691d2c4f51",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-29T21:20:06.585507Z",
+  "branch": "soph/git-helper",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "internal/remotehelper/githelper/consts_test.go",
+    "internal/remotehelper/gitproto/consts_test.go",
+    "internal/remotehelper/githelper/consts.go"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-8[1m]",
+  "turn_id": "60cf1e06e9f3",
+  "checkpoint_transcript_start": 415,
+  "transcript_lines_at_start": 415,
+  "token_usage": {
+    "input_tokens": 1536,
+    "cache_creation_tokens": 32004,
+    "cache_read_tokens": 5169454,
+    "output_tokens": 23503,
+    "api_call_count": 27
+  },
+  "session_metrics": {
+    "turn_count": 2
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-29T21:20:06.551679Z",
+    "agent_lines": 32,
+    "agent_removed": 0,
+    "human_added": 96,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 128,
+    "total_lines_changed": 224,
+    "agent_percentage": 14.285714285714285,
+    "metric_version": 2
+  }
+}
