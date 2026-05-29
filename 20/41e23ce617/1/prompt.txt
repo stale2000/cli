@@ -1,0 +1,17 @@
+1. Wrong ID passed to DeleteMirror
+     - cmd/entire/cli/repo_mirror.go:192-201
+     - LookupRepoByMirror returns MirrorRepoPathStatusCode, whose payload is
+       MirrorRepoPath{repoId, repoPath}.
+     - The code now calls:
+       DeleteMirror(...{MirrorId: resolved.Response.RepoId})
+     - But DeleteMirror still takes a mirrorId, not a repoId.
+ 2. Mirror wait loop still reuses one short-lived token
+     - cmd/entire/cli/repo_mirror_probe.go:46-72
+     - RepoScopedToken is fetched once before the polling loop and reused for the full
+       wait.
+     - Default wait is still 30m, so token expiry can still break long waits.
+ 3. RepoScopedToken still bypasses refresh-aware token management
+     - cmd/entire/cli/auth/repo_token.go:52-95
+     - It still does LookupCurrentToken() and exchanges that raw access token directly.
+     - So if the stored access token is expired but refresh would succeed, this path still
+       fails.
