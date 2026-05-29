@@ -1,0 +1,28 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "6e4f9286de7c",
+  "strategy": "manual-commit",
+  "branch": "soph/entire-control-plane-client",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/grant.go",
+    "cmd/entire/cli/org.go",
+    "cmd/entire/cli/project.go",
+    "cmd/entire/cli/repo.go",
+    "cmd/entire/cli/repo_mirror.go",
+    "internal/coreapi/oas_client_gen.go",
+    "internal/coreapi/oas_response_decoders_gen.go",
+    "internal/coreapi/oas_schemas_gen.go",
+    "internal/coreapi/oas_validators_gen.go",
+    "internal/coreapi/spec/core.gen.json",
+    "internal/coreapi/spec/normalize.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/6e/4f9286de7c/0/metadata.json",
+      "transcript": "/6e/4f9286de7c/0/full.jsonl",
+      "content_hash": "/6e/4f9286de7c/0/content_hash.txt",
+      "prompt": ""
+    }
+  ]
+}
