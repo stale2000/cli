@@ -1,0 +1,27 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "cc42c745d3a1",
+  "strategy": "manual-commit",
+  "branch": "soph/pin-auth-base-url",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "README.md",
+    "cmd/entire/cli/integration_test/login_test.go",
+    "scripts/local-device-auth-smoke.sh"
+  ],
+  "sessions": [
+    {
+      "metadata": "/cc/42c745d3a1/0/metadata.json",
+      "transcript": "/cc/42c745d3a1/0/full.jsonl",
+      "content_hash": "/cc/42c745d3a1/0/content_hash.txt",
+      "prompt": "/cc/42c745d3a1/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 25,
+    "cache_creation_tokens": 26136,
+    "cache_read_tokens": 2840681,
+    "output_tokens": 10922,
+    "api_call_count": 21
+  }
+}
