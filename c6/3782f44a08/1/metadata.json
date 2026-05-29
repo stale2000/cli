@@ -1,0 +1,48 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "c63782f44a08",
+  "session_id": "138968af-0dcf-4467-b380-48e358d14fb5",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-29T20:23:52.019474Z",
+  "branch": "soph/entire-control-plane-client",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "internal/coreapi/spec/normalize.go"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "95e6c7acee73",
+  "checkpoint_transcript_start": 3085,
+  "transcript_lines_at_start": 3085,
+  "token_usage": {
+    "input_tokens": 141,
+    "cache_creation_tokens": 3247,
+    "cache_read_tokens": 4650709,
+    "output_tokens": 3826,
+    "api_call_count": 6
+  },
+  "session_metrics": {
+    "turn_count": 7
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-29T20:23:51.960533Z",
+    "agent_lines": 23,
+    "agent_removed": 13,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 23,
+    "total_lines_changed": 36,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}

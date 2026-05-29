@@ -1,0 +1,5 @@
+the bug is a schema bug, right?
+
+---
+
+yeah let's add a comment to the normalizer, idea is to get rid of it by fixing the schema
