@@ -78,3 +78,7 @@ can you explain the tradeoff between 1 and 2?
 ---
 
 Basically the auth we are missing is the one to do a repo clone?
+
+---
+
+Let's build the repo token exchange too
