@@ -55,3 +55,7 @@ and they don't check for jsonls being written?
 ---
 
 Compare the diff against what's on plan.md
+
+---
+
+Open a PR and include a description of what changed and what the divergences are from that plan and why
