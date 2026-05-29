@@ -1,0 +1,77 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "efd82d9acf0f",
+  "session_id": "019e709d-ca91-7312-90d4-57ade5290e65",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-29T17:27:21.277449Z",
+  "branch": "v1.1-checkpoints-local-mirror",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/attach.go",
+    "cmd/entire/cli/attach_test.go",
+    "cmd/entire/cli/benchutil/bench_test.go",
+    "cmd/entire/cli/benchutil/benchutil.go",
+    "cmd/entire/cli/checkpoint/backwards_compat_test.go",
+    "cmd/entire/cli/checkpoint/blob_resolver_test.go",
+    "cmd/entire/cli/checkpoint/checkpoint.go",
+    "cmd/entire/cli/checkpoint/checkpoint_test.go",
+    "cmd/entire/cli/checkpoint/committed.go",
+    "cmd/entire/cli/checkpoint/committed_phantom_paths_test.go",
+    "cmd/entire/cli/checkpoint/committed_reader_resolve_test.go",
+    "cmd/entire/cli/checkpoint/committed_update_test.go",
+    "cmd/entire/cli/checkpoint/gitstore_options_test.go",
+    "cmd/entire/cli/checkpoint/parse_tree.go",
+    "cmd/entire/cli/checkpoint/store.go",
+    "cmd/entire/cli/dispatch/mode_local_test.go",
+    "cmd/entire/cli/explain_export_test.go",
+    "cmd/entire/cli/explain_test.go",
+    "cmd/entire/cli/head_checkpoint_flags_test.go",
+    "cmd/entire/cli/paths/paths.go",
+    "cmd/entire/cli/resume_test.go",
+    "cmd/entire/cli/review_context_test.go",
+    "cmd/entire/cli/status_test.go",
+    "cmd/entire/cli/strategy/manual_commit_condensation.go",
+    "cmd/entire/cli/strategy/manual_commit_hooks.go"
+  ],
+  "agent": "Codex",
+  "model": "gpt-5.5",
+  "turn_id": "80ede5dd351b",
+  "token_usage": {
+    "input_tokens": 895140,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 33035776,
+    "output_tokens": 85961,
+    "api_call_count": 266
+  },
+  "session_metrics": {
+    "turn_count": 33
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-29T17:27:21.228841Z",
+    "agent_lines": 623,
+    "agent_removed": 1703,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 623,
+    "total_lines_changed": 2326,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 495,
+      "agent_lines_removed": 178
+    }
+  ]
+}
