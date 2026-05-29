@@ -1,0 +1,1 @@
+can we add some color like activity or session list has, basically use the gray for "THROUGHPUT" or "ITERATION" on the activity page for the table headers, make the repo name white, and the clonurl gray again, yes/no gray too
