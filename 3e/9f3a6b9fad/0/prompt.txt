@@ -1,0 +1,27 @@
+Can you thoroughly review cmd/migrate-v2-checkpoints/VALIDATION.md for any critical misses or things that might impact user experience if they're missed. I mostly want to ensure that the validation is as thorough as possible here
+
+---
+
+Okay, that's a thorough list but utterly overwhelming. It's not clear to me which of the findings are important and which apply to the runbook or to the implementation of the tool. Can you be very specific sort them by impact/imporance and suggest which changes you'd make to the validation doc?
+
+---
+
+Okay, that's a thorough list but utterly overwhelming. It's not clear to me which of the findings are important and which apply to the runbook or to the implementation of the tool. Can you be very specific sort them by impact/imporance and suggest which changes you'd make to the validation doc?
+
+Also keep in mind that this is a tool used for internal checkpoints only. It will only be run against 4 internal repositories to have a complete history.
+
+---
+
+Okay, made the tier 1 edits
+
+---
+
+Yes
+
+---
+
+I wanted to say make the tier 1 edits
+
+---
+
+Can I tell you a little sectet? Regular humans can't remember things like §5.2. An AI wrote the doc and an AI will be executing it. You might be able to remember but when you're referring to something like "§5.2" I have no clue what point that is.

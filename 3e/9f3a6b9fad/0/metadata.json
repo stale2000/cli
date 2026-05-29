@@ -1,0 +1,53 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "3e9f3a6b9fad",
+  "session_id": "efd7103b-3cef-454d-819a-7a0353b12b42",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-29T21:39:42.242771Z",
+  "branch": "tmp-migrate-v2-script-go",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "cmd/migrate-v2-checkpoints/VALIDATION.md"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-7[1m]",
+  "turn_id": "c1aa7c97b5f1",
+  "token_usage": {
+    "input_tokens": 79,
+    "cache_creation_tokens": 162979,
+    "cache_read_tokens": 6593734,
+    "output_tokens": 29416,
+    "api_call_count": 49
+  },
+  "session_metrics": {
+    "turn_count": 5
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-29T21:39:42.228042Z",
+    "agent_lines": 3,
+    "agent_removed": 5,
+    "human_added": 38,
+    "human_modified": 6,
+    "human_removed": 0,
+    "total_committed": 47,
+    "total_lines_changed": 52,
+    "agent_percentage": 15.384615384615385,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 9,
+      "agent_lines_removed": 5
+    }
+  ]
+}
