@@ -1,0 +1,23 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "15bcbac25ac5",
+  "session_id": "138968af-0dcf-4467-b380-48e358d14fb5",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-29T16:10:39.266402Z",
+  "branch": "soph/entire-control-plane-client",
+  "checkpoints_count": 1,
+  "files_touched": [],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-7[1m]",
+  "turn_id": "be9393161506",
+  "token_usage": {
+    "input_tokens": 21900,
+    "cache_creation_tokens": 2059238,
+    "cache_read_tokens": 224818497,
+    "output_tokens": 373484,
+    "api_call_count": 660
+  },
+  "session_metrics": {
+    "turn_count": 19
+  }
+}
