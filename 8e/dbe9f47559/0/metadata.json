@@ -1,0 +1,31 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "8edbe9f47559",
+  "session_id": "019e751f-4d01-7160-89e0-350232a4a05f",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-29T21:00:39.006651Z",
+  "branch": "soph/entire-control-plane-client",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/repo_mirror.go",
+    "internal/coreapi/UPSTREAM.md",
+    "internal/coreapi/spec/normalize.go"
+  ],
+  "agent": "Codex",
+  "model": "gpt-5.5",
+  "turn_id": "9e1483fd9b82",
+  "checkpoint_transcript_start": 7,
+  "transcript_lines_at_start": 7,
+  "initial_attribution": {
+    "calculated_at": "2026-05-29T21:00:38.98832Z",
+    "agent_lines": 65,
+    "agent_removed": 3,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 65,
+    "total_lines_changed": 68,
+    "agent_percentage": 100,
+    "metric_version": 2
+  }
+}
