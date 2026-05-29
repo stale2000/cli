@@ -1,9 +1,1 @@
 commit the changes
-
----
-
-This migration takes a very long time. Is it possible to speed this up significantly without too far reaching changes? Validating the code output on real repositories is extremely painful because it's so time consuming
-
----
-
-Implement the lookup index changes for now and I'll see whether that's going to improve things
