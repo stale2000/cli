@@ -1,0 +1,23 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "722f45b7292f",
+  "strategy": "manual-commit",
+  "branch": "dedupe-review-tests",
+  "checkpoints_count": 1,
+  "files_touched": null,
+  "sessions": [
+    {
+      "metadata": "/72/2f45b7292f/0/metadata.json",
+      "transcript": "/72/2f45b7292f/0/full.jsonl",
+      "content_hash": "/72/2f45b7292f/0/content_hash.txt",
+      "prompt": "/72/2f45b7292f/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 32652,
+    "cache_creation_tokens": 167200,
+    "cache_read_tokens": 9195221,
+    "output_tokens": 64655,
+    "api_call_count": 75
+  }
+}
