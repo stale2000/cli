@@ -1,0 +1,84 @@
+this part: 
+
+ entire-core --base-url https://eu.auth.entire.io auth login   # populates contexts.json
+
+
+should be done by "entire login"
+
+---
+
+❯ go run cmd/entire/main.go repo ls gh/entireio/cli
+repo path "entireio/cli" must start with a surface prefix: "et/" (native), "git/" (legacy native), or "gh/" (GitHub mirror) — e.g. et/entireio/cli
+exit status 1
+
+---
+
+what other commands are there now in entiredb, org?
+
+---
+
+yes, let's do this
+
+---
+
+can we, and I now this is a diff from the source, do what we do in other places already and also show help instead of this simple error: 
+
+❯ go run cmd/entire/main.go project create
+accepts 1 arg(s), received 0
+exit status 1
+
+---
+
+ok, let's open this as a draft PR for now
+
+---
+
+ok, let's pivot here and do an alternate approach. What if we don't port over any code but rather implement this as first class client to the openapi endpoints in the cli. This is the one for entiredb https://aws-us-east-2.entire.io/api/v1/docs
+And this is for creating orgs, grants:
+https://us.console.entire.io/api/v1/docs
+
+can you take a look?
+
+---
+
+sorry, thinking again: we only should care about the verbs/commands in the other PR, we probably don't need any of the APIs on Entire Repo API thinking more.
+
+---
+
+let's try https://github.com/ogen-go/ogen instead then?
+
+---
+
+ok, different compare https://github.com/pb33f/libopenapi and https://github.com/ogen-go/ogen and pick the better
+
+---
+
+/simplify
+
+---
+
+❯ go run cmd/entire/main.go repo list
+accepts 1 arg(s), received 0
+exit status 1
+
+can we make this nicer again?
+
+---
+
+where is the mirror command now
+
+---
+
+can you check the latest code in entiredb how this works there "entire repo mirror"
+
+---
+
+can you explain the tradeoff between 1 and 2?
+
+---
+
+Basically the auth we are missing is the one to do a repo clone?
+
+---
+
+Let's build the repo token exchange too

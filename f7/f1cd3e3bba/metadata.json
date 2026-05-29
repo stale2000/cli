@@ -1,0 +1,25 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "f7f1cd3e3bba",
+  "strategy": "manual-commit",
+  "branch": "soph/entire-control-plane-client",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/main.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/f7/f1cd3e3bba/0/metadata.json",
+      "transcript": "/f7/f1cd3e3bba/0/full.jsonl",
+      "content_hash": "/f7/f1cd3e3bba/0/content_hash.txt",
+      "prompt": "/f7/f1cd3e3bba/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 20013,
+    "cache_creation_tokens": 2038397,
+    "cache_read_tokens": 213661948,
+    "output_tokens": 359844,
+    "api_call_count": 642
+  }
+}
