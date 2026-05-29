@@ -97,3 +97,9 @@ Recommendation is fine but document the change decision in the PR description + 
 
 Ok, let's actually ignore that for now - it can be deferred as per the review comments on the PR.
 Address the other open comment instead. Clear away any changes that were made as part of this
+
+---
+
+>   For updateCombinedAttributionForCheckpoint, it's probably better to address here since it's called in the post-commit hook.
+
+This should be addressed here as well
