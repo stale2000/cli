@@ -1,0 +1,35 @@
+can you explain the state of task 9?
+
+---
+
+but this whole thing is mostly still in flight worst case is that someone is logged out and has to relogin, but let's fix this now
+
+But quick question in between: we would also need some way to switch context?
+
+---
+
+sorry, wrong key, continue
+
+---
+
+/simplify
+
+---
+
+yes, commit
+
+---
+
+yeah, let's do the symlink now
+
+---
+
+for homebrew / scoop we need to do this in another repo, right?
+
+---
+
+yes, please do.
+
+---
+
+squash the two commits
