@@ -1,0 +1,25 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "1b6464f1632d",
+  "strategy": "manual-commit",
+  "branch": "soph/git-helper",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "cmd/entire/cli/auth/context_store.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/1b/6464f1632d/0/metadata.json",
+      "transcript": "/1b/6464f1632d/0/full.jsonl",
+      "content_hash": "/1b/6464f1632d/0/content_hash.txt",
+      "prompt": "/1b/6464f1632d/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 22870,
+    "cache_creation_tokens": 1463721,
+    "cache_read_tokens": 48516236,
+    "output_tokens": 214816,
+    "api_call_count": 221
+  }
+}
