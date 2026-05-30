@@ -1,0 +1,61 @@
+can you explain the state of task 9?
+
+---
+
+but this whole thing is mostly still in flight worst case is that someone is logged out and has to relogin, but let's fix this now
+
+But quick question in between: we would also need some way to switch context?
+
+---
+
+sorry, wrong key, continue
+
+---
+
+/simplify
+
+---
+
+yes, commit
+
+---
+
+yeah, let's do the symlink now
+
+---
+
+for homebrew / scoop we need to do this in another repo, right?
+
+---
+
+yes, please do.
+
+---
+
+squash the two commits
+
+---
+
+I think one thing we have to do now: the branch that we based this branch on has changed in the meantime
+
+---
+
+ok, let's push to github, create a PR on top of the other branch (which has an open PR too)
+
+---
+
+1. [high] Multi-context login still collapses same-core accounts into one entry
+     - RecordLoginContext always derives the context name from contextNameForCoreURL(coreURL) (cmd/entire/cli/auth/contexts.go:67,151), and Upsert replaces any existing context with
+       the same name (internal/entireclient/contexts/contexts.go:170).
+     - That means logging into the same core as a second user overwrites the first context instead of creating another one. So the new “multi-context auth” flow still can’t actually
+       store multiple identities for one issuer.
+ 2. [high] entire auth revoke does not honor context-backed logins
+     - newAuthRevokeCmd wires runAuthRevoke to auth.NewStore() instead of auth.NewContextStore() (cmd/entire/cli/auth.go:477-500).
+     - As a result, users who are “logged in” only via contexts.json (for example, after switching contexts or after a login created by another CLI) get not logged in from entire
+       auth revoke --current. Even worse, when revoking by ID, the cleanup path only deletes the legacy keyring entry, leaving the active context token in place
+       (cmd/entire/cli/auth.go:517+).
+ 3. [medium] Running the git helper can unexpectedly switch the user’s active CLI context
+     - git-remote-entire calls auth.MigrateLegacyLoginContext() on startup (cmd/git-remote-entire/main.go:81).
+     - If migration is needed, it calls RecordLoginContext, which unconditionally sets f.CurrentContext = name (cmd/entire/cli/auth/contexts.go:69-79).
+     - So a first git clone entire://... after upgrade can silently change current_context, altering which account later control-plane commands run under. Migration should preserve
+       the existing current context when one is already set.
