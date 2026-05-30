@@ -3,30 +3,35 @@
   "checkpoint_id": "d92894f041aa",
   "session_id": "5fda6480-ca4c-467e-9433-b9691d2c4f51",
   "strategy": "manual-commit",
-  "created_at": "2026-05-30T17:24:50.462255Z",
+  "created_at": "2026-05-30T17:26:49.865975Z",
   "branch": "soph/git-helper",
   "checkpoints_count": 1,
-  "files_touched": [],
+  "files_touched": [
+    "cmd/entire/main.go"
+  ],
   "agent": "Claude Code",
   "model": "",
   "turn_id": "7b3a8f437057",
   "token_usage": {
-    "input_tokens": 25623,
-    "cache_creation_tokens": 1552302,
-    "cache_read_tokens": 71951731,
-    "output_tokens": 284324,
-    "api_call_count": 276
+    "input_tokens": 25627,
+    "cache_creation_tokens": 1553978,
+    "cache_read_tokens": 72894759,
+    "output_tokens": 285412,
+    "api_call_count": 278
   },
   "session_metrics": {
     "turn_count": 5
   },
-  "prompt_attributions": [
-    {
-      "checkpoint_number": 2,
-      "user_lines_added": 0,
-      "user_lines_removed": 0,
-      "agent_lines_added": 0,
-      "agent_lines_removed": 0
-    }
-  ]
+  "initial_attribution": {
+    "calculated_at": "2026-05-30T17:26:49.831948Z",
+    "agent_lines": 0,
+    "agent_removed": 9,
+    "human_added": 260,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 260,
+    "total_lines_changed": 620,
+    "agent_percentage": 1.4516129032258065,
+    "metric_version": 2
+  }
 }
