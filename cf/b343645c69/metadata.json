@@ -1,0 +1,19 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "cfb343645c69",
+  "strategy": "manual-commit",
+  "branch": "soph/entire-control-plane-client",
+  "checkpoints_count": 0,
+  "files_touched": [
+    ".allowed-licenses",
+    ".license-overrides"
+  ],
+  "sessions": [
+    {
+      "metadata": "/cf/b343645c69/0/metadata.json",
+      "transcript": "/cf/b343645c69/0/full.jsonl",
+      "content_hash": "/cf/b343645c69/0/content_hash.txt",
+      "prompt": ""
+    }
+  ]
+}
