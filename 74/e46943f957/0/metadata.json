@@ -1,0 +1,32 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "74e46943f957",
+  "session_id": "5fda6480-ca4c-467e-9433-b9691d2c4f51",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-30T19:21:40.397068Z",
+  "branch": "soph/git-helper",
+  "checkpoints_count": 1,
+  "files_touched": [],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "b67cc7287f0a",
+  "token_usage": {
+    "input_tokens": 36623,
+    "cache_creation_tokens": 1678672,
+    "cache_read_tokens": 121727328,
+    "output_tokens": 366923,
+    "api_call_count": 368
+  },
+  "session_metrics": {
+    "turn_count": 10
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}

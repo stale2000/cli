@@ -1,0 +1,23 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "74e46943f957",
+  "strategy": "manual-commit",
+  "branch": "soph/git-helper",
+  "checkpoints_count": 1,
+  "files_touched": null,
+  "sessions": [
+    {
+      "metadata": "/74/e46943f957/0/metadata.json",
+      "transcript": "/74/e46943f957/0/full.jsonl",
+      "content_hash": "/74/e46943f957/0/content_hash.txt",
+      "prompt": "/74/e46943f957/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 36623,
+    "cache_creation_tokens": 1678672,
+    "cache_read_tokens": 121727328,
+    "output_tokens": 366923,
+    "api_call_count": 368
+  }
+}
