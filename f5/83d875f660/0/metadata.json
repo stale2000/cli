@@ -1,0 +1,51 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "f583d875f660",
+  "session_id": "138968af-0dcf-4467-b380-48e358d14fb5",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-31T11:39:26.032933Z",
+  "branch": "soph/entire-control-plane-client",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "internal/coreapi/UPSTREAM.md"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-8",
+  "turn_id": "a8093434ebb6",
+  "checkpoint_transcript_start": 3573,
+  "transcript_lines_at_start": 3573,
+  "token_usage": {
+    "input_tokens": 26648,
+    "cache_creation_tokens": 2082910,
+    "cache_read_tokens": 55152200,
+    "output_tokens": 70111,
+    "api_call_count": 64
+  },
+  "session_metrics": {
+    "turn_count": 25
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-31T11:39:25.958626Z",
+    "agent_lines": 45,
+    "agent_removed": 0,
+    "human_added": 14,
+    "human_modified": 15,
+    "human_removed": 0,
+    "total_committed": 74,
+    "total_lines_changed": 74,
+    "agent_percentage": 60.810810810810814,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 1,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".claude/scheduled_tasks.lock": 1
+      }
+    }
+  ]
+}

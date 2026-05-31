@@ -1,0 +1,25 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "f583d875f660",
+  "strategy": "manual-commit",
+  "branch": "soph/entire-control-plane-client",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "internal/coreapi/UPSTREAM.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/f5/83d875f660/0/metadata.json",
+      "transcript": "/f5/83d875f660/0/full.jsonl",
+      "content_hash": "/f5/83d875f660/0/content_hash.txt",
+      "prompt": "/f5/83d875f660/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 26648,
+    "cache_creation_tokens": 2082910,
+    "cache_read_tokens": 55152200,
+    "output_tokens": 70111,
+    "api_call_count": 64
+  }
+}

@@ -1,0 +1,45 @@
+Check `gh pr checks 1299` for the entireio/cli PR and report whether CI (especially License Check and lint) is green after my review-fix push. If checks are still pending, wait and re-check.
+
+---
+
+what is the license fix
+
+---
+
+ok, now rebase and fix conflicts
+
+---
+
+Re-check `gh run list --commit 43308c03e` (PR #1299) and report whether lint + the test jobs finished green after the rebase. License Check and binary-size already passed. If still running, wait and re-check.
+
+---
+
+can you update the comments on the pr from cursor/copilot and resolve them
+
+---
+
+/simplify
+
+---
+
+can you give me a potential prompt for a session on entiredb to fix the openapi issues we found
+
+---
+
+which cluster url is default now?
+
+---
+
+can you look at https://github.com/entirehq/entiredb/pull/1820 does this change anything?
+
+---
+
+yeah sorry, I mean more: the last commit addressed a change in main on entiredb around the mirror apis
+
+---
+
+wait, https://github.com/entirehq/entiredb/pull/1820 is not merged but the changes for mirror are in main, right?
+
+---
+
+there are now 2 comments on the PR, can you address them (and update the pr description, but that's part of the comments)
