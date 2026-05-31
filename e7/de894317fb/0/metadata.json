@@ -1,0 +1,54 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "e7de894317fb",
+  "session_id": "138968af-0dcf-4467-b380-48e358d14fb5",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-31T16:11:38.060138Z",
+  "branch": "soph/entire-control-plane-client",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/grant.go",
+    "cmd/entire/cli/org.go",
+    "cmd/entire/cli/project.go",
+    "cmd/entire/cli/repo.go",
+    "cmd/entire/cli/repo_mirror.go",
+    "internal/coreapi/spec/normalize.go"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-8",
+  "turn_id": "1180aad77c4f",
+  "token_usage": {
+    "input_tokens": 77886,
+    "cache_creation_tokens": 7223155,
+    "cache_read_tokens": 479148430,
+    "output_tokens": 702068,
+    "api_call_count": 1025
+  },
+  "session_metrics": {
+    "turn_count": 26
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-31T16:11:37.983446Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 1448,
+    "human_modified": 98,
+    "human_removed": 0,
+    "total_committed": 1448,
+    "total_lines_changed": 5404,
+    "agent_percentage": 0,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 1,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".claude/scheduled_tasks.lock": 1
+      }
+    }
+  ]
+}

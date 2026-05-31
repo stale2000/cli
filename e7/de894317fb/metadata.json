@@ -1,0 +1,30 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "e7de894317fb",
+  "strategy": "manual-commit",
+  "branch": "soph/entire-control-plane-client",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/grant.go",
+    "cmd/entire/cli/org.go",
+    "cmd/entire/cli/project.go",
+    "cmd/entire/cli/repo.go",
+    "cmd/entire/cli/repo_mirror.go",
+    "internal/coreapi/spec/normalize.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/e7/de894317fb/0/metadata.json",
+      "transcript": "/e7/de894317fb/0/full.jsonl",
+      "content_hash": "/e7/de894317fb/0/content_hash.txt",
+      "prompt": "/e7/de894317fb/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 77886,
+    "cache_creation_tokens": 7223155,
+    "cache_read_tokens": 479148430,
+    "output_tokens": 702068,
+    "api_call_count": 1025
+  }
+}
