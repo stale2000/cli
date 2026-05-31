@@ -1,0 +1,26 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "e17460750b43",
+  "strategy": "manual-commit",
+  "branch": "soph/entire-control-plane-client",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "internal/coreapi/UPSTREAM.md",
+    "internal/coreapi/spec/normalize.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/e1/7460750b43/0/metadata.json",
+      "transcript": "/e1/7460750b43/0/full.jsonl",
+      "content_hash": "/e1/7460750b43/0/content_hash.txt",
+      "prompt": "/e1/7460750b43/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 79013,
+    "cache_creation_tokens": 7421678,
+    "cache_read_tokens": 486957088,
+    "output_tokens": 736702,
+    "api_call_count": 1073
+  }
+}

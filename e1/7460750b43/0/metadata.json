@@ -1,0 +1,47 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "e17460750b43",
+  "session_id": "138968af-0dcf-4467-b380-48e358d14fb5",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-31T17:57:36.563027Z",
+  "branch": "soph/entire-control-plane-client",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "internal/coreapi/UPSTREAM.md",
+    "internal/coreapi/spec/normalize.go"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-8",
+  "turn_id": "a2cc09f39693",
+  "token_usage": {
+    "input_tokens": 79013,
+    "cache_creation_tokens": 7421678,
+    "cache_read_tokens": 486957088,
+    "output_tokens": 736702,
+    "api_call_count": 1073
+  },
+  "session_metrics": {
+    "turn_count": 30
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-31T17:57:36.479165Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 76,
+    "human_removed": 27,
+    "total_committed": 0,
+    "total_lines_changed": 144,
+    "agent_percentage": 0,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}
