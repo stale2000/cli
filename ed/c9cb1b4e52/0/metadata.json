@@ -1,0 +1,54 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "edc9cb1b4e52",
+  "session_id": "3a252160-7f72-4ed1-adbe-1bf855cf8f65",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-01T13:11:02.119721Z",
+  "branch": "soph/entire-control-plane-client",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/repo_mirror_probe.go",
+    "cmd/entire/cli/repo_mirror_test.go"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-8[1m]",
+  "turn_id": "28990e8d900c",
+  "token_usage": {
+    "input_tokens": 10355,
+    "cache_creation_tokens": 63691,
+    "cache_read_tokens": 2149868,
+    "output_tokens": 20426,
+    "api_call_count": 27
+  },
+  "session_metrics": {
+    "turn_count": 2
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-01T13:11:02.106439Z",
+    "agent_lines": 28,
+    "agent_removed": 3,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 39,
+    "total_committed": 28,
+    "total_lines_changed": 70,
+    "agent_percentage": 44.285714285714285,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 120,
+      "agent_lines_removed": 3
+    }
+  ]
+}
