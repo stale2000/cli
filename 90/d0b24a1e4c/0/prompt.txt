@@ -1,0 +1,13 @@
+Commit and continue
+
+---
+
+Push and continue
+
+---
+
+$pfleidi:pr-feedback
+
+---
+
+Why did you introduce a new type for this change? setReferenceErrorStorer?
