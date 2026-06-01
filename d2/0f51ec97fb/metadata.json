@@ -3,7 +3,7 @@
   "checkpoint_id": "d20f51ec97fb",
   "strategy": "manual-commit",
   "branch": "pr-1306",
-  "checkpoints_count": 2,
+  "checkpoints_count": 4,
   "files_touched": [
     "cmd/entire/cli/auth/keyring_timeout.go",
     "cmd/entire/cli/auth/keyring_timeout_test.go",
@@ -21,13 +21,19 @@
       "transcript": "/d2/0f51ec97fb/1/full.jsonl",
       "content_hash": "/d2/0f51ec97fb/1/content_hash.txt",
       "prompt": "/d2/0f51ec97fb/1/prompt.txt"
+    },
+    {
+      "metadata": "/d2/0f51ec97fb/2/metadata.json",
+      "transcript": "/d2/0f51ec97fb/2/full.jsonl",
+      "content_hash": "/d2/0f51ec97fb/2/content_hash.txt",
+      "prompt": "/d2/0f51ec97fb/2/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 109,
-    "cache_creation_tokens": 266794,
-    "cache_read_tokens": 7369515,
-    "output_tokens": 59146,
-    "api_call_count": 80
+    "input_tokens": 171,
+    "cache_creation_tokens": 356040,
+    "cache_read_tokens": 11078952,
+    "output_tokens": 86152,
+    "api_call_count": 127
   }
 }
