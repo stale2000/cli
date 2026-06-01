@@ -1,0 +1,38 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "e167309b8dc1",
+  "session_id": "e20f9ecd-fab6-4858-a0b7-4aa69f36faa8",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-01T15:22:10.127278Z",
+  "branch": "soph/git-helper",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "internal/entireclient/discovery/parse_replicas.go",
+    "internal/entireclient/discovery/parse_replicas_test.go"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-8[1m]",
+  "turn_id": "bc9a0a4130d6",
+  "token_usage": {
+    "input_tokens": 7798,
+    "cache_creation_tokens": 197507,
+    "cache_read_tokens": 11692326,
+    "output_tokens": 82846,
+    "api_call_count": 89
+  },
+  "session_metrics": {
+    "turn_count": 2
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-01T15:22:10.114229Z",
+    "agent_lines": 53,
+    "agent_removed": 4,
+    "human_added": 1,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 54,
+    "total_lines_changed": 59,
+    "agent_percentage": 96.61016949152543,
+    "metric_version": 2
+  }
+}
