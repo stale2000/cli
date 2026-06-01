@@ -1,0 +1,31 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "a6c375b7d174",
+  "strategy": "manual-commit",
+  "branch": "update-v1.1-committed-refs",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/attach.go",
+    "cmd/entire/cli/checkpoint/committed_read_store.go",
+    "cmd/entire/cli/checkpoint/committed_refs.go",
+    "cmd/entire/cli/checkpoint/committed_refs_test.go",
+    "cmd/entire/cli/strategy/v1_custom_ref_mirror.go",
+    "cmd/entire/cli/v1_custom_ref_mirror.go",
+    "cmd/entire/cli/v1_custom_ref_mirror_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/a6/c375b7d174/0/metadata.json",
+      "transcript": "/a6/c375b7d174/0/full.jsonl",
+      "content_hash": "/a6/c375b7d174/0/content_hash.txt",
+      "prompt": ""
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 0,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 0,
+    "output_tokens": 0,
+    "api_call_count": 0
+  }
+}
