@@ -3,7 +3,7 @@
   "checkpoint_id": "70ff40625bbd",
   "strategy": "manual-commit",
   "branch": "keyring",
-  "checkpoints_count": 1,
+  "checkpoints_count": 0,
   "files_touched": [
     "cmd/entire/cli/repo_mirror_probe.go",
     "cmd/entire/cli/repo_mirror_test.go"
@@ -17,10 +17,10 @@
     }
   ],
   "token_usage": {
-    "input_tokens": 91,
-    "cache_creation_tokens": 180211,
-    "cache_read_tokens": 7084894,
-    "output_tokens": 43542,
-    "api_call_count": 72
+    "input_tokens": 27,
+    "cache_creation_tokens": 29320,
+    "cache_read_tokens": 3657375,
+    "output_tokens": 9306,
+    "api_call_count": 22
   }
 }
