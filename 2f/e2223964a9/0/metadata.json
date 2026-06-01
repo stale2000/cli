@@ -1,0 +1,35 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "2fe2223964a9",
+  "session_id": "88630037-2ff0-40f2-b157-a0c1937b95f0",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-01T13:48:00.102531824Z",
+  "branch": "keyring",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/grant.go",
+    "cmd/entire/cli/grant_test.go"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-7[1m]",
+  "turn_id": "1c853b80562b",
+  "token_usage": {
+    "input_tokens": 84,
+    "cache_creation_tokens": 171410,
+    "cache_read_tokens": 6114334,
+    "output_tokens": 39287,
+    "api_call_count": 65
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-01T13:48:00.087573326Z",
+    "agent_lines": 73,
+    "agent_removed": 7,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 73,
+    "total_lines_changed": 80,
+    "agent_percentage": 100,
+    "metric_version": 2
+  }
+}
