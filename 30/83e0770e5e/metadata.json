@@ -1,0 +1,28 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "3083e0770e5e",
+  "strategy": "manual-commit",
+  "branch": "soph/cluster-trust-hardening",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/auth_context.go",
+    "cmd/entire/cli/auth_context_test.go",
+    "internal/entireclient/discovery/parse_replicas.go",
+    "internal/entireclient/discovery/parse_replicas_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/30/83e0770e5e/0/metadata.json",
+      "transcript": "/30/83e0770e5e/0/full.jsonl",
+      "content_hash": "/30/83e0770e5e/0/content_hash.txt",
+      "prompt": "/30/83e0770e5e/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 8563,
+    "cache_creation_tokens": 225318,
+    "cache_read_tokens": 16399842,
+    "output_tokens": 102277,
+    "api_call_count": 111
+  }
+}

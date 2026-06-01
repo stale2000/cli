@@ -1,0 +1,46 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "3083e0770e5e",
+  "session_id": "e20f9ecd-fab6-4858-a0b7-4aa69f36faa8",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-01T17:23:40.590558Z",
+  "branch": "soph/cluster-trust-hardening",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "internal/entireclient/discovery/parse_replicas.go",
+    "cmd/entire/cli/auth_context.go",
+    "internal/entireclient/discovery/parse_replicas_test.go",
+    "cmd/entire/cli/auth_context_test.go"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "bf7931d86527",
+  "token_usage": {
+    "input_tokens": 8563,
+    "cache_creation_tokens": 225318,
+    "cache_read_tokens": 16399842,
+    "output_tokens": 102277,
+    "api_call_count": 111
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-01T17:23:40.575922Z",
+    "agent_lines": 56,
+    "agent_removed": 12,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 56,
+    "total_lines_changed": 68,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}
