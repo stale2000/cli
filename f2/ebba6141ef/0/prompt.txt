@@ -1,0 +1,15 @@
+Let's address the comment on this PR as a followup: https://github.com/entireio/cli/pull/1311
+
+> Just as a general thought, not necessarily related to this particular change:
+
+I've been wondering if it would make sense to have a general committedRef or something similar for rollouts swapping around the write order.
+
+What I could imagine is having an iteration where we're defaulting to the v1.1 ref rather than the v1 branch going forward at some point. This doesn't need to happen in this PR, though.
+
+---
+
+A and let's pull main into this branch
+
+---
+
+Implement and push up a draft PR with detailed commit messages, title, and PR body
