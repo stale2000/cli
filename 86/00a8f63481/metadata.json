@@ -3,11 +3,14 @@
   "checkpoint_id": "8600a8f63481",
   "strategy": "manual-commit",
   "branch": "read-v1.1",
-  "checkpoints_count": 1,
+  "checkpoints_count": 2,
   "files_touched": [
     "cmd/entire/cli/checkpoint/committed.go",
+    "cmd/entire/cli/checkpoint/committed_read_store.go",
+    "cmd/entire/cli/checkpoint/committed_read_store_test.go",
     "cmd/entire/cli/checkpoint/store.go",
     "cmd/entire/cli/explain.go",
+    "cmd/entire/cli/explain_test.go",
     "cmd/entire/cli/paths/paths.go",
     "cmd/entire/cli/strategy/v1_custom_ref_mirror.go"
   ],
@@ -17,14 +20,20 @@
       "transcript": "/86/00a8f63481/0/full.jsonl",
       "content_hash": "/86/00a8f63481/0/content_hash.txt",
       "prompt": "/86/00a8f63481/0/prompt.txt"
+    },
+    {
+      "metadata": "/86/00a8f63481/1/metadata.json",
+      "transcript": "/86/00a8f63481/1/full.jsonl",
+      "content_hash": "/86/00a8f63481/1/content_hash.txt",
+      "prompt": "/86/00a8f63481/1/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 165299,
+    "input_tokens": 425471,
     "cache_creation_tokens": 0,
-    "cache_read_tokens": 2711808,
-    "output_tokens": 11885,
-    "api_call_count": 30
+    "cache_read_tokens": 8900096,
+    "output_tokens": 35917,
+    "api_call_count": 89
   },
   "has_review": true
 }
