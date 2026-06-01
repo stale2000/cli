@@ -1,0 +1,35 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "70ff40625bbd",
+  "session_id": "88630037-2ff0-40f2-b157-a0c1937b95f0",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-01T13:51:06.049826032Z",
+  "branch": "keyring",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/repo_mirror_probe.go",
+    "cmd/entire/cli/repo_mirror_test.go"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-7[1m]",
+  "turn_id": "1c853b80562b",
+  "token_usage": {
+    "input_tokens": 91,
+    "cache_creation_tokens": 180211,
+    "cache_read_tokens": 7084894,
+    "output_tokens": 43542,
+    "api_call_count": 72
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-01T13:51:06.025686084Z",
+    "agent_lines": 17,
+    "agent_removed": 2,
+    "human_added": 0,
+    "human_modified": 12,
+    "human_removed": 53,
+    "total_committed": 29,
+    "total_lines_changed": 84,
+    "agent_percentage": 22.61904761904762,
+    "metric_version": 2
+  }
+}
