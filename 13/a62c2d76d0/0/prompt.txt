@@ -1,0 +1,76 @@
+Don't make any code changes yet.
+
+We want to be able to make v1.1 an option for read/write. It's the same formatting and folder structure as checkpoints v1 (full.jsonl, metadata.json etc.). Right now, when v1.1 is turned on, we are mirroring writing v1.1 the same way as v1.
+When v1.1 is enabled, we should read from it.
+
+---
+
+All read-only sites. Let's not fall back to v1 if v1.1 is enabled since it should have all the history as v1. Extracting helpers is fine, but I want to keep overall changes simple. Implement the changes here.
+
+---
+
+Simplify the code so that only explain is supported for reads at the moment. The other commands will be added later
+
+---
+
+/simplify
+
+---
+
+Check https://github.com/entireio/cli/pull/1311 to ensure it supports entire explain reading just v1.1 with no fallbacks to v1 when v1.1 is enabled.
+
+---
+
+Push up the changes, update the PR description
+
+---
+
+Simplify comments and tests
+
+---
+
+Review the copilot comments on https://github.com/entireio/cli/pull/1311 and make necessary changes to address them
+
+---
+
+Consolidate tests and simplify the comments for verbosity. Make the tests and comments as concise as possible
+
+---
+
+Check the copilot review comments to see if they are still relevant
+
+---
+
+// getSessionsBranchTree returns the tree object for the configured committed
+// ref (the v1 branch by default, or the v1.1 custom ref for v1.1 read stores).
+// For the default v1 branch it falls back to origin/entire/checkpoints/v1 when
+// the local branch is missing; the v1.1 custom ref is local-only, so no remote
+// fallback applies there.
+
+what does this mean?
+
+---
+
+What does if the configured ref is not the default (i.e. it's the v1.1 custom ref) mean?
+
+---
+
+why wouldn't it have a remote-tracking counterpart?
+
+---
+
+Don't push anything up on my behalf, just answer locally here. answer the questions on the PR. https://github.com/entireio/cli/pull/1311
+
+don't post any comments.
+
+---
+
+Adjust the length and simplify the explanations
+
+---
+
+Simplify the "sync in the constructor" explanation. Is it because we don't pull in custom ref changes by default?
+
+---
+
+Ok let's do it outside the constructor - see the latest comment and address it. Don't write any comments, just fix the code
