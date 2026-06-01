@@ -1,0 +1,85 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "05b4ce7c58c3",
+  "session_id": "88630037-2ff0-40f2-b157-a0c1937b95f0",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-01T14:27:28.888016547Z",
+  "branch": "pr-1306-v2",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/repo_mirror_test.go"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-7[1m]",
+  "turn_id": "2afb776d11fb",
+  "checkpoint_transcript_start": 505,
+  "transcript_lines_at_start": 505,
+  "token_usage": {
+    "input_tokens": 25,
+    "cache_creation_tokens": 11409,
+    "cache_read_tokens": 1928896,
+    "output_tokens": 6258,
+    "api_call_count": 10
+  },
+  "skill_events_version": 1,
+  "skill_events": [
+    {
+      "id": "claude-skill-toolu_01Q1sXQNvNLuSanbA9FZykB8",
+      "event_type": "tool_invocation",
+      "skill": {
+        "name": "superpowers:receiving-code-review"
+      },
+      "source": {
+        "agent": "claude-code",
+        "signal": "skill_tool_use",
+        "confidence": "explicit"
+      },
+      "turn_id": "2afb776d11fb",
+      "transcript_anchor": {
+        "unit": "line",
+        "start": 12,
+        "end": 13,
+        "entry_ids": [
+          "1f2e5d97-7389-4ab5-b45f-74a52d93abf3"
+        ],
+        "tool_use_id": "toolu_01Q1sXQNvNLuSanbA9FZykB8"
+      },
+      "native": {
+        "tool_name": "Skill",
+        "tool_use_id": "toolu_01Q1sXQNvNLuSanbA9FZykB8"
+      },
+      "collapse": {
+        "target": "tool_pair",
+        "label": "Skill: superpowers:receiving-code-review",
+        "default_collapsed": true
+      }
+    }
+  ],
+  "session_metrics": {
+    "turn_count": 2
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-01T14:27:28.868126243Z",
+    "agent_lines": 0,
+    "agent_removed": 5,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 0,
+    "total_lines_changed": 5,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 4,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        "cmd/entire/cli/repo_mirror_test.go": 4
+      }
+    }
+  ]
+}
