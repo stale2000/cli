@@ -1,0 +1,5 @@
+The branch we branched off of is merged into main now so that might clear up the other commits
+
+---
+
+Simplify the tests and comments. Remove verbosity in the comments
