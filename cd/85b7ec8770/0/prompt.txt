@@ -1,13 +1,1 @@
-commit the changes
-
----
-
-Use the pr skill to open a draft pr
-
----
-
-Can you update the PR description according to the implementation plan here? docs/checkpoints-v1.1-user-facing-writes-plan.md
-
----
-
-Based on the context in docs/checkpoints-v1.1-user-facing-writes-plan.md, use the pr-feedback skill
+commit and continue
