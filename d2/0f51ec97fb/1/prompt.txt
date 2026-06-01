@@ -1,0 +1,13 @@
+Running auth related commands seem to hang indefinitly. I get no error message or anything:
+ENTIRE_DEBUG=true entire auth list
+
+
+What could the problem be? Provide me a few commands to try it out as you won't have acces to the environment.
+
+---
+
+The issue was the keyring, create a commit to ensure that issues calling the keyring can't freeze the CLI indefinitely
+
+---
+
+commit changes
