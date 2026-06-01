@@ -1,0 +1,9 @@
+we have "mise run dev:publish" but we need to add installing git-remote-entire too, I guess it's fine to always install both?
+
+---
+
+it's in mise-tasks/dev
+
+---
+
+anywhere else we need to do this?
