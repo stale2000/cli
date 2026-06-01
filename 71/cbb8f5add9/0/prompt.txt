@@ -1,0 +1,32 @@
+ok, can you now also look at these:
+
+silent persistent auto-binding from a drive-by clone
+
+  clusterdiscovery.ResolveContextForCluster (resolve.go:34-83) does the right thing on the JWT side — subject_token is sent to the user's existing
+  trusted core, not to an attacker-claimed core. But on a successful discovery match it writes cluster_contexts[evilHost] = <existing context> to
+  contexts.json (BindCluster).
+
+  That binding is persistent. After one clone of an attacker URL:
+
+  - All future operations against evil.example.com skip discovery and use the bound context's token directly.
+  - Combined with the exfiltration above, a single drive-by clone establishes a persistent identity-leak channel: any future git fetch against that
+  URL keeps minting JWTs.
+  - auth contexts doesn't show cluster bindings, so users have no UX to notice or revoke them.
+
+  Fix: at minimum, only auto-bind when the cluster's .well-known response was served with a verifiable signal that it's an Entire-managed cluster (a
+  signed manifest, or a cluster identifier the core endorses). Failing that, prompt before persisting the binding, or scope the binding to the
+  lifetime of the invocation. Also surface bindings in auth contexts so users can audit them.
+
+HostInCluster suffix match needs a floor on cluster specificity
+
+  discovery/parse_replicas.go:36-40:
+
+  return h == c || strings.HasSuffix(h, "."+c)
+
+  For clusterHost = "aws-eu-central-1.entire.io", this is correctly bounded. For clusterHost = "entire.io", any subdomain — including ones outside
+  operational control — is "in cluster" and inherits Authorization-preservation across redirects. A misconfigured DNS record or an
+  acquired-then-relinquished subdomain becomes a credential receiver.
+
+  Today the cluster host comes from parsedURL.Host, which the user typed; so the user can't really exploit themselves here. But combined with the
+  auto-binding above, an attacker who can convince a user to clone once from entire://example.com/repo (where example.com is a registrable suffix the
+  attacker controls) effectively widens the same-cluster trust boundary to "anything *.example.com".

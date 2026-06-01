@@ -1,0 +1,30 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "71cbb8f5add9",
+  "strategy": "manual-commit",
+  "branch": "soph/git-helper",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/auth.go",
+    "cmd/entire/cli/auth/context_store.go",
+    "cmd/entire/cli/auth_context.go",
+    "cmd/entire/cli/auth_context_test.go",
+    "internal/entireclient/clusterdiscovery/resolve.go",
+    "internal/entireclient/clusterdiscovery/resolve_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/71/cbb8f5add9/0/metadata.json",
+      "transcript": "/71/cbb8f5add9/0/full.jsonl",
+      "content_hash": "/71/cbb8f5add9/0/content_hash.txt",
+      "prompt": "/71/cbb8f5add9/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 1919,
+    "cache_creation_tokens": 76801,
+    "cache_read_tokens": 7632324,
+    "output_tokens": 38249,
+    "api_call_count": 45
+  }
+}
