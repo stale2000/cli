@@ -1,0 +1,12 @@
+- Wrap resp.Body with io.LimitReader in mirrorAdvertisesHead (repo_mirror_probe.go:137-166) before SmartReply.Decode — consistent with
+  api/client.go:188.
+  - Reject ^\.+$ repo names in parseGitHubURL to remove the literal-..-in-audience edge case.
+  - Pin go-licenses (mise-tasks/lint/licenses:18) to a tag rather than @latest.
+  - Add a parseGrantRole boundary (mirroring parseProjectOwnerType) in grant.go so bad --role values fail with a clear client message before the API
+  round-trip.
+  - Add an IPv6 positive case ([::1]:8080) to TestValidateClusterHost.
+  - One assertion in a coreapi unit test that an outbound request carries no Cookie: header — documents the SessionAuth empty-value contract.
+
+---
+
+For google/go-licenses, use version v2.0.1. then go ahead with the other changes

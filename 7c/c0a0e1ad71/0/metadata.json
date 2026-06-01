@@ -1,0 +1,43 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "7cc0a0e1ad71",
+  "session_id": "88630037-2ff0-40f2-b157-a0c1937b95f0",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-01T13:44:08.757698155Z",
+  "branch": "keyring",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "mise-tasks/lint/licenses"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-7[1m]",
+  "turn_id": "1c853b80562b",
+  "token_usage": {
+    "input_tokens": 80,
+    "cache_creation_tokens": 169460,
+    "cache_read_tokens": 5582824,
+    "output_tokens": 37969,
+    "api_call_count": 61
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-01T13:44:08.742082268Z",
+    "agent_lines": 6,
+    "agent_removed": 3,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 6,
+    "total_lines_changed": 9,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}
