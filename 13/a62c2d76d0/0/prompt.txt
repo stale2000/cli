@@ -74,3 +74,7 @@ Simplify the "sync in the constructor" explanation. Is it because we don't pull 
 ---
 
 Ok let's do it outside the constructor - see the latest comment and address it. Don't write any comments, just fix the code
+
+---
+
+Simplify the comments and tests and then push up the changes
