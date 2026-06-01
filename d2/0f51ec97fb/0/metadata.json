@@ -1,0 +1,64 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "d20f51ec97fb",
+  "session_id": "3add0212-4732-4383-b402-fe14d445a4d3",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-01T12:49:16.119121709Z",
+  "branch": "pr-1306",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "cmd/entire/cli/auth/keyring_timeout_test.go",
+    "cmd/entire/cli/auth/store.go"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-7[1m]",
+  "turn_id": "d728c3f29cf5",
+  "token_usage": {
+    "input_tokens": 53,
+    "cache_creation_tokens": 162175,
+    "cache_read_tokens": 4566278,
+    "output_tokens": 26882,
+    "api_call_count": 43
+  },
+  "session_metrics": {
+    "turn_count": 2
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-01T12:49:16.089263789Z",
+    "agent_lines": 53,
+    "agent_removed": 6,
+    "human_added": 98,
+    "human_modified": 15,
+    "human_removed": 0,
+    "total_committed": 160,
+    "total_lines_changed": 172,
+    "agent_percentage": 34.30232558139535,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 86,
+      "user_lines_removed": 21,
+      "agent_lines_added": 172,
+      "agent_lines_removed": 9,
+      "user_added_per_file": {
+        "cmd/entire/cli/auth/keyring_timeout.go": 25,
+        "cmd/entire/cli/auth/keyring_timeout_test.go": 52,
+        "cmd/entire/cli/auth/store.go": 9
+      },
+      "user_removed_per_file": {
+        "cmd/entire/cli/auth/keyring_timeout.go": 12,
+        "cmd/entire/cli/auth/keyring_timeout_test.go": 6,
+        "cmd/entire/cli/auth/store.go": 3
+      }
+    }
+  ]
+}
