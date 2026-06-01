@@ -1,0 +1,46 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "1eca60eefa33",
+  "session_id": "5fda6480-ca4c-467e-9433-b9691d2c4f51",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-01T13:56:32.886823Z",
+  "branch": "soph/git-helper",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "internal/remotehelper/transport/proxy.go"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "f08e45a95d35",
+  "token_usage": {
+    "input_tokens": 44152,
+    "cache_creation_tokens": 3839346,
+    "cache_read_tokens": 175018521,
+    "output_tokens": 464031,
+    "api_call_count": 452
+  },
+  "session_metrics": {
+    "turn_count": 19
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-01T13:56:32.831483Z",
+    "agent_lines": 61,
+    "agent_removed": 3,
+    "human_added": 139,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 200,
+    "total_lines_changed": 203,
+    "agent_percentage": 31.527093596059114,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}

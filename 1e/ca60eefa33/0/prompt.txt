@@ -1,0 +1,153 @@
+can you explain the state of task 9?
+
+---
+
+but this whole thing is mostly still in flight worst case is that someone is logged out and has to relogin, but let's fix this now
+
+But quick question in between: we would also need some way to switch context?
+
+---
+
+sorry, wrong key, continue
+
+---
+
+/simplify
+
+---
+
+yes, commit
+
+---
+
+yeah, let's do the symlink now
+
+---
+
+for homebrew / scoop we need to do this in another repo, right?
+
+---
+
+yes, please do.
+
+---
+
+squash the two commits
+
+---
+
+I think one thing we have to do now: the branch that we based this branch on has changed in the meantime
+
+---
+
+ok, let's push to github, create a PR on top of the other branch (which has an open PR too)
+
+---
+
+1. [high] Multi-context login still collapses same-core accounts into one entry
+     - RecordLoginContext always derives the context name from contextNameForCoreURL(coreURL) (cmd/entire/cli/auth/contexts.go:67,151), and Upsert replaces any existing context with
+       the same name (internal/entireclient/contexts/contexts.go:170).
+     - That means logging into the same core as a second user overwrites the first context instead of creating another one. So the new “multi-context auth” flow still can’t actually
+       store multiple identities for one issuer.
+ 2. [high] entire auth revoke does not honor context-backed logins
+     - newAuthRevokeCmd wires runAuthRevoke to auth.NewStore() instead of auth.NewContextStore() (cmd/entire/cli/auth.go:477-500).
+     - As a result, users who are “logged in” only via contexts.json (for example, after switching contexts or after a login created by another CLI) get not logged in from entire
+       auth revoke --current. Even worse, when revoking by ID, the cleanup path only deletes the legacy keyring entry, leaving the active context token in place
+       (cmd/entire/cli/auth.go:517+).
+ 3. [medium] Running the git helper can unexpectedly switch the user’s active CLI context
+     - git-remote-entire calls auth.MigrateLegacyLoginContext() on startup (cmd/git-remote-entire/main.go:81).
+     - If migration is needed, it calls RecordLoginContext, which unconditionally sets f.CurrentContext = name (cmd/entire/cli/auth/contexts.go:69-79).
+     - So a first git clone entire://... after upgrade can silently change current_context, altering which account later control-plane commands run under. Migration should preserve
+       the existing current context when one is already set.
+
+---
+
+1. [high] New-cluster resolution can pick the wrong account when multiple contexts share one core
+     - ResolveContextForCluster takes matches := f.ContextsForIssuer(coreURL) and then blindly uses matches[0] in internal/entireclient/clusterdiscovery/resolve.go.
+     - After this branch, same-core multi-user contexts are supported (alice@core, bob@core), but first clone against a new cluster will auto-bind whichever one was saved first, not
+       the active context.
+     - Result: git clone entire://... can silently authenticate as the wrong user.
+ 2. [medium] Legacy-login migration skips same-core/different-user identities
+     - MigrateLegacyLoginContext bails out when len(f.ContextsForIssuer(claims.Issuer)) > 0 in cmd/entire/cli/auth/contexts.go.
+     - That only checks issuer, not (issuer, handle).
+     - If contexts.json already has alice@core from another CLI, but the legacy entire keyring token is bob@core, migration is skipped and Bob never gets a context.
+ 3. [medium] User-facing auth errors point at the wrong CLI/command
+     - internal/entireclient/clusterdiscovery/discovery.go tells users to run entire-core auth login --base-url <url>.
+     - internal/remotehelper/transport/inforefs.go says please run 'entire-core auth login'.
+     - This repo ships entire, not entire-core, and login here is not a --base-url command. So the recovery instructions are misleading.
+ 4. [medium] Replica cache updates are still racy across processes
+     - internal/remotehelper/replicas/Persist and Invalidate do LoadCache → mutate → SaveCache.
+     - SaveCache locks only the write; the whole read-modify-write sequence is not atomic.
+     - Two concurrent clone/fetch/push processes can overwrite each other’s nodes.json updates and lose cache entries. This is the same class of race contexts.Modify(...) was added
+       to avoid.
+
+---
+
+what do you think: 
+
+ 1. [high] entire auth use <context> doesn’t actually retarget control-plane auth to that context’s core
+     - auth use claims it switches “the one the control-plane commands authenticate as” in cmd/entire/cli/auth_context.go.
+     - But the token manager is still built against api.AuthBaseURL() in cmd/entire/cli/auth/exchange.go, while ContextStore.LoadTokens() just hands it the current context token
+       regardless of issuer in cmd/entire/cli/auth/context_store.go.
+     - So if you switch to a context from a different core, status/list/revoke still use the process-wide ENTIRE_AUTH_BASE_URL/default issuer, not the selected context’s CoreURL.
+       That makes cross-core context switching unreliable at best, and wrong-host auth at worst.
+ 2. [medium] logout can leave you logged in as a different context
+     - runLogout calls auth.RemoveCurrentContext() in cmd/entire/cli/logout.go.
+     - RemoveCurrentContext() delegates to f.Delete(current.Name) in cmd/entire/cli/auth/context_store.go.
+     - File.Delete() advances CurrentContext to the first remaining context when the deleted one was current in internal/entireclient/contexts/contexts.go.
+     - So with multiple saved contexts, entire logout removes one account, then silently switches to another, while still printing Logged out.
+ 3. [medium] Cluster-login guidance still isn’t actionable for non-default auth cores
+     - RenderLoginHint() now tells users to run entire login in internal/entireclient/clusterdiscovery/discovery.go.
+     - But entire login has no --base-url; it always targets api.AuthBaseURL()/ENTIRE_AUTH_BASE_URL in cmd/entire/cli/login.go and cmd/entire/cli/api/base_url.go.
+     - So if discovery lists a different accepted core than the configured/default auth host, the suggested recovery path can still log the user into the wrong core.
+
+---
+
+1. [medium] auth use still overstates what it changes for clone
+     - cmd/entire/cli/auth_context.go says:
+       │ ``git clone entire://… uses this context regardless.
+     - But internal/entireclient/clusterdiscovery/resolve.go resolves cluster_contexts[host] first.
+     - So once a cluster has been auto-bound to some other context, auth use does not affect clone/push for that cluster. The warning/help text is only true for unbound clusters.
+ 2. [medium] logout is not a full logout if other saved/bound contexts remain
+     - auth.RemoveCurrentContext() now intentionally removes only the active context and leaves others (cmd/entire/cli/auth/context_store.go; also codified by
+       TestRemoveCurrentContext_DoesNotSwitchToAnother).
+     - Meanwhile ResolveContextForCluster() will still use surviving explicit cluster bindings even with no current_context.
+     - So after entire logout, control-plane commands may look logged out, but git clone/push to previously bound clusters can still authenticate via other saved contexts. The
+       success message Logged out. is therefore too broad.
+
+for the second finding I'm wondering if we just flag that there are other accounts still logged in... Or if we do "--all"
+
+---
+
+can you look at that: 
+
+ 1. [medium] auth use warning is inaccurate once a cluster is already bound
+     - cmd/entire/cli/auth_context.go says:
+       │ ``git clone entire://… uses this context regardless.
+     - But internal/entireclient/clusterdiscovery/resolve.go checks cluster_contexts[host] first and returns that binding without considering the active context.
+     - So for any previously auto-bound cluster, auth use does not change clone/push behavior. It only affects unbound clusters or same-core tie-breaking during first discovery.
+ 2. [medium] logout does not fully log out git operations if other saved contexts remain
+     - auth.RemoveCurrentContext() now removes only the current context and clears current_context (cmd/entire/cli/auth/context_store.go).
+     - But explicit cluster_contexts for other surviving contexts remain, and ResolveContextForCluster() will still use them (internal/entireclient/clusterdiscovery/resolve.go).
+     - So after entire logout, control-plane auth may be gone, but git clone/push to already-bound clusters can still authenticate. The plain success message Logged out. is stronger
+       than the actual behavior.
+
+---
+
+can you look at the comments on the PR if they are still relevant
+
+---
+
+b and c
+
+---
+
+can you resolve the comments that are addressed?
+
+---
+
+soph/entire-control-plane-client has changes, can we rebase? also look at the changes surfaced in ../entiredb main if something changed
+
+---
+
+has the git-remote-entire helper integration tests in entiredb repo?
