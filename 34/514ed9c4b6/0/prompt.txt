@@ -1,13 +1,1 @@
-commit and continue
-
----
-
-Otherwise, the attach tests are manually writing a settingsfile rather than stubbing out the setting. Are there any reasons for not stubbing out the settings to simplify the test setup here? Is this inconsistent with other tests? If not, can we update the setup code?
-
----
-
-Would it be possible to somehow inject settings.MirrorsToV1CustomRef instead of creating a mutable function reference? The way you've implemented it feels awkward to understand and brittle
-
----
-
-This code makes no sense! passing along a bool only to return only is a bad pattern! Assume that these commands are very short lived processes, if that changes anything.
+Commit and continue
