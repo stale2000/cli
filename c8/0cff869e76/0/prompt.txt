@@ -1,0 +1,21 @@
+can you review this branch/PR
+
+---
+
+1. in what case would 900 probes be done in 30 minutes, this is a cli?
+
+---
+
+question: what type of repo "urls" does `entire repo mirror create` support?
+
+---
+
+can you review https://github.com/entireio/cli/pull/1305
+
+---
+
+can you check out the local branch
+
+---
+
+/simplify

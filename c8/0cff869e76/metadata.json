@@ -1,0 +1,25 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "c80cff869e76",
+  "strategy": "manual-commit",
+  "branch": "codex/entire-blame-why",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/attribution.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/c8/0cff869e76/0/metadata.json",
+      "transcript": "/c8/0cff869e76/0/full.jsonl",
+      "content_hash": "/c8/0cff869e76/0/content_hash.txt",
+      "prompt": "/c8/0cff869e76/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 21527,
+    "cache_creation_tokens": 129754,
+    "cache_read_tokens": 5362025,
+    "output_tokens": 50079,
+    "api_call_count": 48
+  }
+}
