@@ -27,3 +27,7 @@ Okay, continue running the review. Some files have been updated so some findings
 ---
 
 Okay, fix the remaining finding, then
+
+---
+
+commit and continue
