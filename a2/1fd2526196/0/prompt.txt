@@ -91,3 +91,7 @@ Assigning a function as a test seam for tests only is usually a code smell that 
 ---
 
 Drop the feature level unit tests, then. That seems less brittle than other options
+
+---
+
+Commit only the helper changes. Don't commit the plan at all going forward.
