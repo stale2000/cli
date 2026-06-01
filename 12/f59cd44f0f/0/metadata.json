@@ -1,0 +1,37 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "12f59cd44f0f",
+  "session_id": "2577e392-5c9b-4954-a96b-c842b5a11798",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-01T18:59:50.082666Z",
+  "branch": "read-v1.1",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/checkpoint/committed_read_store.go",
+    "cmd/entire/cli/checkpoint/committed_read_store_test.go"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-8[1m]",
+  "turn_id": "261dc77926a2",
+  "checkpoint_transcript_start": 86,
+  "transcript_lines_at_start": 86,
+  "token_usage": {
+    "input_tokens": 0,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 0,
+    "output_tokens": 0,
+    "api_call_count": 0
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-01T18:59:50.077179Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 133,
+    "human_removed": 92,
+    "total_committed": 0,
+    "total_lines_changed": 225,
+    "agent_percentage": 0,
+    "metric_version": 2
+  }
+}
