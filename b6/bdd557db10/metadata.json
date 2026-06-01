@@ -1,0 +1,25 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "b6bdd557db10",
+  "strategy": "manual-commit",
+  "branch": "keyring",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/auth/store.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/b6/bdd557db10/0/metadata.json",
+      "transcript": "/b6/bdd557db10/0/full.jsonl",
+      "content_hash": "/b6/bdd557db10/0/content_hash.txt",
+      "prompt": "/b6/bdd557db10/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 10,
+    "cache_creation_tokens": 11939,
+    "cache_read_tokens": 1028243,
+    "output_tokens": 4905,
+    "api_call_count": 5
+  }
+}

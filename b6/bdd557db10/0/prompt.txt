@@ -1,0 +1,27 @@
+cmd/entire/cli/auth/store.go: Comment refers to callKeyringWithTimeout, but the helper is named callKeyringWithContext. This makes the guidance harder to follow when navigating the code.
+
+commentinternal/coreapi/client_test.go: cookieHeader is written in the httptest server handler goroutine and read in the test goroutine without synchronization, which will trigger the race detector (CI runs go test -race). Use a channel (or mutex/atomic) to pass the header value back safely.
+
+cmd/entire/cli/auth/keyring_timeout.go: PR description mentions a 3s OS-keyring deadline, but the code sets defaultKeyringTimeout to 5s (and the comment text also says 5s). Please reconcile the PR description vs implementation (either adjust the default here or update the description) so reviewers/users aren’t confused about the actual behavior.
+
+The timeout error message hard-codes "Secret Service", which is Linux-specific. Since the keyring backend is cross-platform (macOS Keychain / Windows Credential Manager), the message should stay OS-agnostic (or detect GOOS before mentioning Secret Service).
+
+
+
+  Running [/home/runner/golangci-lint-2.11.3-linux-amd64/golangci-lint run] in [/home/runner/work/cli/cli] ...
+47
+  Error: internal/coreapi/client_test.go:107:6: Error return value of `w.Write` is not checked (errcheck)
+48
+          _, _ = w.Write([]byte(`{"members":[]}`))
+49
+             ^
+50
+  Error: cmd/entire/cli/auth/store.go:187:13: error returned from external package is unwrapped: sig: func github.com/zalando/go-keyring.Get(service string, user string) (string, error) (wrapcheck)
+51
+          return v, err
+52
+                    ^
+53
+  Error: cmd/entire/cli/auth/store.go:200:15: error returned from external package is unwrapped: sig: func github.com/zalando/go-keyring.Delete(service string, user string) error (wrapcheck)
+54
+              return "", err
