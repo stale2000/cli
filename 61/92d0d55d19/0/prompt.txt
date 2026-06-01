@@ -1,0 +1,1 @@
+so this branch commited .claude/scheduled_tasks.lock, can you check in which commit and can we clean it up?

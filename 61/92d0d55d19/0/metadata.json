@@ -1,0 +1,43 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "6192d0d55d19",
+  "session_id": "9ecc6751-0659-40da-8dae-f959b1677cbe",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-01T10:13:26.168616Z",
+  "branch": "soph/entire-control-plane-client",
+  "checkpoints_count": 0,
+  "files_touched": [
+    ".claude/.gitignore"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-8[1m]",
+  "turn_id": "d4d1d7756f67",
+  "token_usage": {
+    "input_tokens": 9859,
+    "cache_creation_tokens": 67190,
+    "cache_read_tokens": 738275,
+    "output_tokens": 6340,
+    "api_call_count": 13
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-01T10:13:26.164766Z",
+    "agent_lines": 2,
+    "agent_removed": 1,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 2,
+    "total_lines_changed": 3,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}
