@@ -18,3 +18,7 @@ Simplify the code so that only explain is supported for reads at the moment. The
 ---
 
 Check https://github.com/entireio/cli/pull/1311 to ensure it supports entire explain reading just v1.1 with no fallbacks to v1 when v1.1 is enabled.
+
+---
+
+Push up the changes, update the PR description
