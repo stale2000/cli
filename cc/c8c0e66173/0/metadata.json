@@ -1,0 +1,18 @@
+{
+  "cli_version": "0.6.4-nightly.202605300709.d0327df7.0.20260601195004-9a4b819bbbb4",
+  "checkpoint_id": "ccc8c0e66173",
+  "session_id": "019e6061-de16-7367-a6ea-445345fc3963",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-01T19:50:38.762796Z",
+  "checkpoints_count": 0,
+  "files_touched": null,
+  "agent": "Pi",
+  "model": "",
+  "token_usage": {
+    "input_tokens": 3324731,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 83342336,
+    "output_tokens": 151977,
+    "api_call_count": 552
+  }
+}
