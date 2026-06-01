@@ -1,0 +1,97 @@
+# Checkpoints v1.1 User-Facing Writes Plan
+
+## Goal
+
+Make the deferred user-facing checkpoint write paths compatible with the
+checkpoints v1.1 strategy option without generalizing the whole checkpoint
+writer yet.
+
+When `strategy_options.checkpoints_version` is exactly the JSON string `"1.1"`,
+`session attach` and `checkpoint explain --generate` should write the existing
+v1 metadata first, then strictly mirror the resulting v1 tip to
+`refs/entire/checkpoints/v1.1`.
+
+## Decisions
+
+- Keep the change narrowly scoped to the two intentionally deferred paths:
+  `session attach` and `checkpoint explain --generate`.
+- Do not move mirroring into `checkpoint.GitStore` in this step.
+- Use the existing settings semantics: only exact string `"1.1"` enables the
+  v1.1 mirror.
+- Treat these user-facing command paths differently from hooks: v1.1 mirror
+  failures should return an error instead of being log-only.
+- If v1 succeeds and v1.1 mirroring fails, leave the v1 write in place and
+  return a wrapped error explaining that v1 succeeded but v1.1 failed.
+- Run the strict mirror before later success-side effects:
+  - `attach`: before session-state save and commit amendment.
+  - `explain --generate`: before printing the success block.
+- Do not update docs beyond this exported plan.
+
+## Implementation
+
+1. Add a small `cli` strict mirror helper with a package-level test seam.
+   The helper should:
+   - no-op unless `settings.MirrorsToV1CustomRef(ctx)` is true;
+   - read the current `paths.MetadataBranchName` tip;
+   - advance `paths.MetadataRefName` to that exact hash;
+   - return errors instead of logging them.
+
+2. In `runAttach`, call the strict mirror immediately after
+   `store.WriteCommitted(...)` succeeds.
+   Wrap failures with command-specific context such as:
+   `checkpoint was written to entire/checkpoints/v1, but failed to mirror to refs/entire/checkpoints/v1.1: ...`.
+
+3. In `generateCheckpointSummary`, call the strict mirror immediately after
+   `store.UpdateSummary(...)` succeeds.
+   Wrap failures with command-specific context such as:
+   `summary was written to entire/checkpoints/v1, but failed to mirror to refs/entire/checkpoints/v1.1: ...`.
+
+## Tests
+
+Unit tests:
+
+- `attach` strict mirror failure returns an error, keeps the v1 write, and does
+  not print `Attached session` or amend HEAD with an `Entire-Checkpoint` trailer.
+- `explain --generate` strict mirror failure returns an error, keeps the v1
+  summary write, and does not print `Summary generated`.
+- Non-`"1.1"` settings do not create or require the v1.1 ref.
+
+Integration tests:
+
+- `session attach` with `checkpoints_version: "1.1"` succeeds and leaves
+  `refs/entire/checkpoints/v1.1` at the same hash as `entire/checkpoints/v1`.
+- `checkpoint explain --generate` with `checkpoints_version: "1.1"` succeeds
+  using a deterministic fake external text-generator provider and leaves
+  `refs/entire/checkpoints/v1.1` at the same hash as `entire/checkpoints/v1`.
+
+## Verification
+
+Run focused tests for the touched CLI and integration areas, plus formatting
+for edited Go files. Avoid full E2E tests unless explicitly requested.
+
+---
+
+Review the plan thoroughly and once the review is done, start implementing it
+
+---
+
+mirrorMetadataToV1CustomRefStrictReal is a terrible name and the amount of code comment you've produced is excessive
+
+---
+
+Why did you:
+
+- Use mirrorToV1CustomRef as a name? This isn't v1, it's 1.1
+- Assign the function to a variable rather than declare a function?
+
+---
+
+Assigning a function as a test seam for tests only is usually a code smell that either the tests or the shape of the code is wrong. Otherwise, continue with mirrorToV1CustomRef if it's consistent with the existing code.
+
+---
+
+Drop the feature level unit tests, then. That seems less brittle than other options
+
+---
+
+Commit only the helper changes. Don't commit the plan at all going forward.
