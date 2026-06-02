@@ -1,0 +1,25 @@
+Do the changes in https://github.com/entireio/cli/pull/1329 support reading from v1.1 for `checkpoint rewind` when `checkpoints_version: "1.1"` is set?
+
+---
+
+I don't understand. so it doesn't read afrom v1.1 at all even if the version is set?
+
+---
+
+what other commands are next?
+
+---
+
+Ok let's add support for review now in a new branch off main (pull in main first)
+
+---
+
+Simplify comments and tests
+
+---
+
+the tests don't need to know that "1.1" is enabled, also V11 should be called V1CustomRef same as other places
+
+---
+
+the tests don't need to know that "1.1" is set in the settings, just that v1.1 is enabled, also V11 should be called V1CustomRef same as other places
