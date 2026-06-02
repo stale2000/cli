@@ -1,0 +1,118 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "6a991b41e02c",
+  "session_id": "037f5f6f-0333-4310-aa5a-16b53da05a86",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-02T00:13:39.263702Z",
+  "branch": "update-v1.1-committed-refs",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/checkpoint/committed_refs_test.go"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-7[1m]",
+  "turn_id": "fcacfd87e5a7",
+  "checkpoint_transcript_start": 306,
+  "transcript_lines_at_start": 306,
+  "token_usage": {
+    "input_tokens": 15,
+    "cache_creation_tokens": 203366,
+    "cache_read_tokens": 1992904,
+    "output_tokens": 15592,
+    "api_call_count": 10
+  },
+  "skill_events_version": 1,
+  "skill_events": [
+    {
+      "id": "claude-skill-toolu_01TdPsxuzBhw8EcrhiM4t48p",
+      "event_type": "tool_invocation",
+      "skill": {
+        "name": "superpowers:systematic-debugging"
+      },
+      "source": {
+        "agent": "claude-code",
+        "signal": "skill_tool_use",
+        "confidence": "explicit"
+      },
+      "turn_id": "fcacfd87e5a7",
+      "transcript_anchor": {
+        "unit": "line",
+        "start": 18,
+        "end": 19,
+        "entry_ids": [
+          "d31108e2-dead-42ec-92b5-5cb99f198beb"
+        ],
+        "tool_use_id": "toolu_01TdPsxuzBhw8EcrhiM4t48p"
+      },
+      "native": {
+        "tool_name": "Skill",
+        "tool_use_id": "toolu_01TdPsxuzBhw8EcrhiM4t48p"
+      },
+      "collapse": {
+        "target": "tool_pair",
+        "label": "Skill: superpowers:systematic-debugging",
+        "default_collapsed": true
+      }
+    }
+  ],
+  "session_metrics": {
+    "turn_count": 2
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-02T00:13:39.244268Z",
+    "agent_lines": 58,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 58,
+    "total_lines_changed": 58,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 7530,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".agents/skills/agent-integration/README.md": 71,
+        ".agents/skills/agent-integration/SKILL.md": 107,
+        ".agents/skills/agent-integration/implementer.md": 346,
+        ".agents/skills/agent-integration/researcher.md": 161,
+        ".agents/skills/agent-integration/test-writer.md": 211,
+        ".agents/skills/changelog/SKILL.md": 88,
+        ".agents/skills/e2e/SKILL.md": 32,
+        ".agents/skills/e2e/debug.md": 88,
+        ".agents/skills/e2e/implement.md": 117,
+        ".agents/skills/e2e/triage-ci.md": 176,
+        ".agents/skills/explain/SKILL.md": 34,
+        ".agents/skills/search/SKILL.md": 70,
+        ".agents/skills/session-handoff/SKILL.md": 120,
+        ".agents/skills/session-to-skill/SKILL.md": 210,
+        ".agents/skills/test-repo/README.md": 65,
+        ".agents/skills/test-repo/SKILL.md": 230,
+        ".agents/skills/test-repo/test-harness.sh": 245,
+        ".agents/skills/what-happened/SKILL.md": 333,
+        ".cursor/hooks.json": 40,
+        ".factory/settings.json": 93,
+        ".github/hooks/entire.json": 61,
+        "cmd/entire/.claude/settings.local.json": 25,
+        "deadcode-all.txt": 80,
+        "entire-checkpoints-playground.html": 698,
+        "full-example.jsonl": 129,
+        "metadata-example.json": 32,
+        "plan.md": 389,
+        "pr864-files-pretty.json": 170,
+        "pr864-patches.txt": 2703,
+        "review-01.md": 95,
+        "review-02.md": 82,
+        "review-03.md": 77,
+        "skills-lock.json": 35,
+        "transcript-output.jsonl": 117
+      }
+    }
+  ]
+}
