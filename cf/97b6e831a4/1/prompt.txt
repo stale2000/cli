@@ -98,3 +98,7 @@ Can you re-check which of these findings still apply?
 ---
 
 Can you go and fix the important ones one by one, leaving me time to inspect the changes first.
+
+---
+
+Commit and continue
