@@ -512,3 +512,7 @@ Do it
 ---
 
 Use the pfleidi:pr skill to open a draft pr
+
+---
+
+I approve
