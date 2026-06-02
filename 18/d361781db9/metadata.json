@@ -1,0 +1,29 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "18d361781db9",
+  "strategy": "manual-commit",
+  "branch": "fix/checkpoints-v1.1-advance-after-sync",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "cmd/entire/cli/dispatch/mode_local.go",
+    "cmd/entire/cli/head_checkpoint_flags.go",
+    "cmd/entire/cli/head_checkpoint_flags_test.go",
+    "cmd/entire/cli/review_context.go",
+    "cmd/entire/cli/strategy/common.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/18/d361781db9/0/metadata.json",
+      "transcript": "/18/d361781db9/0/full.jsonl",
+      "content_hash": "/18/d361781db9/0/content_hash.txt",
+      "prompt": "/18/d361781db9/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 1139127,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 27569408,
+    "output_tokens": 117867,
+    "api_call_count": 212
+  }
+}

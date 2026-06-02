@@ -1,0 +1,313 @@
+Commit and continue
+
+---
+
+I don't think TestFetchMetadataBranch_DoesNotRewindLocalAhead is the right place to validate that the ref was advanced. It seems to be mostly a protection against the branch going backward and adding additional assertions here muddies the waters.
+
+---
+
+Commit and continue
+
+---
+
+Commit and continue
+
+---
+
+Commit and continue
+
+---
+
+Also just to ensure you've not missed this: cmd/entire/cli/checkpoint/committed_refs.go
+
+  We very recently added support for configurable primary, read, and mirror refs. If it makes sense we should encorporate that into the current changes as
+  well.
+
+---
+
+Commit and continue
+
+---
+
+$pfleidi:review
+
+---
+
+Review this branch against origin/main as Agent 2: Correctness & Quality.
+
+Repository: /Users/pfleidi/entire/cli/.worktrees/fix/checkpoints-v1.1-advance-after-sync
+Base: origin/main
+Changed files:
+CLAUDE.md
+cmd/entire/cli/attach.go
+cmd/entire/cli/checkpoint/committed_read_store.go
+cmd/entire/cli/checkpoint/committed_read_store_test.go
+cmd/entire/cli/checkpoint/committed_refs.go
+cmd/entire/cli/checkpoint/store.go
+cmd/entire/cli/explain.go
+cmd/entire/cli/explain_test.go
+cmd/entire/cli/git_operations.go
+cmd/entire/cli/git_operations_test.go
+cmd/entire/cli/paths/paths.go
+cmd/entire/cli/resume_test.go
+cmd/entire/cli/rewind.go
+cmd/entire/cli/strategy/checkpoint_remote.go
+cmd/entire/cli/strategy/checkpoint_remote_test.go
+cmd/entire/cli/strategy/manual_commit.go
+cmd/entire/cli/strategy/manual_commit_condensation.go
+cmd/entire/cli/strategy/manual_commit_hooks.go
+cmd/entire/cli/strategy/push_common.go
+cmd/entire/cli/strategy/push_common_test.go
+cmd/entire/cli/strategy/v1_custom_ref_mirror.go
+cmd/entire/cli/strategy/v1_custom_ref_mirror_test.go
+cmd/entire/cli/v1_custom_ref_mirror.go
+cmd/entire/cli/v1_custom_ref_mirror_test.go
+docs/architecture/sessions-and-checkpoints.md
+
+Review context:
+- Goal: ensure active v1 fetch/write/sync paths mirror the v1.1 ref, centralize mirror logic in strategy, remove read-time mirroring, and honor checkpoint.CommittedRefs topology.
+- Intent: v1 remains source of truth today; refs/entire/checkpoints/v1.1 is local-only read mirror; reads must use configured read ref as-is and must not mutate refs.
+- Commits: centralize checkpoint mirror ref updates; mirror checkpoint metadata after fetch; remove read-time checkpoint ref mirroring; document checkpoint mirror read behavior; honor committed ref topology in fetches.
+- No PR context available.
+
+Review philosophy:
+- It is OK to find nothing. Do not manufacture findings.
+- High confidence only: be confident this is a real problem and explain concrete impact.
+- Intent-aware: do not flag intentional behavior changes merely because they differ from origin/main.
+- Verify every finding by reading source and tracing reachable production paths.
+- Permission-friendly reads: avoid pipelines, command separators, subshells, and noisy commands.
+
+Your lens: Correctness & Quality. Review for logic errors, nil/error handling, edge cases, redundant state, production test seams, leaky abstractions, stringly code, and meaningful test coverage/scope gaps. Cite file:line and concrete impact. Return only high-confidence findings; if clean, say clean.
+
+---
+
+Review this branch against origin/main as Agent 3: Simplification & Efficiency.
+
+Repository: /Users/pfleidi/entire/cli/.worktrees/fix/checkpoints-v1.1-advance-after-sync
+Base: origin/main
+Changed files:
+CLAUDE.md
+cmd/entire/cli/attach.go
+cmd/entire/cli/checkpoint/committed_read_store.go
+cmd/entire/cli/checkpoint/committed_read_store_test.go
+cmd/entire/cli/checkpoint/committed_refs.go
+cmd/entire/cli/checkpoint/store.go
+cmd/entire/cli/explain.go
+cmd/entire/cli/explain_test.go
+cmd/entire/cli/git_operations.go
+cmd/entire/cli/git_operations_test.go
+cmd/entire/cli/paths/paths.go
+cmd/entire/cli/resume_test.go
+cmd/entire/cli/rewind.go
+cmd/entire/cli/strategy/checkpoint_remote.go
+cmd/entire/cli/strategy/checkpoint_remote_test.go
+cmd/entire/cli/strategy/manual_commit.go
+cmd/entire/cli/strategy/manual_commit_condensation.go
+cmd/entire/cli/strategy/manual_commit_hooks.go
+cmd/entire/cli/strategy/push_common.go
+cmd/entire/cli/strategy/push_common_test.go
+cmd/entire/cli/strategy/v1_custom_ref_mirror.go
+cmd/entire/cli/strategy/v1_custom_ref_mirror_test.go
+cmd/entire/cli/v1_custom_ref_mirror.go
+cmd/entire/cli/v1_custom_ref_mirror_test.go
+docs/architecture/sessions-and-checkpoints.md
+
+Review context:
+- Goal: ensure active v1 fetch/write/sync paths mirror the v1.1 ref, centralize mirror logic in strategy, remove read-time mirroring, and honor checkpoint.CommittedRefs topology.
+- Intent: v1 remains source of truth today; refs/entire/checkpoints/v1.1 is local-only read mirror; reads must use configured read ref as-is and must not mutate refs.
+- Commits: centralize checkpoint mirror ref updates; mirror checkpoint metadata after fetch; remove read-time checkpoint ref mirroring; document checkpoint mirror read behavior; honor committed ref topology in fetches.
+- No PR context available.
+
+Review philosophy:
+- It is OK to find nothing. Do not manufacture findings.
+- High confidence only: be confident this is a real problem and explain concrete impact.
+- Intent-aware: do not flag intentional behavior changes merely because they differ from origin/main.
+- Verify every finding by reading source and tracing reachable production paths.
+- Permission-friendly reads: avoid pipelines, command separators, subshells, and noisy commands.
+
+Your lens: Simplification & Efficiency. Review for dead code, missed reuse, copy-paste, unnecessary abstractions/work, hot-path bloat, and unnecessary comments. Verify any suggestion against call sites/usages. Discard cosmetic-only suggestions. Return only high-confidence findings; if clean, say clean.
+
+---
+
+Review this branch against origin/main as Agent 4: Readability & Go Idioms.
+
+Repository: /Users/pfleidi/entire/cli/.worktrees/fix/checkpoints-v1.1-advance-after-sync
+Base: origin/main
+Changed files:
+CLAUDE.md
+cmd/entire/cli/attach.go
+cmd/entire/cli/checkpoint/committed_read_store.go
+cmd/entire/cli/checkpoint/committed_read_store_test.go
+cmd/entire/cli/checkpoint/committed_refs.go
+cmd/entire/cli/checkpoint/store.go
+cmd/entire/cli/explain.go
+cmd/entire/cli/explain_test.go
+cmd/entire/cli/git_operations.go
+cmd/entire/cli/git_operations_test.go
+cmd/entire/cli/paths/paths.go
+cmd/entire/cli/resume_test.go
+cmd/entire/cli/rewind.go
+cmd/entire/cli/strategy/checkpoint_remote.go
+cmd/entire/cli/strategy/checkpoint_remote_test.go
+cmd/entire/cli/strategy/manual_commit.go
+cmd/entire/cli/strategy/manual_commit_condensation.go
+cmd/entire/cli/strategy/manual_commit_hooks.go
+cmd/entire/cli/strategy/push_common.go
+cmd/entire/cli/strategy/push_common_test.go
+cmd/entire/cli/strategy/v1_custom_ref_mirror.go
+cmd/entire/cli/strategy/v1_custom_ref_mirror_test.go
+cmd/entire/cli/v1_custom_ref_mirror.go
+cmd/entire/cli/v1_custom_ref_mirror_test.go
+docs/architecture/sessions-and-checkpoints.md
+
+Review context:
+- Goal: ensure active v1 fetch/write/sync paths mirror the v1.1 ref, centralize mirror logic in strategy, remove read-time mirroring, and honor checkpoint.CommittedRefs topology.
+- Intent: v1 remains source of truth today; refs/entire/checkpoints/v1.1 is local-only read mirror; reads must use configured read ref as-is and must not mutate refs.
+- Commits: centralize checkpoint mirror ref updates; mirror checkpoint metadata after fetch; remove read-time checkpoint ref mirroring; document checkpoint mirror read behavior; honor committed ref topology in fetches.
+- No PR context available.
+
+Review philosophy:
+- It is OK to find nothing. Do not manufacture findings.
+- High confidence only: be confident this is a real problem and explain concrete impact.
+- Intent-aware: do not flag intentional behavior changes merely because they differ from origin/main.
+- Verify every finding by reading source and tracing reachable production paths.
+- Permission-friendly reads: avoid pipelines, command separators, subshells, and noisy commands.
+
+Your lens: Readability & Go Idioms. Review for poor factoring, mixed abstraction levels, data-flow opacity, control-flow complexity, naming, Go API readability, and error readability. Prefer small local suggestions; discard formatting/personal taste. Return only high-confidence findings with concrete maintenance cost; if clean, say clean.
+
+---
+
+Review this branch against origin/main as Agent 1: Security & Adversarial.
+
+Repository: /Users/pfleidi/entire/cli/.worktrees/fix/checkpoints-v1.1-advance-after-sync
+Base: origin/main
+Changed files:
+CLAUDE.md
+cmd/entire/cli/attach.go
+cmd/entire/cli/checkpoint/committed_read_store.go
+cmd/entire/cli/checkpoint/committed_read_store_test.go
+cmd/entire/cli/checkpoint/committed_refs.go
+cmd/entire/cli/checkpoint/store.go
+cmd/entire/cli/explain.go
+cmd/entire/cli/explain_test.go
+cmd/entire/cli/git_operations.go
+cmd/entire/cli/git_operations_test.go
+cmd/entire/cli/paths/paths.go
+cmd/entire/cli/resume_test.go
+cmd/entire/cli/rewind.go
+cmd/entire/cli/strategy/checkpoint_remote.go
+cmd/entire/cli/strategy/checkpoint_remote_test.go
+cmd/entire/cli/strategy/manual_commit.go
+cmd/entire/cli/strategy/manual_commit_condensation.go
+cmd/entire/cli/strategy/manual_commit_hooks.go
+cmd/entire/cli/strategy/push_common.go
+cmd/entire/cli/strategy/push_common_test.go
+cmd/entire/cli/strategy/v1_custom_ref_mirror.go
+cmd/entire/cli/strategy/v1_custom_ref_mirror_test.go
+cmd/entire/cli/v1_custom_ref_mirror.go
+cmd/entire/cli/v1_custom_ref_mirror_test.go
+docs/architecture/sessions-and-checkpoints.md
+
+Review context:
+- Goal: ensure active v1 fetch/write/sync paths mirror the v1.1 ref, centralize mirror logic in strategy, remove read-time mirroring, and honor checkpoint.CommittedRefs topology.
+- Intent: v1 remains source of truth today; refs/entire/checkpoints/v1.1 is local-only read mirror; reads must use configured read ref as-is and must not mutate refs.
+- Commits: centralize checkpoint mirror ref updates; mirror checkpoint metadata after fetch; remove read-time checkpoint ref mirroring; document checkpoint mirror read behavior; honor committed ref topology in fetches.
+- No PR context available.
+
+Review philosophy:
+- It is OK to find nothing. Do not manufacture findings.
+- High confidence only: be confident this is a real problem and explain concrete impact.
+- Intent-aware: do not flag intentional behavior changes merely because they differ from origin/main.
+- Verify every finding by reading source and tracing reachable production paths.
+- Permission-friendly reads: avoid pipelines, command separators, subshells, and noisy commands.
+
+Your lens: Security & Adversarial. Review git diff origin/main for injection, TOCTOU/races, unvalidated boundary input, auth/authz gaps, secrets/credentials. For each finding, cite file:line, explain reachable impact, and classify severity. Return only high-confidence findings; if clean, say clean.
+
+---
+
+Review this Go branch against origin/main as Agent 5: Clean Go & Modern Go.
+
+Repository: /Users/pfleidi/entire/cli/.worktrees/fix/checkpoints-v1.1-advance-after-sync
+Base: origin/main
+Changed files:
+CLAUDE.md
+cmd/entire/cli/attach.go
+cmd/entire/cli/checkpoint/committed_read_store.go
+cmd/entire/cli/checkpoint/committed_read_store_test.go
+cmd/entire/cli/checkpoint/committed_refs.go
+cmd/entire/cli/checkpoint/store.go
+cmd/entire/cli/explain.go
+cmd/entire/cli/explain_test.go
+cmd/entire/cli/git_operations.go
+cmd/entire/cli/git_operations_test.go
+cmd/entire/cli/paths/paths.go
+cmd/entire/cli/resume_test.go
+cmd/entire/cli/rewind.go
+cmd/entire/cli/strategy/checkpoint_remote.go
+cmd/entire/cli/strategy/checkpoint_remote_test.go
+cmd/entire/cli/strategy/manual_commit.go
+cmd/entire/cli/strategy/manual_commit_condensation.go
+cmd/entire/cli/strategy/manual_commit_hooks.go
+cmd/entire/cli/strategy/push_common.go
+cmd/entire/cli/strategy/push_common_test.go
+cmd/entire/cli/strategy/v1_custom_ref_mirror.go
+cmd/entire/cli/strategy/v1_custom_ref_mirror_test.go
+cmd/entire/cli/v1_custom_ref_mirror.go
+cmd/entire/cli/v1_custom_ref_mirror_test.go
+docs/architecture/sessions-and-checkpoints.md
+
+Review context:
+- Goal: ensure active v1 fetch/write/sync paths mirror the v1.1 ref, centralize mirror logic in strategy, remove read-time mirroring, and honor checkpoint.CommittedRefs topology.
+- Intent: v1 remains source of truth today; refs/entire/checkpoints/v1.1 is local-only read mirror; reads must use configured read ref as-is and must not mutate refs.
+- Commits: centralize checkpoint mirror ref updates; mirror checkpoint metadata after fetch; remove read-time checkpoint ref mirroring; document checkpoint mirror read behavior; honor committed ref topology in fetches.
+- No PR context available.
+
+Review philosophy:
+- It is OK to find nothing. Do not manufacture findings.
+- High confidence only: be confident this is a real problem and explain concrete impact.
+- Intent-aware: do not flag intentional behavior changes merely because they differ from origin/main.
+- Verify every finding by reading source and tracing reachable production paths.
+- Permission-friendly reads: avoid pipelines, command separators, subshells, and noisy commands.
+
+Use /Users/pfleidi/.agents/skills/pfleidi/clean-go/SKILL.md as source of truth. Review changed Go code plus necessary surrounding source/tests/call sites. Apply clean Go and version-gated modern Go checks. Include meaningful testing guidance where relevant. Return only high-confidence findings with file:line and concrete impact; if clean, say clean.
+
+---
+
+Second-pass coverage sweep for pfleidi:review.
+
+Repository: /Users/pfleidi/entire/cli/.worktrees/fix/checkpoints-v1.1-advance-after-sync
+Base: origin/main
+Changed files:
+CLAUDE.md
+cmd/entire/cli/attach.go
+cmd/entire/cli/checkpoint/committed_read_store.go
+cmd/entire/cli/checkpoint/committed_read_store_test.go
+cmd/entire/cli/checkpoint/committed_refs.go
+cmd/entire/cli/checkpoint/store.go
+cmd/entire/cli/explain.go
+cmd/entire/cli/explain_test.go
+cmd/entire/cli/git_operations.go
+cmd/entire/cli/git_operations_test.go
+cmd/entire/cli/paths/paths.go
+cmd/entire/cli/resume_test.go
+cmd/entire/cli/rewind.go
+cmd/entire/cli/strategy/checkpoint_remote.go
+cmd/entire/cli/strategy/checkpoint_remote_test.go
+cmd/entire/cli/strategy/manual_commit.go
+cmd/entire/cli/strategy/manual_commit_condensation.go
+cmd/entire/cli/strategy/manual_commit_hooks.go
+cmd/entire/cli/strategy/push_common.go
+cmd/entire/cli/strategy/push_common_test.go
+cmd/entire/cli/strategy/v1_custom_ref_mirror.go
+cmd/entire/cli/strategy/v1_custom_ref_mirror_test.go
+cmd/entire/cli/v1_custom_ref_mirror.go
+cmd/entire/cli/v1_custom_ref_mirror_test.go
+docs/architecture/sessions-and-checkpoints.md
+
+Review context:
+- Goal: ensure active v1 fetch/write/sync paths mirror the v1.1 ref, centralize mirror logic in strategy, remove read-time mirroring, and honor checkpoint.CommittedRefs topology.
+- Intent: v1 remains source of truth today; refs/entire/checkpoints/v1.1 is local-only read mirror; reads must use configured read ref as-is and must not mutate refs.
+- Commits: centralize checkpoint mirror ref updates; mirror checkpoint metadata after fetch; remove read-time checkpoint ref mirroring; document checkpoint mirror read behavior; honor committed ref topology in fetches.
+- No PR context available.
+
+Do an independent second-pass coverage review. Do not rely on or ask for first-pass findings. Re-read changed files and surrounding source needed to understand each changed path. Trace changed behavior through callers, callees, tests, configuration, generated interfaces, and user/API entry points where relevant. Search for related patterns, duplicated logic, existing helpers, and missed tests. Look across security, correctness, tests, simplification, readability, performance, and Go cleanliness. Prioritize missed Required findings. Return only high-confidence findings with concrete file:line evidence and short traced impact. It is valid to report clean.
