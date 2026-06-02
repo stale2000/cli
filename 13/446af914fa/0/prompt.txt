@@ -1,0 +1,13 @@
+yes
+
+---
+
+/simplify
+
+---
+
+_, _ = io.Copy(io.Discard, io.LimitReader(resp.Body, maxProbeBytes))I'm not sure this has the intended result.
+[9:38 AM]Partial draining is the same as not draining. We probably want to:
+_, _ = io.Copy(io.Discard, resp.Body)
+
+is this the same direction ?
