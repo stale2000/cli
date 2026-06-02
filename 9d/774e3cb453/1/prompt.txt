@@ -1,0 +1,9 @@
+Similar to https://github.com/entireio/cli/pull/1311 and https://github.com/entireio/cli/pull/1315, we need to now add checkpoints v1.1 support to `checkpoint rewind`
+
+---
+
+Similar to https://github.com/entireio/cli/pull/1311 and https://github.com/entireio/cli/pull/1315, we need to now add checkpoints v1.1 support to `checkpoint rewind`. Pull in the changes from https://github.com/entireio/cli/pull/1316.
+
+---
+
+/simplify

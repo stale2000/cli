@@ -3,11 +3,13 @@
   "checkpoint_id": "9d774e3cb453",
   "strategy": "manual-commit",
   "branch": "checkpoints-v1.1-rewind-support",
-  "checkpoints_count": 1,
+  "checkpoints_count": 3,
   "files_touched": [
     "cmd/entire/cli/rewind.go",
     "cmd/entire/cli/strategy/manual_commit.go",
-    "cmd/entire/cli/strategy/manual_commit_rewind.go"
+    "cmd/entire/cli/strategy/manual_commit_condensation.go",
+    "cmd/entire/cli/strategy/manual_commit_rewind.go",
+    "cmd/entire/cli/strategy/manual_commit_rewind_v11_test.go"
   ],
   "sessions": [
     {
@@ -15,13 +17,19 @@
       "transcript": "/9d/774e3cb453/0/full.jsonl",
       "content_hash": "/9d/774e3cb453/0/content_hash.txt",
       "prompt": "/9d/774e3cb453/0/prompt.txt"
+    },
+    {
+      "metadata": "/9d/774e3cb453/1/metadata.json",
+      "transcript": "/9d/774e3cb453/1/full.jsonl",
+      "content_hash": "/9d/774e3cb453/1/content_hash.txt",
+      "prompt": "/9d/774e3cb453/1/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 31891,
-    "cache_creation_tokens": 913510,
-    "cache_read_tokens": 46655885,
-    "output_tokens": 218933,
-    "api_call_count": 201
+    "input_tokens": 41383,
+    "cache_creation_tokens": 1129968,
+    "cache_read_tokens": 53344580,
+    "output_tokens": 282154,
+    "api_call_count": 264
   }
 }
