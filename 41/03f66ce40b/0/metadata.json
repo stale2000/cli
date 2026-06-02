@@ -1,0 +1,39 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "4103f66ce40b",
+  "session_id": "fce7b08e-fdaf-422f-8b19-cc4a17d16563",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-02T12:55:15.755316Z",
+  "branch": "soph/fix-macos-notarize-ids",
+  "checkpoints_count": 0,
+  "files_touched": [
+    ".github/workflows/release.yml"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-8[1m]",
+  "turn_id": "26976e53a6dd",
+  "checkpoint_transcript_start": 190,
+  "transcript_lines_at_start": 190,
+  "token_usage": {
+    "input_tokens": 331,
+    "cache_creation_tokens": 12073,
+    "cache_read_tokens": 955404,
+    "output_tokens": 8262,
+    "api_call_count": 8
+  },
+  "session_metrics": {
+    "turn_count": 3
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-02T12:55:15.749018Z",
+    "agent_lines": 39,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 39,
+    "total_lines_changed": 39,
+    "agent_percentage": 100,
+    "metric_version": 2
+  }
+}
