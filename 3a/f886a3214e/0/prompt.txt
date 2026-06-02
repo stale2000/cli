@@ -1,1 +1,9 @@
-can we go back to login serer... sorry
+there is still "(used when its core fronts the target cluster)"
+
+---
+
+(used when its core fronts the target cluster) <- maybe we just remove that, but it still has core
+
+---
+
+can you read the other unresolved comment on the PR?

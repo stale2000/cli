@@ -3,11 +3,10 @@
   "checkpoint_id": "3af886a3214e",
   "strategy": "manual-commit",
   "branch": "20260602-auth-contexts-docs",
-  "checkpoints_count": 0,
+  "checkpoints_count": 1,
   "files_touched": [
     "cmd/entire/cli/auth_context.go",
-    "cmd/entire/cli/logout.go",
-    "internal/entireclient/clusterdiscovery/discovery.go"
+    "internal/entireclient/contexts/contexts.go"
   ],
   "sessions": [
     {
@@ -18,10 +17,10 @@
     }
   ],
   "token_usage": {
-    "input_tokens": 141,
-    "cache_creation_tokens": 5206,
-    "cache_read_tokens": 688149,
-    "output_tokens": 3935,
-    "api_call_count": 6
+    "input_tokens": 278,
+    "cache_creation_tokens": 6780,
+    "cache_read_tokens": 1223222,
+    "output_tokens": 5105,
+    "api_call_count": 10
   }
 }
