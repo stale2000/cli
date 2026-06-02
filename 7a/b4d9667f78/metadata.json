@@ -1,0 +1,26 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "7ab4d9667f78",
+  "strategy": "manual-commit",
+  "branch": "entire-token-env-override",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/git-remote-entire/main.go",
+    "cmd/git-remote-entire/main_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/7a/b4d9667f78/0/metadata.json",
+      "transcript": "/7a/b4d9667f78/0/full.jsonl",
+      "content_hash": "/7a/b4d9667f78/0/content_hash.txt",
+      "prompt": "/7a/b4d9667f78/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 139,
+    "cache_creation_tokens": 4059,
+    "cache_read_tokens": 676181,
+    "output_tokens": 2483,
+    "api_call_count": 5
+  }
+}
