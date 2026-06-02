@@ -1,0 +1,26 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "ab3b94a4fb5a",
+  "strategy": "manual-commit",
+  "branch": "probe-drain-conn-reuse",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/repo_mirror_probe.go",
+    "cmd/entire/cli/repo_mirror_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/ab/3b94a4fb5a/0/metadata.json",
+      "transcript": "/ab/3b94a4fb5a/0/full.jsonl",
+      "content_hash": "/ab/3b94a4fb5a/0/content_hash.txt",
+      "prompt": "/ab/3b94a4fb5a/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 4233,
+    "cache_creation_tokens": 20157,
+    "cache_read_tokens": 1679007,
+    "output_tokens": 13209,
+    "api_call_count": 21
+  }
+}
