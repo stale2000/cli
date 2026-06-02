@@ -128,3 +128,7 @@ Shouldn't the `store` already have the correct reference name configured?
 ---
 
 I thought we agreed on no fallbacks. Why is readCheckpointInfoFromRefWithMetadataFallback still named like that?
+
+---
+
+Commit and continue
