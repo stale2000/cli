@@ -1,0 +1,24 @@
+ok i made a spinoff branch. back to those contexts.  there are a few problems in our implementation:
+
+1. it diverges from original git-remote-entire (see ~/src/entirehq/entiredb/cmd/git-remote-entire) in that we should cache in contexts.json all successful cluster->core binding lookups.  they don't change all the time, they're essentially fixed, we just don't want to ship hardcoded values in code.  please compare this implementation with the original and summarise discrepancies.
+
+2. we have 2 views of "what's my session" - see:
+
+11:47:04 (git)! main▲ $ entire auth list
+ID                                    NAME                  SCOPE  CREATED     LAST USED  EXPIRES
+019e0189-038e-726a-9d48-40ae68fe573c  CLI login 2026-05-07  cli    2026-05-07  4d ago     2026-06-06
+019e7148-93cb-7d66-8504-ac81ae4f5318  CLI login 2026-05-29  cli    2026-05-29  never      2026-06-28
+
+
+11:45:58 (git)! main▲ $ entire auth contexts
+  us.auth.entire.io    toothbrush    https://us.auth.entire.io
+* eu.auth.partial.to    toothbrush    https://eu.auth.partial.to
+
+Cluster bindings (these hosts auto-authenticate with a stored context):
+  aws-eu-central-1.entire.io    -> us.auth.entire.io
+
+we'll think about consolidating that later.
+
+---
+
+Yes let's do B, just the safe/conservative version.  Commit early and often.
