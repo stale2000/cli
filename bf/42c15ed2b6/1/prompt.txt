@@ -1,0 +1,17 @@
+can you look at this branch, and this specific change ask:
+
+1. Probe connections aren't drained, defeating the idle pool —
+  repo_mirror_probe.go:211-231 (low/efficiency)
+  probeClient is deliberately built with MaxIdleConns/IdleConnTimeout "to reuse the TLS
+  session between ticks." But mirrorAdvertisesHead does defer resp.Body.Close() without
+  draining, and reads via io.LimitReader. Go's transport only recycles a connection when
+  the body is read to EOF before Close(); on the sr.Decode/adv.Decode error returns (and
+  possibly the normal path, depending on whether go-git consumes the trailing flush-pkt)
+  the body is left partially read, so the conn is closed instead of pooled — every 2s probe
+  then pays a fresh TLS handshake. Add a drain before close:
+  defer func() {
+      _, _ = io.Copy(io.Discard, io.LimitReader(resp.Body, maxProbeBytes))
+      _ = resp.Body.Close()
+  }()
+  Over a 30-minute wait (~900 probes) that's the difference between reusing a connection
+  and 900 handshakes.
