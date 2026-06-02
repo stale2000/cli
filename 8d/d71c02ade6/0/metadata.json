@@ -1,0 +1,55 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "8dd71c02ade6",
+  "session_id": "019e89b2-44f8-7393-aa5f-ca3123a80a76",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-02T23:18:59.988644Z",
+  "branch": "fix/checkpoints-v1.1-advance-after-sync",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/strategy/metadata_reconcile.go",
+    "cmd/entire/cli/strategy/metadata_reconcile_test.go",
+    "docs/architecture/sessions-and-checkpoints.md"
+  ],
+  "agent": "Codex",
+  "model": "gpt-5.5",
+  "turn_id": "2a03c64ac43c",
+  "token_usage": {
+    "input_tokens": 1604713,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 38146688,
+    "output_tokens": 155538,
+    "api_call_count": 294
+  },
+  "session_metrics": {
+    "turn_count": 1
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-02T23:18:59.902948Z",
+    "agent_lines": 66,
+    "agent_removed": 1,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 66,
+    "total_lines_changed": 67,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 66,
+      "agent_lines_removed": 1
+    }
+  ]
+}
