@@ -1,0 +1,130 @@
+**Handover: Port `session resume` To Checkpoints v1.1**
+Goal: make `entire session resume <branch>` read committed checkpoint metadata and transcripts from the v1.1 local custom ref when `strategy_options.checkpoints_version == "1.1"`, while preserving existing v1 behavior otherwise.
+
+**Current State**
+The v1.1 explain branch introduces `checkpoint.NewCommittedReadStore(ctx, repo)`, which selects the committed read ref based on settings. That is the primitive `resume` should use for normal committed-checkpoint reads.
+
+`resume` currently still uses v1-only paths in several places:
+- Main store construction: `cmd/entire/cli/resume.go:192`
+- Metadata summary/session reads: `cmd/entire/cli/resume.go:277`
+- Direct metadata branch tree fallback: `cmd/entire/cli/resume.go:313`
+- Remote/fetch fallback paths using `GetMetadataBranchTree` / `GetRemoteMetadataBranchTree`: `cmd/entire/cli/resume.go:418`
+- Single-session transcript fallback: `cmd/entire/cli/resume.go:937`
+
+`resumeSession` delegates transcript restoration through `strat.RestoreLogsOnly`, which is implemented in `cmd/entire/cli/strategy/manual_commit_rewind.go:616`. That path also still uses the default v1 store and will need to be updated or injected.
+
+**Recommended Scope**
+Keep this PR focused on `session resume` plus the minimum shared strategy read hook needed by resume. Do not migrate all rewind behavior in the same PR unless the diff stays small. With tests, resume alone is likely close to the sweet spot for the 1kloc limit.
+
+Include:
+- `entire session resume`
+- hidden alias `entire resume`, automatically covered
+- resume's multi-checkpoint squash handling
+- resume's metadata fallback paths
+- resume's transcript restoration path
+
+Avoid:
+- `checkpoint rewind` list/interactive behavior, except where shared code must change for resume
+- `review`, `status`, `dispatch`, `clean`
+- remote push/fetch semantics beyond what resume already does for v1
+
+**Implementation Plan**
+1. Use `checkpoint.NewCommittedReadStore(ctx, repo)` in `resumeFromCurrentBranch`.
+   Replace the direct `checkpoint.NewGitStore(repo)` read store. Keep `SetBlobFetcher(FetchBlobsByHash)`.
+
+2. Split read-store vs write-store thinking clearly.
+   `resume` is read-only for committed checkpoint storage, so it should use the committed read store. It should not write to the v1.1 ref.
+
+3. Replace `readCheckpointInfoFromMetadataBranch`.
+   The current fallback reads `strategy.GetMetadataBranchTree(repo)`, which is v1-only. Prefer reading metadata through the committed read store first. If a tree fallback is still needed for fetched/remote trees, add a helper that reads from the configured committed read ref rather than hard-coding v1.
+
+4. Review `getMetadataTree` and `checkRemoteMetadata`.
+   These fetch v1 metadata and then read v1 local/remote trees. In v1.1 mode, fetching v1 is still reasonable because v1 is the durable source, but after fetch the read should go through `NewCommittedReadStore`, letting it sync/seed the v1.1 custom ref from v1.
+
+5. Update `resumeSingleSession`.
+   The fallback currently constructs `checkpoint.NewGitStore(repo)` before `ReadRawSessionLogForCheckpoint`. Use `NewCommittedReadStore(ctx, repo)`.
+
+6. Handle `RestoreLogsOnly`.
+   `resumeSession` calls `strat.RestoreLogsOnly`, which currently creates its own v1 store. Best narrow fix: update `ManualCommitStrategy.RestoreLogsOnly` to use `checkpoint.NewCommittedReadStore(ctx, repo)` for committed reads. This also benefits `checkpoint rewind`, but it is a shared restore path and necessary for resume correctness.
+
+**Testing Targets**
+Add focused tests in `resume_test.go`:
+- v1.1 mode resumes when checkpoint exists only on `refs/entire/checkpoints/v1.1`.
+- v1.1 mode does not fall back to stale v1 when v1.1 exists and differs.
+- unset/default settings still resume from v1.
+- multi-checkpoint squash selection uses v1.1 metadata timestamps.
+- transcript restore reads v1.1 session content.
+
+Add one strategy test if changing `RestoreLogsOnly`:
+- in v1.1 mode, `RestoreLogsOnly` restores transcript from the custom ref.
+
+Useful focused verification:
+```bash
+go test ./cmd/entire/cli -run 'Test.*Resume|TestRunResume|TestResolveLatestCheckpoint'
+go test ./cmd/entire/cli/strategy -run 'Test.*RestoreLogsOnly|Test.*V1CustomRef'
+```
+
+**Risk Notes**
+The most important risk is mixed v1/v1.1 reads in one command. For example, resolving metadata from v1.1 but restoring transcript from v1 would produce confusing behavior when the refs differ. Make sure every committed checkpoint read in the resume path uses the same read-store choice.
+
+Remote fetch should still fetch v1; v1.1 is local-only. After the fetch, reads should go through the v1.1 read store so it can seed or advance the custom ref from v1 according to the helper's rules.
+
+---
+
+Make it so
+
+---
+
+I feel like some of the changes you made are analog to changes made here: https://github.com/entireio/cli/pull/1311
+
+Can you confirm?
+
+---
+
+Doing additional work in a constructor like NewCommittedReadStore. is pretty much a bad idea in my book so we should use as much of the existing changes as we can. I'm not sure why but you somehow replicated most of the existing code which shouldn't have happened.
+
+---
+
+These changes still look very much redundant since they seem to reimplement changes in cmd/entire/cli/checkpoint/committed_read_store.go
+
+Why did you implement them that way?
+
+---
+
+Why is cmd/entire/cli/checkpoint/committed_read_store.go not in the current HEAD? This branch should be based off of main which has the changes?
+
+---
+
+Okay, I'm using a git mirror which seems to have gotten stuck. I've pulled in main again so the changes are available locally
+
+---
+
+Okay, continue
+
+---
+
+Is there a need to have a newResumeCommittedReadStore? Would it be possible to reuse any of the other constructors that already exist?
+
+---
+
+Clean it up, then.
+
+---
+
+I don't think readCheckpointInfoFromLegacyMetadataBranch needs to exist, either
+
+---
+
+Also, this is important: I don't want any fallback to v1 when v1.1 is enabled! The way writes are set up, checkpoints in v1 and v1.1 should have the same state. The only difference is that one is stored in a branch while the other is stored in a custom ref.
+
+The expected state is for `entire session resume` to fail when v1.1 mode is enabled and no checkpoint being found.
+
+---
+
+What's the point of all of these conditionals? `if !settings.MirrorsToV1CustomRef(ctx) { ... }`
+
+Shouldn't the `store` already have the correct reference name configured?
+
+---
+
+I thought we agreed on no fallbacks. Why is readCheckpointInfoFromRefWithMetadataFallback still named like that?

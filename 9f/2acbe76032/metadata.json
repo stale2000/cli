@@ -1,0 +1,26 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "9f2acbe76032",
+  "strategy": "manual-commit",
+  "branch": "feat/checkpoints-v1.1-session-resume",
+  "checkpoints_count": 10,
+  "files_touched": [
+    "cmd/entire/cli/resume.go",
+    "cmd/entire/cli/resume_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/9f/2acbe76032/0/metadata.json",
+      "transcript": "/9f/2acbe76032/0/full.jsonl",
+      "content_hash": "/9f/2acbe76032/0/content_hash.txt",
+      "prompt": "/9f/2acbe76032/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 676431,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 21927680,
+    "output_tokens": 93098,
+    "api_call_count": 191
+  }
+}
