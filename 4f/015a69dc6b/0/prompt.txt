@@ -1,0 +1,3 @@
+> ClusterContexts field kept but inert
+
+can we drop that too?  or will an old config fail to parse?
