@@ -1,0 +1,18 @@
+Currently the login text is as follows:
+
+Device code: XEUX-TK3G
+Press Enter to copy the code to your clipboard, open https://us.auth.entire.io/cli/auth?user_code=XEUX-TK3G in your browser, and enter the generated device code...
+
+Device code copied to clipboard.
+Waiting for approval...
+Login complete.
+
+We do not need to copy the code to the clipboard anymore because entire login opens a URL that includes the code. We do not need to prompt users to enter the code…
+
+---
+
+/simplify
+
+---
+
+when is the fallback used?
