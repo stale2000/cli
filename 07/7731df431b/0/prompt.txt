@@ -1,0 +1,5 @@
+Commit and continue
+
+---
+
+I don't think TestFetchMetadataBranch_DoesNotRewindLocalAhead is the right place to validate that the ref was advanced. It seems to be mostly a protection against the branch going backward and adding additional assertions here muddies the waters.
