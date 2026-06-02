@@ -1,0 +1,100 @@
+This is the current task scope for the changes in this branch:
+
+Review handoff: checkpoints v1.1 session resume branch
+
+Workspace: /Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v1.1-session-resume
+Branch: feat/checkpoints-v1.1-session-resume
+Compare base for review: origin/main
+
+Current git state
+- Committed branch changes vs origin/main: 4 files, 550 insertions, 150 deletions.
+- Files changed vs origin/main:
+  - cmd/entire/cli/resume.go
+  - cmd/entire/cli/resume_test.go
+  - cmd/entire/cli/strategy/manual_commit_rewind.go
+  - cmd/entire/cli/strategy/rewind_test.go
+- Commits on branch:
+  - 506d9f7839 use committed resume read store
+  - b021763d2e restore resume logs from committed read ref
+  - 412c419ede fix resume test lint constant
+  - 92082d2691 merge branch main into feat/checkpoints-v1.1-session-resume
+- Current uncommitted changes are only in cmd/entire/cli/resume.go and cmd/entire/cli/resume_test.go. These are the legacy direct metadata fallback experiment and should be cleaned up before review/merge.
+
+Original goal
+Make entire session resume <branch> read committed checkpoint metadata and transcripts from the v1.1 local custom ref when strategy_options.checkpoints_version is 1.1, while preserving existing v1 behavior otherwise. Hidden alias entire resume is covered by the same command path.
+
+Hard constraints and decisions
+- No fallback from v1.1 to v1. If v1.1 mode is enabled and refs/entire/checkpoints/v1.1 has no checkpoint metadata/transcript, resume should fail/report unavailable rather than read v1.
+- v1.1 is local-only. Remote fetch/checkpoint_remote fallback remains a v1 behavior only.
+- Do not add side effects to NewCommittedReadStore. It should choose the committed read ref, not seed/sync/write refs.
+- Resume is read-only for committed checkpoints. It should not write to the v1.1 custom ref.
+- Prefer the existing checkpoint committed store API over hand-rolled tree/ref reads.
+- strategy.GetMetadataBranchTree is v1-only. It was not updated because the intended normal path is the checkpoint store API. If a future need requires strategy metadata parsing with arbitrary refs, add a shared ref-aware helper instead of resume-local tree code.
+- Switching away from strategy.ReadCheckpointMetadata was necessary for v1.1 ref correctness only because the existing resume usage obtained its tree via strategy.GetMetadataBranchTree, which is hard-coded to entire/checkpoints/v1. The parser itself is not inherently wrong.
+
+Implemented branch behavior
+- resumeFromCurrentBranch constructs checkpoint.NewCommittedReadStore(ctx, repo), sets FetchBlobsByHash, and uses that store for committed checkpoint metadata reads.
+- Multi-checkpoint squash resolution uses resolveLatestCheckpoint(ctx, store, checkpointIDs), so timestamps are resolved from the selected committed read ref.
+- readCheckpointInfoFromStore reads checkpoint.ReadCommittedCheckpoint(ctx, store, checkpointID), then reads per-session metadata via store.ReadSessionMetadata. This keeps summary/session metadata on the same committed ref.
+- readCheckpointInfoFromRef creates checkpoint.NewGitStoreWithRef(repo, committedReadRef), so remote/fetch retry paths continue with the same selected ref rather than implicitly defaulting to v1.
+- checkRemoteMetadata accepts committedReadRef. If the ref is not the v1 branch, it prints that metadata is unavailable in that ref and returns. This enforces no v1 fallback in v1.1 mode.
+- resumeSingleSession uses checkpoint.NewCommittedReadStore(ctx, repo) and checkpoint.ReadRawSessionLogForCheckpoint to restore transcript content from the selected committed read ref.
+- ManualCommitStrategy.RestoreLogsOnly uses checkpoint.NewCommittedReadStore(ctx, repo) and ReadCommittedCheckpoint so resumeSession transcript restoration also follows the selected committed read ref.
+
+Tests added/updated
+- cmd/entire/cli/resume_test.go:
+  - TestResumeFromCurrentBranch_UsesV11MetadataOnly
+  - TestResolveLatestCheckpoint_V11DoesNotFallbackToStaleV1
+  - TestResumeFromCurrentBranch_V11DoesNotSeedFromV1
+  - TestResumeFromCurrentBranch_V11SquashUsesLatestMetadataTimestamp
+  - TestResumeSingleSession_UsesV11Transcript
+  - existing/default v1 tests retained, including TestResolveLatestCheckpointUsesV1Checkpoint and TestResumeSingleSession_UsesV1Transcript
+- cmd/entire/cli/strategy/rewind_test.go:
+  - TestRestoreLogsOnly_UsesV11Transcript
+
+Important pending cleanup
+The current uncommitted fallback experiment should be removed:
+- Remove readCheckpointInfoFromCommittedRef from cmd/entire/cli/resume.go.
+- Remove getCommittedReadTree from cmd/entire/cli/resume.go.
+- Change readCheckpointInfoFromStore back to accepting checkpoint.CommittedListReader if possible; it only needs ReadCommittedCheckpoint plus ReadSessionMetadata after fallback removal.
+- Restore the simple error behavior: if ReadCommittedCheckpoint fails, return read checkpoint error; if no session ID can be found from the summary/session metadata, return checkpoint.ErrCheckpointNotFound.
+- Remove TestResumeFromCurrentBranch_DefaultV1ReadsDirectCheckpointInfoMetadata from resume_test.go.
+- Revert the uncommitted change that adds agent to createCheckpointOnMetadataBranchFull unless another remaining test actually needs it.
+
+Why the fallback should be removed
+A review finding raised concern that moving resume to ReadCommittedCheckpoint might stop supporting old direct CheckpointInfo metadata at checkpoint root metadata.json. I added a local fallback to re-read the configured ref tree and call strategy.ReadCheckpointMetadataFromSubtree. That was too much local complexity and duplicated store behavior.
+
+We audited the actual checkpoint population in this repo with GIT_NO_LAZY_FETCH=1:
+- refs/heads/entire/checkpoints/v1: 3995 root metadata files, 3919 readable, 3919 CheckpointSummary, 0 legacy direct CheckpointInfo, 76 missing promisor blobs.
+- refs/remotes/origin/entire/checkpoints/v1: 1538 root metadata files, 1538 CheckpointSummary, 0 legacy direct CheckpointInfo, 0 missing blobs.
+- refs/entire/checkpoints/v1.1 is not present locally.
+Conclusion: legacy direct metadata fallback is not justified for this branch. If legacy direct metadata compatibility matters generally, it belongs in the shared checkpoint read layer, not in resume-specific fallback code.
+
+Verification already run before the latest fallback discussion
+- go test ./cmd/entire/cli -run Test.*Resume|TestRunResume|TestResolveLatestCheckpoint|TestCheckRemoteMetadata -count=1
+  - exit 0, ok github.com/entireio/cli/cmd/entire/cli 1.310s
+- go test ./cmd/entire/cli/strategy -run Test.*RestoreLogsOnly|Test.*V1CustomRef -count=1
+  - exit 0, ok github.com/entireio/cli/cmd/entire/cli/strategy 1.175s
+- golangci-lint run --new-from-rev origin/main ./cmd/entire/cli ./cmd/entire/cli/strategy
+  - exit 0, 0 issues
+- git diff --check
+  - exit 0
+After cleanup, rerun the same focused tests and lint.
+
+Review focus areas
+- Confirm every committed checkpoint read in session resume uses the same selected committed read ref.
+- Confirm v1.1 mode does not read, fetch, seed, or fall back to v1.
+- Confirm v1 default behavior still reads local v1 and can use origin/entire/checkpoints/v1 fallback where existing v1 behavior expects it.
+- Confirm transcript restoration paths are aligned with metadata resolution, especially resumeSession through RestoreLogsOnly and resumeSingleSession.
+- Watch for remaining hand-rolled ref/tree logic in resume after cleanup; it should not be needed for the agreed scope.
+
+
+Run /simplify considering the scope described above
+
+---
+
+Can you re-check which of these findings still apply?
+
+---
+
+Can you go and fix the important ones one by one, leaving me time to inspect the changes first.
