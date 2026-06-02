@@ -1,0 +1,1 @@
+the changes to cmd/entire/cli/settings/settings.go seem very unnecessary? why are they there. we can remove those
