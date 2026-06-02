@@ -1,0 +1,13 @@
+cli on  soph/fix-macos-notarize-ids [$] via 🐹 v1.26.3 took 3s
+❯ goreleaser check
+  • checking                                  path=.goreleaser.yaml
+  • 1 configuration file(s) validated
+  • thanks for using GoReleaser!
+
+---
+
+Run VERSION="${RELEASE_TAG#v}"
+Error: No changelog entry found for version 0.7.1 in CHANGELOG.md
+Error: Process completed with exit code 1.
+
+can we generate the changelog for 0.7.1 then? also I wonder if I can move the tag, so maybe to 0.7.2 directly?
