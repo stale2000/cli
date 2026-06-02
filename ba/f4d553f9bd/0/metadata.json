@@ -1,0 +1,46 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "baf4d553f9bd",
+  "session_id": "05fedc75-9ca1-4638-9894-01560fe3498a",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-02T15:27:31.226633Z",
+  "branch": "entire-token-env-override",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/git-remote-entire/main.go",
+    "cmd/entire/cli/auth/contexts.go",
+    "cmd/git-remote-entire/main_test.go",
+    "cmd/entire/cli/auth/contexts_test.go"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "7243a8f98b78",
+  "token_usage": {
+    "input_tokens": 10798,
+    "cache_creation_tokens": 79264,
+    "cache_read_tokens": 4860700,
+    "output_tokens": 33838,
+    "api_call_count": 55
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-02T15:27:31.218336Z",
+    "agent_lines": 37,
+    "agent_removed": 9,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 37,
+    "total_lines_changed": 46,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}

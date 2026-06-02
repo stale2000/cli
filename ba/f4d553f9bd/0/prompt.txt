@@ -1,0 +1,17 @@
+can you commit and push
+
+---
+
+can you also help me understand, what kind of token is this?
+
+---
+
+can you review the PR now in general?
+
+---
+
+coreTrusted should be case insensitive?
+
+---
+
+yes, do the shared helper
