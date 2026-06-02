@@ -1,0 +1,5 @@
+/codex:adversarial-review
+
+---
+
+Presumably if we're using this mechanism, we'll be targetting an entire-core instance, or perhaps an entire-server which is controlled by an entire-core.  Let's add a thing where we hit up the target server's .well-known/../entire-cluster.json and ensure the aud is in there.  let's also make sure we parse the aud as a valid URI (fail if not), ensure it has no params or path, and ensure scheme == https.  WDYT?
