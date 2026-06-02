@@ -1,0 +1,23 @@
+here's a job i have to do.  you can do it for me:
+
+  Gap 1 — ENTIRE_TOKEN env override (CI / workload identity)
+
+  What: Let ENTIRE_TOKEN=<jwt> bypass contexts.json/keyring entirely, so CI and workload-identity runners authenticate without an interactive login.
+
+  Reference (entiredb):
+  - cmd/git-remote-entire/main.go → resolveCredentials(): checks ENTIRE_TOKEN first; if set, derives the core URL from the token and returns it as a static login JWT, skipping context resolution.
+  - internal/remotehelper/entire/auth/context.go → CoreURLFromEnvToken() + jwtAudiences(): reads the URL-shaped aud claim (not iss). Login/SA-session JWTs carry aud=<home-region URL>, which is what STS routing keys on. aud can be a string or array (RFC 7519) — handle both.
+
+  Where in our repo (cli):
+  - cmd/git-remote-entire/main.go → run(): add the ENTIRE_TOKEN branch before MigrateLegacyLoginContext / ResolveContextForCluster. When set, skip both and build repocreds.New(coreURL, clusterBaseURL, staticProvider, httpClient) where staticProvider just returns the env token and coreURL comes from its aud.
+  - We already parse JWTs via github.com/entireio/auth-go/tokens (tokens.ParseClaims, used in cmd/entire/cli/auth/contexts.go). Check whether it exposes the audience; if not, port entiredb's small jwtAudiences helper.
+
+  Acceptance:
+  - ENTIRE_TOKEN=<jwt> git clone entire://host/... works with no contexts.json and no keyring entry.
+  - A token with no URL-shaped aud → clear error ("must be a login or sa-session JWT whose aud is the home-region URL…"), not a silent fallback.
+  - Unit test on the aud-extraction (string form, array form, missing/opaque → error).
+
+  Size: small, self-contained. Do this one first — most likely to bite CI users.
+
+
+separate branch & pr please, don't touch other repos without asking
