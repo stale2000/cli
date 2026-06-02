@@ -1,0 +1,27 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "3af886a3214e",
+  "strategy": "manual-commit",
+  "branch": "20260602-auth-contexts-docs",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/auth_context.go",
+    "cmd/entire/cli/logout.go",
+    "internal/entireclient/clusterdiscovery/discovery.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/3a/f886a3214e/0/metadata.json",
+      "transcript": "/3a/f886a3214e/0/full.jsonl",
+      "content_hash": "/3a/f886a3214e/0/content_hash.txt",
+      "prompt": "/3a/f886a3214e/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 141,
+    "cache_creation_tokens": 5206,
+    "cache_read_tokens": 688149,
+    "output_tokens": 3935,
+    "api_call_count": 6
+  }
+}
