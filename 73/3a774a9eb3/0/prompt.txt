@@ -1,0 +1,12 @@
+ok, can you help me: we are using go release and we just released 0.7.0 and the signing / notarization seem to have failed, can you check and help me find the cause?
+
+==> Unlinking Binary '/opt/homebrew/bin/entire'
+==> Linking Binary 'entire' to '/opt/homebrew/bin/entire'
+==> Linking Binary 'git-remote-entire' to '/opt/homebrew/bin/git-remote-entire'
+Warning: Failed to generate bash completions from /opt/homebrew/Caskroom/entire/0.7.0/entire: Failure while executing; `/usr/bin/sandbox-exec -f /private/tmp/homebrew-sandbox20260602-55348-p7rvwg/homebrew.sb /usr/bin/env SHELL=bash /bin/sh -c output=\$1\;\ shift\;\ exec\ \"\$@\"\ \>\ \"\$output\"\ 2\>/dev/null sh /private/tmp/REDACTED /opt/homebrew/Caskroom/entire/0.7.0/entire completion bash` was terminated by uncaught signal KILL.
+Warning: Failed to generate zsh completions from /opt/homebrew/Caskroom/entire/0.7.0/entire: Failure while executing; `/usr/bin/sandbox-exec -f /private/tmp/homebrew-sandbox20260602-55348-rlrnne/homebrew.sb /usr/bin/env SHELL=zsh /bin/sh -c output=\$1\;\ shift\;\ exec\ \"\$@\"\ \>\ \"\$output\"\ 2\>/dev/null sh /private/tmp/REDACTED /opt/homebrew/Caskroom/entire/0.7.0/entire completion zsh` was terminated by uncaught signal KILL.
+Warning: Failed to generate fish completions from /opt/homebrew/Caskroom/entire/0.7.0/entire: Failure while executing; `/usr/bin/sandbox-exec -f /private/tmp/homebrew-sandbox20260602-55348-uepjn5/homebrew.sb /usr/bin/env SHELL=fish /bin/sh -c output=\$1\;\ shift\;\ exec\ \"\$@\"\ \>\ \"\$output\"\ 2\>/dev/null sh /private/tmp/homebrew-cask-completions20260602-55348-6rk9p0 /opt/homebrew/Caskroom/entire/0.7.0/entire completion fish` was terminated by uncaught signal KILL.
+==> Purging files for version 0.6.3 of Cask entire
+🍺  entire was successfully upgraded!
+==> Upgraded 1 outdated package
+entireio/tap/entire 0.6.3 -> 0.7.0
