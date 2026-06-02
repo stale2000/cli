@@ -1,0 +1,26 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "b5f6f2ff8832",
+  "strategy": "manual-commit",
+  "branch": "entire-token-env-override",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/auth/env_token.go",
+    "cmd/entire/cli/auth/env_token_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/b5/f6f2ff8832/0/metadata.json",
+      "transcript": "/b5/f6f2ff8832/0/full.jsonl",
+      "content_hash": "/b5/f6f2ff8832/0/content_hash.txt",
+      "prompt": "/b5/f6f2ff8832/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 10139,
+    "cache_creation_tokens": 46081,
+    "cache_read_tokens": 1670710,
+    "output_tokens": 14672,
+    "api_call_count": 24
+  }
+}

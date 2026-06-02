@@ -1,0 +1,13 @@
+can you look at the open comments?
+
+---
+
+I'm torn on the left, is this a useful pattern? I think at least setting it to empty should work
+
+---
+
+I'd fail on whitespace if that's not the case already
+
+---
+
+yes
