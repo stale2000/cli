@@ -1,0 +1,26 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "a2602f2e634f",
+  "strategy": "manual-commit",
+  "branch": "soph/mirror-probe-follow-redirect",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "cmd/entire/cli/repo_mirror_probe.go",
+    "cmd/entire/cli/repo_mirror_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/a2/602f2e634f/0/metadata.json",
+      "transcript": "/a2/602f2e634f/0/full.jsonl",
+      "content_hash": "/a2/602f2e634f/0/content_hash.txt",
+      "prompt": "/a2/602f2e634f/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 4351,
+    "cache_creation_tokens": 112454,
+    "cache_read_tokens": 5741229,
+    "output_tokens": 55381,
+    "api_call_count": 58
+  }
+}

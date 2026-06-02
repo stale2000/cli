@@ -1,0 +1,11 @@
+❯ go run cmd/entire/main.go repo mirror create Soph/go-git
+Registered mirror 01KT4DBEMQY6NZF7GB1DQK0CXV
+  entire://aws-us-east-2.entire.io/gh/soph/go-git
+  cloning................................
+
+
+But the mirror is setup and works, the dots just never stop
+
+---
+
+/simplify
