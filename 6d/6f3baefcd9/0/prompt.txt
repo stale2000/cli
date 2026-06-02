@@ -1,0 +1,17 @@
+i pushed the branch.  let's draft a PR description before opening a PR.  the reviewers tend to be very worried about making the UX worse, so let's focus on 1) what issue(s) existed, 2) how the 99% happy path will be totally unaffected.  we have decreased wrong auto-assumptions in our code and will surface doubts to the user, instead of guessing.
+
+---
+
+try again but waaaaaaay more succinct.  drop problem 3, and tone down the alarm in problem 1
+
+---
+
+fix this guy   Running [/home/runner/golangci-lint-2.11.3-linux-amd64/golangci-lint run] in [/home/runner/work/cli/cli] ...
+  Error: internal/entireclient/discovery/cache.go:133:1: readCacheFile returns generic interface (T) of type param any (ireturn)
+  func readCacheFile[T any](path string, newEmpty func() T) (T, error) {
+  ^
+  1 issues:
+  * ireturn: 1
+  
+  Error: issues found
+  Ran golangci-lint in 62002ms

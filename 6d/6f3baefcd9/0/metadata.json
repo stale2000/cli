@@ -1,0 +1,44 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "6d6f3baefcd9",
+  "session_id": "2946988e-fe9b-4ca5-8f30-3c60037a41d9",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-02T04:51:00.405381Z",
+  "branch": "20260602-auth-contexts",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "internal/entireclient/discovery/cache.go",
+    "internal/entireclient/discovery/cluster_cores.go"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "f66147b88a27",
+  "token_usage": {
+    "input_tokens": 30533,
+    "cache_creation_tokens": 321560,
+    "cache_read_tokens": 36691389,
+    "output_tokens": 183839,
+    "api_call_count": 172
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-02T04:51:00.363905Z",
+    "agent_lines": 18,
+    "agent_removed": 13,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 18,
+    "total_lines_changed": 31,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}
