@@ -1,0 +1,25 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "9e787e814af7",
+  "strategy": "manual-commit",
+  "branch": "20260602-auth-contexts",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/git-remote-entire/main_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/9e/787e814af7/0/metadata.json",
+      "transcript": "/9e/787e814af7/0/full.jsonl",
+      "content_hash": "/9e/787e814af7/0/content_hash.txt",
+      "prompt": ""
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 1231,
+    "cache_creation_tokens": 3270,
+    "cache_read_tokens": 755644,
+    "output_tokens": 2692,
+    "api_call_count": 5
+  }
+}
