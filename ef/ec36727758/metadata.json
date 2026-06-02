@@ -1,0 +1,23 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "efec36727758",
+  "strategy": "manual-commit",
+  "branch": "20260602-auth-contexts",
+  "checkpoints_count": 1,
+  "files_touched": null,
+  "sessions": [
+    {
+      "metadata": "/ef/ec36727758/0/metadata.json",
+      "transcript": "/ef/ec36727758/0/full.jsonl",
+      "content_hash": "/ef/ec36727758/0/content_hash.txt",
+      "prompt": "/ef/ec36727758/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 421,
+    "cache_creation_tokens": 50136,
+    "cache_read_tokens": 3039097,
+    "output_tokens": 45202,
+    "api_call_count": 17
+  }
+}
