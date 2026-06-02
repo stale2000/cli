@@ -1,0 +1,514 @@
+**Handover: Port `session resume` To Checkpoints v1.1**
+Goal: make `entire session resume <branch>` read committed checkpoint metadata and transcripts from the v1.1 local custom ref when `strategy_options.checkpoints_version == "1.1"`, while preserving existing v1 behavior otherwise.
+
+**Current State**
+The v1.1 explain branch introduces `checkpoint.NewCommittedReadStore(ctx, repo)`, which selects the committed read ref based on settings. That is the primitive `resume` should use for normal committed-checkpoint reads.
+
+`resume` currently still uses v1-only paths in several places:
+- Main store construction: `cmd/entire/cli/resume.go:192`
+- Metadata summary/session reads: `cmd/entire/cli/resume.go:277`
+- Direct metadata branch tree fallback: `cmd/entire/cli/resume.go:313`
+- Remote/fetch fallback paths using `GetMetadataBranchTree` / `GetRemoteMetadataBranchTree`: `cmd/entire/cli/resume.go:418`
+- Single-session transcript fallback: `cmd/entire/cli/resume.go:937`
+
+`resumeSession` delegates transcript restoration through `strat.RestoreLogsOnly`, which is implemented in `cmd/entire/cli/strategy/manual_commit_rewind.go:616`. That path also still uses the default v1 store and will need to be updated or injected.
+
+**Recommended Scope**
+Keep this PR focused on `session resume` plus the minimum shared strategy read hook needed by resume. Do not migrate all rewind behavior in the same PR unless the diff stays small. With tests, resume alone is likely close to the sweet spot for the 1kloc limit.
+
+Include:
+- `entire session resume`
+- hidden alias `entire resume`, automatically covered
+- resume's multi-checkpoint squash handling
+- resume's metadata fallback paths
+- resume's transcript restoration path
+
+Avoid:
+- `checkpoint rewind` list/interactive behavior, except where shared code must change for resume
+- `review`, `status`, `dispatch`, `clean`
+- remote push/fetch semantics beyond what resume already does for v1
+
+**Implementation Plan**
+1. Use `checkpoint.NewCommittedReadStore(ctx, repo)` in `resumeFromCurrentBranch`.
+   Replace the direct `checkpoint.NewGitStore(repo)` read store. Keep `SetBlobFetcher(FetchBlobsByHash)`.
+
+2. Split read-store vs write-store thinking clearly.
+   `resume` is read-only for committed checkpoint storage, so it should use the committed read store. It should not write to the v1.1 ref.
+
+3. Replace `readCheckpointInfoFromMetadataBranch`.
+   The current fallback reads `strategy.GetMetadataBranchTree(repo)`, which is v1-only. Prefer reading metadata through the committed read store first. If a tree fallback is still needed for fetched/remote trees, add a helper that reads from the configured committed read ref rather than hard-coding v1.
+
+4. Review `getMetadataTree` and `checkRemoteMetadata`.
+   These fetch v1 metadata and then read v1 local/remote trees. In v1.1 mode, fetching v1 is still reasonable because v1 is the durable source, but after fetch the read should go through `NewCommittedReadStore`, letting it sync/seed the v1.1 custom ref from v1.
+
+5. Update `resumeSingleSession`.
+   The fallback currently constructs `checkpoint.NewGitStore(repo)` before `ReadRawSessionLogForCheckpoint`. Use `NewCommittedReadStore(ctx, repo)`.
+
+6. Handle `RestoreLogsOnly`.
+   `resumeSession` calls `strat.RestoreLogsOnly`, which currently creates its own v1 store. Best narrow fix: update `ManualCommitStrategy.RestoreLogsOnly` to use `checkpoint.NewCommittedReadStore(ctx, repo)` for committed reads. This also benefits `checkpoint rewind`, but it is a shared restore path and necessary for resume correctness.
+
+**Testing Targets**
+Add focused tests in `resume_test.go`:
+- v1.1 mode resumes when checkpoint exists only on `refs/entire/checkpoints/v1.1`.
+- v1.1 mode does not fall back to stale v1 when v1.1 exists and differs.
+- unset/default settings still resume from v1.
+- multi-checkpoint squash selection uses v1.1 metadata timestamps.
+- transcript restore reads v1.1 session content.
+
+Add one strategy test if changing `RestoreLogsOnly`:
+- in v1.1 mode, `RestoreLogsOnly` restores transcript from the custom ref.
+
+Useful focused verification:
+```bash
+go test ./cmd/entire/cli -run 'Test.*Resume|TestRunResume|TestResolveLatestCheckpoint'
+go test ./cmd/entire/cli/strategy -run 'Test.*RestoreLogsOnly|Test.*V1CustomRef'
+```
+
+**Risk Notes**
+The most important risk is mixed v1/v1.1 reads in one command. For example, resolving metadata from v1.1 but restoring transcript from v1 would produce confusing behavior when the refs differ. Make sure every committed checkpoint read in the resume path uses the same read-store choice.
+
+Remote fetch should still fetch v1; v1.1 is local-only. After the fetch, reads should go through the v1.1 read store so it can seed or advance the custom ref from v1 according to the helper's rules.
+
+---
+
+Make it so
+
+---
+
+I feel like some of the changes you made are analog to changes made here: https://github.com/entireio/cli/pull/1311
+
+Can you confirm?
+
+---
+
+Doing additional work in a constructor like NewCommittedReadStore. is pretty much a bad idea in my book so we should use as much of the existing changes as we can. I'm not sure why but you somehow replicated most of the existing code which shouldn't have happened.
+
+---
+
+These changes still look very much redundant since they seem to reimplement changes in cmd/entire/cli/checkpoint/committed_read_store.go
+
+Why did you implement them that way?
+
+---
+
+Why is cmd/entire/cli/checkpoint/committed_read_store.go not in the current HEAD? This branch should be based off of main which has the changes?
+
+---
+
+Okay, I'm using a git mirror which seems to have gotten stuck. I've pulled in main again so the changes are available locally
+
+---
+
+Okay, continue
+
+---
+
+Is there a need to have a newResumeCommittedReadStore? Would it be possible to reuse any of the other constructors that already exist?
+
+---
+
+Clean it up, then.
+
+---
+
+I don't think readCheckpointInfoFromLegacyMetadataBranch needs to exist, either
+
+---
+
+Also, this is important: I don't want any fallback to v1 when v1.1 is enabled! The way writes are set up, checkpoints in v1 and v1.1 should have the same state. The only difference is that one is stored in a branch while the other is stored in a custom ref.
+
+The expected state is for `entire session resume` to fail when v1.1 mode is enabled and no checkpoint being found.
+
+---
+
+What's the point of all of these conditionals? `if !settings.MirrorsToV1CustomRef(ctx) { ... }`
+
+Shouldn't the `store` already have the correct reference name configured?
+
+---
+
+I thought we agreed on no fallbacks. Why is readCheckpointInfoFromRefWithMetadataFallback still named like that?
+
+---
+
+Commit and continue
+
+---
+
+Commit and continue
+
+---
+
+commit and continue
+
+---
+
+Is there anything else that needs to be done? If not, run the pfleidi:review skill
+
+---
+
+You are Agent 1: Security & Adversarial reviewer for pfleidi:review.
+
+Base ref: origin/main
+Changed files:
+- cmd/entire/cli/resume.go
+- cmd/entire/cli/resume_test.go
+- cmd/entire/cli/strategy/manual_commit_rewind.go
+- cmd/entire/cli/strategy/rewind_test.go
+
+Review context:
+- User goal: Port `entire session resume <branch>` committed checkpoint metadata/transcript reads to v1.1 custom-ref mode while preserving v1 behavior.
+- Implementation plan: Use `NewCommittedReadStore` for resume metadata and transcript reads; no v1 fallback in v1.1 mode; keep scope to resume plus shared `RestoreLogsOnly`.
+- PR context: no PR found / unavailable; local mirror has no GitHub remote configured.
+- Commits: `use committed resume read store`; `restore resume logs from committed read ref`; `fix resume test lint constant`.
+- Intended behavior: Resume and logs-only restore should read only the configured committed read ref; v1.1 must fail when custom-ref metadata is missing rather than reading v1.
+
+Review philosophy:
+- It is OK to find nothing; do not manufacture findings.
+- High confidence only: every finding must explain concretely what goes wrong if not fixed.
+- Review changed code against the intent above; do not flag intentional behavior changes merely because they differ from origin/main.
+- Permission-friendly reads: avoid pipelines and shell wrappers; use path-scoped `git diff origin/main -- <path>`, `rg`, and direct file reads.
+- For each finding, read actual source and trace reachability. Discard anything hypothetical.
+
+Your lens: Security & Adversarial. Review `git diff origin/main` for injection, TOCTOU/races, unvalidated input, auth/authz gaps, secrets/credentials. Return only high-confidence findings with severity, Required/Improvement classification, file:line evidence, impact, and suggested fix. Do not edit files.
+
+---
+
+You are Agent 3: Simplification & Efficiency reviewer for pfleidi:review.
+
+Base ref: origin/main
+Changed files:
+- cmd/entire/cli/resume.go
+- cmd/entire/cli/resume_test.go
+- cmd/entire/cli/strategy/manual_commit_rewind.go
+- cmd/entire/cli/strategy/rewind_test.go
+
+Review context:
+- User goal: Port `entire session resume <branch>` committed checkpoint metadata/transcript reads to v1.1 custom-ref mode while preserving v1 behavior.
+- Implementation plan: Use `NewCommittedReadStore` for resume metadata and transcript reads; no v1 fallback in v1.1 mode; keep scope to resume plus shared `RestoreLogsOnly`.
+- PR context: no PR found / unavailable; local mirror has no GitHub remote configured.
+- Commits: `use committed resume read store`; `restore resume logs from committed read ref`; `fix resume test lint constant`.
+- Intended behavior: Resume and logs-only restore should read only the configured committed read ref; v1.1 must fail when custom-ref metadata is missing rather than reading v1.
+
+Review philosophy:
+- It is OK to find nothing; do not manufacture findings.
+- High confidence only: every finding must explain concretely what goes wrong if not fixed.
+- Review changed code against the intent above; do not flag intentional behavior changes merely because they differ from origin/main.
+- Permission-friendly reads: avoid pipelines and shell wrappers; use path-scoped `git diff origin/main -- <path>`, `rg`, and direct file reads.
+- Verify suggestions against call sites and existing helpers; discard cosmetic-only suggestions.
+
+Your lens: Simplification & Efficiency. Review dead code, code reuse, copy-paste variation, unnecessary abstractions/fallbacks, unnecessary work, hot-path bloat, TOCTOU-style existence checks, and unnecessary comments. Return only high-confidence findings with severity, Required/Improvement classification, file:line evidence, impact, and suggested fix. Do not edit files.
+
+---
+
+You are Agent 4: Readability & Go Idioms reviewer for pfleidi:review.
+
+Base ref: origin/main
+Changed files:
+- cmd/entire/cli/resume.go
+- cmd/entire/cli/resume_test.go
+- cmd/entire/cli/strategy/manual_commit_rewind.go
+- cmd/entire/cli/strategy/rewind_test.go
+
+Review context:
+- User goal: Port `entire session resume <branch>` committed checkpoint metadata/transcript reads to v1.1 custom-ref mode while preserving v1 behavior.
+- Implementation plan: Use `NewCommittedReadStore` for resume metadata and transcript reads; no v1 fallback in v1.1 mode; keep scope to resume plus shared `RestoreLogsOnly`.
+- PR context: no PR found / unavailable; local mirror has no GitHub remote configured.
+- Commits: `use committed resume read store`; `restore resume logs from committed read ref`; `fix resume test lint constant`.
+- Intended behavior: Resume and logs-only restore should read only the configured committed read ref; v1.1 must fail when custom-ref metadata is missing rather than reading v1.
+
+Review philosophy:
+- It is OK to find nothing; do not manufacture findings.
+- High confidence only: every finding must explain concretely what goes wrong if not fixed.
+- Review changed code against the intent above; do not flag intentional behavior changes merely because they differ from origin/main.
+- Permission-friendly reads: avoid pipelines and shell wrappers; use path-scoped `git diff origin/main -- <path>`, `rg`, and direct file reads.
+- Prefer small local refactor suggestions only when maintenance cost is concrete.
+
+Your lens: Readability & Go Idioms. Review factoring, mixed abstraction levels, generated-code smell, data-flow opacity, control-flow complexity, naming clarity, Go API readability, and error readability. Return only high-confidence findings with severity, Required/Improvement classification, file:line evidence, impact, and suggested fix. Do not edit files.
+
+---
+
+You are Agent 5: Clean Go & Modern Go reviewer for pfleidi:review.
+
+Base ref: origin/main
+Changed files:
+- cmd/entire/cli/resume.go
+- cmd/entire/cli/resume_test.go
+- cmd/entire/cli/strategy/manual_commit_rewind.go
+- cmd/entire/cli/strategy/rewind_test.go
+
+Read and apply the local skill `/Users/pfleidi/.agents/skills/pfleidi/clean-go/SKILL.md` as your source of truth. Detect the Go version from go.mod and only suggest modern-Go features available for that version. Do not perform blanket modernization.
+
+Review context:
+- User goal: Port `entire session resume <branch>` committed checkpoint metadata/transcript reads to v1.1 custom-ref mode while preserving v1 behavior.
+- Implementation plan: Use `NewCommittedReadStore` for resume metadata and transcript reads; no v1 fallback in v1.1 mode; keep scope to resume plus shared `RestoreLogsOnly`.
+- PR context: no PR found / unavailable; local mirror has no GitHub remote configured.
+- Commits: `use committed resume read store`; `restore resume logs from committed read ref`; `fix resume test lint constant`.
+- Intended behavior: Resume and logs-only restore should read only the configured committed read ref; v1.1 must fail when custom-ref metadata is missing rather than reading v1.
+
+Review philosophy:
+- It is OK to find nothing; do not manufacture findings.
+- High confidence only: every finding must explain concretely what goes wrong if not fixed.
+- Review changed code against the intent above; do not flag intentional behavior changes merely because they differ from origin/main.
+- Permission-friendly reads: avoid pipelines and shell wrappers; use path-scoped `git diff origin/main -- <path>`, `rg`, and direct file reads.
+
+Focus on changed Go code plus surrounding source/tests/call sites. Return only high-confidence findings with severity, Required/Improvement classification, file:line evidence, impact, and suggested fix. Do not edit files.
+
+---
+
+You are the required second-pass coverage sweep for a code review. Review the current working tree against base ref `origin/main`.
+
+Review context:
+| Context | Source | Value |
+|---------|--------|-------|
+| User goal | Conversation | Port `entire session resume <branch>` committed checkpoint metadata/transcript reads to v1.1 custom-ref mode while preserving v1 behavior. |
+| Implementation plan | Conversation | Use `checkpoint.NewCommittedReadStore(ctx, repo)` for resume metadata/transcript committed reads and `ManualCommitStrategy.RestoreLogsOnly`; do not fall back to v1 when v1.1 mode is enabled. |
+| PR context | `gh pr view` | no PR found / unavailable because this mirror has no GitHub remote configured |
+| Commits | `git log origin/main..HEAD` | `use committed resume read store`; `restore resume logs from committed read ref`; `fix resume test lint constant` |
+| Changed surface | diff file list | `cmd/entire/cli/resume.go`, `cmd/entire/cli/resume_test.go`, `cmd/entire/cli/strategy/manual_commit_rewind.go`, `cmd/entire/cli/strategy/rewind_test.go` |
+| Inferred behavior | commits/tests/user text | Resume and logs-only restore should read only the configured committed read ref; v1.1 must fail when custom-ref metadata is missing rather than reading v1. |
+
+Review philosophy:
+- It is OK to find nothing. A clean review is valid. Do not manufacture findings.
+- High confidence only: every finding must be a concrete problem with specific consequences if unfixed.
+- Intent-aware: do not flag intentional removal of v1 fallback in v1.1 mode. Required findings must contradict stated intent, break an unchanged existing contract, introduce a bug/security issue, or leave intended behavior unverified in a way likely to fail.
+- Permission-friendly reads: avoid pipelines, command separators, shell tricks. Use `rg`, path-scoped `git diff origin/main -- <path>`, and file reads.
+
+Coverage sweep task:
+- Re-read the changed files and surrounding code needed to understand each changed path.
+- Trace changed behavior through callers, callees, tests, settings/configuration, and user/API entry points where relevant.
+- Search for related existing helpers or old compatibility behavior that affects the changed code.
+- Look across all lenses together: security, correctness, tests, simplification, readability, performance, and Go cleanliness.
+- Prioritize missed Required findings over optional improvements.
+- Return only high-confidence findings with concrete file:line evidence and a short traced-path explanation.
+
+Do not edit files. If there are no findings, say so clearly.
+
+---
+
+Can you elaborate on #1. On a quick glance, it looks counter to the requirement to not have a fallback from v1.1 to v1.
+
+---
+
+Define modern committed format. Is that the compacted version of the transcript?
+
+---
+
+When did that change and when was CheckpointSummary introduced?
+
+---
+
+Is that fallback you've added a common pattern or are we only doing this here?
+
+---
+
+You're explanation on why this change is necessary is still insufficient. It sounds like we're working with exactly the same metadata.json file. Is the fallback for cases where the result doesn't parse as CheckpointSummary?
+
+---
+
+Why do other code paths not do this fallback? Is it just concentrated in one module? If that's the case, why aren't we using that module?
+
+---
+
+Shouldn't GitStore.ReadCommitted already do that?
+
+---
+
+So checkpoint.ReadCommittedCheckpoint(ctx, store, checkpointID) already exists and calls ReadCommitted. Would that be sufficient? Why do we need to hand-roll our own code and implement a fallback on an error?
+
+---
+
+Let me ask a differnt question: Is this change necessary for this change alone or is this a general issue in the codebase?
+
+---
+
+Given all the migrations back and forth in this repo, which is one of the oldest in our codebase, is there a significant amount of these legacy checkpoints? Please check.
+
+---
+
+You also mentioned switching away from `strategy.ReadCheckpointMetadata`. Why was that necessary?
+
+---
+
+And why was `strategy.GetMetadataBranchTree()` not updated in a way that allows to use custom refs. On the top of my mind, that would have been the more obvious choice than introducing a bunch of additional complexity in the form of hand rolled fallback code.
+
+---
+
+Okay, make the changes accordingly
+
+---
+
+Before you do make any code changes: Can you generate a summary of the changes in this branch, the constraints and decisions made here and other information a review agent would need and copy it into my clipboard?
+
+---
+
+Okay continue
+
+---
+
+Can you show me the other review findings that weren't addressed?
+
+---
+
+Fix the other ones in a batch
+
+---
+
+Commit and continue
+
+---
+
+You are Agent 1: Security & Adversarial for a pfleidi:review code review.
+
+Base ref: origin/main. Review current working tree diff against origin/main, including committed/staged/unstaged changes. Changed files:
+- cmd/entire/cli/resume.go
+- cmd/entire/cli/resume_test.go
+- cmd/entire/cli/strategy/manual_commit_rewind.go
+- cmd/entire/cli/strategy/rewind_test.go
+
+Review context:
+- User goal: make `entire session resume <branch>` read committed checkpoint metadata and transcripts from the v1.1 local custom ref when `strategy_options.checkpoints_version == "1.1"`, preserving v1 behavior otherwise.
+- Constraints: no fallback from v1.1 to v1; v1.1 is local-only; remote fetch/checkpoint_remote fallback remains v1-only; do not add side effects to `NewCommittedReadStore`; resume is read-only for committed checkpoints; prefer existing checkpoint committed store API over hand-rolled ref/tree reads.
+- Implemented intent: resume uses `checkpoint.NewCommittedReadStore(ctx, repo)` for committed metadata/transcript reads; squash/latest resolution uses selected committed read ref; `checkRemoteMetadata` returns immediately for custom refs; `RestoreLogsOnly` reads transcripts from selected committed read ref.
+- PR context: no PR available from gh in this mirror.
+
+Review philosophy:
+- It is OK to find nothing. Only flag issues you are confident are real problems.
+- Do not flag intentional behavior changes as bugs if they match the stated intent.
+- A Required finding must contradict stated intent, break an unchanged contract, introduce a concrete bug/security issue, or leave intended behavior likely broken.
+- Verify each finding by reading actual source and tracing reachability.
+
+Security lens: review for injection, path traversal, TOCTOU/races, unvalidated input at boundaries, auth/authz gaps, leaked secrets. Return only high-confidence findings with file:line evidence, severity, classification Required/Improvement, impact, and suggested fix. If none, say clean for this lens.
+
+---
+
+You are Agent 2: Correctness & Quality for a pfleidi:review code review.
+
+Base ref: origin/main. Review current working tree diff against origin/main, including committed/staged/unstaged changes. Changed files:
+- cmd/entire/cli/resume.go
+- cmd/entire/cli/resume_test.go
+- cmd/entire/cli/strategy/manual_commit_rewind.go
+- cmd/entire/cli/strategy/rewind_test.go
+
+Review context:
+- User goal: make `entire session resume <branch>` read committed checkpoint metadata and transcripts from the v1.1 local custom ref when `strategy_options.checkpoints_version == "1.1"`, preserving v1 behavior otherwise.
+- Constraints: no fallback from v1.1 to v1; v1.1 is local-only; remote fetch/checkpoint_remote fallback remains v1-only; do not add side effects to `NewCommittedReadStore`; resume is read-only for committed checkpoints; prefer existing checkpoint committed store API over hand-rolled ref/tree reads.
+- Implemented intent: resume uses `checkpoint.NewCommittedReadStore(ctx, repo)` for committed metadata/transcript reads; squash/latest resolution uses selected committed read ref; `checkRemoteMetadata` returns immediately for custom refs; `RestoreLogsOnly` reads transcripts from selected committed read ref.
+- PR context: no PR available from gh in this mirror.
+
+Review philosophy:
+- It is OK to find nothing. Only flag issues you are confident are real problems.
+- Do not flag intentional behavior changes as bugs if they match the stated intent.
+- A Required finding must contradict stated intent, break an unchanged contract, introduce a concrete bug/security issue, or leave intended behavior likely broken.
+- Verify each finding by reading actual source and tracing call sites.
+
+Correctness lens: logic errors, nil/error handling, concurrency edge cases, redundant state, production test seams, parameter sprawl, leaky abstractions, stringly-typed code, and meaningful test coverage gaps. Return only high-confidence findings with file:line evidence, severity, classification Required/Improvement, impact, and suggested fix. If none, say clean for this lens.
+
+---
+
+You are Agent 3: Simplification & Efficiency for a pfleidi:review code review.
+
+Base ref: origin/main. Review current working tree diff against origin/main, including committed/staged/unstaged changes. Changed files:
+- cmd/entire/cli/resume.go
+- cmd/entire/cli/resume_test.go
+- cmd/entire/cli/strategy/manual_commit_rewind.go
+- cmd/entire/cli/strategy/rewind_test.go
+
+Review context:
+- User goal: make `entire session resume <branch>` read committed checkpoint metadata and transcripts from the v1.1 local custom ref when `strategy_options.checkpoints_version == "1.1"`, preserving v1 behavior otherwise.
+- Constraints: no fallback from v1.1 to v1; v1.1 is local-only; remote fetch/checkpoint_remote fallback remains v1-only; do not add side effects to `NewCommittedReadStore`; resume is read-only for committed checkpoints; prefer existing checkpoint committed store API over hand-rolled ref/tree reads.
+- Implemented intent: resume uses `checkpoint.NewCommittedReadStore(ctx, repo)` for committed metadata/transcript reads; squash/latest resolution uses selected committed read ref; `checkRemoteMetadata` returns immediately for custom refs; `RestoreLogsOnly` reads transcripts from selected committed read ref.
+- PR context: no PR available from gh in this mirror.
+
+Review philosophy:
+- It is OK to find nothing. Only flag issues you are confident are real problems.
+- Do not flag intentional behavior changes as bugs if they match the stated intent.
+- A Required finding must contradict stated intent, break an unchanged contract, introduce a concrete bug/security issue, or leave intended behavior likely broken.
+- Verify suggestions by reading source/call sites and discard cosmetic-only suggestions.
+
+Simplification lens: dead code, duplicated functionality, existing helpers that should be reused, copy-paste with variation, unnecessary abstractions/fallbacks, redundant work, missed concurrency, hot-path bloat, unnecessary comments. Return only high-confidence findings with file:line evidence, severity, classification Required/Improvement, impact, and suggested fix. If none, say clean for this lens.
+
+---
+
+You are Agent 4: Readability & Go Idioms for a pfleidi:review code review.
+
+Base ref: origin/main. Review current working tree diff against origin/main, including committed/staged/unstaged changes. Changed files:
+- cmd/entire/cli/resume.go
+- cmd/entire/cli/resume_test.go
+- cmd/entire/cli/strategy/manual_commit_rewind.go
+- cmd/entire/cli/strategy/rewind_test.go
+
+Review context:
+- User goal: make `entire session resume <branch>` read committed checkpoint metadata and transcripts from the v1.1 local custom ref when `strategy_options.checkpoints_version == "1.1"`, preserving v1 behavior otherwise.
+- Constraints: no fallback from v1.1 to v1; v1.1 is local-only; remote fetch/checkpoint_remote fallback remains v1-only; do not add side effects to `NewCommittedReadStore`; resume is read-only for committed checkpoints; prefer existing checkpoint committed store API over hand-rolled ref/tree reads.
+- Implemented intent: resume uses `checkpoint.NewCommittedReadStore(ctx, repo)` for committed metadata/transcript reads; squash/latest resolution uses selected committed read ref; `checkRemoteMetadata` returns immediately for custom refs; `RestoreLogsOnly` reads transcripts from selected committed read ref.
+- PR context: no PR available from gh in this mirror.
+
+Review philosophy:
+- It is OK to find nothing. Only flag issues you are confident are real problems.
+- Do not flag intentional behavior changes as bugs if they match the stated intent.
+- A Required finding must contradict stated intent, break an unchanged contract, introduce a concrete bug/security issue, or leave intended behavior likely broken.
+- For each finding, explain concrete maintenance cost, not personal taste.
+
+Readability lens: poor factoring, mixed abstraction levels, generated-code smell, data-flow opacity, control-flow complexity, naming clarity, Go API readability, error readability. Return only high-confidence findings with file:line evidence, severity, classification Required/Improvement, impact, and suggested fix. If none, say clean for this lens.
+
+---
+
+You are Agent 5: Clean Go & Modern Go for a pfleidi:review code review.
+
+Use /Users/pfleidi/.agents/skills/pfleidi/clean-go/SKILL.md as your source of truth. Review current working tree diff against origin/main, including committed/staged/unstaged changes. Changed Go files:
+- cmd/entire/cli/resume.go
+- cmd/entire/cli/resume_test.go
+- cmd/entire/cli/strategy/manual_commit_rewind.go
+- cmd/entire/cli/strategy/rewind_test.go
+
+Review context:
+- User goal: make `entire session resume <branch>` read committed checkpoint metadata and transcripts from the v1.1 local custom ref when `strategy_options.checkpoints_version == "1.1"`, preserving v1 behavior otherwise.
+- Constraints: no fallback from v1.1 to v1; v1.1 is local-only; remote fetch/checkpoint_remote fallback remains v1-only; do not add side effects to `NewCommittedReadStore`; resume is read-only for committed checkpoints; prefer existing checkpoint committed store API over hand-rolled ref/tree reads.
+- Implemented intent: resume uses `checkpoint.NewCommittedReadStore(ctx, repo)` for committed metadata/transcript reads; squash/latest resolution uses selected committed read ref; `checkRemoteMetadata` returns immediately for custom refs; `RestoreLogsOnly` reads transcripts from selected committed read ref.
+
+Review only changed Go code plus surrounding source/tests/call sites needed to verify findings. Apply clean-go and version-gated modern-Go guidance. Focus on concrete changed-code issues around composable functions, abstraction level, function size/signatures, errors, pointers, small interfaces, any/interface{}, and modern stdlib helpers. Discard restyling/broad rewrites. Return only high-confidence findings with file:line evidence, severity, classification Required/Improvement, impact, and suggested fix. If none, say clean for this lens.
+
+---
+
+You are the second-pass coverage sweep for a pfleidi:review code review. Do not use or rely on first-pass findings; this is an independent recall pass.
+
+Base ref: origin/main. Review current working tree diff against origin/main, including committed/staged/unstaged changes. Changed files:
+- cmd/entire/cli/resume.go
+- cmd/entire/cli/resume_test.go
+- cmd/entire/cli/strategy/manual_commit_rewind.go
+- cmd/entire/cli/strategy/rewind_test.go
+
+Review context:
+- User goal: make `entire session resume <branch>` read committed checkpoint metadata and transcripts from the v1.1 local custom ref when `strategy_options.checkpoints_version == "1.1"`, preserving v1 behavior otherwise.
+- Constraints: no fallback from v1.1 to v1; v1.1 is local-only; remote fetch/checkpoint_remote fallback remains v1-only; do not add side effects to `NewCommittedReadStore`; resume is read-only for committed checkpoints; prefer existing checkpoint committed store API over hand-rolled ref/tree reads.
+- Implemented intent: resume uses `checkpoint.NewCommittedReadStore(ctx, repo)` for committed metadata/transcript reads; squash/latest resolution uses selected committed read ref; `checkRemoteMetadata` returns immediately for custom refs; `RestoreLogsOnly` reads transcripts from selected committed read ref.
+- PR context: no PR available from gh in this mirror.
+
+Review philosophy:
+- It is OK to find nothing. Only flag issues you are confident are real problems.
+- Do not flag intentional behavior changes as bugs if they match the stated intent.
+- A Required finding must contradict stated intent, break an unchanged contract, introduce a concrete bug/security issue, or leave intended behavior likely broken.
+- Verify each finding by reading actual source and tracing call sites.
+
+Coverage task:
+- Re-read changed files and surrounding code needed to understand each changed path.
+- Trace changed behavior through callers/callees/tests/configuration/user entry points where relevant.
+- Search for related patterns, duplicated logic, existing helpers, and tests that affect the changed code.
+- Look across security, correctness, tests, simplification, readability, performance, and Go cleanliness.
+- Prioritize missed Required findings over optional improvements.
+
+Return only high-confidence findings with concrete file:line evidence, severity, classification Required/Improvement, impact, and suggested fix. If none, say the coverage sweep is clean.
+
+---
+
+- I'd assume that we'll still need remote blob fetchers fro v1.1. What changed to require them to be set up for v1 only?
+- I think `git cat-file` is the wrong approach here. The fallback shouldn't be remote only but the whole point here is for it to fetch files from the remote if they're missing locally. What problem is this trying to solve?
+
+---
+
+Do it
+
+---
+
+Use the pfleidi:pr skill to open a draft pr
