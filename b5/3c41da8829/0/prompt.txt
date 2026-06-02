@@ -1,0 +1,13 @@
+can you now check maybe what potentially broke this? I'm quite sure this worked sunday
+
+---
+
+/changelog
+
+---
+
+can we name it something "fixed a bug where internal api calls didn't follow a redirect properly"
+
+---
+
+make this the whole sentence, don 't talk about repo or cloning
