@@ -3,7 +3,7 @@
   "checkpoint_id": "8dd71c02ade6",
   "strategy": "manual-commit",
   "branch": "fix/checkpoints-v1.1-advance-after-sync",
-  "checkpoints_count": 1,
+  "checkpoints_count": 2,
   "files_touched": [
     "cmd/entire/cli/strategy/metadata_reconcile.go",
     "cmd/entire/cli/strategy/metadata_reconcile_test.go",
@@ -15,13 +15,19 @@
       "transcript": "/8d/d71c02ade6/0/full.jsonl",
       "content_hash": "/8d/d71c02ade6/0/content_hash.txt",
       "prompt": "/8d/d71c02ade6/0/prompt.txt"
+    },
+    {
+      "metadata": "/8d/d71c02ade6/1/metadata.json",
+      "transcript": "/8d/d71c02ade6/1/full.jsonl",
+      "content_hash": "/8d/d71c02ade6/1/content_hash.txt",
+      "prompt": "/8d/d71c02ade6/1/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 1604713,
-    "cache_creation_tokens": 0,
-    "cache_read_tokens": 38146688,
-    "output_tokens": 155538,
-    "api_call_count": 294
+    "input_tokens": 1604952,
+    "cache_creation_tokens": 137674,
+    "cache_read_tokens": 39259435,
+    "output_tokens": 169977,
+    "api_call_count": 307
   }
 }

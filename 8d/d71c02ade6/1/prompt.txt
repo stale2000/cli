@@ -1,0 +1,333 @@
+/simplify
+
+---
+
+<task-notification>
+<task-id>a66ce24e03d5e8d81</task-id>
+<tool-use-id>REDACTED</tool-use-id>
+<output-file>/private/tmp/claude-501/-Users-pfleidi-entire-cli--worktrees-fix-checkpoints-v1-1-advance-after-sync/2d895e22-6f25-407c-9ff1-12a0b835362d/tasks/a66ce24e03d5e8d81.output</output-file>
+<status>completed</status>
+<summary>Agent "Angle D: Go pitfall specialist" completed</summary>
+<result>OK skip that. `SetReference` in go-git on `filesystem.Storer` writes a loose ref file or updates packed-refs — no ctx. No timeout concerns at the storer level. 
+
+I have sufficient context. Let me now write the findings:
+
+Findings (JSON):
+
+```json
+[
+  {
+    "file": "cmd/entire/cli/git_operations.go",
+    "line": 475,
+    "summary": "MirrorCommittedMetadataRefBestEffort inherits the 2-min WithTimeout ctx; near the deadline, ResolveCommittedRefs-&gt;settings.Load fails its internal `exec.CommandContext(ctx, \"git\", \"rev-parse\", \"--git-common-dir\")` and silently returns mirrorEnabled=false, skipping mirror after a successful fetch.",
+    "failure_scenario": "fetchMetadataFromOrigin succeeds at ~1m59s; the post-fetch ctx is effectively expired. MirrorCommittedMetadataRefBestEffort calls ResolveCommittedRefs(ctx) -&gt; settings.Load(ctx) -&gt; clonePreferencesPathForWorktreeRoot(ctx) which runs exec.CommandContext with a dead deadline. Load errors out, MirrorsToV1CustomRef returns false (no log), HasMirror=false, and mirror is skipped without warning. v1 advances on disk; v1.1 mirror stays at the old hash. Subsequent v1.1 reads via the custom ref see stale data."
+  },
+  {
+    "file": "cmd/entire/cli/strategy/v1_custom_ref_mirror.go",
+    "line": 31,
+    "summary": "MirrorCommittedMetadataRef now force-sets the mirror via repo.Storer.SetReference, replacing the old SafelyAdvanceLocalRef path; any local-only commits ever reachable from the mirror are silently rewound to primary's tip.",
+    "failure_scenario": "If a v1.1 mirror ref has, for any reason (concurrent worktree write, replay glitch, manual user op, prior bug), gained a commit not in v1, every strategy callsite (PostCommit, condensation, finalize, FetchMetadataBranch, push-fetch-rebase) will now rewind it without warning. The previous strategy-side helper used SafelyAdvanceLocalRef which preserved local-only commits via merge-base/cherry-pick. The new test TestMirrorCommittedMetadataRef_ReplacesLocallyAheadMirror documents this as intentional but it is a behavior change vs the deleted strategy.mirrorMetadataToV1CustomRef."
+  },
+  {
+    "file": "cmd/entire/cli/settings/settings.go",
+    "line": 995,
+    "summary": "MirrorsToV1CustomRef swallows settings.Load errors with no log, so any mirror best-effort caller silently skips when settings load fails (transient FS error, ctx-cancelled exec, brief settings.json rename window).",
+    "failure_scenario": "During an atomic settings.json rewrite (write-then-rename), a concurrent post-commit hook calls MirrorCommittedMetadataRefBestEffort -&gt; ResolveCommittedRefs -&gt; Load returns an os error briefly. MirrorsToV1CustomRef returns false silently; mirror is skipped for that write. The primary advances; v1.1 mirror diverges by one checkpoint. No warning is logged anywhere because the load error is swallowed inside settings.MirrorsToV1CustomRef and the BestEffort wrapper only logs when HasMirror=true."
+  },
+  {
+    "file": "cmd/entire/cli/strategy/push_common.go",
+    "line": 481,
+    "summary": "mirrorSyncedMetadataBranch calls ResolveCommittedRefs and then MirrorCommittedMetadataRefBestEffort which calls ResolveCommittedRefs again; each call re-runs settings.Load including an `exec git rev-parse --git-common-dir`. In a multi-remote push the helper fires after every fetchAndRebase round-trip.",
+    "failure_scenario": "Push touches N session branches; for each branch fetchAndRebaseSessionsCommon calls mirrorSyncedMetadataBranch which double-resolves settings (2 git exec calls + 2 file reads per call). On a multi-session push hook this measurably amplifies hook latency. Not a correctness bug, but the new helper imposes duplicate ResolveCommittedRefs work along the hot push path that didn't exist before. Could be eliminated by passing the already-resolved refs into the BestEffort variant."
+  },
+  {
+    "file": "cmd/entire/cli/strategy/checkpoint_remote.go",
+    "line": 121,
+    "summary": "FetchMetadataBranch returns nil and only logs a Warn when OpenRepository fails *after* a successful fetch+promote, masking a genuine repo-open failure.",
+    "failure_scenario": "fetchURLIntoTmpRef and PromoteTmpRefSafely both succeed (the fetch worked, primary updated). OpenRepository then fails because paths.WorktreeRoot's `git rev-parse --show-toplevel` was killed by an expired ctx (caller may have used WithTimeout). The function logs at Warn and returns nil — claiming success — even though the open failure prevented mirroring. Caller cannot distinguish 'mirror skipped intentionally' from 'something genuinely broke after the fetch'. The earlier failure modes (fetch/promote) propagate errors; this one swallows."
+  },
+  {
+    "file": "cmd/entire/cli/strategy/checkpoint_remote.go",
+    "line": 178,
+    "summary": "fetchMetadataBranchIfMissing skips the fetch (and therefore the mirror) as soon as Primary (v1 branch) exists locally, even if the v1.1 mirror ref is missing on first opt-in.",
+    "failure_scenario": "User opts into checkpoints_version=\"1.1\" on a repo that already has the v1 branch locally. On the next push, fetchMetadataBranchIfMissing finds refs.Primary present and returns early without fetching — so FetchMetadataBranch is never called and MirrorCommittedMetadataRefBestEffort never runs. The v1.1 ref stays absent until the next write hook (post-commit/condensation) happens to mirror it. Reads against the missing v1.1 ref fall through committed_read_store paths in a way the user doesn't anticipate from the v1.1 opt-in moment."
+  },
+  {
+    "file": "cmd/entire/cli/git_operations.go",
+    "line": 432,
+    "summary": "fetchMetadataFromOrigin returns the error string \"primary metadata ref %s is not a branch\" formatted from refs.Primary even when the topology is fine (Primary is empty), which would happen only if a future ResolveCommittedRefs returned a zero-valued CommittedRefs.",
+    "failure_scenario": "Today ResolveCommittedRefs always populates Primary with the v1 branch (even on settings-load failure), so this branch is unreachable. But the guard is intentionally defensive — if a future change to ResolveCommittedRefs ever returns a zero CommittedRefs (e.g., a new topology where Primary depends on settings that failed to load), the user-facing error message reads 'primary metadata ref  is not a branch' (with empty name) which is unactionable. The IsBranch() guard handles the panic risk correctly but produces a confusing diagnostic when triggered."
+  }
+]
+```
+
+---
+
+**Summary of investigation:**
+
+Read the diff for `git_operations.go`, `strategy/checkpoint_remote.go`, `strategy/v1_custom_ref_mirror.go`, `strategy/push_common.go`, `checkpoint/committed_refs.go`, plus the new test files and the deleted `cli/v1_custom_ref_mirror*.go`. Traced callsites through `manual_commit_hooks.go`, `manual_commit_condensation.go`, `attach.go`, `explain.go`, and verified `settings.Load`/`MirrorsToV1CustomRef`/`ResolveCommittedRefs`/`OpenRepository` behavior.
+
+**Things explicitly checked and ruled out:**
+- nil-deref on empty `refs.Primary`: `committedRefsFor` always sets `Primary` to the v1 branch (even when settings load fails), and the `IsBranch()` guard rejects empty/non-branch values. Safe today.
+- `defer cancel()` ordering: `ctx, cancel := context.WithTimeout(...); defer cancel()` is correct in `fetchMetadataFromOrigin`. No leak.
+- Hardcoded "origin" in `plumbing.NewRemoteReferenceName("origin", branchName)`: preexisting pattern, matched to the hardcoded refspec; not introduced by this diff.
+- Tests using `paths.ClearWorktreeRootCache()`: the affected tests all `t.Chdir()` and are marked non-parallel; no race with parallel tests in the same file.
+- `MirrorCommittedMetadataRef` (non-best-effort) callers in `attach.go`/`explain.go` returning the error: those paths just wrote to primary, so `ErrReferenceNotFound` cannot fire there. Strict-error mode is appropriate.
+- `errors.Is(err, plumbing.ErrReferenceNotFound)` usage: consistent with the rest of the codebase.
+
+**Candidate findings (8 max requested, 7 returned)** — see JSON above. Strongest signal: finding #1 (ctx-deadline silently disables mirror after slow fetches) and #3 (settings load errors swallowed without log anywhere in the chain). #2 documents a real behavior change vs the deleted strategy helper that the test suite normalizes as intended.</result>
+<usage><total_tokens>95473</total_tokens><tool_uses>42</tool_uses><duration_ms>279572</duration_ms></usage>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>afd55653e108caa21</task-id>
+<tool-use-id>toolu_01Rs4WgxgMQWM3qZ6yf44VXv</tool-use-id>
+<output-file>/private/tmp/claude-501/-Users-pfleidi-entire-cli--worktrees-fix-checkpoints-v1-1-advance-after-sync/2d895e22-6f25-407c-9ff1-12a0b835362d/tasks/afd55653e108caa21.output</output-file>
+<status>completed</status>
+<summary>Agent "Angle A: line-by-line diff scan" completed</summary>
+<result>Let me verify one more thing — the test that was removed (`TestSyncMirrorForRead`) and how the failing-write path test was replaced. The new tests show that v1.1 reads without a custom ref simply return nil (not found), no longer attempting to seed. This is correct per design.
+
+Now I have enough analysis. Let me return the JSON findings.
+
+```json
+[
+  {
+    "file": "cmd/entire/cli/strategy/v1_custom_ref_mirror.go",
+    "line": 49,
+    "summary": "MirrorCommittedMetadataRefBestEffort misclassifies a SetReference ErrReferenceNotFound as 'primary missing'.",
+    "failure_scenario": "If repo.Storer.SetReference returns plumbing.ErrReferenceNotFound (e.g., a backing storage bug or refs/entire occupied as a file), errors.Is(err, plumbing.ErrReferenceNotFound) matches the wrapped 'set mirror ref %s' chain, so the best-effort caller logs Debug 'primary metadata ref unavailable' instead of Warn 'mirror failed', burying a real mirror write failure."
+  },
+  {
+    "file": "cmd/entire/cli/strategy/checkpoint_remote.go",
+    "line": 117,
+    "summary": "FetchMetadataBranch reports nil success even if PromoteTmpRefSafely advanced v1 but OpenRepository fails before the mirror runs.",
+    "failure_scenario": "When v1.1 is enabled and PromoteTmpRefSafely succeeds (v1 ref now points at the fetched tip), an OpenRepository error causes the function to log a warning and return nil. v1.1 mirror stays stale; subsequent committed reads through the v1.1 read ref miss the just-fetched data with no error surfaced to the caller. Failure mode silent until later read returns 'not found'."
+  },
+  {
+    "file": "cmd/entire/cli/git_operations.go",
+    "line": 475,
+    "summary": "MirrorCommittedMetadataRefBestEffort runs under a soon-to-expire 2-minute fetch timeout context.",
+    "failure_scenario": "If fetchMetadataFromOrigin nearly exhausts its 2-minute timeout during fetch, the shadowed ctx is at or past deadline by the time the mirror call runs. ResolveCommittedRefs → settings.Load may hit ctx.Err() in any subsystem honoring ctx (e.g., paths.AbsPath chain), and settings.Load returns false on error, so MirrorsToV1CustomRef reports false, the mirror is skipped silently, and v1.1 reads stay stale after a successful v1 fetch."
+  },
+  {
+    "file": "cmd/entire/cli/checkpoint/committed_read_store.go",
+    "line": 11,
+    "summary": "v1.1 fresh-clone read paths no longer seed the mirror from a populated v1 ref.",
+    "failure_scenario": "User clones a repo (or pulls) with checkpoints_version='1.1' configured. v1 branch is present (from clone/pull), v1.1 ref does not exist. SyncCommittedReadRef previously seeded the mirror on first read; now NewCommittedReadStore reads refs/entire/checkpoints/v1.1 as-is and returns ErrCheckpointNotFound. `entire explain`, `entire checkpoint list`, `entire status`, and `headCheckpointFlags` all report nothing until a write/fetch CLI command happens to mirror — but a plain `git pull` will not."
+  },
+  {
+    "file": "cmd/entire/cli/strategy/push_common.go",
+    "line": 401,
+    "summary": "fetchAndRebaseSessionsCommon mirrors even when no v1 write happened (localRef == remoteRef early return path).",
+    "failure_scenario": "When local and remote v1 tips are already equal, no advancement occurred but mirrorSyncedMetadataBranch is invoked anyway. If the local mirror diverged due to a stale prior write (or was force-set to a different hash by a concurrent process), this call silently force-overwrites the mirror to match v1 — surprising for callers expecting a no-op fetch to leave refs untouched. Lower-risk variant of intentional behavior, but worth flagging."
+  },
+  {
+    "file": "cmd/entire/cli/strategy/push_common.go",
+    "line": 478,
+    "summary": "mirrorSyncedMetadataBranch silently skips the mirror when refs.Primary is not a branch ref.",
+    "failure_scenario": "If a future settings change made refs.Primary a non-branch reference (e.g., refs/entire/...), the !refs.Primary.IsBranch() guard returns early without mirroring even though fetchAndRebaseSessionsCommon just advanced the v1 branch. Same hidden divergence as #4: v1 is current, v1.1 mirror is stale, reads return wrong/missing data with no log."
+  },
+  {
+    "file": "cmd/entire/cli/strategy/v1_custom_ref_mirror.go",
+    "line": 31,
+    "summary": "MirrorCommittedMetadataRef force-sets the mirror to primary without checking that the mirror would not lose unique commits.",
+    "failure_scenario": "Today the mirror is only written by these functions, so divergence is impossible — but a partial rollout where another path writes to refs/entire/checkpoints/v1.1 (a future v1.1-as-primary state) would cause local v1.1-only commits to be silently overwritten by the v1 tip. The old code used SafelyAdvanceLocalRef, which preserved local-only commits. Migration-time hazard."
+  },
+  {
+    "file": "cmd/entire/cli/strategy/checkpoint_remote.go",
+    "line": 178,
+    "summary": "fetchMetadataBranchIfMissing only checks refs.Primary; on v1.1 mode it still pulls v1 but doesn't ensure mirror is seeded if v1 already exists.",
+    "failure_scenario": "If v1 branch already exists locally on a fresh clone (e.g., via `git clone --branch`), this function returns nil without fetching — and without mirroring. On v1.1 mode the mirror stays missing/stale, so the first write-time mirror call only updates when a write actually happens. Reads in the meantime return not-found despite v1 being populated."
+  }
+]
+```</result>
+<usage><total_tokens>142415</total_tokens><tool_uses>53</tool_uses><duration_ms>342029</duration_ms></usage>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>ab6551c00246eb815</task-id>
+<tool-use-id>toolu_01UAq2tUEcrAmVgJtE13Y2YW</tool-use-id>
+<output-file>/private/tmp/claude-501/-Users-pfleidi-entire-cli--worktrees-fix-checkpoints-v1-1-advance-after-sync/2d895e22-6f25-407c-9ff1-12a0b835362d/tasks/ab6551c00246eb815.output</output-file>
+<status>completed</status>
+<summary>Agent "Angle B: removed-behavior auditor" completed</summary>
+<result>`EnsureMetadataBranch` is called from `EnsureSetup` (i.e., `entire enable`). So when a user enables entire on a fresh clone in v1.1 mode, the v1 branch is created from origin, but the v1.1 mirror is NOT seeded. This is a regression: any subsequent read in v1.1 mode would fail until a write happens.
+
+Let me now also verify the `MirrorCommittedMetadataRefBestEffort` call inside `fetchMetadataFromOrigin` is conditional on v1.1. It calls `ResolveCommittedRefs(ctx)` internally, which is fine — if not in v1.1 mode, it's a no-op. Good.
+
+Now let me check `runStatus` for any other relevant impacts. But honestly I have enough strong candidates. Let me also look once more if there's a regression in the `MirrorCommittedMetadataRef` error semantics for `runAttach`/`generateCheckpointSummary`:
+
+In the old code, `mirrorToV1CustomRef` in cli was called AFTER a write that should always update v1, so primary-missing was an unexpected post-write inconsistency — the new code returns an error wrapping `plumbing.ErrReferenceNotFound`. The old code did the same. Match.
+
+Let me also check if test for `TestNewCommittedReadStore_V11Reads` originally had a "reads remote-only metadata" test case (covered the fresh-clone fallback path) and the new test removed it:
+
+Looking at the diff: the old test had `"reads remote-only metadata"` which set `originV1Ref` and removed local v1, expecting `wantFound=true`. The new test has `"does not seed missing custom ref from origin v1"` which sets `originV1Ref`, removes local v1, expecting `wantFound=false`. This is **explicitly an asserted regression**. The PR description acknowledges this design choice but it's worth flagging as a behavior change with user-visible impact.
+
+Now let me also double-check `entire explain` would actually fail in fresh-clone v1.1 mode. The `ListCommitted` requires the read ref — and `getSessionsBranchTree` for v1.1 doesn't fall back to origin (per line 1792 check). So `entire explain &lt;id&gt;` would return "sessions ref ... not found" error.
+
+Let me now also verify the explain command on fresh-clone gives a useful path forward. The user might just run `git fetch origin entire/checkpoints/v1:entire/checkpoints/v1`. Then the local v1 branch exists. But v1.1 mirror still doesn't. So they STILL can't read.
+
+Now I have my findings. Let me also check `entire status` for a fresh clone in v1.1 mode actually showing wrong information:
+
+Actually wait — `status.go` `headCheckpointFlags` returns `(false, false, "")` on failure, which produces the "no checkpoint" status. Old behavior: would actually find the checkpoint via origin fallback. New behavior: silently treats as no checkpoint. Strong regression for v1.1 fresh clones with checkpoint HEAD.
+
+Now I'll write up the findings:
+
+```json
+{
+  "findings": [
+    {
+      "file": "/Users/pfleidi/entire/cli/.worktrees/fix/checkpoints-v1.1-advance-after-sync/cmd/entire/cli/checkpoint/committed_read_store.go",
+      "line": 11,
+      "summary": "Fresh-clone v1.1 read paths lose origin/v1 fallback: NewCommittedReadStore binds to refs/entire/checkpoints/v1.1, getSessionsBranchTree explicitly skips the origin/entire/checkpoints/v1 fallback for any ref other than the default v1 branch, and the removed SyncCommittedReadRef was the only thing that previously seeded the v1.1 mirror from refs/remotes/origin/entire/checkpoints/v1. Nothing in the new code re-seeds on read.",
+      "failure_scenario": "User clones a repo where teammate used entire with checkpoints_version=1.1 and ran 'entire enable'. After clone, refs/remotes/origin/entire/checkpoints/v1 exists; refs/heads/entire/checkpoints/v1 and refs/entire/checkpoints/v1.1 do not. Running 'entire list' returns 'sessions ref refs/entire/checkpoints/v1.1 not found'. Running 'entire explain &lt;id&gt;' returns the same error. Running 'entire status' on HEAD with an Entire-Checkpoint trailer silently shows neither review nor investigate flags (headCheckpointFlags swallows the error and returns false/false). Previously, syncMirrorForRead would have seeded the mirror from origin/v1 and all of these would work. No 'entire' command on this user's machine creates the mirror until they write a new checkpoint, but they can't generally write a checkpoint without first reading existing state."
+    },
+    {
+      "file": "/Users/pfleidi/entire/cli/.worktrees/fix/checkpoints-v1.1-advance-after-sync/cmd/entire/cli/strategy/common.go",
+      "line": 477,
+      "summary": "EnsureMetadataBranch creates/updates the local v1 branch from refs/remotes/origin/entire/checkpoints/v1 (lines 477 and 500-505) but never updates the v1.1 mirror. 'entire enable' invokes EnsureSetup -&gt; EnsureMetadataBranch, so the natural onboarding path for a fresh clone in v1.1 mode leaves the read-side mirror unseeded even though the v1 branch is now populated locally.",
+      "failure_scenario": "Fresh clone in v1.1 mode + 'entire enable'. v1 branch is materialised from origin, but refs/entire/checkpoints/v1.1 still doesn't exist. The next 'entire list' / 'entire explain' / 'entire status' returns empty or an error because the read store is bound to the missing v1.1 mirror. Previously the next read would call SyncCommittedReadRef and seed the mirror. Now it doesn't."
+    },
+    {
+      "file": "/Users/pfleidi/entire/cli/.worktrees/fix/checkpoints-v1.1-advance-after-sync/cmd/entire/cli/resume.go",
+      "line": 606,
+      "summary": "checkRemoteMetadata's v1.1 branch tells the user 'This ref is local-only. Try: entire explain &lt;id&gt;'. But 'entire explain' (via newExplainCheckpointLookup) also reads via the v1.1 mirror with no origin fallback (SyncCommittedReadRef call sites at explain.go:687, 851, 2005 all removed). On a fresh clone, the suggested follow-up command silently fails the same way, leaving the user in a loop.",
+      "failure_scenario": "Fresh clone, v1.1 mode. User runs 'entire resume' for a checkpoint they see in 'git log'. resume falls through to checkRemoteMetadata, which prints 'Try: entire explain &lt;id&gt;'. User runs 'entire explain &lt;id&gt;', which fails with 'sessions ref refs/entire/checkpoints/v1.1 not found'. There is no documented escape hatch (the hint 'git fetch origin entire/checkpoints/v1:entire/checkpoints/v1' creates the v1 branch but not the v1.1 mirror, so explain still fails)."
+    },
+    {
+      "file": "/Users/pfleidi/entire/cli/.worktrees/fix/checkpoints-v1.1-advance-after-sync/cmd/entire/cli/dispatch/mode_local.go",
+      "line": 174,
+      "summary": "Switch from NewGitStore(repo) (v1 branch with origin fallback) to NewCommittedReadStore(ctx, repo) (v1.1 mirror in v1.1 mode, no origin fallback) means 'entire dispatch' fails on fresh clones / post-pull states in v1.1 mode where the mirror is stale or missing.",
+      "failure_scenario": "User dispatches work after a 'git pull' that updated origin/entire/checkpoints/v1 (or after a fresh clone). enumerateRepoCandidates calls store.ListCommitted which returns the sessions-ref-not-found error in v1.1 mode, so the dispatch command reports 'list committed checkpoints: ...' instead of finding checkpoints the user can see in git log. Previously NewGitStore + SyncCommittedReadRef gave a working read path in both cases."
+    },
+    {
+      "file": "/Users/pfleidi/entire/cli/.worktrees/fix/checkpoints-v1.1-advance-after-sync/cmd/entire/cli/rewind.go",
+      "line": 696,
+      "summary": "restoreSessionTranscriptFromStrategy no longer calls SyncCommittedReadRef. After a teammate pushes new checkpoint metadata and the local user does 'git fetch origin entire/checkpoints/v1:entire/checkpoints/v1' (advancing the local v1 branch), the v1.1 mirror is still pointed at the previous v1 tip until some 'entire' write/fetch path runs. The user-visible read can return stale transcripts or 'checkpoint not found' for a freshly-fetched checkpoint.",
+      "failure_scenario": "v1.1 mode. User fetches updated v1 metadata directly via plain git (e.g. via a CI script or 'git fetch ... refs/heads/entire/checkpoints/v1:refs/heads/entire/checkpoints/v1'). Local v1 branch advances; v1.1 mirror remains at old tip. User runs 'entire rewind &lt;newCheckpointID&gt;' — restoreSessionTranscriptFromStrategy reads via stale v1.1 mirror, ReadRawSessionLogForCheckpoint returns 'checkpoint not found' even though the metadata is reachable in v1. Previously, the call to SyncCommittedReadRef would have advanced the mirror to v1's tip before the read."
+    },
+    {
+      "file": "/Users/pfleidi/entire/cli/.worktrees/fix/checkpoints-v1.1-advance-after-sync/cmd/entire/cli/explain.go",
+      "line": 2005,
+      "summary": "getBranchCheckpoints previously called SyncCommittedReadRef before reading; now it doesn't. In v1.1 mode, branch-checkpoint listings will miss any v1 updates fetched by tools other than entire's own write/fetch helpers (e.g. plain 'git fetch' refspec updates, CI-driven pulls).",
+      "failure_scenario": "v1.1 mode. The local v1 branch was updated by an out-of-band 'git fetch' / 'git pull' but no entire-internal write or FetchMetadataBranch ran afterwards. 'entire explain' (no args), 'entire explain --since', or any caller of getBranchCheckpoints reads from the stale v1.1 mirror and silently omits the newer checkpoints the user just fetched."
+    },
+    {
+      "file": "/Users/pfleidi/entire/cli/.worktrees/fix/checkpoints-v1.1-advance-after-sync/cmd/entire/cli/strategy/v1_custom_ref_mirror.go",
+      "line": 31,
+      "summary": "MirrorCommittedMetadataRef replaced SafelyAdvanceLocalRef with a raw force-overwrite Storer.SetReference. Previously, the strategy-side mirror call preserved local-only commits on the mirror via ancestry-aware replay. Now it unconditionally overwrites the mirror to the primary's hash and discards any divergent history. The new test TestMirrorCommittedMetadataRef_ReplacesLocallyAheadMirror asserts this overwrite is intentional, but the old syncMirrorForRead detected divergence and *left the mirror untouched*, so any future code path or migration that lands divergent commits on refs/entire/checkpoints/v1.1 will silently lose them in the next entire write/fetch.",
+      "failure_scenario": "Forward-compat hazard: a future migration that lands extra commits on refs/entire/checkpoints/v1.1 (e.g. a v1.2 rollout that briefly uses v1.1 as primary, or a doctor-time repair that materialises local-only data into the mirror) will be silently rewound to v1's tip the next time any hook condenses a session, runs attribution, finalises turns, fetches metadata, or attaches a session. Tests assert this is intentional today, but the loss-of-history semantics are now baked into hot paths instead of guarded by ancestry checks."
+    },
+    {
+      "file": "/Users/pfleidi/entire/cli/.worktrees/fix/checkpoints-v1.1-advance-after-sync/cmd/entire/cli/review_context.go",
+      "line": 101,
+      "summary": "reviewCommittedCheckpointContext no longer calls SyncCommittedReadRef before reading. In v1.1 mode, the review context (used to surface prior reviews to a new review session) will read from a stale v1.1 mirror after any out-of-band v1 update, dropping the very review history the new review session needs to avoid duplicating work.",
+      "failure_scenario": "v1.1 mode. User pulls a teammate's update that advances the local v1 metadata branch (e.g. via a plain 'git pull' with a configured refspec, or via a v1-targeting tool). The v1.1 mirror remains at the old tip. User runs 'entire review'; reviewCommittedCheckpointContext walks the stale mirror, fails to see the teammate's review, and feeds the agent context that hides already-reviewed work."
+    }
+  ]
+}
+```
+
+CANDIDATE FINDINGS (Angle B — removed-behavior auditor):
+
+1. **`cmd/entire/cli/checkpoint/committed_read_store.go:11`** — Fresh-clone v1.1 read paths lose origin/v1 fallback. `NewCommittedReadStore` binds to `refs/entire/checkpoints/v1.1`; `getSessionsBranchTree` in `committed.go:1792` explicitly only falls back to `refs/remotes/origin/entire/checkpoints/v1` when the read ref is the default v1 branch (not the v1.1 mirror). The removed `SyncCommittedReadRef` was the only thing that previously seeded the v1.1 mirror from origin/v1. Failure: fresh clone of a v1.1-enabled repo → `entire list`, `entire explain &lt;id&gt;`, `entire status` flags, `entire dispatch`, `entire resume` checkRemoteMetadata branch, `entire attach` all silently fail or return empty because the mirror ref doesn't exist and nothing on the read path creates it.
+
+2. **`cmd/entire/cli/strategy/common.go:477`** — `EnsureMetadataBranch` (called from `EnsureSetup`, i.e. `entire enable`) creates/updates the local v1 branch from `refs/remotes/origin/entire/checkpoints/v1` but never seeds the v1.1 mirror. Onboarding a fresh clone with `entire enable` in v1.1 mode therefore leaves the read-side mirror unseeded even though the v1 branch is now populated; the next read still fails.
+
+3. **`cmd/entire/cli/resume.go:606`** — v1.1 branch of `checkRemoteMetadata` instructs the user to run `entire explain &lt;id&gt;`, but `newExplainCheckpointLookup` (`explain.go:851`, with the `SyncCommittedReadRef` call removed) also has no origin fallback in v1.1 mode. The suggested follow-up command fails the same way, looping the user with no documented escape hatch (the legacy hint `git fetch origin entire/checkpoints/v1:entire/checkpoints/v1` creates the v1 branch but not the v1.1 mirror).
+
+4. **`cmd/entire/cli/dispatch/mode_local.go:174`** — Switched from `NewGitStore(repo)` (v1 branch, with origin fallback) to `NewCommittedReadStore(ctx, repo)` (v1.1 mirror in v1.1 mode, no origin fallback). On a fresh clone in v1.1 mode, `entire dispatch` fails with `list committed checkpoints: sessions ref refs/entire/checkpoints/v1.1 not found` rather than discovering checkpoints reachable via origin/v1.
+
+5. **`cmd/entire/cli/rewind.go:696`** — `restoreSessionTranscriptFromStrategy` no longer calls `SyncCommittedReadRef`. After any out-of-band v1 update (plain `git fetch entire/checkpoints/v1:entire/checkpoints/v1`, CI-driven pulls), the v1.1 mirror lags v1. `entire rewind &lt;newCheckpointID&gt;` reads via the stale mirror and returns "checkpoint not found" or stale transcripts despite the metadata being present in v1.
+
+6. **`cmd/entire/cli/explain.go:2005`** — `getBranchCheckpoints` lost its `SyncCommittedReadRef` call. In v1.1 mode, branch-scoped listings (default `entire explain`, `entire explain --since`, all branch-list consumers) silently omit any v1 updates fetched by tools other than entire's own write/fetch helpers.
+
+7. **`cmd/entire/cli/strategy/v1_custom_ref_mirror.go:31`** — `MirrorCommittedMetadataRef` replaced `SafelyAdvanceLocalRef` with raw `Storer.SetReference`. The new behavior is asserted intentional by `TestMirrorCommittedMetadataRef_ReplacesLocallyAheadMirror` and the test `TestMirrorCommittedMetadataRef_V1MissingErrors` (replacing the prior no-op contract `TestMirrorMetadataToV1CustomRef_V1MissingNoOp`). The CLI callers `runAttach` (`attach.go:321`) and `generateCheckpointSummary` (`explain.go:927`) now propagate `plumbing.ErrReferenceNotFound`-wrapped errors that the prior strategy-side helper would have logged as Debug. Both call sites are post-`WriteCommitted`, so primary-missing should be impossible — but if it ever surfaces (e.g. concurrent ref pruning, broken storer, ref blocked by stale lock), what used to be a Debug log now fails the whole user-facing command with `"checkpoint was written to refs/heads/entire/checkpoints/v1, but failed to mirror to refs/entire/checkpoints/v1.1: ..."`. Lower confidence than the read-side findings, but the asymmetric divergence + history-rewind semantics (raw `SetReference` vs ancestry-checked replay) are now baked into hot paths (condense, finalize turns, attribution, fetch, attach, summary).
+
+8. **`cmd/entire/cli/review_context.go:101`** — `reviewCommittedCheckpointContext` no longer calls `SyncCommittedReadRef`. In v1.1 mode after any out-of-band v1 update, the review context (used by `entire review` to surface prior reviews to a new review session) reads a stale v1.1 mirror and drops the very prior-review history that a new review session relies on to avoid re-reviewing the same code.
+
+Common shape: the PR consolidates mirror writes onto entire-internal write and fetch paths, but the read side now strictly requires the v1.1 mirror to be current. Any external git operation that updates v1 without going through an entire-internal write/fetch (plain `git fetch ... refs/heads/entire/checkpoints/v1:refs/heads/entire/checkpoints/v1`, `git pull` with a configured v1 refspec, CI tooling, `EnsureMetadataBranch` itself) leaves the v1.1 mirror stale, and the new code has no read-time resync. Fresh-clone v1.1 scenarios are the most clearly broken: there is no documented sequence of git/entire commands that creates the v1.1 mirror without first making a write.</result>
+<usage><total_tokens>125722</total_tokens><tool_uses>52</tool_uses><duration_ms>338729</duration_ms></usage>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>a074b3635d1d313de</task-id>
+<tool-use-id>REDACTED</tool-use-id>
+<output-file>/private/tmp/claude-501/-Users-pfleidi-entire-cli--worktrees-fix-checkpoints-v1-1-advance-after-sync/2d895e22-6f25-407c-9ff1-12a0b835362d/tasks/a074b3635d1d313de.output</output-file>
+<status>completed</status>
+<summary>Agent "Angle C: cross-file tracer" completed</summary>
+<result>Coverage is in place for the new mirror after fetch. Good.
+
+Compiled findings below.
+
+---
+
+**ANGLE C cross-file trace — CANDIDATE findings**
+
+```json
+[
+  {
+    "file": "/Users/pfleidi/entire/cli/.worktrees/fix/checkpoints-v1.1-advance-after-sync/cmd/entire/cli/strategy/v1_custom_ref_mirror.go",
+    "line": 31,
+    "summary": "MirrorCommittedMetadataRef now force-sets the mirror to primary's hash (repo.Storer.SetReference). The pre-PR hook-side mirror used SafelyAdvanceLocalRef, which refused to rewind. All hook/condensation/finalize callers were switched to MirrorCommittedMetadataRefBestEffort, which delegates to this force-setting implementation, silently losing the no-rewind safeguard.",
+    "failure_scenario": "If the v1 branch is ever rewound (external git surgery, a bug in SafelyAdvanceLocalRef on v1, or an admin amending the orphan branch), the next strategy write/fetch quietly drags the v1.1 mirror backwards too, instead of refusing as before. Reads against the mirror then return stale results that the old safeguard would have flagged. No test exists for the rewind-resistance behavior that was previously asserted indirectly."
+  },
+  {
+    "file": "/Users/pfleidi/entire/cli/.worktrees/fix/checkpoints-v1.1-advance-after-sync/cmd/entire/cli/checkpoint/committed.go",
+    "line": 1789,
+    "summary": "getSessionsBranchTree only falls back to origin/entire/checkpoints/v1 when the read ref equals the v1 default. Under checkpoints_version=1.1, the read ref is the local-only v1.1 mirror, so no remote-tracking fallback applies — and the read-time SyncCommittedReadRef that previously seeded the mirror from origin/v1 on a fresh clone was removed in this PR.",
+    "failure_scenario": "User runs `entire explain &lt;id&gt;` on a fresh clone with v1.1 enabled before any strategy operation has fetched checkpoints. NewCommittedReadStore binds to the v1.1 ref; getSessionsBranchTree errors out without falling back to origin/entire/checkpoints/v1. ListCommitted swallows the error and returns empty, so the explain flow does retry via matchCheckpointPrefixWithRemoteFallback → getMetadataTree → FetchMetadataBranch (which now seeds the mirror); but other v1.1 read entry points without that retry (e.g. headCheckpointFlags, dispatch.enumerateRepoCandidates, reviewCommittedCheckpointContext) silently return empty/no-checkpoint instead of the data sitting on origin/v1."
+  },
+  {
+    "file": "/Users/pfleidi/entire/cli/.worktrees/fix/checkpoints-v1.1-advance-after-sync/cmd/entire/cli/head_checkpoint_flags.go",
+    "line": 55,
+    "summary": "headCheckpointFlags now uses NewCommittedReadStore (bound to the v1.1 mirror under opt-in) with no read-time mirror sync. The PR's documented behavior is 'reads use the ref as-is', but the v1 source of truth can advance without our code mirroring it — for example after a manual `git fetch origin entire/checkpoints/v1:entire/checkpoints/v1` (which is exactly the command suggestCheckpointFetchCommand prints).",
+    "failure_scenario": "Colleague pushes a checkpoint with HasReview=true. User pulls via the documented `git fetch origin entire/checkpoints/v1:entire/checkpoints/v1`. This advances local v1 but never touches the v1.1 mirror. `entire status` then reads the stale v1.1 mirror via headCheckpointFlags and reports the HEAD checkpoint as having no review, hiding the review state from the user. Same hazard applies to dispatch/mode_local.go's enumerateRepoCandidates and review_context.go's reviewCommittedCheckpointContext."
+  },
+  {
+    "file": "/Users/pfleidi/entire/cli/.worktrees/fix/checkpoints-v1.1-advance-after-sync/cmd/entire/cli/strategy/checkpoint_remote.go",
+    "line": 121,
+    "summary": "FetchMetadataBranch re-opens the repo *after* PromoteTmpRefSafely to call MirrorCommittedMetadataRefBestEffort. If OpenRepository fails, the function returns nil (mirror skipped, only a warning) even though primary was just advanced. The previous git_operations.go-side FetchMetadataBranch hooks the same mirror call off an already-open repo handle, so it cannot hit this seam.",
+    "failure_scenario": "Transient repo-open failure (lock contention from a concurrent git command, permission flap on .git, alternates resolution glitch) between the primary advance and the mirror update silently leaves the v1.1 mirror behind. Subsequent reads on this process or others using v1.1 read stale data until the next mirror-updating operation. Because the function still returns nil, the caller sees 'fetch succeeded' and does not retry."
+  },
+  {
+    "file": "/Users/pfleidi/entire/cli/.worktrees/fix/checkpoints-v1.1-advance-after-sync/cmd/entire/cli/git_operations.go",
+    "line": 432,
+    "summary": "fetchMetadataFromOrigin returns an error when refs.Primary.IsBranch() is false. This is called by both FetchMetadataBranch and FetchMetadataTreeOnly. In every caller (resume.go:404,669, attach.go via getMetadataTree → refreshCheckpointRefs, git_operations.go:542 fallback, fetch_no_config_pollution_test.go), the new error path is treated as a generic fetch failure with no special diagnostic for the misconfigured topology.",
+    "failure_scenario": "A future rollout flips ResolveCommittedRefs so Primary becomes a non-branch ref (e.g. refs/entire/checkpoints/v1.1). Every code path that calls FetchMetadataBranch / FetchMetadataTreeOnly will start returning 'primary metadata ref ... is not a branch'. Resume/attach silently fall through to next fallback, then to 'checkpoint not found locally' — operators get no signal that the topology change broke the fetch path. Worth flagging the error string with a guard for the future topology to keep the diagnostic actionable."
+  },
+  {
+    "file": "/Users/pfleidi/entire/cli/.worktrees/fix/checkpoints-v1.1-advance-after-sync/cmd/entire/cli/strategy/push_common.go",
+    "line": 384,
+    "summary": "In fetchAndRebaseSessionsCommon, ReconcileDisconnectedMetadataBranch can advance the local v1 branch (cherry-pick reset on line 198/182 of metadata_reconcile.go). If the subsequent repo.Reference call (line 389) or getMergeBase (line 411) fails, the function returns an error and mirrorSyncedMetadataBranch is never called even though the local primary was advanced.",
+    "failure_scenario": "Disconnected-metadata reconciliation cherry-picks local commits onto remote and advances local v1 to the new tip. Then the second repo.Reference / getMergeBase fails (extremely rare but possible under .git lock contention or transient go-git/cli IO errors). Function returns an error; the next push retries fetch+rebase, finds local already up-to-date, takes the fast-path mirror call. Mirror gap is self-healing on retry, but during the gap any v1.1 read sees data older than v1."
+  },
+  {
+    "file": "/Users/pfleidi/entire/cli/.worktrees/fix/checkpoints-v1.1-advance-after-sync/cmd/entire/cli/strategy/push_common.go",
+    "line": 478,
+    "summary": "mirrorSyncedMetadataBranch gates on `branchName != refs.Primary.Short()`, but PrePush in manual_commit_push.go:35 hardcodes paths.MetadataBranchName as the push branch name rather than resolving from CommittedRefs. Today both equal entire/checkpoints/v1, so the gate matches. If a future topology change ever passes a different primary branch name through ResolveCommittedRefs while pushBranchIfNeeded continues to hardcode v1, the mirror call is silently skipped after every successful push.",
+    "failure_scenario": "Future migration sets refs.Primary to refs/heads/entire/checkpoints/v2 (or similar) via committedRefsFor. pushBranchIfNeeded still pushes the hardcoded paths.MetadataBranchName ('entire/checkpoints/v1'), and the gate in mirrorSyncedMetadataBranch returns early because branchName ('v1') != refs.Primary.Short() ('v2'). Pushes succeed but the mirror is never advanced via the push path."
+  },
+  {
+    "file": "/Users/pfleidi/entire/cli/.worktrees/fix/checkpoints-v1.1-advance-after-sync/cmd/entire/cli/strategy/cleanup.go",
+    "line": 172,
+    "summary": "Cleanup uses checkpoint.NewGitStore(repo).ListCommitted to decide which session state files are orphaned. The PR switched other production read sites (strategy.ListCheckpoints, headCheckpointFlags, dispatch enumerateRepoCandidates) to NewCommittedReadStore but left cleanup on the raw v1-only store. Under v1.1, the rest of the system reads v1.1; cleanup reads v1 — an inconsistency that wasn't present before (because the old SyncCommittedReadRef path kept v1.1 ≡ v1 most of the time).",
+    "failure_scenario": "Today no bug: cleanup reads v1 (source of truth), so it sees more or equal sessions vs v1.1 readers, and won't wrongly delete a session-state whose checkpoint is recorded on v1. But the inconsistency is fragile: any future change that makes v1 a 'mirror' of a different primary (the comment in committed_refs.go contemplates 'a future rollout phase can flip the topology') would invert the assumption and make cleanup wrongly mark sessions orphaned. Worth aligning with the other read sites to keep the invariant in one place."
+  }
+]
+```
+
+Key facts the caller may want:
+
+- No remaining production callers of `checkpoint.SyncCommittedReadRef` (removed cleanly).
+- All four advance-paths in `fetchAndRebaseSessionsCommon` call `mirrorSyncedMetadataBranch`; error returns correctly skip it. The one gap is post-`ReconcileDisconnectedMetadataBranch` (finding 6).
+- `MirrorCommittedMetadataRefBestEffort` (vs the strict variant) is used at every hook/condensation/finalize site; `MirrorCommittedMetadataRef` (strict) is used at `attach.go:321` and `explain.go:927` where mirror failure must propagate. The refs are taken from `opts.committedRefs(ctx)` / `ResolveCommittedRefs(ctx)` at each site (not recomputed inconsistently).
+- Production `NewGitStore` callers that read committed metadata and were NOT switched: `cmd/entire/cli/strategy/cleanup.go:172` (finding 8) and `cmd/entire/cli/checkpoint/committed.go:1349` (`LookupSessionLog` — dead code, no callers). `attach.go:430`, `explain.go:641,681,2109`, `rewind.go:744`, `manual_commit_hooks.go:1064,2773,2889`, `manual_commit.go:54` are all writes or shadow-branch/temporary-checkpoint reads where v1 is the correct ref.
+- Working tree has uncommitted local changes in `cmd/entire/cli/strategy/metadata_reconcile.go` and `metadata_reconcile_test.go` that add `MirrorCommittedMetadataRefBestEffort` calls to the two reconciliation advance paths. They are not part of HEAD vs origin/main, but if intended for this PR they would close finding 6.</result>
+<usage><total_tokens>151063</total_tokens><tool_uses>89</tool_uses><duration_ms>517696</duration_ms></usage>
+</task-notification>
