@@ -1,0 +1,49 @@
+we recently merged a concept of "cluster contexts" into this repo.  the idea is that the first git operation via git-remote-entire, we need to look up from the cluster URL (like aws-eu-central-1.entire.io) which control plane to talk to.  what i'm confused about is it worked well for one cluster but not the other.
+
+i did:
+
+$ git pull # in a repo hosted on entire://aws-us-east-2.entire.io/gh/entirehq/foo
+$ git pull # in a repo hosted on entire://aws-eu-central-1.entire.io/gh/entirehq/marvin
+
+but my contexts file only contained one:
+
+10:14:03 (git) main▲ $ cat ~/.config/entire/contexts.json
+{
+  "current_context": "us.auth.entire.io",
+  "cluster_contexts": {
+    "aws-eu-central-1.entire.io": "us.auth.entire.io"
+  },
+  "contexts": [
+    {
+      "name": "us.auth.entire.io",
+      "core_url": "https://us.auth.entire.io",
+      "handle": "toothbrush",
+      "keychain_service": "entire-core:https://us.auth.entire.io"
+    }
+  ]
+}%                                                                                                                                                                                           [paul@boulot] ~/src/entireio/cli
+
+
+is there a concept of "default cluster", and can we make things more symmetrical?
+
+---
+
+i want to dig into this claim
+
+> "cluster_contexts is "populated lazily after a successful op against the cluster, or explicitly via entire-core context bind."
+  That lazy-populate is entire-core's behavior. This CLI explicitly opts out (resolve.go:23) to prevent a drive-by clone of an attacker host (e.g. a malicious submodule whose /.well-known
+  names your real core) from minting a durable, silent auth channel."
+
+that smells like bullshit.  a user is explicitly calling `git clone entire://some-cluster.com/foo/bar`, which causes git-remote-entire to reach out to some-cluster.com/.well-known/... - submodules have nothing whatsoever to do with this mechanism.  there's no silent or magic anything.
+
+---
+
+let's start by rewriting the comments to speak the truth indeed.  then commit.
+
+---
+
+Let's not talk about entire-core, that's a concern of a company-private repo.  We will be bringing the behaviours in line, but the framing will be meaningless to outsiders.
+
+---
+
+I don't want comments saying "sometime in the past XYZ held true".  focus on NOW, write in present tense, and only discuss the code's state today.

@@ -1,0 +1,26 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "ee378db97d3e",
+  "strategy": "manual-commit",
+  "branch": "silly-jingling-honey",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/auth_context.go",
+    "internal/entireclient/clusterdiscovery/resolve.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/ee/378db97d3e/0/metadata.json",
+      "transcript": "/ee/378db97d3e/0/full.jsonl",
+      "content_hash": "/ee/378db97d3e/0/content_hash.txt",
+      "prompt": "/ee/378db97d3e/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 9887,
+    "cache_creation_tokens": 96808,
+    "cache_read_tokens": 1660174,
+    "output_tokens": 28812,
+    "api_call_count": 24
+  }
+}
