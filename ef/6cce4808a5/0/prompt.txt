@@ -1,0 +1,15 @@
+The code for the remote helper moved from entiredb to the cli. Get the code changes from ~/git/tasks/remote-refactor/entirehq-entiredb and migrate them into this repo.
+
+---
+
+<task-notification>
+<task-id>b7lgglg8k</task-id>
+<tool-use-id>REDACTED</tool-use-id>
+<output-file>/tmp/claude-1000/-home-coder-git-tasks-default-v2-entireio-cli/45b05918-e127-4c94-80ca-a8099977968b/tasks/b7lgglg8k.output</output-file>
+<status>completed</status>
+<summary>Background command "Run full unit test suite" completed (exit code 0)</summary>
+</task-notification>
+
+---
+
+Commit the changes using gpgsign=false
