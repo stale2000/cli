@@ -1,0 +1,19 @@
+what if i'm logged in as paul@core-us as well as admin@core-us (both bound to cluster1), but have my active context set to paul@unrelated.  if i then try ops against cluster1, how is the correct context picked?
+
+---
+
+OK, yep, that uncovers a bit of nastiness.  I want us to adjust things as follows (let's make a plan and discuss first, don't jump to impl):
+
+- the idea of binding/unbinding isn't great.  what i'd rather see is that we cache the mapping from cluster -> core - they can have a TTL of 7d and fetch on miss, because we're not adding/removing data clusters all the time.  once a data plane is managed by a core control plane, it'll stay.
+so instead of bind/unbind we store e.g., royalcanin.partial.to->["us.auth.partial.to", "eu.auth.partial.to"] and aws-us-east-2.entire.io->["us.auth.entire.io", "eu.auth.entire.io"].  If we then try an operation against aws-eu-central-X.entire.io, we don't know that cluster, so we fetch its /.well-known, and store the result.
+
+we will also rework the way we pick which context to use.
+
+- as before, if the current context has acceptable auth for the operation we're about to perform, use it.
+- however, if we need to pick another context, we'll first find out the list of contexts the user has, that can perform the given action. ONLY if the list is len == 1, we'll default to using that instead.  That'll cover 99% of users.  however, for admins and developers that have, say alice@core and bob@core, but selected alice@unrelated - we should FAIL with an error saying "both alice@core and bob@core matched this operation, please 'entire context use XX' explicitly".
+
+---
+
+no flush command, user can `rm ~/../cluster_cores.json`
+
+auth contexts: drop mention of bindings.
