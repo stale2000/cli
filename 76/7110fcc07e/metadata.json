@@ -1,0 +1,25 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "767110fcc07e",
+  "strategy": "manual-commit",
+  "branch": "silly-jingling-honey",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "internal/entireclient/httpclient/transport.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/76/7110fcc07e/0/metadata.json",
+      "transcript": "/76/7110fcc07e/0/full.jsonl",
+      "content_hash": "/76/7110fcc07e/0/content_hash.txt",
+      "prompt": "/76/7110fcc07e/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 280,
+    "cache_creation_tokens": 8855,
+    "cache_read_tokens": 1192223,
+    "output_tokens": 4894,
+    "api_call_count": 11
+  }
+}

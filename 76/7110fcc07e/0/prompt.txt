@@ -1,0 +1,7 @@
+have a look at timeouts in cmd/git-remote-entire.  list out any relevant ones for me
+
+---
+
+> 500ms TCP connect
+
+that one sometimes bites us on initial connect.  Let's push that one up to 1s.
