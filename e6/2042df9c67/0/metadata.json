@@ -1,0 +1,149 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "e62042df9c67",
+  "session_id": "eaa96109-502f-4be2-9357-cf4fde90deef",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-02T21:30:28.769073Z",
+  "branch": "checkpoints-v1CustomRef-activity-support",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/dispatch/mode_local_test.go"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-8[1m]",
+  "turn_id": "ea75b336ef2b",
+  "checkpoint_transcript_start": 272,
+  "transcript_lines_at_start": 272,
+  "token_usage": {
+    "input_tokens": 2443,
+    "cache_creation_tokens": 30102,
+    "cache_read_tokens": 2095110,
+    "output_tokens": 16806,
+    "api_call_count": 14
+  },
+  "skill_events_version": 1,
+  "skill_events": [
+    {
+      "id": "claude-skill-toolu_0116azN5qj4myAmw9apRZqNr",
+      "event_type": "tool_invocation",
+      "skill": {
+        "name": "superpowers:receiving-code-review"
+      },
+      "source": {
+        "agent": "claude-code",
+        "signal": "skill_tool_use",
+        "confidence": "explicit"
+      },
+      "turn_id": "ea75b336ef2b",
+      "transcript_anchor": {
+        "unit": "line",
+        "start": 18,
+        "end": 19,
+        "entry_ids": [
+          "e0bb5291-869d-43cd-ae89-2f0724192ade"
+        ],
+        "tool_use_id": "toolu_0116azN5qj4myAmw9apRZqNr"
+      },
+      "native": {
+        "tool_name": "Skill",
+        "tool_use_id": "toolu_0116azN5qj4myAmw9apRZqNr"
+      },
+      "collapse": {
+        "target": "tool_pair",
+        "label": "Skill: superpowers:receiving-code-review",
+        "default_collapsed": true
+      }
+    },
+    {
+      "id": "claude-skill-toolu_01MtaAmYCKWKJRQj6UvDioTz",
+      "event_type": "tool_invocation",
+      "skill": {
+        "name": "simplify"
+      },
+      "source": {
+        "agent": "claude-code",
+        "signal": "skill_tool_use",
+        "confidence": "explicit"
+      },
+      "turn_id": "ea75b336ef2b",
+      "transcript_anchor": {
+        "unit": "line",
+        "start": 278,
+        "end": 279,
+        "entry_ids": [
+          "4566b908-d7f1-4548-86a4-db577e012598"
+        ],
+        "tool_use_id": "toolu_01MtaAmYCKWKJRQj6UvDioTz"
+      },
+      "native": {
+        "tool_name": "Skill",
+        "tool_use_id": "toolu_01MtaAmYCKWKJRQj6UvDioTz"
+      },
+      "collapse": {
+        "target": "tool_pair",
+        "label": "Skill: simplify",
+        "default_collapsed": true
+      }
+    }
+  ],
+  "session_metrics": {
+    "turn_count": 2
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-02T21:30:28.754109Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 2,
+    "human_removed": 14,
+    "total_committed": 0,
+    "total_lines_changed": 16,
+    "agent_percentage": 0,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 7530,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".agents/skills/agent-integration/README.md": 71,
+        ".agents/skills/agent-integration/SKILL.md": 107,
+        ".agents/skills/agent-integration/implementer.md": 346,
+        ".agents/skills/agent-integration/researcher.md": 161,
+        ".agents/skills/agent-integration/test-writer.md": 211,
+        ".agents/skills/changelog/SKILL.md": 88,
+        ".agents/skills/e2e/SKILL.md": 32,
+        ".agents/skills/e2e/debug.md": 88,
+        ".agents/skills/e2e/implement.md": 117,
+        ".agents/skills/e2e/triage-ci.md": 176,
+        ".agents/skills/explain/SKILL.md": 34,
+        ".agents/skills/search/SKILL.md": 70,
+        ".agents/skills/session-handoff/SKILL.md": 120,
+        ".agents/skills/session-to-skill/SKILL.md": 210,
+        ".agents/skills/test-repo/README.md": 65,
+        ".agents/skills/test-repo/SKILL.md": 230,
+        ".agents/skills/test-repo/test-harness.sh": 245,
+        ".agents/skills/what-happened/SKILL.md": 333,
+        ".cursor/hooks.json": 40,
+        ".factory/settings.json": 93,
+        ".github/hooks/entire.json": 61,
+        "cmd/entire/.claude/settings.local.json": 25,
+        "deadcode-all.txt": 80,
+        "entire-checkpoints-playground.html": 698,
+        "full-example.jsonl": 129,
+        "metadata-example.json": 32,
+        "plan.md": 389,
+        "pr864-files-pretty.json": 170,
+        "pr864-patches.txt": 2703,
+        "review-01.md": 95,
+        "review-02.md": 82,
+        "review-03.md": 77,
+        "skills-lock.json": 35,
+        "transcript-output.jsonl": 117
+      }
+    }
+  ]
+}

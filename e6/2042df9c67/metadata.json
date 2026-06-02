@@ -1,0 +1,25 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "e62042df9c67",
+  "strategy": "manual-commit",
+  "branch": "checkpoints-v1CustomRef-activity-support",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/dispatch/mode_local_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/e6/2042df9c67/0/metadata.json",
+      "transcript": "/e6/2042df9c67/0/full.jsonl",
+      "content_hash": "/e6/2042df9c67/0/content_hash.txt",
+      "prompt": "/e6/2042df9c67/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 2443,
+    "cache_creation_tokens": 30102,
+    "cache_read_tokens": 2095110,
+    "output_tokens": 16806,
+    "api_call_count": 14
+  }
+}

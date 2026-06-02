@@ -1,0 +1,1 @@
+simplify cmd/entire/cli/dispatch/mode_local_test.go
