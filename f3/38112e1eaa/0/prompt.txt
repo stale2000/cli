@@ -1,0 +1,5 @@
+what's next? session resume has already been patched too now (it's not on main yet)
+
+---
+
+open a new branch off main and make the change for activity/dispatch. keep comments to a minimum, do not use redundant tests, and refer to v1.1 as v1CustomRef, not v11 where applicable.
