@@ -1,0 +1,32 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "555ddb60c8cb",
+  "strategy": "manual-commit",
+  "branch": "fix/checkpoints-v1.1-advance-after-sync",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/attach.go",
+    "cmd/entire/cli/explain.go",
+    "cmd/entire/cli/strategy/manual_commit_condensation.go",
+    "cmd/entire/cli/strategy/manual_commit_hooks.go",
+    "cmd/entire/cli/strategy/v1_custom_ref_mirror.go",
+    "cmd/entire/cli/strategy/v1_custom_ref_mirror_test.go",
+    "cmd/entire/cli/v1_custom_ref_mirror.go",
+    "cmd/entire/cli/v1_custom_ref_mirror_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/55/5ddb60c8cb/0/metadata.json",
+      "transcript": "/55/5ddb60c8cb/0/full.jsonl",
+      "content_hash": "/55/5ddb60c8cb/0/content_hash.txt",
+      "prompt": "/55/5ddb60c8cb/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 334511,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 5564416,
+    "output_tokens": 35530,
+    "api_call_count": 48
+  }
+}
