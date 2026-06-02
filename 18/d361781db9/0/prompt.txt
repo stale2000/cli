@@ -311,3 +311,11 @@ Review context:
 - No PR context available.
 
 Do an independent second-pass coverage review. Do not rely on or ask for first-pass findings. Re-read changed files and surrounding source needed to understand each changed path. Trace changed behavior through callers, callees, tests, configuration, generated interfaces, and user/API entry points where relevant. Search for related patterns, duplicated logic, existing helpers, and missed tests. Look across security, correctness, tests, simplification, readability, performance, and Go cleanliness. Prioritize missed Required findings. Return only high-confidence findings with concrete file:line evidence and short traced impact. It is valid to report clean.
+
+---
+
+Commit and continue
+
+---
+
+$pfleidi:pr
