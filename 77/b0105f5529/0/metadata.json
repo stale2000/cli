@@ -1,0 +1,66 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "77b0105f5529",
+  "session_id": "0649c666-c321-4424-a22a-5aab76d582d5",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-03T16:08:59.508082893Z",
+  "branch": "useragent",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/git-remote-entire/main.go",
+    "internal/remotehelper/transport/proxy.go",
+    "internal/remotehelper/transport/proxy_test.go"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-7[1m]",
+  "turn_id": "fbfcd131c45d",
+  "token_usage": {
+    "input_tokens": 69,
+    "cache_creation_tokens": 116277,
+    "cache_read_tokens": 4489810,
+    "output_tokens": 27188,
+    "api_call_count": 54
+  },
+  "session_metrics": {
+    "turn_count": 1
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-03T16:08:59.501080955Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 5,
+    "total_committed": 0,
+    "total_lines_changed": 5,
+    "agent_percentage": 0,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 221,
+      "user_lines_removed": 5,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        "cmd/git-remote-entire/main.go": 14,
+        "internal/entireclient/httpclient/useragent.go": 28,
+        "internal/entireclient/httpclient/useragent_test.go": 100,
+        "internal/remotehelper/transport/proxy.go": 16,
+        "internal/remotehelper/transport/proxy_test.go": 63
+      },
+      "user_removed_per_file": {
+        "cmd/git-remote-entire/main.go": 3,
+        "internal/remotehelper/transport/proxy.go": 2
+      }
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 221,
+      "agent_lines_removed": 5
+    }
+  ]
+}

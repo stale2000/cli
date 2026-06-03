@@ -1,0 +1,5 @@
+Ensure that the git remote helper sets an user agent so that it can be identified from the server side.
+
+---
+
+commit changes
