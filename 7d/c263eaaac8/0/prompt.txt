@@ -1,0 +1,3 @@
+> auth.RemoveAllContexts
+
+that's just in this CLI?  kill it.
