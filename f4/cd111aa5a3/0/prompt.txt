@@ -1,0 +1,398 @@
+# Handoff: finish checkpoints v1.1 topology coverage
+
+## Background
+
+`strategy_options.checkpoints_version = "1.1"` opts a clone into reading
+committed metadata from the local-only custom ref
+`refs/entire/checkpoints/v1.1` instead of the `entire/checkpoints/v1` branch.
+The v1 branch stays the durable source of truth: all writes, fetches, pushes
+target v1, and the mirror is advanced best-effort after every v1 update.
+
+Topology resolution lives in `checkpoint.ResolveCommittedRefs(ctx)`, returning
+`CommittedRefs{Primary, Read, Mirror}`. The v1.1-aware reader is
+`checkpoint.NewCommittedReadStore(ctx, repo)`. The plain
+`checkpoint.NewGitStore(repo)` always pins reads to v1 — correct for write
+paths and remote/network paths, but wrong for committed reads.
+
+Most user-facing commands already resolve via topology (`resume`, `rewind`
+execution, `checkpoint list/explain`, `status` review flags, `review`,
+`dispatch`, push mirror advance). Two real callers are still pinned to v1
+plus one block of dead code.
+
+## Changes to make
+
+### 1. Rewind picker prompt text — `strategy/manual_commit_rewind.go:164`
+
+`GetRewindPoints` reads per-session prompt text for the picker via
+`strategy.GetMetadataBranchTree(repo)` — hardcoded to v1.
+
+The rewind execution itself (line ~632) already resolves topology via
+`NewCommittedReadStore`. Only the picker's displayed prompts come from v1.
+With v1.1 enabled and a stale or missing mirror, the prompts shown in the
+picker can diverge from what `entire explain` would show for the same
+checkpoint.
+
+Fix: resolve the metadata tree against the topology read ref. Options:
+- Pass `ctx` to `GetMetadataBranchTree` and resolve via
+  `checkpoint.ResolveCommittedRefs(ctx).Read`.
+- Add a `GetCommittedReadTree(ctx, repo)` helper next to it and have the
+  rewind picker call that, leaving `GetMetadataBranchTree` for the v1-bound
+  callers in `resume.go` (fetch chain) and `explain.go` (blob prefetch) that
+  must stay on v1.
+
+Prefer the second option — keeps the existing v1-specific callers honest and
+the rename surface small.
+
+### 2. Orphan detection in `entire clean` — `strategy/cleanup.go:172`
+
+`ListOrphanedItems` constructs `checkpoint.NewGitStore(repo)` and calls
+`ListCommitted` to discover which session states still have associated
+checkpoints. Reads should go through the topology.
+
+Fix:
+```go
+cpStore := checkpoint.NewCommittedReadStore(ctx, repo)
+```
+
+`ctx` is already in scope on `ListOrphanedItems`.
+
+### 3. Optional cleanup — drop dead `strategy.ListSessions` chain
+
+`strategy.ListSessions`, `strategy.GetSession`, and
+`getDescriptionForCheckpoint` (`strategy/session.go:67/178/187`) are not
+called from any production code. `entire session list` reads
+`.git/entire-sessions/` via `strategy.ListSessionStates`. The only consumers
+of `ListSessions`/`GetSession` are their own tests.
+
+`getDescriptionForCheckpoint` is the v1-hardcoded read inside that chain. If
+the functions are confirmed dead, delete all three plus their tests. If a
+caller is being added back soon, migrate the read to
+`NewCommittedReadStore` instead.
+
+Recommend a quick grep across the org's downstream usage before deleting,
+since these are exported from the `strategy` package.
+
+## What NOT to touch
+
+These are intentionally pinned to v1:
+
+- All writers in `checkpoint/committed.go` (`WriteCommitted`,
+  `UpdateCommitted`, `UpdateSummary`, `UpdateTranscript`,
+  `ensureSessionsBranch`, `getSessionsBranchRef`). Writes target v1; the
+  mirror follows.
+- `strategy/manual_commit.go:54` `getCheckpointStore` — explicit write-path
+  store.
+- Post-commit / finalize / carry-forward hooks in
+  `manual_commit_hooks.go:1064/2773/2889`.
+- `attach.go:258` (writes to v1) and `attach.go:423/430`
+  `checkpointPresentLocally` (precondition check on local v1 before
+  writing).
+- Remote / network paths: `strategy/common.go:973`
+  `GetRemoteMetadataBranchTree`, `manual_commit_push.go:35` push,
+  `metadata_reconcile.go` reconcile, `doctor.go:339` disconnection check.
+  v1 is the only pushable / fetchable ref.
+- `resume.go:344/368/390/408` `getMetadataTree` — fetch chain. Fetches
+  always update v1; mirror is advanced afterwards by separate hooks.
+- `explain.go:825` `loadV1MetadataRootTree` — blob prefetch needs the
+  fetchable ref, function is named "v1" deliberately.
+- `manual_commit_logs.go:74/87/95` trailer / source-ref strings. Trailers
+  must reference v1 because that is the durable identifier other clones
+  resolve.
+- `checkpoint/temporary.go:239` — shadow-branch iterator that filters out
+  the v1 branch by exact name match.
+
+## Verification
+
+After each change:
+
+```bash
+mise run fmt && mise run lint
+mise run test                   # unit tests
+mise run test:integration       # integration suite covers attach/resume/rewind
+```
+
+Focused tests likely to move:
+
+- `strategy/manual_commit_rewind_test.go`
+- `strategy/cleanup_test.go`
+- `strategy/v1_custom_ref_mirror_test.go`
+- `cmd/entire/cli/checkpoint/committed_refs_test.go`
+
+For the rewind picker change, add a test that sets
+`checkpoints_version = "1.1"`, mutates only the v1.1 mirror ref to a
+divergent tree, and asserts the picker reads from the mirror — analogous
+to the existing v1.1 read tests under
+`checkpoint/committed_read_store_test.go`.
+
+For `entire clean`, the orphan listing test in `cleanup_test.go` should be
+extended with a v1.1 fixture verifying the read resolves against the
+mirror.
+
+## Risk
+
+Both real changes are cosmetic in steady state — the mirror tracks v1 after
+every v1 advancement, so reads against either ref return the same tree. The
+fix matters when:
+
+- The mirror's best-effort update has failed and the refs have drifted.
+- The eventual topology flip (v1.1 as Primary) lands; at that point any
+  remaining v1-pinned read is a bug.
+
+No data migration, no settings changes, no user-visible surface change in
+the default v1 mode.
+
+## Out of scope
+
+- Flipping `committed_refs.go` so v1.1 is Primary. That's a separate
+  rollout step gated on these reads being topology-aware first.
+- Pushing the v1.1 ref to remotes. It stays local-only.
+- Touching the design of fetches / pushes — v1 remains the only
+  network-visible ref.
+
+---
+
+# Handoff: finish checkpoints v1.1 topology coverage
+
+## Background
+
+`strategy_options.checkpoints_version = "1.1"` opts a clone into reading
+committed metadata from the local-only custom ref
+`refs/entire/checkpoints/v1.1` instead of the `entire/checkpoints/v1` branch.
+The v1 branch stays the durable source of truth: all writes, fetches, pushes
+target v1, and the mirror is advanced best-effort after every v1 update.
+
+Topology resolution lives in `checkpoint.ResolveCommittedRefs(ctx)`, returning
+`CommittedRefs{Primary, Read, Mirror}`. The v1.1-aware reader is
+`checkpoint.NewCommittedReadStore(ctx, repo)`. The plain
+`checkpoint.NewGitStore(repo)` always pins reads to v1 — correct for write
+paths and remote/network paths, but wrong for committed reads.
+
+Most user-facing commands already resolve via topology (`resume`, `rewind`
+execution, `checkpoint list/explain`, `status` review flags, `review`,
+`dispatch`, push mirror advance). Two real callers are still pinned to v1
+plus one block of dead code.
+
+## Changes to make
+
+### 1. Rewind picker prompt text — `strategy/manual_commit_rewind.go:164`
+
+`GetRewindPoints` reads per-session prompt text for the picker via
+`strategy.GetMetadataBranchTree(repo)` — hardcoded to v1.
+
+The rewind execution itself (line ~632) already resolves topology via
+`NewCommittedReadStore`. Only the picker's displayed prompts come from v1.
+With v1.1 enabled and a stale or missing mirror, the prompts shown in the
+picker can diverge from what `entire explain` would show for the same
+checkpoint.
+
+Fix: resolve the metadata tree against the topology read ref. Options:
+- Pass `ctx` to `GetMetadataBranchTree` and resolve via
+  `checkpoint.ResolveCommittedRefs(ctx).Read`.
+- Add a `GetCommittedReadTree(ctx, repo)` helper next to it and have the
+  rewind picker call that, leaving `GetMetadataBranchTree` for the v1-bound
+  callers in `resume.go` (fetch chain) and `explain.go` (blob prefetch) that
+  must stay on v1.
+
+Prefer the second option — keeps the existing v1-specific callers honest and
+the rename surface small.
+
+### 2. Orphan detection in `entire clean` — `strategy/cleanup.go:172`
+
+`ListOrphanedItems` constructs `checkpoint.NewGitStore(repo)` and calls
+`ListCommitted` to discover which session states still have associated
+checkpoints. Reads should go through the topology.
+
+Fix:
+```go
+cpStore := checkpoint.NewCommittedReadStore(ctx, repo)
+```
+
+`ctx` is already in scope on `ListOrphanedItems`.
+
+### 3. Optional cleanup — drop dead `strategy.ListSessions` chain
+
+`strategy.ListSessions`, `strategy.GetSession`, and
+`getDescriptionForCheckpoint` (`strategy/session.go:67/178/187`) are not
+called from any production code. `entire session list` reads
+`.git/entire-sessions/` via `strategy.ListSessionStates`. The only consumers
+of `ListSessions`/`GetSession` are their own tests.
+
+`getDescriptionForCheckpoint` is the v1-hardcoded read inside that chain. If
+the functions are confirmed dead, delete all three plus their tests. If a
+caller is being added back soon, migrate the read to
+`NewCommittedReadStore` instead.
+
+Recommend a quick grep across the org's downstream usage before deleting,
+since these are exported from the `strategy` package.
+
+## What NOT to touch
+
+These are intentionally pinned to v1:
+
+- All writers in `checkpoint/committed.go` (`WriteCommitted`,
+  `UpdateCommitted`, `UpdateSummary`, `UpdateTranscript`,
+  `ensureSessionsBranch`, `getSessionsBranchRef`). Writes target v1; the
+  mirror follows.
+- `strategy/manual_commit.go:54` `getCheckpointStore` — explicit write-path
+  store.
+- Post-commit / finalize / carry-forward hooks in
+  `manual_commit_hooks.go:1064/2773/2889`.
+- `attach.go:258` (writes to v1) and `attach.go:423/430`
+  `checkpointPresentLocally` (precondition check on local v1 before
+  writing).
+- Remote / network paths: `strategy/common.go:973`
+  `GetRemoteMetadataBranchTree`, `manual_commit_push.go:35` push,
+  `metadata_reconcile.go` reconcile, `doctor.go:339` disconnection check.
+  v1 is the only pushable / fetchable ref.
+- `resume.go:344/368/390/408` `getMetadataTree` — fetch chain. Fetches
+  always update v1; mirror is advanced afterwards by separate hooks.
+- `explain.go:825` `loadV1MetadataRootTree` — blob prefetch needs the
+  fetchable ref, function is named "v1" deliberately.
+- `manual_commit_logs.go:74/87/95` trailer / source-ref strings. Trailers
+  must reference v1 because that is the durable identifier other clones
+  resolve.
+- `checkpoint/temporary.go:239` — shadow-branch iterator that filters out
+  the v1 branch by exact name match.
+
+## Verification
+
+After each change:
+
+```bash
+mise run fmt && mise run lint
+mise run test                   # unit tests
+mise run test:integration       # integration suite covers attach/resume/rewind
+```
+
+Focused tests likely to move:
+
+- `strategy/manual_commit_rewind_test.go`
+- `strategy/cleanup_test.go`
+- `strategy/v1_custom_ref_mirror_test.go`
+- `cmd/entire/cli/checkpoint/committed_refs_test.go`
+
+For the rewind picker change, add a test that sets
+`checkpoints_version = "1.1"`, mutates only the v1.1 mirror ref to a
+divergent tree, and asserts the picker reads from the mirror — analogous
+to the existing v1.1 read tests under
+`checkpoint/committed_read_store_test.go`.
+
+For `entire clean`, the orphan listing test in `cleanup_test.go` should be
+extended with a v1.1 fixture verifying the read resolves against the
+mirror.
+
+## Risk
+
+Both real changes are cosmetic in steady state — the mirror tracks v1 after
+every v1 advancement, so reads against either ref return the same tree. The
+fix matters when:
+
+- The mirror's best-effort update has failed and the refs have drifted.
+- The eventual topology flip (v1.1 as Primary) lands; at that point any
+  remaining v1-pinned read is a bug.
+
+No data migration, no settings changes, no user-visible surface change in
+the default v1 mode.
+
+Use the brainstorming skill to tighten the implementation of this change.
+
+---
+
+I'm wondering if we should update the existing helpers and aim to rename them rather than creating new ones and replacing the old ones. The resulting git history might be much cleaner if we did that. GetMetadataBranchTree could become GetMetadataRefTree and we could support git reference objecs rather than a hardcoded branch name. What would be the tradeoffs of doing so?
+
+---
+
+Yes please revise the design accordingly
+
+---
+
+/grill-me about these changes
+
+---
+
+Yes the trade-off is intentional: When the mirror operation is behind, it is usually a sign that something else went wrong. In subsequent changes, we'll flip the mirroring around such that we'll be writing to v1.1 first and then mirroring to v1 so this would become a non-issue. In the meantime, checkpoints v1.1 will only be used by internal engineers who know what to expect.
+
+---
+
+You're saying about 40 lines per helper. What would they contain? Would that mean inlining 40 lines of setup code? Why so much?
+
+---
+
+I think in this case adding a helper for two tests isn't worth it. I even have something about preferring to not add extra test helpers in my CLAUDE.md file, I think.
+
+---
+
+Okay
+
+---
+
+I approve. Are we done grilling?
+
+---
+
+Okay go ahead
+
+---
+
+Before going ahead, can you throughly review the docs with fresh eyes and check for inconsistencies and potential issues. Simplicity and maintainability are important goals.
+
+---
+
+Can you review the spec with fresh eyes and check for inconsistencies and potential issues. Simplicity, clarity, and maintainability are an explicit goal.
+
+---
+
+Make it so
+
+---
+
+1.
+
+---
+
+2.
+
+---
+
+Just checking: How many lines of code changes are we expecting? It might be simpler to implement things in one go as long as the changes are small enough that I can review them in one go.
+
+---
+
+Let's do everything in one go subagent driven
+
+---
+
+Just to validate: Did you take my approval to implement all changes in one go as an approval to commit or why did you try to commit?
+
+---
+
+1: Try to implement all changes in one go and using `git add -p` to compose commits as logical steps at the end after I've reviewed them
+2: I don't see any changes to common.go. What do you mean?
+
+---
+
+Are you still there? Are you stuck?
+
+---
+
+Are you stuck?
+
+---
+
+Are you stuck?
+
+---
+
+Task 4 has been going on for over 20 minutes with no obvious edits
+
+---
+
+1. I just wanted to ensure one thing is clear: Task for had been running for a very long time when I interrupted
+
+---
+
+One thing I immediately dislike is the excessive use of code comments. If a competent engineer can understand the code without the comments, remove them or condense them down and make them very concise. It's okay to describe what a section of a test is doing but only if the comment is short and to the point.
+
+---
+
+Otherwise, the diff looks good. Feel free to start comitting now
