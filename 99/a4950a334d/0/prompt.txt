@@ -1,0 +1,16 @@
+commit
+
+---
+
+is this an error we ought to address?
+
+14:32:18 (git) auth-context-consolidation $ entire auth logout
+Warning: server-side session revocation failed: revoke current session: API error: Revoke entire-core JWTs via entire-core, not this endpoint (status 400)
+
+---
+
+What are these ent_ PATs used for? i thought you said they weren't used for anything?
+
+---
+
+as a client though, if we never retrieve PATs or never send them anywhere upstream, then surely we can ditch them completely?
