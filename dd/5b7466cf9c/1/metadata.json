@@ -1,0 +1,48 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "dd5b7466cf9c",
+  "session_id": "81fecfae-c2d9-4ed2-83ef-f7ade3a61a53",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-03T11:57:37.102419Z",
+  "branch": "soph/labs-command-alignment",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/labs_test.go"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-8[1m]",
+  "turn_id": "e7f9b39997eb",
+  "checkpoint_transcript_start": 77,
+  "transcript_lines_at_start": 77,
+  "token_usage": {
+    "input_tokens": 143,
+    "cache_creation_tokens": 3941,
+    "cache_read_tokens": 490108,
+    "output_tokens": 3428,
+    "api_call_count": 7
+  },
+  "session_metrics": {
+    "turn_count": 4
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-03T11:57:37.098604Z",
+    "agent_lines": 22,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 22,
+    "total_lines_changed": 22,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}
