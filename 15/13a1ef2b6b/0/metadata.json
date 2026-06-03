@@ -1,0 +1,163 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "1513a1ef2b6b",
+  "session_id": "bedfc466-2682-40f4-b92b-9f07eaafcc9f",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-03T17:28:55.551603Z",
+  "branch": "doctor-v11-mirror-check",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/doctor.go",
+    "cmd/entire/cli/doctor_bundle.go",
+    "cmd/entire/cli/doctor_bundle_test.go",
+    "cmd/entire/cli/doctor_test.go",
+    "cmd/entire/cli/strategy/v1_custom_ref_mirror.go",
+    "cmd/entire/cli/strategy/v1_custom_ref_mirror_test.go",
+    "docs/architecture/sessions-and-checkpoints.md"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-8[1m]",
+  "turn_id": "baa1c9a6b33c",
+  "token_usage": {
+    "input_tokens": 17605,
+    "cache_creation_tokens": 289665,
+    "cache_read_tokens": 13913021,
+    "output_tokens": 87220,
+    "api_call_count": 91
+  },
+  "skill_events_version": 1,
+  "skill_events": [
+    {
+      "id": "claude-skill-toolu_01VhyQbkHDcEh98baC1YXKrC",
+      "event_type": "tool_invocation",
+      "skill": {
+        "name": "superpowers:brainstorming"
+      },
+      "source": {
+        "agent": "claude-code",
+        "signal": "skill_tool_use",
+        "confidence": "explicit"
+      },
+      "turn_id": "baa1c9a6b33c",
+      "transcript_anchor": {
+        "unit": "line",
+        "start": 147,
+        "end": 148,
+        "entry_ids": [
+          "606d7b56-3d56-414f-8e64-81dc47f0f873"
+        ],
+        "tool_use_id": "toolu_01VhyQbkHDcEh98baC1YXKrC"
+      },
+      "native": {
+        "tool_name": "Skill",
+        "tool_use_id": "toolu_01VhyQbkHDcEh98baC1YXKrC"
+      },
+      "collapse": {
+        "target": "tool_pair",
+        "label": "Skill: superpowers:brainstorming",
+        "default_collapsed": true
+      }
+    },
+    {
+      "id": "claude-skill-toolu_01HbSM7ao8WJraBcYqaXe1hX",
+      "event_type": "tool_invocation",
+      "skill": {
+        "name": "superpowers:test-driven-development"
+      },
+      "source": {
+        "agent": "claude-code",
+        "signal": "skill_tool_use",
+        "confidence": "explicit"
+      },
+      "turn_id": "baa1c9a6b33c",
+      "transcript_anchor": {
+        "unit": "line",
+        "start": 264,
+        "end": 265,
+        "entry_ids": [
+          "955cbe3c-f104-4a17-968b-2a1737b7205b"
+        ],
+        "tool_use_id": "toolu_01HbSM7ao8WJraBcYqaXe1hX"
+      },
+      "native": {
+        "tool_name": "Skill",
+        "tool_use_id": "toolu_01HbSM7ao8WJraBcYqaXe1hX"
+      },
+      "collapse": {
+        "target": "tool_pair",
+        "label": "Skill: superpowers:test-driven-development",
+        "default_collapsed": true
+      }
+    }
+  ],
+  "session_metrics": {
+    "turn_count": 4
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-03T17:28:55.531173Z",
+    "agent_lines": 784,
+    "agent_removed": 24,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 784,
+    "total_lines_changed": 808,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 7530,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".agents/skills/agent-integration/README.md": 71,
+        ".agents/skills/agent-integration/SKILL.md": 107,
+        ".agents/skills/agent-integration/implementer.md": 346,
+        ".agents/skills/agent-integration/researcher.md": 161,
+        ".agents/skills/agent-integration/test-writer.md": 211,
+        ".agents/skills/changelog/SKILL.md": 88,
+        ".agents/skills/e2e/SKILL.md": 32,
+        ".agents/skills/e2e/debug.md": 88,
+        ".agents/skills/e2e/implement.md": 117,
+        ".agents/skills/e2e/triage-ci.md": 176,
+        ".agents/skills/explain/SKILL.md": 34,
+        ".agents/skills/search/SKILL.md": 70,
+        ".agents/skills/session-handoff/SKILL.md": 120,
+        ".agents/skills/session-to-skill/SKILL.md": 210,
+        ".agents/skills/test-repo/README.md": 65,
+        ".agents/skills/test-repo/SKILL.md": 230,
+        ".agents/skills/test-repo/test-harness.sh": 245,
+        ".agents/skills/what-happened/SKILL.md": 333,
+        ".cursor/hooks.json": 40,
+        ".factory/settings.json": 93,
+        ".github/hooks/entire.json": 61,
+        "cmd/entire/.claude/settings.local.json": 25,
+        "deadcode-all.txt": 80,
+        "entire-checkpoints-playground.html": 698,
+        "full-example.jsonl": 129,
+        "metadata-example.json": 32,
+        "plan.md": 389,
+        "pr864-files-pretty.json": 170,
+        "pr864-patches.txt": 2703,
+        "review-01.md": 95,
+        "review-02.md": 82,
+        "review-03.md": 77,
+        "skills-lock.json": 35,
+        "transcript-output.jsonl": 117
+      }
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 25,
+      "user_lines_removed": 0,
+      "agent_lines_added": 8082,
+      "agent_lines_removed": 3,
+      "user_added_per_file": {
+        "cmd/entire/.claude/settings.local.json": 25
+      }
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+After https://github.com/entireio/cli/pull/1335 ships, what other commands need checkpoints v1.1 support? check out the changes in that PR to answer
+
+---
+
+Let's get started on the doctor check+repair for the mirror
+
+---
+
+A
+
+---
+
+Looks accurate, create the spec and write the changes
