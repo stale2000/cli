@@ -1,0 +1,25 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "660b42be1060",
+  "strategy": "manual-commit",
+  "branch": "20260602-token-refresh",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/auth/context_store.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/66/0b42be1060/0/metadata.json",
+      "transcript": "/66/0b42be1060/0/full.jsonl",
+      "content_hash": "/66/0b42be1060/0/content_hash.txt",
+      "prompt": "/66/0b42be1060/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 59714,
+    "cache_creation_tokens": 1325657,
+    "cache_read_tokens": 78386257,
+    "output_tokens": 291450,
+    "api_call_count": 267
+  }
+}
