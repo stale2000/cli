@@ -1,0 +1,20 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "3372c9e81e2d",
+  "strategy": "manual-commit",
+  "branch": "fix/checkpoints-v1.1-advance-after-sync",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/strategy/push_common.go",
+    "cmd/entire/cli/strategy/v1_custom_ref_mirror.go",
+    "cmd/entire/cli/strategy/v1_custom_ref_mirror_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/33/72c9e81e2d/0/metadata.json",
+      "transcript": "/33/72c9e81e2d/0/full.jsonl",
+      "content_hash": "/33/72c9e81e2d/0/content_hash.txt",
+      "prompt": ""
+    }
+  ]
+}
