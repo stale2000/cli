@@ -1,0 +1,23 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "dd5b7466cf9c",
+  "strategy": "manual-commit",
+  "branch": "soph/labs-command-alignment",
+  "checkpoints_count": 1,
+  "files_touched": null,
+  "sessions": [
+    {
+      "metadata": "/dd/5b7466cf9c/0/metadata.json",
+      "transcript": "/dd/5b7466cf9c/0/full.jsonl",
+      "content_hash": "/dd/5b7466cf9c/0/content_hash.txt",
+      "prompt": "/dd/5b7466cf9c/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 24606,
+    "cache_creation_tokens": 422835,
+    "cache_read_tokens": 8356746,
+    "output_tokens": 58562,
+    "api_call_count": 82
+  }
+}
