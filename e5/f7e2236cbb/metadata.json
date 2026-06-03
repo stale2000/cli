@@ -1,0 +1,27 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "e5f7e2236cbb",
+  "strategy": "manual-commit",
+  "branch": "nicer-suspended-mirror-error",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "cmd/entire/cli/repo_mirror.go",
+    "cmd/entire/cli/repo_mirror_probe.go",
+    "cmd/entire/cli/repo_mirror_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/e5/f7e2236cbb/0/metadata.json",
+      "transcript": "/e5/f7e2236cbb/0/full.jsonl",
+      "content_hash": "/e5/f7e2236cbb/0/content_hash.txt",
+      "prompt": "/e5/f7e2236cbb/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 9289,
+    "cache_creation_tokens": 76517,
+    "cache_read_tokens": 1713345,
+    "output_tokens": 21230,
+    "api_call_count": 31
+  }
+}

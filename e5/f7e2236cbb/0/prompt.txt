@@ -1,0 +1,9 @@
+https://github.com/entireio/auth-go/pull/14 is merged can you update this?
+
+---
+
+what do you think about https://github.com/entireio/cli/pull/1344/changes#r3348029076
+
+---
+
+sure can you apply it?
