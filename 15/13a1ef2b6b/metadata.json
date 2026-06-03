@@ -3,7 +3,7 @@
   "checkpoint_id": "1513a1ef2b6b",
   "strategy": "manual-commit",
   "branch": "doctor-v11-mirror-check",
-  "checkpoints_count": 1,
+  "checkpoints_count": 2,
   "files_touched": [
     "cmd/entire/cli/doctor.go",
     "cmd/entire/cli/doctor_bundle.go",
@@ -19,13 +19,19 @@
       "transcript": "/15/13a1ef2b6b/0/full.jsonl",
       "content_hash": "/15/13a1ef2b6b/0/content_hash.txt",
       "prompt": "/15/13a1ef2b6b/0/prompt.txt"
+    },
+    {
+      "metadata": "/15/13a1ef2b6b/1/metadata.json",
+      "transcript": "/15/13a1ef2b6b/1/full.jsonl",
+      "content_hash": "/15/13a1ef2b6b/1/content_hash.txt",
+      "prompt": "/15/13a1ef2b6b/1/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 17605,
-    "cache_creation_tokens": 289665,
-    "cache_read_tokens": 13913021,
-    "output_tokens": 87220,
-    "api_call_count": 91
+    "input_tokens": 33404,
+    "cache_creation_tokens": 455506,
+    "cache_read_tokens": 25378519,
+    "output_tokens": 159314,
+    "api_call_count": 183
   }
 }
