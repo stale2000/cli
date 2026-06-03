@@ -1,0 +1,3 @@
+Use the same version for both:
+    githelper.Agent = remotehelper.BinaryName + "/" + versioninfo.Commit
+    httpUserAgent := remotehelper.BinaryName + "/" + versioninfo.Version
