@@ -1,0 +1,1 @@
+Does it make sense to also use opus for subagents? I notice that subagents often use sonnet which doesn't make too much sense to me. What are the trade-offs?
