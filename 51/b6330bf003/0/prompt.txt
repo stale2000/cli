@@ -1,0 +1,63 @@
+respond succinctly to all the feedback pointing to the fix-commits.
+
+---
+
+wat why 16:45:36 (git) auth-context-co...▲ ↑2 $ entire checkpoint search "test"
+reading credentials: token exchange: status 400: invalid_request: subject_token is invalid
+
+---
+
+what about this erorr? 16:45:38 (git) auth-context-co...▲ ↑2 $ entire login
+Device code: 5EKA-Q3UA
+Press Enter to open https://us.auth.entire.io/cli/auth?user_code=5EKA-Q3UA in your browser to approve this login...
+
+Waiting for approval...
+Login complete.
+[paul@boulot] ~/.claude/worktrees/cli/wiggly-marinating-origami
+16:50:58 (git) auth-context-co...▲ ↑2 $ entire checkpoint search "test"
+search failed: search service error (401): Invalid or expired GitHub token
+[paul@boulot] ~/.claude/worktrees/cli/wiggly-marinating-origami
+
+---
+
+what API endpoint does `entire activity` hit?
+
+---
+
+i want to point `entire activity` at partial.to endpoints.  give me the env vars
+
+---
+
+so not this?
+
+17:43:13 (git) auth-context-co...▲ $ ENTIRE_API_BASE_URL=https://partial.to ENTIRE_AUTH_BASE_URL=https://us.auth.partial.to  entire activity
+
+---
+
+Failed to load activity: fetch activity: decode commits: decode JSON response: invalid character '<' looking for beginning of value
+
+---
+
+what that's bullshit.
+
+---
+
+what that's bullshit.
+
+---
+
+what that's bullshit.
+
+---
+
+one last thing.  add a `entire logout --all` flag which will iterate over the known contexts and issue `logout` against each of them.
+
+---
+
+<task-notification>
+<task-id>baz8lnl66</task-id>
+<tool-use-id>REDACTED</tool-use-id>
+<output-file>/private/tmp/claude-501/-Users-paul-src-entireio-cli/d51ce65e-9ad9-4c0d-b6af-911eed02c1ee/tasks/baz8lnl66.output</output-file>
+<status>completed</status>
+<summary>Background command "Build all packages" completed (exit code 0)</summary>
+</task-notification>
