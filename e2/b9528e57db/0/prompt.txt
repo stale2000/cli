@@ -1,0 +1,13 @@
+can you look at https://github.com/entireio/cli/pull/1305 can you check the branch out locally?
+
+---
+
+can we make the commands hidden and advertise them in labs
+
+---
+
+please commit and then let's do one last proper review
+
+---
+
+keep going on all. do meaningful commits
