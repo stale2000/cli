@@ -1,0 +1,57 @@
+find sessions on this branch and resume
+
+---
+
+i did smoke test again and the token count was not correct, can you check the current state of the review command/open pr's to see how token count was iteratively on and shown for all agents because now it seems we have regressed
+
+---
+
+do you know why it says nothing for 20s, and tokens not even after 40s
+
+---
+
+im pretty sure we've resolved this. did you check github?
+
+---
+
+look at merged pr's with review ther are many
+
+---
+
+can you investigate then the slience and tokens not showing up please since this is not good for users
+
+---
+
+are you still using 1207's logic? I think this was the fix
+
+---
+
+1207 was for the slowness of codex after the no paraphrasing because we want to actually invoke codex and the review skill without paraphrasing, as well as model config for speed differences. Considering this, this also needs to be implemented in this review flow. Then we need to investigate the tokens too, becuase in a live codex session, at the end, does show tokens, but there must be an iterative token count we can pull from
+
+---
+
+yes part 1, and for part 2 - before implementing, we'd want to make sure that this is the corect approach. Go ahead with part 1 first, then let me know when you are done
+
+---
+
+before you implement, just making sure you're removing the paraphrase helpers and replacing with actual programatic call adn skill to codex
+
+---
+
+if someone installs another review skill, then would this fix call that new skill approprietly? and will it also be recognized in confiuration
+
+---
+
+"A new skill
+  works if added to settings." - and it will be called correctly just as user would see if they ran it outside the review command?
+
+---
+
+let's address (1)
+  discovery isn't wired for codex, and (2) the slash form is a loose
+  match vs codex's $name. - and specifically for 2, we need to handle this nuance with codex that is not the same as claude
+
+---
+
+for 1. why do we emit $name? if this is what calls the skill, like users do when invoking skills in codex cli
+2. leave saved configs alone, and when the picker/configure is open, then this also lists and discovers all/new skills user can select
