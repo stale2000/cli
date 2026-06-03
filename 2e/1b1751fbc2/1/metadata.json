@@ -1,0 +1,90 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "2e1b1751fbc2",
+  "session_id": "eaa96109-502f-4be2-9357-cf4fde90deef",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-03T17:56:54.37355Z",
+  "branch": "doctor-v11-mirror-check",
+  "checkpoints_count": 0,
+  "files_touched": [],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-8[1m]",
+  "turn_id": "77c44df8de33",
+  "checkpoint_transcript_start": 475,
+  "transcript_lines_at_start": 475,
+  "token_usage": {
+    "input_tokens": 0,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 0,
+    "output_tokens": 0,
+    "api_call_count": 0
+  },
+  "skill_events_version": 1,
+  "skill_events": [
+    {
+      "id": "claude-skill-toolu_0116azN5qj4myAmw9apRZqNr",
+      "event_type": "tool_invocation",
+      "skill": {
+        "name": "superpowers:receiving-code-review"
+      },
+      "source": {
+        "agent": "claude-code",
+        "signal": "skill_tool_use",
+        "confidence": "explicit"
+      },
+      "turn_id": "77c44df8de33",
+      "transcript_anchor": {
+        "unit": "line",
+        "start": 18,
+        "end": 19,
+        "entry_ids": [
+          "e0bb5291-869d-43cd-ae89-2f0724192ade"
+        ],
+        "tool_use_id": "toolu_0116azN5qj4myAmw9apRZqNr"
+      },
+      "native": {
+        "tool_name": "Skill",
+        "tool_use_id": "toolu_0116azN5qj4myAmw9apRZqNr"
+      },
+      "collapse": {
+        "target": "tool_pair",
+        "label": "Skill: superpowers:receiving-code-review",
+        "default_collapsed": true
+      }
+    },
+    {
+      "id": "claude-skill-toolu_01MtaAmYCKWKJRQj6UvDioTz",
+      "event_type": "tool_invocation",
+      "skill": {
+        "name": "simplify"
+      },
+      "source": {
+        "agent": "claude-code",
+        "signal": "skill_tool_use",
+        "confidence": "explicit"
+      },
+      "turn_id": "77c44df8de33",
+      "transcript_anchor": {
+        "unit": "line",
+        "start": 278,
+        "end": 279,
+        "entry_ids": [
+          "4566b908-d7f1-4548-86a4-db577e012598"
+        ],
+        "tool_use_id": "toolu_01MtaAmYCKWKJRQj6UvDioTz"
+      },
+      "native": {
+        "tool_name": "Skill",
+        "tool_use_id": "toolu_01MtaAmYCKWKJRQj6UvDioTz"
+      },
+      "collapse": {
+        "target": "tool_pair",
+        "label": "Skill: simplify",
+        "default_collapsed": true
+      }
+    }
+  ],
+  "session_metrics": {
+    "turn_count": 4
+  }
+}

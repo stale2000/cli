@@ -1,0 +1,9 @@
+simplify cmd/entire/cli/dispatch/mode_local_test.go
+
+---
+
+Simplify the writeV1CustomRefMirrorSettings helpers the way other tests are doing it like attach_test
+
+---
+
+what's left
