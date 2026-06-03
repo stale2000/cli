@@ -1,0 +1,5 @@
+another TODO: get rid of the `entire auth revoke` verb, and ensure that `logout` verb revokes all sessions.
+
+---
+
+yep, ok, then if a user wants to nuke all their contexts, they repeatedly invoke `entire logout --all` until they have no more contexts.  if so, yes, start implementing.
