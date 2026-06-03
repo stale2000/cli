@@ -1,0 +1,226 @@
+Here's a spec design: docs/superpowers/specs/2026-06-03-checkpoints-v1.1-topology-coverage-design.md
+
+Use $pfleidi:pfleidi:review to review the code taking into consideration the decisions made in the spec/
+
+---
+
+You are Agent 3: Simplification & Efficiency reviewer for a Go CLI repo.
+
+Base ref: origin/main. Review the CURRENT working tree diff with committed/staged/unstaged changes using `git diff origin/main`.
+
+User goal: Review this branch taking into consideration spec decisions in `docs/superpowers/specs/2026-06-03-checkpoints-v1.1-topology-coverage-design.md`.
+
+Spec intent summary:
+- v1.1 mode reads committed checkpoint metadata from local-only `refs/entire/checkpoints/v1.1`; v1 remains source of truth for writes/fetch/push.
+- Rewind picker's prompt read should use topology read ref (`checkpoint.ResolveCommittedRefs(ctx).Read`) so it matches `entire explain` in v1.1 mode.
+- Cleanup orphan detection should use `checkpoint.NewCommittedReadStore(ctx, repo)` and intentionally has no fallback to v1 in v1.1 mode; stale mirror false-orphan risk is accepted.
+- Dead session-listing chain is removed: `strategy.ListSessions`, `strategy.GetSession`, and related private helpers/tests.
+- Remaining v1-pinned callers in `resume.go` and `explain.go` should explicitly pass `plumbing.NewBranchReferenceName(paths.MetadataBranchName)`.
+
+Changed files (9):
+- cmd/entire/cli/explain.go
+- cmd/entire/cli/resume.go
+- cmd/entire/cli/strategy/clean_test.go
+- cmd/entire/cli/strategy/cleanup.go
+- cmd/entire/cli/strategy/common.go
+- cmd/entire/cli/strategy/manual_commit_rewind.go
+- cmd/entire/cli/strategy/manual_commit_test.go
+- cmd/entire/cli/strategy/session.go
+- cmd/entire/cli/strategy/session_test.go
+
+Commits:
+- 48a2ea72ea cleanup orphan detection reads via topology
+- 1fe0c6ec4c rewind picker reads prompts via topology
+- a56665201c rename GetMetadataBranchTree to GetMetadataRefTree
+- f4711f2b2a remove unused session-listing chain
+
+PR context: no PR found; `gh pr view` reports no remote points to a known GitHub host.
+
+Review philosophy:
+- It is OK to find nothing; do not manufacture findings.
+- High confidence only. Required findings must contradict intent, break an unchanged contract, introduce a concrete bug, or leave intended behavior unverified in a way likely to fail.
+- Do not flag the spec-accepted stale-mirror cleanup false-orphan risk as a bug.
+- Permission-friendly reads: avoid shell pipelines, command separators, subshells, and filters. Use rg, path-scoped git diff, and source file reads.
+- Do not edit files.
+
+Simplification lens: Review for dead code, existing utility reuse, copy-paste with variation, unnecessary abstractions, unnecessary work, missed safe concurrency, hot-path bloat, unnecessary existence checks, and unnecessary comments. Verify suggestions against call sites. Discard cosmetic-only suggestions. Return only concrete findings with file:line evidence, severity, classification Required/Improvement, autofix eligibility if Required, impact, and suggested fix. If clean, say no findings.
+
+---
+
+You are Agent 2: Correctness & Quality reviewer for a Go CLI repo.
+
+Base ref: origin/main. Review the CURRENT working tree diff with committed/staged/unstaged changes using `git diff origin/main`.
+
+User goal: Review this branch taking into consideration spec decisions in `docs/superpowers/specs/2026-06-03-checkpoints-v1.1-topology-coverage-design.md`.
+
+Spec intent summary:
+- v1.1 mode reads committed checkpoint metadata from local-only `refs/entire/checkpoints/v1.1`; v1 remains source of truth for writes/fetch/push.
+- Rewind picker's prompt read should use topology read ref (`checkpoint.ResolveCommittedRefs(ctx).Read`) so it matches `entire explain` in v1.1 mode.
+- Cleanup orphan detection should use `checkpoint.NewCommittedReadStore(ctx, repo)` and intentionally has no fallback to v1 in v1.1 mode; stale mirror false-orphan risk is accepted.
+- Dead session-listing chain is removed: `strategy.ListSessions`, `strategy.GetSession`, and related private helpers/tests.
+- Remaining v1-pinned callers in `resume.go` and `explain.go` should explicitly pass `plumbing.NewBranchReferenceName(paths.MetadataBranchName)`.
+
+Changed files (9):
+- cmd/entire/cli/explain.go
+- cmd/entire/cli/resume.go
+- cmd/entire/cli/strategy/clean_test.go
+- cmd/entire/cli/strategy/cleanup.go
+- cmd/entire/cli/strategy/common.go
+- cmd/entire/cli/strategy/manual_commit_rewind.go
+- cmd/entire/cli/strategy/manual_commit_test.go
+- cmd/entire/cli/strategy/session.go
+- cmd/entire/cli/strategy/session_test.go
+
+Commits:
+- 48a2ea72ea cleanup orphan detection reads via topology
+- 1fe0c6ec4c rewind picker reads prompts via topology
+- a56665201c rename GetMetadataBranchTree to GetMetadataRefTree
+- f4711f2b2a remove unused session-listing chain
+
+PR context: no PR found; `gh pr view` reports no remote points to a known GitHub host.
+
+Review philosophy:
+- It is OK to find nothing; do not manufacture findings.
+- High confidence only. Required findings must contradict intent, break an unchanged contract, introduce a concrete bug, or leave intended behavior unverified in a way likely to fail.
+- Do not flag the spec-accepted stale-mirror cleanup false-orphan risk as a bug.
+- Permission-friendly reads: avoid shell pipelines, command separators, subshells, and filters. Use rg, path-scoped git diff, and source file reads.
+- Do not edit files.
+
+Correctness lens: Review for logic errors, nil/error handling, concurrency, redundant state, leaky abstractions, stringly-typed code, test coverage and scope gaps, production test seams, and test helper over-abstraction. Verify claims by reading source and call sites. Return only concrete findings with file:line evidence, severity, classification Required/Improvement, autofix eligibility if Required, impact, and suggested fix. If clean, say no findings.
+
+---
+
+You are Agent 5: Clean Go & Modern Go reviewer for a Go CLI repo.
+
+Base ref: origin/main. Review the CURRENT working tree diff with committed/staged/unstaged changes using `git diff origin/main`.
+
+Use the attached `pfleidi:clean-go` skill as source of truth, including the testing guidance. Determine the relevant Go target version from go.mod before suggesting modern Go changes.
+
+User goal: Review this branch taking into consideration spec decisions in `docs/superpowers/specs/2026-06-03-checkpoints-v1.1-topology-coverage-design.md`.
+
+Spec intent summary:
+- v1.1 mode reads committed checkpoint metadata from local-only `refs/entire/checkpoints/v1.1`; v1 remains source of truth for writes/fetch/push.
+- Rewind picker's prompt read should use topology read ref (`checkpoint.ResolveCommittedRefs(ctx).Read`) so it matches `entire explain` in v1.1 mode.
+- Cleanup orphan detection should use `checkpoint.NewCommittedReadStore(ctx, repo)` and intentionally has no fallback to v1 in v1.1 mode; stale mirror false-orphan risk is accepted.
+- Dead session-listing chain is removed: `strategy.ListSessions`, `strategy.GetSession`, and related private helpers/tests.
+- Remaining v1-pinned callers in `resume.go` and `explain.go` should explicitly pass `plumbing.NewBranchReferenceName(paths.MetadataBranchName)`.
+
+Changed files (9):
+- cmd/entire/cli/explain.go
+- cmd/entire/cli/resume.go
+- cmd/entire/cli/strategy/clean_test.go
+- cmd/entire/cli/strategy/cleanup.go
+- cmd/entire/cli/strategy/common.go
+- cmd/entire/cli/strategy/manual_commit_rewind.go
+- cmd/entire/cli/strategy/manual_commit_test.go
+- cmd/entire/cli/strategy/session.go
+- cmd/entire/cli/strategy/session_test.go
+
+Commits:
+- 48a2ea72ea cleanup orphan detection reads via topology
+- 1fe0c6ec4c rewind picker reads prompts via topology
+- a56665201c rename GetMetadataBranchTree to GetMetadataRefTree
+- f4711f2b2a remove unused session-listing chain
+
+PR context: no PR found; `gh pr view` reports no remote points to a known GitHub host.
+
+Review philosophy:
+- It is OK to find nothing; do not manufacture findings.
+- High confidence only. Required findings must contradict intent, break an unchanged contract, introduce a concrete bug, or leave intended behavior unverified in a way likely to fail.
+- Do not flag the spec-accepted stale-mirror cleanup false-orphan risk as a bug.
+- Permission-friendly reads: avoid shell pipelines, command separators, subshells, and filters. Use rg, path-scoped git diff, and source file reads.
+- Do not edit files.
+
+Clean-Go lens: Review only changed Go code plus needed surrounding source/tests/interfaces/call sites. Focus on composable functions, abstraction level, function signatures, errors, pointers, interfaces, test seams, test readability, and version-gated modern Go helpers. Discard broad restyling. Return only concrete findings with file:line evidence, severity, classification Required/Improvement, autofix eligibility if Required, impact, and suggested fix. If clean, say no findings.
+
+---
+
+You are Agent 4: Readability & Go Idioms reviewer for a Go CLI repo.
+
+Base ref: origin/main. Review the CURRENT working tree diff with committed/staged/unstaged changes using `git diff origin/main`.
+
+User goal: Review this branch taking into consideration spec decisions in `docs/superpowers/specs/2026-06-03-checkpoints-v1.1-topology-coverage-design.md`.
+
+Spec intent summary:
+- v1.1 mode reads committed checkpoint metadata from local-only `refs/entire/checkpoints/v1.1`; v1 remains source of truth for writes/fetch/push.
+- Rewind picker's prompt read should use topology read ref (`checkpoint.ResolveCommittedRefs(ctx).Read`) so it matches `entire explain` in v1.1 mode.
+- Cleanup orphan detection should use `checkpoint.NewCommittedReadStore(ctx, repo)` and intentionally has no fallback to v1 in v1.1 mode; stale mirror false-orphan risk is accepted.
+- Dead session-listing chain is removed: `strategy.ListSessions`, `strategy.GetSession`, and related private helpers/tests.
+- Remaining v1-pinned callers in `resume.go` and `explain.go` should explicitly pass `plumbing.NewBranchReferenceName(paths.MetadataBranchName)`.
+
+Changed files (9):
+- cmd/entire/cli/explain.go
+- cmd/entire/cli/resume.go
+- cmd/entire/cli/strategy/clean_test.go
+- cmd/entire/cli/strategy/cleanup.go
+- cmd/entire/cli/strategy/common.go
+- cmd/entire/cli/strategy/manual_commit_rewind.go
+- cmd/entire/cli/strategy/manual_commit_test.go
+- cmd/entire/cli/strategy/session.go
+- cmd/entire/cli/strategy/session_test.go
+
+Commits:
+- 48a2ea72ea cleanup orphan detection reads via topology
+- 1fe0c6ec4c rewind picker reads prompts via topology
+- a56665201c rename GetMetadataBranchTree to GetMetadataRefTree
+- f4711f2b2a remove unused session-listing chain
+
+PR context: no PR found; `gh pr view` reports no remote points to a known GitHub host.
+
+Review philosophy:
+- It is OK to find nothing; do not manufacture findings.
+- High confidence only. Required findings must contradict intent, break an unchanged contract, introduce a concrete bug, or leave intended behavior unverified in a way likely to fail.
+- Do not flag the spec-accepted stale-mirror cleanup false-orphan risk as a bug.
+- Permission-friendly reads: avoid shell pipelines, command separators, subshells, and filters. Use rg, path-scoped git diff, and source file reads.
+- Do not edit files.
+
+Readability lens: Review for poor factoring, mixed abstraction levels, generated-code smell, data-flow opacity, control-flow complexity, naming clarity, Go API readability, and error readability. Explain concrete maintenance cost for each finding. Return only concrete findings with file:line evidence, severity, classification Required/Improvement, autofix eligibility if Required, impact, and suggested fix. If clean, say no findings.
+
+---
+
+You are the independent second-pass coverage reviewer for a Go CLI repo. Do not use first-pass findings; perform a fresh review.
+
+Base ref: origin/main. Review the CURRENT working tree diff with committed/staged/unstaged changes using `git diff origin/main`.
+
+User goal: Review this branch taking into consideration spec decisions in `docs/superpowers/specs/2026-06-03-checkpoints-v1.1-topology-coverage-design.md`.
+
+Spec intent summary:
+- `strategy_options.checkpoints_version = "1.1"` reads committed checkpoint metadata from local-only `refs/entire/checkpoints/v1.1`; v1 remains source of truth for writes/fetch/push.
+- Rewind picker's prompt read should use topology read ref (`checkpoint.ResolveCommittedRefs(ctx).Read`) so it matches `entire explain` in v1.1 mode.
+- Cleanup orphan detection should use `checkpoint.NewCommittedReadStore(ctx, repo)` and intentionally has no fallback to v1 in v1.1 mode; stale mirror false-orphan risk is accepted by the spec.
+- Dead session-listing chain is removed: `strategy.ListSessions`, `strategy.GetSession`, and related private helpers/tests.
+- Remaining v1-pinned callers in `resume.go` and `explain.go` should be explicit by passing `plumbing.NewBranchReferenceName(paths.MetadataBranchName)`.
+
+Changed files (9):
+- cmd/entire/cli/explain.go
+- cmd/entire/cli/resume.go
+- cmd/entire/cli/strategy/clean_test.go
+- cmd/entire/cli/strategy/cleanup.go
+- cmd/entire/cli/strategy/common.go
+- cmd/entire/cli/strategy/manual_commit_rewind.go
+- cmd/entire/cli/strategy/manual_commit_test.go
+- cmd/entire/cli/strategy/session.go
+- cmd/entire/cli/strategy/session_test.go
+
+Commits:
+- 48a2ea72ea cleanup orphan detection reads via topology
+- 1fe0c6ec4c rewind picker reads prompts via topology
+- a56665201c rename GetMetadataBranchTree to GetMetadataRefTree
+- f4711f2b2a remove unused session-listing chain
+
+PR context: no PR found; `gh pr view` reports no remote points to a known GitHub host.
+
+Review philosophy:
+- It is OK to find nothing; do not manufacture findings.
+- High confidence only. Required findings must contradict intent, break an unchanged contract, introduce a concrete bug/security issue, or leave intended behavior unverified in a way likely to fail.
+- Do not flag the spec-accepted stale-mirror cleanup false-orphan risk as a bug.
+- Permission-friendly reads: avoid shell pipelines, command separators, subshells, and filters. Use rg, path-scoped git diff, and source file reads.
+- Do not edit files.
+
+Coverage task:
+- Re-read changed files and surrounding code needed to understand each changed path.
+- Trace changed behavior through callers, callees, tests, configuration, docs, and user/API entry points where relevant.
+- Search for related patterns, duplicated logic, and existing helpers that affect the changed code.
+- Look across security, correctness, tests, simplification, readability, performance, and Go cleanliness.
+- Prioritize missed Required findings over optional improvements.
+- Return only high-confidence findings with concrete file:line evidence, severity, classification Required/Improvement, autofix eligibility if Required, impact, and suggested fix. If clean, say no findings.
