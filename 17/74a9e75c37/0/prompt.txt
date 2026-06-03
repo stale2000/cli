@@ -1,0 +1,37 @@
+Let's start by making a spinoff branch so eventually we can stack a PR on this work.  The task i want to pick up is brainstorm how to approach the problems:
+
+- entireio/cli has two views on authenticated sessions: `entire auth list` (deprecated) and `entire auth contexts` which is not fully finished but is the vision for future auth.
+- we need to consolidate these views, ideally by sunsetting the deprecated list of sessions
+- but first we need to port over any API calls using the former method to using the context-aware method
+- then, as part of it, all API calls should benefit from auto-refreshing JWTs against entire-core
+
+have a look at https://linear.app/entirehq/issue/COR-389/wire-refresh-if-stale-into-control-plane-token-paths-tokenforresource and let's brainstorm.
+
+---
+
+I want to understand what these "API tokens" even are.  As far as i understand, all operations should be doable with our login JWT which we exchange via STS against entire-core backend.  That should all work with the context-aware machinery.  What are these API tokens - i want to phase them out in favour of STS & JWT.
+
+---
+
+my understanding is that checkpoints & search mechanisms in this CLI use API tokens somehow.  Are you super sure everything already uses JWT?  I'd be surprised given how recently it was introduced.
+
+---
+
+OK so.  Checkpoints might get pushed to entire:// in which case our JWT machinery takes over, but a user can also have @.entire/settings.json  point at a github host for checkpoint storage.  so .. we need github auth.  anyway, let's come back to that later
+
+i'm confused about the provenance of these "PAT" tokens in 'entire auth list'.  i don't recall explicitly creating or asking for them.
+
+---
+
+I do have it - ~/src/entirehq/entiredb (see ./cmd/entire-core).  two questions:
+
+- determine whether /api/v1/auth/tokens/.. machinery actually lives there
+- more importantly - given we can see and list these tokens in `entire auth list`, _are they used for anything_?  If we entirely strip them out of the CLI, what breaks?  don't assume, trace all code.
+
+---
+
+yep save this finding as a comment against COR-389.
+
+---
+
+OK, the first thing i want is to totally get rid of the `entire auth list` command, but elaborate the `entire auth status` output to show a table clearly labelled "active sessions".
