@@ -1,0 +1,26 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "446db5e8b03d",
+  "strategy": "manual-commit",
+  "branch": "auth-context-consolidation",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/auth/context_store.go",
+    "cmd/entire/cli/logout.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/44/6db5e8b03d/0/metadata.json",
+      "transcript": "/44/6db5e8b03d/0/full.jsonl",
+      "content_hash": "/44/6db5e8b03d/0/content_hash.txt",
+      "prompt": ""
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 6271,
+    "cache_creation_tokens": 16362,
+    "cache_read_tokens": 1761074,
+    "output_tokens": 6383,
+    "api_call_count": 10
+  }
+}
