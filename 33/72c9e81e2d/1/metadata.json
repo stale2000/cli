@@ -1,0 +1,32 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "3372c9e81e2d",
+  "session_id": "2d895e22-6f25-407c-9ff1-12a0b835362d",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-03T00:45:18.868503Z",
+  "branch": "fix/checkpoints-v1.1-advance-after-sync",
+  "checkpoints_count": 1,
+  "files_touched": [],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "771067a5cf0c",
+  "token_usage": {
+    "input_tokens": 695,
+    "cache_creation_tokens": 394983,
+    "cache_read_tokens": 41811623,
+    "output_tokens": 169267,
+    "api_call_count": 153
+  },
+  "session_metrics": {
+    "turn_count": 17
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}
