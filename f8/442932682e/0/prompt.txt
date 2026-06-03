@@ -1,0 +1,1 @@
+i fixed a cosmetic issue in https://github.com/entireio/cli/pull/1343/commits/682b09907d6466fb48597e00b6424c62427ec5f4 - the tests fail as a result.  please search and replace the changed string in the tests and commit.

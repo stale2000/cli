@@ -1,0 +1,46 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "f8442932682e",
+  "session_id": "2aba93bf-5938-4d4c-a7ca-06b479ff5a22",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-03T23:35:21.168933Z",
+  "branch": "20260603-adjust-login-prompt",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/integration_test/login_test.go"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-8[1m]",
+  "turn_id": "1b4a43d0e37b",
+  "token_usage": {
+    "input_tokens": 4742,
+    "cache_creation_tokens": 25063,
+    "cache_read_tokens": 570474,
+    "output_tokens": 3337,
+    "api_call_count": 16
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-03T23:35:21.163452Z",
+    "agent_lines": 3,
+    "agent_removed": 3,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 3,
+    "total_lines_changed": 6,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 1607,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        "cmd/entire/cli/integration_test/#testenv.go#": 1607
+      }
+    }
+  ]
+}
