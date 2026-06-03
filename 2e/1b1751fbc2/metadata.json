@@ -1,0 +1,30 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "2e1b1751fbc2",
+  "strategy": "manual-commit",
+  "branch": "doctor-v11-mirror-check",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "cmd/entire/cli/doctor.go",
+    "cmd/entire/cli/doctor_bundle.go",
+    "cmd/entire/cli/doctor_bundle_test.go",
+    "cmd/entire/cli/doctor_test.go",
+    "cmd/entire/cli/strategy/v1_custom_ref_mirror.go",
+    "cmd/entire/cli/strategy/v1_custom_ref_mirror_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/2e/1b1751fbc2/0/metadata.json",
+      "transcript": "/2e/1b1751fbc2/0/full.jsonl",
+      "content_hash": "/2e/1b1751fbc2/0/content_hash.txt",
+      "prompt": "/2e/1b1751fbc2/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 24643,
+    "cache_creation_tokens": 349299,
+    "cache_read_tokens": 23940686,
+    "output_tokens": 128673,
+    "api_call_count": 129
+  }
+}
