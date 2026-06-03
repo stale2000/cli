@@ -1,0 +1,25 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "bb20852cb016",
+  "strategy": "manual-commit",
+  "branch": "20260603-adjust-login-prompt",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/integration_test/login_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/bb/20852cb016/0/metadata.json",
+      "transcript": "/bb/20852cb016/0/full.jsonl",
+      "content_hash": "/bb/20852cb016/0/content_hash.txt",
+      "prompt": "/bb/20852cb016/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 7776,
+    "cache_creation_tokens": 27853,
+    "cache_read_tokens": 515889,
+    "output_tokens": 3013,
+    "api_call_count": 13
+  }
+}
