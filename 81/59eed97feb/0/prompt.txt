@@ -1,0 +1,15 @@
+I think this is an ok spot to stop.  The PR is big enough.  Create a draft PR for me, then write a small handover as to what we were trying to achieve and where we got to.
+
+---
+
+i just merged the base branch, so we will need to rebase on origin/main
+
+---
+
+is this still a good thing to have done?
+
+> api.Token → api.Session rename; added coreapi.NewWithBearer.
+
+---
+
+let's add back the sessions table to `auth status`.  then the `logout [--all]` thing will make more sense to the user too.
