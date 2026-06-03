@@ -7,3 +7,7 @@ what do you think about https://github.com/entireio/cli/pull/1344/changes#r33480
 ---
 
 sure can you apply it?
+
+---
+
+can you commit and push
