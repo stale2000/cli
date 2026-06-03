@@ -1,0 +1,16 @@
+https://github.com/entireio/cli/pull/1347 check and validate these two review comments: cmd/entire/cli/checkpoint/checkpoint.go:428 — the CommittedInfo.CheckpointsCount comment:
+  // CheckpointsCount is the total number of checkpoints across all sessions
+  CheckpointsCount int
+  This is the field surfaced by CommittedInfo (populated from summary.CheckpointsCount at committed.go:1270). After your change that aggregate is the sum of
+  per-session prompt windows, not a count of checkpoints. The PR updated the sibling comments on WriteCommittedOptions.CheckpointsCount (line 230) and
+  CommittedMetadata.CheckpointsCount (line 475), but this one on CommittedInfo was missed — so it now says exactly the thing the PR set out to stop claiming.
+
+  Doc gap (incomplete, not strictly wrong)
+
+  docs/architecture/sessions-and-checkpoints.md:214 — the CheckpointSummary JSON example shows "checkpoints_count": 3 with no prose explaining it, and doesn't
+  mention the new save_step_count field at all. It's not actively wrong (no text claims it's a checkpoint count), but a reader cross-referencing the metadata
+  schema won't learn that checkpoints_count is now a prompt count or that save_step_count exists.
+
+---
+
+Make the changes and commit/push to the branch.

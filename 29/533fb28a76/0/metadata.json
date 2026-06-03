@@ -1,0 +1,47 @@
+{
+  "cli_version": "0.6.4-nightly.202605300709.d0327df7.0.20260602203730-48cac9e8f007",
+  "checkpoint_id": "29533fb28a76",
+  "session_id": "019e8f30-546d-7230-aa8c-103fb1fdc23d",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-03T21:05:49.988695Z",
+  "branch": "fix/checkpoint-step-count-prompts",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/checkpoint/checkpoint.go",
+    "docs/architecture/sessions-and-checkpoints.md"
+  ],
+  "agent": "Pi",
+  "model": "gpt-5.5",
+  "turn_id": "320eeace961e",
+  "token_usage": {
+    "input_tokens": 53997,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 262656,
+    "output_tokens": 5299,
+    "api_call_count": 22
+  },
+  "session_metrics": {
+    "turn_count": 1
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-03T21:05:49.984337Z",
+    "agent_lines": 37,
+    "agent_removed": 25,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 37,
+    "total_lines_changed": 62,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}
