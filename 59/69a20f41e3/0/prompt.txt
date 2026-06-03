@@ -1,0 +1,5 @@
+i'm wondering if, while PATs are still load-bearing (they are, right?), we should reinstate `entire auth list` as it was before.
+
+---
+
+okay.  that settles it.  ensure you have completely ripped out the `auth list`, `auth tokens`, etc machinery that may manipulate PATs - as far as this cli repo is concerned, they're dead and gone and i never want to hear about them again.  i hope that's clear, and ensure every trace of these ent_XXX PATs is burned with fire.
