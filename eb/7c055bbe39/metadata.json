@@ -1,0 +1,26 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "eb7c055bbe39",
+  "strategy": "manual-commit",
+  "branch": "fix/checkpoints-v1.1-advance-after-sync",
+  "checkpoints_count": 3,
+  "files_touched": [
+    "CLAUDE.md",
+    "docs/architecture/sessions-and-checkpoints.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/eb/7c055bbe39/0/metadata.json",
+      "transcript": "/eb/7c055bbe39/0/full.jsonl",
+      "content_hash": "/eb/7c055bbe39/0/content_hash.txt",
+      "prompt": "/eb/7c055bbe39/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 675,
+    "cache_creation_tokens": 371920,
+    "cache_read_tokens": 35987020,
+    "output_tokens": 149896,
+    "api_call_count": 138
+  }
+}
