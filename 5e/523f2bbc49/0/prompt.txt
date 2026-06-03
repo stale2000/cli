@@ -1,0 +1,1 @@
+Investigate why there are sometimes 0 steps indications in the @frontend/src/domains/platform/checkpoints/components/CommitList.tsx
