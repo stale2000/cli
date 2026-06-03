@@ -1,0 +1,1 @@
+does `entire auth status` need to hit a /api/../me endpoint?  could be good to surface user profile info too
