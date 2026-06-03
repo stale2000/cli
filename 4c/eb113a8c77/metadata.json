@@ -3,8 +3,14 @@
   "checkpoint_id": "4ceb113a8c77",
   "strategy": "manual-commit",
   "branch": "review-cutover",
-  "checkpoints_count": 1,
+  "checkpoints_count": 2,
   "files_touched": [
+    "cmd/entire/cli/agent/codex/reviewer.go",
+    "cmd/entire/cli/agent/codex/reviewer_test.go",
+    "cmd/entire/cli/review/cmd.go",
+    "cmd/entire/cli/review/cmd_test.go",
+    "cmd/entire/cli/review/export_test.go",
+    "cmd/entire/cli/review/types/reviewer.go",
     "cmd/entire/cli/settings/settings.go"
   ],
   "sessions": [
@@ -13,13 +19,19 @@
       "transcript": "/4c/eb113a8c77/0/full.jsonl",
       "content_hash": "/4c/eb113a8c77/0/content_hash.txt",
       "prompt": "/4c/eb113a8c77/0/prompt.txt"
+    },
+    {
+      "metadata": "/4c/eb113a8c77/1/metadata.json",
+      "transcript": "/4c/eb113a8c77/1/full.jsonl",
+      "content_hash": "/4c/eb113a8c77/1/content_hash.txt",
+      "prompt": "/4c/eb113a8c77/1/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 981,
-    "cache_creation_tokens": 4443566,
-    "cache_read_tokens": 229221662,
-    "output_tokens": 523705,
-    "api_call_count": 490
+    "input_tokens": 11850,
+    "cache_creation_tokens": 5109244,
+    "cache_read_tokens": 248644570,
+    "output_tokens": 674195,
+    "api_call_count": 602
   }
 }
