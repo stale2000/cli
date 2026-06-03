@@ -4,3 +4,7 @@ Calling promoteRemoteTrackingMetadataBranch without a user opting into v1.1 is a
 
 #1 + #4: If a user has explicitly opted into v1.1, mirroring is fine and intended. That shouldn't happen when they haven't opted in, though. I think #1 should be fine in that way as long as you can confirm that the setting is checked. Please note that I said the setting and not the presence of the v1.1 ref. You might have to update that because users might turn on v1.1 and turn it off again afterwards. We should honor that and not continue mirror to v1.1 when the setting is off.
 #6 and #9 can be fixed
+
+---
+
+Commit and continue
