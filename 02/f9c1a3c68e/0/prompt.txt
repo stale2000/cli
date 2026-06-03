@@ -1,0 +1,5 @@
+I've noticed that fetch bandwidth seems a bit limited to under 30mb/s. Review the remote helper and identify any areas that could be contributing to that limited bandwidth.
+
+---
+
+go ahead with the changes, I'll test it manually
