@@ -392,3 +392,7 @@ Task 4 has been going on for over 20 minutes with no obvious edits
 ---
 
 One thing I immediately dislike is the excessive use of code comments. If a competent engineer can understand the code without the comments, remove them or condense them down and make them very concise. It's okay to describe what a section of a test is doing but only if the comment is short and to the point.
+
+---
+
+Otherwise, the diff looks good. Feel free to start comitting now

@@ -3,7 +3,7 @@
   "checkpoint_id": "d6f9bf29997f",
   "strategy": "manual-commit",
   "branch": "feat/checkpoints-v1.1-rewind-clean",
-  "checkpoints_count": 10,
+  "checkpoints_count": 1,
   "files_touched": [
     "cmd/entire/cli/strategy/manual_commit_test.go",
     "cmd/entire/cli/strategy/session.go",
@@ -24,11 +24,11 @@
     }
   ],
   "token_usage": {
-    "input_tokens": 1637,
-    "cache_creation_tokens": 647997,
-    "cache_read_tokens": 29502508,
-    "output_tokens": 221990,
-    "api_call_count": 130
+    "input_tokens": 10,
+    "cache_creation_tokens": 63823,
+    "cache_read_tokens": 1611155,
+    "output_tokens": 2832,
+    "api_call_count": 5
   },
   "combined_attribution": {
     "calculated_at": "2026-06-03T23:07:39.092449Z",
