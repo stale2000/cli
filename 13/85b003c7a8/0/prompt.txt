@@ -1,0 +1,22 @@
+yes update the COR-389 Linear comment and the auth-tokens-are-refresh-families memory
+
+---
+
+ok, cast your mind back to the beginning of our session.  summarise our progress according to the goal of simplifying the UX of auth and logins.
+
+---
+
+ok wat
+
+[paul@boulot] ~/.claude/worktrees/cli/wiggly-marinating-origami
+15:22:03 (git) auth-context-consolidation $ entire auth contexts
+   CONTEXT             HANDLE      CORE URL
+   eu.auth.partial.to  toothbrush  https://eu.auth.partial.to
+*  eu.auth.entire.io   toothbrush  https://eu.auth.entire.io
+[paul@boulot] ~/.claude/worktrees/cli/wiggly-marinating-origami
+15:22:07 (git) auth-context-consolidation $ entire auth status
+validate token: fetch profile: decode response: default (code 401): unexpected Content-Type: text/plain
+
+---
+
+yep okay that was it.  pity this PR is already so big, but yes, we should make `entire auth status` aware of contexts.json.  let's use the current active context and hit up /me on that login server.
