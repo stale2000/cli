@@ -1,0 +1,44 @@
+have a look at ~/src/entirehq/infra - you will want to add a cloudflare rule to the partial.to zero_trust config so that this works without WARP:
+
+16:16:09 (git) auth-context-co...▲ $ ENTIRE_AUTH_BASE_URL=https://eu.auth.partial.to entire login
+start login: start device auth: could not reach authentication server: server returned non-JSON response (check VPN, proxy, or firewall — e.g. Cloudflare WARP)
+
+---
+
+make a PR.
+
+---
+
+oh no 16:28:30.317 STDERR tofu: │ Error: failed to make http request
+16:28:30.317 STDERR tofu: │
+16:28:30.317 STDERR tofu: │   with cloudflare_zero_trust_access_application.auth_token_bypass,
+16:28:30.317 STDERR tofu: │   on apps.tf line 438, in resource "cloudflare_zero_trust_access_application" "auth_token_bypass":
+16:28:30.318 STDERR tofu: │  438: resource "cloudflare_zero_trust_access_application" "auth_token_bypass" {
+16:28:30.318 STDERR tofu: │
+16:28:30.318 STDERR tofu: │ PUT
+16:28:30.318 STDERR tofu: │ "https://api.cloudflare.com/client/v4/accounts/8b04592ed74a5cce30d355b07276caf3/access/apps/265445ae-5c84-458f-8b76-cde4f79a73ea":
+16:28:30.318 STDERR tofu: │ 400 Bad Request {
+16:28:30.318 STDERR tofu: │   "result": null,
+16:28:30.318 STDERR tofu: │   "success": false,
+16:28:30.318 STDERR tofu: │   "errors": [
+16:28:30.318 STDERR tofu: │     {
+16:28:30.318 STDERR tofu: │       "code": 12130,
+16:28:30.318 STDERR tofu: │       "message": "access.api.error.invalid_request: too many destinations for one app"
+16:28:30.318 STDERR tofu: │     }
+16:28:30.318 STDERR tofu: │   ],
+16:28:30.318 STDERR tofu: │   "messages": []
+16:28:30.318 STDERR tofu: │ }
+16:28:30.318 STDERR tofu: │
+16:28:30.318 STDERR tofu: ╵
+16:28:30.335 ERROR  tofu invocation failed in ./.terragrunt-cache/h5EGzoTtsXyYjk1psVhoDa_oZQ8/bMp4I1wDG-u2A_FQnt-0r0btW4w
+
+---
+
+okay i just applied the Terraform, but still:
+
+16:17:07 (git) auth-context-co...▲ $ ENTIRE_AUTH_BASE_URL=https://eu.auth.partial.to entire login
+start login: start device auth: could not reach authentication server: server returned non-JSON response (check VPN, proxy, or firewall — e.g. Cloudflare WARP)
+
+---
+
+clear
