@@ -1,0 +1,16 @@
+i feel like --all and --everywhere should interact reasonably:
+
+logout # just this context, just this session.
+logout --everywhere # this context, all sessions
+logout --all # iterate over contexts, kill the current session of each
+logout --all --everywhere # iterate over contexts and kill all sessions in each
+
+make sense?
+
+---
+
+yep definitely add such a test.  then commit.  then rename --all to --all-contexts.  then commit.
+
+---
+
+try again
