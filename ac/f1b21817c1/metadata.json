@@ -3,7 +3,7 @@
   "checkpoint_id": "acf1b21817c1",
   "strategy": "manual-commit",
   "branch": "feat/checkpoints-v1.1-rewind-clean",
-  "checkpoints_count": 0,
+  "checkpoints_count": 1,
   "files_touched": [
     "cmd/entire/cli/strategy/cleanup.go"
   ],
@@ -13,13 +13,19 @@
       "transcript": "/ac/f1b21817c1/0/full.jsonl",
       "content_hash": "/ac/f1b21817c1/0/content_hash.txt",
       "prompt": "/ac/f1b21817c1/0/prompt.txt"
+    },
+    {
+      "metadata": "/ac/f1b21817c1/1/metadata.json",
+      "transcript": "/ac/f1b21817c1/1/full.jsonl",
+      "content_hash": "/ac/f1b21817c1/1/content_hash.txt",
+      "prompt": "/ac/f1b21817c1/1/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 8349,
-    "cache_creation_tokens": 0,
-    "cache_read_tokens": 902528,
-    "output_tokens": 2101,
-    "api_call_count": 5
+    "input_tokens": 10014,
+    "cache_creation_tokens": 615118,
+    "cache_read_tokens": 41118544,
+    "output_tokens": 243848,
+    "api_call_count": 160
   }
 }
