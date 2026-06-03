@@ -3,21 +3,32 @@
   "checkpoint_id": "928986401e8e",
   "strategy": "manual-commit",
   "branch": "fix/checkpoints-v1.1-advance-after-sync",
-  "checkpoints_count": 1,
-  "files_touched": null,
+  "checkpoints_count": 5,
+  "files_touched": [
+    "cmd/entire/cli/resume_test.go",
+    "cmd/entire/cli/strategy/common.go",
+    "cmd/entire/cli/strategy/common_test.go",
+    "cmd/entire/cli/strategy/metadata_reconcile_test.go"
+  ],
   "sessions": [
     {
       "metadata": "/92/8986401e8e/0/metadata.json",
       "transcript": "/92/8986401e8e/0/full.jsonl",
       "content_hash": "/92/8986401e8e/0/content_hash.txt",
       "prompt": "/92/8986401e8e/0/prompt.txt"
+    },
+    {
+      "metadata": "/92/8986401e8e/1/metadata.json",
+      "transcript": "/92/8986401e8e/1/full.jsonl",
+      "content_hash": "/92/8986401e8e/1/content_hash.txt",
+      "prompt": "/92/8986401e8e/1/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 1632052,
-    "cache_creation_tokens": 0,
-    "cache_read_tokens": 40243072,
-    "output_tokens": 163193,
-    "api_call_count": 317
+    "input_tokens": 1632146,
+    "cache_creation_tokens": 115663,
+    "cache_read_tokens": 51881533,
+    "output_tokens": 228330,
+    "api_call_count": 371
   }
 }

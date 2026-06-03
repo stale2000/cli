@@ -1,0 +1,226 @@
+<task-notification>
+<task-id>a2bfa50bd14f139c6</task-id>
+<tool-use-id>REDACTED</tool-use-id>
+<output-file>/private/tmp/claude-501/-Users-pfleidi-entire-cli--worktrees-fix-checkpoints-v1-1-advance-after-sync/2d895e22-6f25-407c-9ff1-12a0b835362d/tasks/a2bfa50bd14f139c6.output</output-file>
+<status>completed</status>
+<summary>Agent "Angle E: wrapper/proxy correctness" completed</summary>
+<result>Not touched in this PR. The bug is pre-existing, but the PR's stated principle ("reads use NewCommittedReadStore") explicitly conflicts with this site. Worth flagging.
+
+Now let me also check `resume.go` for cleanliness — is the v1.1 bypass behavior intentional?
+
+The architecture per PR description:
+- Read: `refs/entire/checkpoints/v1.1` (when v1.1) or same as Primary (when v1)
+- Mirror: `refs/entire/checkpoints/v1.1` when configured; empty otherwise — what writes mirror to
+- Reads RESOLVE against `Read` ref as-is — no fetch fallback.
+
+So in v1.1 mode, the user IS expected to use `entire explain` or `entire status` to recover. The bypass at resume.go:606 is partially consistent with the architecture (v1.1 is local-only). However, the bypass uses checks like `committedReadRef != v1 branch` to detect "this is v1.1 mode" — that's fragile. If v1.1 was Primary in future, that comparison would silently take a wrong path.
+
+Now let me return the findings as JSON:
+
+```json
+[
+  {
+    "file": "cmd/entire/cli/strategy/cleanup.go",
+    "line": 172,
+    "summary": "ListOrphanedSessionStates uses NewGitStore (read default v1) instead of NewCommittedReadStore for a committed read",
+    "failure_scenario": "In v1.1 mode the architectural rule is that committed reads consult the topology's Read ref. This call site bypasses NewCommittedReadStore and unconditionally reads from the v1 branch via NewGitStore.ListCommitted. With read-time sync removed, if a flow elsewhere mirrors but does not advance v1 (today none, but a future Primary=v1.1 rollout flip would invert ordering), cleanup would see a different checkpoint set than every other read site (resume, explain, dispatch, status). Practically today reads from v1 are usually equal to v1.1, but the inconsistency violates the PR's stated invariant 'every committed read uses NewCommittedReadStore' and makes a future topology change a silent-orphan-detection bug."
+  },
+  {
+    "file": "cmd/entire/cli/strategy/push_common.go",
+    "line": 384,
+    "summary": "ReconcileDisconnectedMetadataBranch can advance local v1 before later steps fail, leaving the v1.1 mirror stale",
+    "failure_scenario": "In fetchAndRebaseSessionsCommon, ReconcileDisconnectedMetadataBranch may cherry-pick local commits onto remote tip and SetReference the local v1 branch (metadata_reconcile.go:198) BEFORE any mirrorSyncedMetadataBranch call. If a subsequent step errors out — repo.Reference for localRef or fetchedRef, getRepoPath, getMergeBase, collectCommitsSince, loadShallowHashes, cherryPickOnto, or the final SetReference — the function returns with local v1 advanced from A→B but the v1.1 mirror still pointing at A. With read-time sync removed, subsequent v1.1 reads silently miss the reconciled checkpoints until the next successful write/fetch. The previous SyncCommittedReadRef at read time would have masked this; now it persists until something else mirrors."
+  },
+  {
+    "file": "cmd/entire/cli/resume.go",
+    "line": 606,
+    "summary": "checkRemoteMetadata short-circuits all remote-fetch fallback when committed read ref is not the v1 branch (i.e. v1.1 mode)",
+    "failure_scenario": "When v1.1 is enabled and the local v1.1 ref is missing or behind, resume's checkRemoteMetadata immediately tells the user 'This ref is local-only. Try: entire explain' and never attempts to fetch checkpoint_remote, never calls promoteRemoteTrackingMetadataBranch, and never calls FetchMetadataBranch. The user must manually run another command. Worse, this check compares against a hardcoded v1 branch name; if topology flips so that Primary=v1.1, the comparison stops matching and the recovery path is permanently disabled. Read-time sync removal means resume no longer self-heals via the previous SyncCommittedReadRef gate."
+  },
+  {
+    "file": "cmd/entire/cli/resume.go",
+    "line": 193,
+    "summary": "promoteRemoteTrackingMetadataBranch gated on store.CommittedReadRef() equaling the v1 branch; in v1.1 mode the bootstrap never runs",
+    "failure_scenario": "On a fresh clone or any state where local v1 is missing but refs/remotes/origin/entire/checkpoints/v1 exists, resume normally promotes the remote-tracking branch into local v1 via promoteRemoteTrackingMetadataBranch. In v1.1 mode store.CommittedReadRef() returns the local-only custom ref, so the equality check is false and promotion is skipped. Local v1 (the Primary) is never seeded from origin, so the v1.1 mirror is never created (it depends on v1 existing), so the read at line 218 falls into the bypass at line 606 and bails. A clean v1.1 clone cannot resume without the user first running a manual git fetch."
+  },
+  {
+    "file": "cmd/entire/cli/strategy/manual_commit_condensation.go",
+    "line": 71,
+    "summary": "getCheckpointLog uses getCheckpointStore (v1 write store) for a committed read instead of getCommittedReadStore",
+    "failure_scenario": "getCheckpointLog reads ReadCommittedCheckpoint and ReadLatestSessionContent through a store bound to the default v1 branch. Today it's reachable only from GetCheckpointLog, which has no production callers, but the helper is exported on the strategy and exists alongside an identical-shape read path that uses getCommittedReadStore. If a future caller wires GetCheckpointLog into a user-facing command (it's already in the Strategy package as a public method), it would silently read from a different ref than every other committed-read code path in v1.1 mode."
+  },
+  {
+    "file": "cmd/entire/cli/strategy/v1_custom_ref_mirror.go",
+    "line": 43,
+    "summary": "MirrorCommittedMetadataRefBestEffort re-resolves CommittedRefs from disk independently of caller, allowing topology drift across a single operation",
+    "failure_scenario": "Several call sites do `refs := ResolveCommittedRefs(ctx); if refs.HasMirror() { MirrorCommittedMetadataRef(ctx, repo, refs) }` (good — single resolution), but mirrorSyncedMetadataBranch in push_common.go and other best-effort sites resolve refs once for a gate check and then call MirrorCommittedMetadataRefBestEffort which loads settings AGAIN. In fetchAndRebaseSessionsCommon (concurrent push + settings edit), if the user toggles checkpoints_version while a long fetch+rebase runs, the gate observed mirror-enabled while the best-effort call observes mirror-disabled (or vice versa). The local v1 ref ends up advanced; the v1.1 ref is left in an inconsistent state. Equivalent races exist around fetchMetadataFromOrigin and FetchMetadataBranch."
+  },
+  {
+    "file": "cmd/entire/cli/strategy/push_common.go",
+    "line": 478,
+    "summary": "mirrorSyncedMetadataBranch silently no-ops when branchName != refs.Primary.Short(), tying mirroring to the literal v1 branch name",
+    "failure_scenario": "mirrorSyncedMetadataBranch returns early unless the caller's branchName string matches refs.Primary.Short(). Callers always pass paths.MetadataBranchName ('entire/checkpoints/v1'). If the topology evolves (per PR description: 'A future rollout phase can flip the topology (v1.1 as Primary)'), refs.Primary.Short() becomes a non-branch ref name or a different short name, the gate stops matching, and mirroring silently skips. The error 'primary metadata ref is not a branch' would only fire deeper inside MirrorCommittedMetadataRef, never logged here because the gate short-circuits. There's no fallback or warning — the mirror just stops happening for every push+rebase path."
+  },
+  {
+    "file": "cmd/entire/cli/strategy/checkpoint_remote.go",
+    "line": 178,
+    "summary": "fetchMetadataBranchIfMissing returns early when refs.Primary exists locally without ever populating the v1.1 mirror",
+    "failure_scenario": "fetchMetadataBranchIfMissing is called from resolvePushSettings on every push (when checkpoint_remote is configured). It checks 'if refs.Primary exists locally, return nil (skip fetch)'. If a user has v1 locally but recently enabled checkpoints_version=1.1 in settings (so v1.1 mirror is missing or stale), this fast path returns without calling FetchMetadataBranch — and so MirrorCommittedMetadataRefBestEffort never runs. Without read-time sync, the v1.1 mirror stays empty/stale until some other write happens. The mismatch survives even after subsequent pushes."
+  }
+]
+```
+
+Returning my findings:
+
+```json
+[
+  {
+    "file": "cmd/entire/cli/strategy/cleanup.go",
+    "line": 172,
+    "summary": "ListOrphanedSessionStates reads committed checkpoints via NewGitStore instead of NewCommittedReadStore",
+    "failure_scenario": "In v1.1 mode every other read site (resume, explain, dispatch, status, head_checkpoint_flags) routes through NewCommittedReadStore, but cleanup unconditionally instantiates NewGitStore(repo) and calls ListCommitted, which resolves against the default v1 branch ref. Today v1 and v1.1 track each other (v1.1 is a mirror), so results coincide. But the PR's stated invariant is 'every committed read uses the ref-aware factory'. The drift becomes a real bug if (a) the topology flips so v1.1 is Primary in the future, or (b) a write path is added that targets v1.1 without v1 (unlikely today but the architecture allows it). Cleanup would then miss sessions that have checkpoints in v1.1 and wrongly classify them as orphaned, deleting the session state file."
+  },
+  {
+    "file": "cmd/entire/cli/strategy/push_common.go",
+    "line": 384,
+    "summary": "ReconcileDisconnectedMetadataBranch advances local v1 before subsequent error paths, leaving the v1.1 mirror stale",
+    "failure_scenario": "In fetchAndRebaseSessionsCommon, ReconcileDisconnectedMetadataBranch may cherry-pick local commits and SetReference the local v1 ref (metadata_reconcile.go:198) BEFORE any mirrorSyncedMetadataBranch call. If a later step errors out (repo.Reference, getRepoPath, getMergeBase, collectCommitsSince, loadShallowHashes, cherryPickOnto, or the final SetReference), the function returns with local v1 advanced from A to B but the v1.1 mirror still pointing at A. With read-time sync removed (the prior SyncCommittedReadRef was deleted in this PR), subsequent v1.1 reads silently miss the reconciled checkpoints until another successful write/fetch happens to mirror. The fix is to mirror immediately after reconciliation succeeds, before the subsequent fast-forward/rebase code can fail."
+  },
+  {
+    "file": "cmd/entire/cli/resume.go",
+    "line": 606,
+    "summary": "checkRemoteMetadata short-circuits all remote-fetch fallback when committed read ref is not the v1 branch",
+    "failure_scenario": "When v1.1 is enabled and the local v1.1 ref is missing or behind, resume's checkRemoteMetadata hits the bypass at line 606 (committedReadRef != v1 branch), prints 'This ref is local-only. Try: entire explain', and skips ALL recovery: never tries checkpoint_remote fetch (line 632 unreachable), never calls promoteRemoteTrackingMetadataBranch (line 659 unreachable), never falls back to FetchMetadataBranch (line 669 unreachable). The user has to manually run a different command to populate the mirror. With read-time sync removed, this is a regression in v1.1 ergonomics: previously SyncCommittedReadRef would advance the mirror from origin's remote-tracking ref on demand."
+  },
+  {
+    "file": "cmd/entire/cli/resume.go",
+    "line": 193,
+    "summary": "promoteRemoteTrackingMetadataBranch is gated on store.CommittedReadRef() == v1 branch and is skipped in v1.1 mode",
+    "failure_scenario": "On a fresh clone where local v1 is missing but refs/remotes/origin/entire/checkpoints/v1 exists from `git clone`, resume usually self-heals by promoting the remote-tracking branch into local v1. In v1.1 mode store.CommittedReadRef() returns the local-only custom ref, the equality check is false, and promotion is skipped. Then local v1 (Primary) is never seeded from origin, the v1.1 mirror is never created (it requires v1 to exist), and the read at line 218 returns ErrCheckpointNotFound. The flow falls through to checkRemoteMetadata which hits the bypass in finding #3. Net effect: a fresh v1.1 clone cannot resume without the user manually running `git fetch origin entire/checkpoints/v1:entire/checkpoints/v1`."
+  },
+  {
+    "file": "cmd/entire/cli/strategy/manual_commit_condensation.go",
+    "line": 71,
+    "summary": "getCheckpointLog reads committed metadata via getCheckpointStore (v1 write store) instead of getCommittedReadStore",
+    "failure_scenario": "getCheckpointLog calls ReadCommittedCheckpoint and ReadLatestSessionContent through a store bound to the default v1 branch. It is reachable from GetCheckpointLog (manual_commit_logs.go:104), which is unused in production today but is exported on the strategy. Anything that wires GetCheckpointLog through the Strategy interface gets v1-direct reads in v1.1 mode, inconsistent with every other committed read. Lower severity than the others because no production caller, but it is a live mismatched site that contradicts the diff's principle 'committed reads go through NewCommittedReadStore'."
+  },
+  {
+    "file": "cmd/entire/cli/strategy/v1_custom_ref_mirror.go",
+    "line": 43,
+    "summary": "MirrorCommittedMetadataRefBestEffort re-loads settings independently of the caller, allowing topology drift mid-operation",
+    "failure_scenario": "Several callers resolve refs once for a gate check then invoke MirrorCommittedMetadataRefBestEffort which calls ResolveCommittedRefs(ctx) again and reads settings from disk. In a single fetchAndRebaseSessionsCommon run with a multi-minute push budget, settings.json could be edited concurrently (CI scripts, an `entire configure` invocation, or the auto-mode toggle) so the gate sees mirror-enabled and the best-effort call sees mirror-disabled (or vice versa). Local v1 ends up advanced; v1.1 ends up in an inconsistent state. The non-best-effort path in attach.go and explain.go passes pre-resolved refs through, but the best-effort path resolves twice. The fix is to accept refs as an explicit parameter for the best-effort variant too, or to cache the resolution per call site."
+  },
+  {
+    "file": "cmd/entire/cli/strategy/push_common.go",
+    "line": 478,
+    "summary": "mirrorSyncedMetadataBranch silently no-ops when branchName does not match refs.Primary.Short()",
+    "failure_scenario": "mirrorSyncedMetadataBranch returns early unless the caller-supplied branchName string matches refs.Primary.Short(). Callers pass paths.MetadataBranchName, so today the gate always matches. The PR description states 'A future rollout phase can flip the topology (v1.1 as Primary) by changing ResolveCommittedRefs.' On that day refs.Primary.Short() becomes a non-branch ref short name (or different), the gate silently stops matching, and the mirror never advances for any push+rebase. There is no log, warning, or fallback — push+rebase keeps succeeding and reads start lagging silently. Comparing against refs.Mirror or just unconditionally calling MirrorCommittedMetadataRefBestEffort (which has its own no-op guards) would be safer."
+  },
+  {
+    "file": "cmd/entire/cli/strategy/checkpoint_remote.go",
+    "line": 178,
+    "summary": "fetchMetadataBranchIfMissing fast-paths out when refs.Primary exists locally and never seeds the v1.1 mirror",
+    "failure_scenario": "fetchMetadataBranchIfMissing runs from resolvePushSettings on every push that has a configured checkpoint_remote. It returns early when refs.Primary exists locally, skipping FetchMetadataBranch and therefore MirrorCommittedMetadataRefBestEffort. A user who has v1 locally and then opts into checkpoints_version=1.1 in settings has no v1.1 mirror until some other write triggers one. With read-time sync removed there is no recovery — subsequent pushes that take the fast path never bootstrap the mirror. The fix is to call MirrorCommittedMetadataRefBestEffort when the fast-path returns, or to compare both primary and mirror existence."
+  }
+]
+```
+
+This is my final candidate set. Returning to the caller.
+
+Findings as JSON (8 candidates from ANGLE E — wrapper/proxy correctness + ref-topology consistency):
+
+```json
+[
+  {
+    "file": "cmd/entire/cli/strategy/cleanup.go",
+    "line": 172,
+    "summary": "ListOrphanedSessionStates reads committed checkpoints via NewGitStore instead of NewCommittedReadStore",
+    "failure_scenario": "In v1.1 mode every other committed-read site (resume, explain, dispatch, status, head_checkpoint_flags) routes through NewCommittedReadStore, but cleanup.go:172 unconditionally instantiates NewGitStore(repo) and calls ListCommitted, which resolves against the default v1 branch ref. Today v1 and v1.1 track each other so results coincide. But the PR's stated invariant is 'every committed read uses the ref-aware factory'. The drift becomes a real bug if the topology flips so v1.1 is Primary in the future, or a write path lands on v1.1 without v1. Cleanup would then miss sessions that have checkpoints in v1.1 and wrongly classify them as orphaned, deleting the session state file."
+  },
+  {
+    "file": "cmd/entire/cli/strategy/push_common.go",
+    "line": 384,
+    "summary": "ReconcileDisconnectedMetadataBranch advances local v1 before subsequent error paths, leaving the v1.1 mirror stale",
+    "failure_scenario": "ReconcileDisconnectedMetadataBranch may cherry-pick local commits and SetReference the local v1 ref (metadata_reconcile.go:198) BEFORE any mirrorSyncedMetadataBranch call. If a later step errors out (repo.Reference for localRef/fetchedRef, getRepoPath, getMergeBase, collectCommitsSince, loadShallowHashes, cherryPickOnto, or the final SetReference), the function returns with local v1 advanced from A to B but the v1.1 mirror still pointing at A. With read-time sync removed in this PR, subsequent v1.1 reads silently miss the reconciled checkpoints until another successful write/fetch happens to mirror. The fix is to mirror immediately after reconciliation succeeds, before the fast-forward/rebase code can fail."
+  },
+  {
+    "file": "cmd/entire/cli/resume.go",
+    "line": 606,
+    "summary": "checkRemoteMetadata short-circuits all remote-fetch fallback when committed read ref is not the v1 branch",
+    "failure_scenario": "When v1.1 is enabled and the local v1.1 ref is missing or behind, checkRemoteMetadata hits the bypass at line 606 (committedReadRef != v1 branch), prints 'This ref is local-only. Try: entire explain', and skips ALL recovery: checkpoint_remote fetch (line 632), promoteRemoteTrackingMetadataBranch (659), and FetchMetadataBranch (669) are unreachable. The user must manually run another command to populate the mirror. With read-time sync removed, this is a regression in v1.1 ergonomics — previously SyncCommittedReadRef would advance the mirror from origin's remote-tracking ref on demand."
+  },
+  {
+    "file": "cmd/entire/cli/resume.go",
+    "line": 193,
+    "summary": "promoteRemoteTrackingMetadataBranch is gated on CommittedReadRef() equaling v1 branch and is skipped in v1.1 mode",
+    "failure_scenario": "On a fresh clone where local v1 is missing but refs/remotes/origin/entire/checkpoints/v1 exists from `git clone`, resume normally self-heals by promoting the remote-tracking branch into local v1. In v1.1 mode store.CommittedReadRef() returns the local-only custom ref, the equality check is false, and promotion is skipped. Local v1 (Primary) is never seeded from origin, the v1.1 mirror is never created (it depends on v1), and the read at line 218 returns ErrCheckpointNotFound and then falls through to the checkRemoteMetadata bypass. Net effect: a fresh v1.1 clone cannot resume without the user manually running `git fetch origin entire/checkpoints/v1:entire/checkpoints/v1`."
+  },
+  {
+    "file": "cmd/entire/cli/strategy/manual_commit_condensation.go",
+    "line": 71,
+    "summary": "getCheckpointLog reads committed metadata via getCheckpointStore (v1 write store) instead of getCommittedReadStore",
+    "failure_scenario": "getCheckpointLog calls ReadCommittedCheckpoint and ReadLatestSessionContent through a store bound to the default v1 branch. It is reachable from GetCheckpointLog (manual_commit_logs.go:104), which is unused in production today but is exported on the strategy. Anything that wires GetCheckpointLog through the Strategy interface would get v1-direct reads in v1.1 mode, inconsistent with every other committed read. Lower severity than the rest because no production caller, but it is a live mismatched site that contradicts the diff's principle."
+  },
+  {
+    "file": "cmd/entire/cli/strategy/v1_custom_ref_mirror.go",
+    "line": 43,
+    "summary": "MirrorCommittedMetadataRefBestEffort re-loads settings independently of caller, allowing topology drift mid-operation",
+    "failure_scenario": "Several callers resolve refs once for a gate check then invoke MirrorCommittedMetadataRefBestEffort, which calls ResolveCommittedRefs(ctx) again and reads settings from disk. In a single fetchAndRebaseSessionsCommon run with a multi-minute push budget, settings.json could be edited concurrently (CI script, `entire configure`, auto-mode toggle) so the gate sees mirror-enabled and the best-effort call sees mirror-disabled (or vice versa). Local v1 ends up advanced; v1.1 ends up inconsistent. attach.go and explain.go pass pre-resolved refs through MirrorCommittedMetadataRef (non-best-effort), but push_common.go's mirrorSyncedMetadataBranch resolves twice and so does git_operations.go:475 (fetchMetadataFromOrigin)."
+  },
+  {
+    "file": "cmd/entire/cli/strategy/push_common.go",
+    "line": 478,
+    "summary": "mirrorSyncedMetadataBranch silently no-ops when branchName != refs.Primary.Short(), tying mirroring to the literal v1 branch name",
+    "failure_scenario": "mirrorSyncedMetadataBranch returns early unless the caller-supplied branchName matches refs.Primary.Short(). Callers pass paths.MetadataBranchName, so today the gate always matches. The PR description states 'A future rollout phase can flip the topology (v1.1 as Primary) by changing ResolveCommittedRefs.' On that day refs.Primary.Short() changes, the gate silently stops matching, and the mirror never advances for any push+rebase. No log, warning, or fallback — push+rebase keeps succeeding and reads start lagging silently. Comparing against refs.Mirror or unconditionally calling MirrorCommittedMetadataRefBestEffort (which has its own no-op guards) would be safer."
+  },
+  {
+    "file": "cmd/entire/cli/strategy/checkpoint_remote.go",
+    "line": 178,
+    "summary": "fetchMetadataBranchIfMissing fast-paths out when refs.Primary exists locally and never seeds the v1.1 mirror",
+    "failure_scenario": "fetchMetadataBranchIfMissing runs from resolvePushSettings on every push with a configured checkpoint_remote. It returns early when refs.Primary exists locally, skipping FetchMetadataBranch and therefore MirrorCommittedMetadataRefBestEffort. A user who has v1 locally and then opts into checkpoints_version=1.1 in settings has no v1.1 mirror until some other write triggers one. With read-time sync removed there is no recovery — subsequent pushes that take this fast path never bootstrap the mirror. The fix is to call MirrorCommittedMetadataRefBestEffort when the fast-path returns, or to compare both primary and mirror existence."
+  }
+]
+```
+
+Key absolute paths inspected:
+- /Users/pfleidi/entire/cli/.worktrees/fix/checkpoints-v1.1-advance-after-sync/cmd/entire/cli/checkpoint/store.go
+- /Users/pfleidi/entire/cli/.worktrees/fix/checkpoints-v1.1-advance-after-sync/cmd/entire/cli/checkpoint/committed_refs.go
+- /Users/pfleidi/entire/cli/.worktrees/fix/checkpoints-v1.1-advance-after-sync/cmd/entire/cli/strategy/v1_custom_ref_mirror.go
+- /Users/pfleidi/entire/cli/.worktrees/fix/checkpoints-v1.1-advance-after-sync/cmd/entire/cli/strategy/push_common.go
+- /Users/pfleidi/entire/cli/.worktrees/fix/checkpoints-v1.1-advance-after-sync/cmd/entire/cli/strategy/checkpoint_remote.go
+- /Users/pfleidi/entire/cli/.worktrees/fix/checkpoints-v1.1-advance-after-sync/cmd/entire/cli/strategy/cleanup.go
+- /Users/pfleidi/entire/cli/.worktrees/fix/checkpoints-v1.1-advance-after-sync/cmd/entire/cli/strategy/manual_commit_condensation.go
+- /Users/pfleidi/entire/cli/.worktrees/fix/checkpoints-v1.1-advance-after-sync/cmd/entire/cli/strategy/manual_commit_hooks.go
+- /Users/pfleidi/entire/cli/.worktrees/fix/checkpoints-v1.1-advance-after-sync/cmd/entire/cli/strategy/metadata_reconcile.go
+- /Users/pfleidi/entire/cli/.worktrees/fix/checkpoints-v1.1-advance-after-sync/cmd/entire/cli/resume.go
+- /Users/pfleidi/entire/cli/.worktrees/fix/checkpoints-v1.1-advance-after-sync/cmd/entire/cli/attach.go
+- /Users/pfleidi/entire/cli/.worktrees/fix/checkpoints-v1.1-advance-after-sync/cmd/entire/cli/explain.go
+- /Users/pfleidi/entire/cli/.worktrees/fix/checkpoints-v1.1-advance-after-sync/cmd/entire/cli/git_operations.go
+
+All production `NewGitStore` call sites in committed-write or committed-read paths verified. Writes consistently pair with a mirror call. The findings are concentrated in the fetch+reconcile rebase path and in the v1.1-mode resume bootstrap, where the removal of read-time sync exposes pre-existing topology-coupling assumptions in resume.go.</result>
+<usage><total_tokens>203210</total_tokens><tool_uses>97</tool_uses><duration_ms>620300</duration_ms></usage>
+</task-notification>
+
+---
+
+Can you re-check which findings are still applicable since some files were changed in the middle?
+
+Otherwise, what you call read-staleness is the intention behind this change: This PR introduces v1.1 progression after pulling v1 from the remote and the removal of sync calls are intended to make missed code paths visible rather than hiding them behind a bunch of sync calls.
+
+Are there any other findings that remain when taking the goals of this change into account?
+
+---
+
+Fix them one by one and stop in between to allow me to review
+
+---
+
+Any idea why we're using context.Background() in this context?
+
+---
+
+How many changes would it be to thread through the correct context object?
+
+---
+
+Okay, do it
