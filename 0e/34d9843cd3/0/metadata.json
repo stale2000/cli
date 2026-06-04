@@ -1,0 +1,88 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "0e34d9843cd3",
+  "session_id": "3cadf5c5-52bf-4449-8f75-880ceef17402",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-04T04:23:22.549274Z",
+  "branch": "dont-poll-empty-mirrors",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/repo_mirror.go",
+    "internal/coreapi/oas_json_gen.go",
+    "internal/coreapi/oas_schemas_gen.go",
+    "internal/coreapi/spec/core.gen.json",
+    "internal/coreapi/spec/core.openapi.json"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-8[1m]",
+  "turn_id": "d8c566616862",
+  "token_usage": {
+    "input_tokens": 7378,
+    "cache_creation_tokens": 68464,
+    "cache_read_tokens": 1391425,
+    "output_tokens": 13908,
+    "api_call_count": 27
+  },
+  "session_metrics": {
+    "turn_count": 1
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-04T04:23:22.542318Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 11,
+    "total_committed": 0,
+    "total_lines_changed": 11,
+    "agent_percentage": 0,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 186,
+      "user_lines_removed": 87,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".idea/.gitignore": 10,
+        ".idea/cli.iml": 9,
+        ".idea/go.imports.xml": 11,
+        ".idea/golinter.xml": 10,
+        ".idea/inspectionProfiles/Project_Default.xml": 6,
+        ".idea/modules.xml": 8,
+        ".idea/vcs.xml": 6,
+        "cmd/entire/cli/repo_mirror.go": 5,
+        "internal/coreapi/oas_json_gen.go": 25,
+        "internal/coreapi/oas_schemas_gen.go": 13,
+        "internal/coreapi/oas_security_gen.go": 76,
+        "internal/coreapi/spec/core.gen.json": 6,
+        "internal/coreapi/spec/core.openapi.json": 1
+      },
+      "user_removed_per_file": {
+        "internal/coreapi/oas_json_gen.go": 8,
+        "internal/coreapi/oas_schemas_gen.go": 1,
+        "internal/coreapi/oas_security_gen.go": 76,
+        "internal/coreapi/spec/core.gen.json": 1,
+        "internal/coreapi/spec/core.openapi.json": 1
+      }
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 60,
+      "user_lines_removed": 0,
+      "agent_lines_added": 50,
+      "agent_lines_removed": 11,
+      "user_added_per_file": {
+        ".idea/.gitignore": 10,
+        ".idea/cli.iml": 9,
+        ".idea/go.imports.xml": 11,
+        ".idea/golinter.xml": 10,
+        ".idea/inspectionProfiles/Project_Default.xml": 6,
+        ".idea/modules.xml": 8,
+        ".idea/vcs.xml": 6
+      }
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+We're most of the way through a change where the CLI will stop polling if the mirror is known to be empty
