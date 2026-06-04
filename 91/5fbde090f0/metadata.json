@@ -1,0 +1,28 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "915fbde090f0",
+  "strategy": "manual-commit",
+  "branch": "polymorphic-hatching-elephant",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/api/base_url.go",
+    "cmd/entire/cli/auth/control_plane.go",
+    "cmd/entire/cli/auth/control_plane_test.go",
+    "cmd/entire/cli/auth/exchange.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/91/5fbde090f0/0/metadata.json",
+      "transcript": "/91/5fbde090f0/0/full.jsonl",
+      "content_hash": "/91/5fbde090f0/0/content_hash.txt",
+      "prompt": "/91/5fbde090f0/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 7652,
+    "cache_creation_tokens": 257768,
+    "cache_read_tokens": 8097091,
+    "output_tokens": 57661,
+    "api_call_count": 69
+  }
+}
