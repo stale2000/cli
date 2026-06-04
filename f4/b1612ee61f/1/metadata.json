@@ -1,0 +1,41 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "f4b1612ee61f",
+  "session_id": "3d4c9f88-1272-4781-8c98-c1f7cabfdd19",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-04T00:01:56.89548Z",
+  "branch": "review-cutover",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/agent/claudecode/discovery.go",
+    "cmd/entire/cli/agent/codex/discovery.go",
+    "cmd/entire/cli/agent/codex/discovery_test.go",
+    "cmd/entire/cli/agent/skilldiscovery/registry.go",
+    "cmd/entire/cli/agent/skilldiscovery/registry_test.go"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-8[1m]",
+  "turn_id": "0a3100ebcb47",
+  "token_usage": {
+    "input_tokens": 22058,
+    "cache_creation_tokens": 1698473,
+    "cache_read_tokens": 164417121,
+    "output_tokens": 526204,
+    "api_call_count": 393
+  },
+  "session_metrics": {
+    "turn_count": 39
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-04T00:01:56.836058Z",
+    "agent_lines": 182,
+    "agent_removed": 280,
+    "human_added": 257,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 439,
+    "total_lines_changed": 719,
+    "agent_percentage": 64.25591098748261,
+    "metric_version": 2
+  }
+}

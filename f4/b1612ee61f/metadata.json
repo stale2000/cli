@@ -3,7 +3,7 @@
   "checkpoint_id": "f4b1612ee61f",
   "strategy": "manual-commit",
   "branch": "review-cutover",
-  "checkpoints_count": 1,
+  "checkpoints_count": 2,
   "files_touched": [
     "cmd/entire/cli/agent/claudecode/discovery.go",
     "cmd/entire/cli/agent/codex/discovery.go",
@@ -17,14 +17,20 @@
       "transcript": "/f4/b1612ee61f/0/full.jsonl",
       "content_hash": "/f4/b1612ee61f/0/content_hash.txt",
       "prompt": "/f4/b1612ee61f/0/prompt.txt"
+    },
+    {
+      "metadata": "/f4/b1612ee61f/1/metadata.json",
+      "transcript": "/f4/b1612ee61f/1/full.jsonl",
+      "content_hash": "/f4/b1612ee61f/1/content_hash.txt",
+      "prompt": "/f4/b1612ee61f/1/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 9056,
-    "cache_creation_tokens": 113894,
-    "cache_read_tokens": 2015600,
-    "output_tokens": 16429,
-    "api_call_count": 24
+    "input_tokens": 31114,
+    "cache_creation_tokens": 1812367,
+    "cache_read_tokens": 166432721,
+    "output_tokens": 542633,
+    "api_call_count": 417
   },
   "has_review": true
 }
