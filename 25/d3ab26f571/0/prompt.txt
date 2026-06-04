@@ -1,0 +1,15 @@
+COmmit the staged changes. This enables showing the actual info coming from the server:
+
+Branch protection violation
+ ! [remote rejected]     branch-test -> branch-test (upstream: push declined due to repository rule violations)
+error: failed to push some refs to 'X'
+
+Invalid ref:
+ ! [remote rejected]     test-prefix -> test-prefix (ref name conflicts with an existing ref namespace)
+error: failed to push some refs to 'X'
+
+Now for perms:
+ ! [remote rejected]   new-test/repo -> new-test/repo (pushing to GitHub: tracing transport: handshake: http transport: authorization failed: unexpected requesting "https://github.com/x/x/info/refs?service=git-receive-pack" status code: 403: Permission to x/x.git denied to <user>.)
+error: failed to push some refs to 'X'
+
+Add those examples on the commit message.
