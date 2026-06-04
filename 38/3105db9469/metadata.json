@@ -1,0 +1,27 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "383105db9469",
+  "strategy": "manual-commit",
+  "branch": "soph/fix-checkpoint-path-traversal",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/agent/agent.go",
+    "cmd/entire/cli/agent/codex/security_contract_test.go",
+    "cmd/entire/cli/agent/copilotcli/security_contract_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/38/3105db9469/0/metadata.json",
+      "transcript": "/38/3105db9469/0/full.jsonl",
+      "content_hash": "/38/3105db9469/0/content_hash.txt",
+      "prompt": "/38/3105db9469/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 16041,
+    "cache_creation_tokens": 233295,
+    "cache_read_tokens": 12586447,
+    "output_tokens": 98694,
+    "api_call_count": 74
+  }
+}
