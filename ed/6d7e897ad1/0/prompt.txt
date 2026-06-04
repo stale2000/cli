@@ -1,0 +1,22 @@
+ok.  make a nice branch name (use COR-389 plus descriptive slug) and push - let's also work on a PR draft.  but show me your suggested description before applying.
+
+---
+
+seems we already need to rebase on origin/main.  Then, yes, create the DRAFT PR with that description.
+
+---
+
+try again
+
+---
+
+this remark is on point https://github.com/entireio/cli/pull/1367#discussion_r3356627903 - user-facing we always say "login server" rather than "core" anything.  ensure we didn't put "core" anywhere user-facing
+
+---
+
+in the comment:
+
+      23 +// contexts.json login always wins (so `entire auth use <ctx>` retargets the
+      24 +// control plane onto that login server), and ENTIRE_AUTH_BASE_URL / the
+
+is that true? I'd say the active context is the _default_, but if you have entire.io active but hit up a partial.to API, and you have a partial.to context, that one will be used.  tell me if i'm wrong.
