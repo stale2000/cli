@@ -1,0 +1,21 @@
+/pfleidi:pr
+
+---
+
+/simplify
+
+---
+
+Double check which of these apply and then rank them
+
+---
+
+Having no remote tracking fallback in v1.1 is intended as this functionality is simply not implemented, yet. It will only be added once we've validated the current changes locally without pushing for a while. Feel free to address the other findings and I'll review the fixes
+
+---
+
+Commit the changes and push. Then run /pfleidi:pr-feedback
+
+---
+
+/pfleidi:pr-feedback

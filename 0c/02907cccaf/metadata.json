@@ -1,0 +1,26 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "0c02907cccaf",
+  "strategy": "manual-commit",
+  "branch": "feat/checkpoints-v1.1-rewind-clean",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "cmd/entire/cli/strategy/manual_commit_rewind.go",
+    "cmd/entire/cli/strategy/manual_commit_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/0c/02907cccaf/0/metadata.json",
+      "transcript": "/0c/02907cccaf/0/full.jsonl",
+      "content_hash": "/0c/02907cccaf/0/content_hash.txt",
+      "prompt": "/0c/02907cccaf/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 1775,
+    "cache_creation_tokens": 1299868,
+    "cache_read_tokens": 76674028,
+    "output_tokens": 300468,
+    "api_call_count": 227
+  }
+}
