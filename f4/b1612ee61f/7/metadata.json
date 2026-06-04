@@ -1,0 +1,49 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "f4b1612ee61f",
+  "session_id": "d776afb5-7192-4efc-9390-908b8a50ec67",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-04T00:01:57.682133Z",
+  "branch": "review-cutover",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/agent/claudecode/discovery.go",
+    "cmd/entire/cli/agent/codex/discovery.go",
+    "cmd/entire/cli/agent/codex/discovery_test.go",
+    "cmd/entire/cli/agent/skilldiscovery/registry.go",
+    "cmd/entire/cli/agent/skilldiscovery/registry_test.go"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "6f399a3b6266",
+  "checkpoint_transcript_start": 113,
+  "transcript_lines_at_start": 113,
+  "token_usage": {
+    "input_tokens": 0,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 0,
+    "output_tokens": 0,
+    "api_call_count": 0
+  },
+  "session_metrics": {
+    "turn_count": 1
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-04T00:01:57.675224Z",
+    "agent_lines": 182,
+    "agent_removed": 280,
+    "human_added": 257,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 439,
+    "total_lines_changed": 719,
+    "agent_percentage": 64.25591098748261,
+    "metric_version": 2
+  },
+  "kind": "agent_review",
+  "review_skills": [
+    "/review",
+    "/pr-review-toolkit:review-pr"
+  ],
+  "review_prompt": "/review\n/pr-review-toolkit:review-pr\n\nScope: review the commits unique to this branch vs origin/HEAD, plus any uncommitted changes in the working tree. Ignore code outside this scope.\n\nCheckpoint context from commits in scope:\n- 353e3b52a575: prompt: - Codex run: TOKENS column stays blank during the run; final tally appears at end. - this was working before, with iterative token counts, not just at the end\n- 887eb28f1586: prompt: proceed for pr 2\n- 4efdb600636d: prompt: but is that actually how you navigate? like ↑↓ navigate is this accurate\n- 5ecddc347c0f: no summary or prompt recorded\n- 0c902d094d5c: checkpoint metadata unavailable\n\nUse `entire explain <id>` for full checkpoint context, or `entire explain <id> --raw-transcript` for raw transcripts.\n\nIn-progress session context (uncommitted):\n  02812f4d Claude Code prompt: **Recommendation:** Address the `t1.txt`/`trigger 1` blocker (1) before merge. Items 2–3 are worth a follow-up but don't block. Everything else is optional polish. I was unable to run `go build`/`go test` (the review sandbox declined the commands), so the compile/test verification above is static — confirming no dan...\n  1cc5f8f8 Claude Code prompt: ## Verified correct (no action) - Codex token accounting avoids double-counting (subset fields not summed); post-loop backstop is gated by `emittedTokens` so no duplicate final tally. - Parser robustness (garbled lines, torn streams, missing terminal envelope) and TUI `program.Send` concurrency are sound; serial-dis...\n  3d4c9f88 Claude Code (touched: 32 files) prompt: 1. this one doesn't have colors, but if you think there is charmbracelet styling, maybe we should do that? but keep simple. 2. this one is also too sytled liek the per agent outputs\n  4aeeac10 Claude Code prompt: **Recommendation:** Address the `t1.txt`/`trigger 1` blocker (1) before merge. Items 2–3 are worth a follow-up but don't block. Everything else is optional polish. I was unable to run `go build`/`go test` (the review sandbox declined the commands), so the compile/test verification above is static — confirming no dan...\n  d86cba3f Claude Code prompt: Fix only the selected review findings. Do not rewrite unrelated code. Run targeted tests where practical, then report what changed and what verification passed. Reviewed commit: 0ba10613f5b712ebef99cfb183fb46485dcee84c Worktree: /Users/peytonmontei/Documents/entire/devenv/entireio/cli/.worktrees/review-review ## Sel..."
+}
