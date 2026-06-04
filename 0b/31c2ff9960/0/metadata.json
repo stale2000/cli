@@ -1,0 +1,46 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "0b31c2ff9960",
+  "session_id": "bd876c37-a70a-4eb9-b6cd-8b9bb8eb626c",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-04T09:03:12.958575Z",
+  "branch": "auth-context-consolidation",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/auth_context.go",
+    "cmd/entire/cli/auth_context_test.go",
+    "cmd/entire/cli/logout.go",
+    "cmd/entire/cli/auth.go"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-8[1m]",
+  "turn_id": "c33e1a407e8a",
+  "token_usage": {
+    "input_tokens": 545,
+    "cache_creation_tokens": 32046,
+    "cache_read_tokens": 991326,
+    "output_tokens": 7693,
+    "api_call_count": 21
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-04T09:03:12.922536Z",
+    "agent_lines": 6,
+    "agent_removed": 6,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 6,
+    "total_lines_changed": 12,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}

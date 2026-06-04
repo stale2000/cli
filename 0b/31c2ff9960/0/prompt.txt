@@ -1,0 +1,8 @@
+my colleague pointed out a good point:
+
+> 
+
+nit: I wouldn't mention "core" to a message to the user.
+
+
+we should talk about the "login server" anywhere we are saying "core" to a user. check over the PR thoroughly.
