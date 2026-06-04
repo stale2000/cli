@@ -1,0 +1,1 @@
+take a look at https://github.com/entireio/cli/pull/1341, that should be this branch.  we are introducing a sessions.go file, with Sessions structs and so on.  That's confusing.  Refactor things to call them auth_sessions.go, and AuthSessions struct.  whenever it's about auth, i want to see the name disambiguated.  create a plan and show me what you'll do.
