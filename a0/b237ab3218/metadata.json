@@ -1,0 +1,25 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "a0b237ab3218",
+  "strategy": "manual-commit",
+  "branch": "login-loopback-browser-flow",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/auth/client.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/a0/b237ab3218/0/metadata.json",
+      "transcript": "/a0/b237ab3218/0/full.jsonl",
+      "content_hash": "/a0/b237ab3218/0/content_hash.txt",
+      "prompt": "/a0/b237ab3218/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 26505,
+    "cache_creation_tokens": 613984,
+    "cache_read_tokens": 38899800,
+    "output_tokens": 181949,
+    "api_call_count": 179
+  }
+}
