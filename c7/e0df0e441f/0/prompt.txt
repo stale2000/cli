@@ -1,0 +1,4 @@
+let's fix these two while we're at it:
+
+  - cmd/entire/cli/auth/repo_token.go:68 — "...set ENTIRE_AUTH_BASE_URL to a core that exposes /oauth/token"
+  - cmd/git-remote-entire/main.go:247 — "is not a trusted core for cluster"

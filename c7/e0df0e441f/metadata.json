@@ -1,0 +1,27 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "c7e0df0e441f",
+  "strategy": "manual-commit",
+  "branch": "auth-context-consolidation",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/auth/repo_token.go",
+    "cmd/git-remote-entire/main.go",
+    "cmd/git-remote-entire/main_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/c7/e0df0e441f/0/metadata.json",
+      "transcript": "/c7/e0df0e441f/0/full.jsonl",
+      "content_hash": "/c7/e0df0e441f/0/content_hash.txt",
+      "prompt": "/c7/e0df0e441f/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 372,
+    "cache_creation_tokens": 5039,
+    "cache_read_tokens": 895033,
+    "output_tokens": 2989,
+    "api_call_count": 14
+  }
+}
