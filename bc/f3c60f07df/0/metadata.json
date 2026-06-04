@@ -1,0 +1,37 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "bcf3c60f07df",
+  "session_id": "d6b8ae84-4338-458e-ae8a-594eb414b667",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-04T10:13:57.404602Z",
+  "branch": "polymorphic-hatching-elephant",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "docs/architecture/upstream-host-resolution.md"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "5afba08c52af",
+  "token_usage": {
+    "input_tokens": 7656,
+    "cache_creation_tokens": 258650,
+    "cache_read_tokens": 8414579,
+    "output_tokens": 58261,
+    "api_call_count": 71
+  },
+  "session_metrics": {
+    "turn_count": 2
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-04T10:13:57.38444Z",
+    "agent_lines": 101,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 101,
+    "total_lines_changed": 101,
+    "agent_percentage": 100,
+    "metric_version": 2
+  }
+}

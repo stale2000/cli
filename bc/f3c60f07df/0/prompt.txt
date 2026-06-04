@@ -1,0 +1,55 @@
+ok i have a half-baked handover doc from a previous session:
+
+  Handover
+
+  Goal (COR-389 + your follow-ups): consolidate the two auth views, get the CLI fully onto the context-aware/JWT model, and ultimately auto-refresh JWTs on every control-plane call. Broadly: make auth/login UX coherent.
+
+  Where we got to — shipped in #1341:
+  - Auth command surface trimmed from 7 → 5: dropped auth list + auth revoke.
+  - auth status is now context-aware: profile via /me on the active context's core, shows identity + active context. auth use finally retargets it.
+  - auth contexts → styled table. logout revokes server-side via entire-core (--all = all sessions on the core).
+  - Burned all ent_ PAT machinery — the CLI never used PATs; that surface is being sunset.
+
+  Key thing we learned (the expensive lesson): there are two same-shaped "auth/tokens" surfaces — entire-core /api/auth/tokens (login sessions) vs entire.io /api/v1/auth/tokens (legacy ent_ PATs). The CLI was wrongly hitting the PAT one for "sessions" → empty lists + logout 400s. Everything now targets entire-core.
+  Full write-up in the COR-389 Linear comment (corrected) and memory auth-token-surfaces.
+
+  What's NOT done (next session):
+  1. The actual COR-389 deliverable — silent JWT refresh on control-plane calls (contextTokenStore + RefreshPath into defaultManager). Untouched. This is the real prize; everything so far was prerequisite + cleanup.
+  2. Multi-core retargeting for the rest of the control plane — org/repo/project/grant (via coreapi.New()) still use static AuthBaseURL. Only auth status was retargeted. Same bug pattern as the one we just fixed.
+
+  Verification gaps: Go lint clean, per-package tests green; full mise run test:ci (integration + canary) not run. None of it exercised against a live core — please sanity-check entire auth status / logout against your local eu.auth.entire.io.
+
+
+what i want us to work on todya is making sure that any time we hit an upstream URL from this cli, we use the same mechanism to discover which "auth context" to use (as in contexts.json).
+
+for example, 'entire activity' currently has ENV vars so that i can do this:
+
+18:49:25 $ ENTIRE_API_BASE_URL=https://partial.to ENTIRE_AUTH_BASE_URL=https://us.auth.partial.to  entire activity
+
+however, what i'd prefer, is to be able to call 'ENTIRE_API_BASE_URL=https://partial.to entire activity' and have it automatically know to use the us.auth.partial.to auth context.
+
+i'm thinking that what we'll need is for https://partial.to to expose /.well-known/entire-auth.json too, just like entire-server does (see ~/src/entirehq/entiredb/cmd/entire-server) to say "i'll accept auth from login servers [au.auth.partial.to, us.auth.partial.to]".  
+
+this might not all make sense - push back and/or ask questions as needed, and we'll go from there.  i'm expecting we'll audit all API calls the cli makes, and see how big a blast radius it'd be to switch over to the new "contexts.json" mechanism.
+
+---
+
+wait you're missing one thing - the API servers for search & activity and so on live in ~/src/entirehq/entire.io, not entiredb.  the "Cluster" terminology (and indeed, there's already context-lookup machinery for cluster auth) refers to entire-server aka entiredb.  We might well need to adjust entire.io (partial.to is its staging cousin) to serve similar .well-known blobs.
+
+ask me those questions again, after ensuring you understand the difference.
+
+---
+
+wait a sec, "three-family model"?  That sounds crazy.  Which 3 do we mean?
+
+---
+
+clarify what "today's work" will tackle, then?
+
+---
+
+okay, cool.  let's go.
+
+---
+
+commit all in as-small-as-makes-sense commits.
