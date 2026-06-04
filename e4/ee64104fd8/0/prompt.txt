@@ -1,0 +1,5 @@
+review these two pr's that are for redoing the entire review command, https://github.com/entireio/cli/pull/1352 and https://github.com/entireio/cli/pull/1241 maybe try to find the planning doc for redoing this, here is the mockupo too https://entire-review-new.netlify.app/ - i need you to first look at both pr's in detail, compare against the mockup, compare against the current state of entire review in the cli, then i want you to see the comments on each of the pr's starting with pr 1, then we need to further improve this process further but we'll start with just reviewing comments, so let me know when you've gathered all context, test out hte old and new workflows too please /superpowers:brainstorming
+
+---
+
+are you addressing the pr 2 comments first? then pr 1?

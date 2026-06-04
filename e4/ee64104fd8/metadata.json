@@ -1,0 +1,32 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "e4ee64104fd8",
+  "strategy": "manual-commit",
+  "branch": "enitre-review",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/review/cmd.go",
+    "cmd/entire/cli/review/fix.go",
+    "cmd/entire/cli/review/flags.go",
+    "cmd/entire/cli/review/flags_test.go",
+    "cmd/entire/cli/review/inline_prompt.go",
+    "cmd/entire/cli/review/inline_prompt_test.go",
+    "cmd/entire/cli/review/manifest_test.go",
+    "cmd/entire/cli/review/setup.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/e4/ee64104fd8/0/metadata.json",
+      "transcript": "/e4/ee64104fd8/0/full.jsonl",
+      "content_hash": "/e4/ee64104fd8/0/content_hash.txt",
+      "prompt": "/e4/ee64104fd8/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 10208,
+    "cache_creation_tokens": 268585,
+    "cache_read_tokens": 14850342,
+    "output_tokens": 74139,
+    "api_call_count": 84
+  }
+}
