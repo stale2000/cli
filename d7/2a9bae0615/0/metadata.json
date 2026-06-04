@@ -1,0 +1,123 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "d72a9bae0615",
+  "session_id": "7d8b9a47-6f94-441b-adae-5402ded54425",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-04T23:11:38.170107Z",
+  "branch": "feat/checkpoints-v1.1-streamline-mirroring",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/resume_test.go",
+    "cmd/entire/cli/strategy/common.go",
+    "cmd/entire/cli/strategy/common_test.go",
+    "cmd/entire/cli/strategy/metadata_reconcile_test.go"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "384fee752894",
+  "checkpoint_transcript_start": 1454,
+  "transcript_lines_at_start": 1454,
+  "token_usage": {
+    "input_tokens": 24,
+    "cache_creation_tokens": 16464,
+    "cache_read_tokens": 9949773,
+    "output_tokens": 8562,
+    "api_call_count": 19
+  },
+  "skill_events_version": 1,
+  "skill_events": [
+    {
+      "id": "claude-skill-toolu_01WgG4872NRRRoTZoVAoacUe",
+      "event_type": "tool_invocation",
+      "skill": {
+        "name": "brainstorming"
+      },
+      "source": {
+        "agent": "claude-code",
+        "signal": "skill_tool_use",
+        "confidence": "explicit"
+      },
+      "turn_id": "384fee752894",
+      "transcript_anchor": {
+        "unit": "line",
+        "start": 15,
+        "end": 16,
+        "entry_ids": [
+          "d0a2f93b-218d-42f2-a3b1-e8b9ecf66fcf"
+        ],
+        "tool_use_id": "toolu_01WgG4872NRRRoTZoVAoacUe"
+      },
+      "native": {
+        "tool_name": "Skill",
+        "tool_use_id": "toolu_01WgG4872NRRRoTZoVAoacUe"
+      },
+      "collapse": {
+        "target": "tool_pair",
+        "label": "Skill: brainstorming",
+        "default_collapsed": true
+      }
+    },
+    {
+      "id": "claude-skill-toolu_01NBRRYaEqH3oXBRF9ErxaPN",
+      "event_type": "tool_invocation",
+      "skill": {
+        "name": "writing-plans"
+      },
+      "source": {
+        "agent": "claude-code",
+        "signal": "skill_tool_use",
+        "confidence": "explicit"
+      },
+      "turn_id": "384fee752894",
+      "transcript_anchor": {
+        "unit": "line",
+        "start": 374,
+        "end": 375,
+        "entry_ids": [
+          "72b43bfe-8531-4d6a-aa40-a50d4e5fb809"
+        ],
+        "tool_use_id": "toolu_01NBRRYaEqH3oXBRF9ErxaPN"
+      },
+      "native": {
+        "tool_name": "Skill",
+        "tool_use_id": "toolu_01NBRRYaEqH3oXBRF9ErxaPN"
+      },
+      "collapse": {
+        "target": "tool_pair",
+        "label": "Skill: writing-plans",
+        "default_collapsed": true
+      }
+    }
+  ],
+  "session_metrics": {
+    "turn_count": 11
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-04T23:11:38.136829Z",
+    "agent_lines": 69,
+    "agent_removed": 67,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 69,
+    "total_lines_changed": 136,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 69,
+      "agent_lines_removed": 67
+    }
+  ]
+}
