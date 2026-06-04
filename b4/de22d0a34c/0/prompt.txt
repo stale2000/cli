@@ -1,0 +1,17 @@
+we recently imported the `entire auth contexts` machinery from ~/src/entirehq/entiredb.  I'm looking to add tab completion of context names.  For some reason i can't find it in entiredb either.  hm.  search while i poke around further.
+
+---
+
+another task not to forget - i'd like to adjust the default context names.  they should be 'handle@us.auth.<host>'.  don't add \t-descriptions.
+
+---
+
+another task not to forget - i'd like to adjust the default context names.  they should be 'handle@us.auth.<host>'.  but sure, add \t-descriptions.
+
+---
+
+oh, so if i login to us.auth.partial.to twice, the first will just be named us.auth.partial.to and the second will be alice@us.auth.partial.to?  That's what i wanted, perfect.  ensure the code matches that but then we're good.
+
+---
+
+i don't know if that test is very valuable.
