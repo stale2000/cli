@@ -1,0 +1,30 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "f4b1612ee61f",
+  "strategy": "manual-commit",
+  "branch": "review-cutover",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/agent/claudecode/discovery.go",
+    "cmd/entire/cli/agent/codex/discovery.go",
+    "cmd/entire/cli/agent/codex/discovery_test.go",
+    "cmd/entire/cli/agent/skilldiscovery/registry.go",
+    "cmd/entire/cli/agent/skilldiscovery/registry_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/f4/b1612ee61f/0/metadata.json",
+      "transcript": "/f4/b1612ee61f/0/full.jsonl",
+      "content_hash": "/f4/b1612ee61f/0/content_hash.txt",
+      "prompt": "/f4/b1612ee61f/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 9056,
+    "cache_creation_tokens": 113894,
+    "cache_read_tokens": 2015600,
+    "output_tokens": 16429,
+    "api_call_count": 24
+  },
+  "has_review": true
+}
