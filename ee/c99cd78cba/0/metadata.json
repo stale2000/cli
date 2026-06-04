@@ -1,0 +1,48 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "eec99cd78cba",
+  "session_id": "5d3033e2-31cd-46be-999c-6ae099f4757a",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-04T10:18:53.704765Z",
+  "branch": "login-loopback-browser-flow",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/login.go",
+    "cmd/entire/cli/login_test.go",
+    "cmd/entire/cli/integration_test/login_test.go"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "097a27b7cc5f",
+  "token_usage": {
+    "input_tokens": 25450,
+    "cache_creation_tokens": 261704,
+    "cache_read_tokens": 25791660,
+    "output_tokens": 142541,
+    "api_call_count": 136
+  },
+  "session_metrics": {
+    "turn_count": 5
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-04T10:18:53.674132Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 21,
+    "human_modified": 23,
+    "human_removed": 0,
+    "total_committed": 21,
+    "total_lines_changed": 44,
+    "agent_percentage": 0,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}
