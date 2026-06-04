@@ -1,0 +1,5 @@
+This control-flow change is important user-facing behavior, but there’s no regression test covering handlePush output when send-pack exits non-zero (per-ref rejection). Given the amount of existing protocol-level test coverage in this package, please add a unit test that simulates a failing git send-pack --helper-status and asserts that the helper-status lines are still written to stdout before handlePush returns an error (e.g., by placing a stub git executable early in PATH that emits the expected pktline + helper-status and exits 1).
+
+---
+
+yep
