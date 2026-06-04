@@ -1,5 +1,0 @@
-yes
-
----
-
-can you review the bugbot comments on the new pr 2 please
