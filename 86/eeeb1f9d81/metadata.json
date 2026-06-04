@@ -1,0 +1,23 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "86eeeb1f9d81",
+  "strategy": "manual-commit",
+  "branch": "login-loopback-browser-flow",
+  "checkpoints_count": 1,
+  "files_touched": null,
+  "sessions": [
+    {
+      "metadata": "/86/eeeb1f9d81/0/metadata.json",
+      "transcript": "/86/eeeb1f9d81/0/full.jsonl",
+      "content_hash": "/86/eeeb1f9d81/0/content_hash.txt",
+      "prompt": "/86/eeeb1f9d81/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 29359,
+    "cache_creation_tokens": 658532,
+    "cache_read_tokens": 51963086,
+    "output_tokens": 212136,
+    "api_call_count": 215
+  }
+}
