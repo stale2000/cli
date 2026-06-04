@@ -1,0 +1,14 @@
+Make a branch off origin/main.  I want the git-remote-entire helper to have two extra flags:
+
+--version
+--help
+
+don't use cobra or anything fancy, the ONLY way their behaviour should activate is if ARGC == 1 and ARGV[0] == "--flag".  ok?
+
+version should print the versioninfo like the ./cmd/entire does, and help should just be a small text saying:
+
+'''
+git-remote-entire vXXX
+
+This is a helper which Git calls when encountering entire://... URLs.  For more information see https://github.com/entireio/cli.
+'''
