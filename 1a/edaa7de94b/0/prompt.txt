@@ -1,0 +1,70 @@
+Using the brainstorming skill, I'd like to streamline the way checkpoints version v1 and v1.1 are being mirrored:
+
+- I'd like to be able to configure reads and writes such that it'll be easy to swap around what is the primary and what is the secondary ref. Right now the primary is v1 but down the road, I'd like to write directly to v1.1 and then mirror to v1.
+- Eventually I'd like to easily be able to turn off mirroring and switch between the v1 and v1.1 implementations based on the checkpoints_version setting
+- Right now, the places where we decide which ref to write to and read from are kinda scattered across the codebase and I'd like to unify and simplify this a much as possible
+- I'd like to start pushing v1.1 to the configured git remote as well and would like everything to be set up to make this job as straightforward as possible
+
+Can you do a thorough pass and look at the codebase with fresh eyes to figure out where we're mirroring between v1 and v1.1 and figure out what changes we can make today to simplify the rollout.
+
+---
+
+I'm not sure what you were suggesting here. I didn't mention changing the shape of the setting at all. The mirroring is already in place and I would like to streamline the way it's implemented. Can you elaborate what you mean?
+
+---
+
+Let's do A
+
+---
+
+Could you investigate if removing `Read` and only using `Primary` and `Mirror` instead would simplify things? Can you identify the trade-offs of such a change?
+
+---
+
+Okay. keep read
+
+---
+
+The split is fair: `attach` and `explain` are user driven commands that aren't used all that often and we'd like to see if something goes wrong there since we can communicate an error state to the user directly compared to hooks that happen without user intervention.
+
+---
+
+Can you summarize this rollout plan into a few bullet points so I can share them with a coworker?
+
+---
+
+Can you copy the summary to my clipboard?
+
+---
+
+Can you copy the intended rollout plan onlywithout any implementation details? As in what the settings do now vs. in the next steps. Keep it short and just illustrate what I asked you.
+
+---
+
+Okay, continue. Please note that this implementation is dependent on another change I'm in the process of making so do whatever you can to capture everything you need to implement this task without actually implementing it since some changes to the codebase will have to ship before starting the implementation. Would a design spec and/or plan help to get going faster?
+
+---
+
+Nope, go ahead
+
+---
+
+This is the spec for the task that will be implemented before this one: /Users/pfleidi/entire/cli/.worktrees/feat/checkpoints-v1.1-rewind-clean/docs/superpowers/specs/2026-06-03-checkpoints-v1.1-topology-coverage-design.md
+
+Read it and see if our current design needs to be updated
+
+---
+
+Yes
+
+---
+
+Specs are never committed if that's what you meant
+
+---
+
+Okay, you can base the current changes off of the remote branch `feat/checkpoints-v1.1-rewind-clean`. There's an open pull request which should be mergeable soon. Feel free to begin implementing the plan since I've just pulled in the base branch.
+
+---
+
+Please don't reference future plans in comments. Only describe the current state at a commit. Anything else will go stale very quickly.
