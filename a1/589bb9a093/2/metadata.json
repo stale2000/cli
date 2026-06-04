@@ -1,0 +1,51 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "a1589bb9a093",
+  "session_id": "433903a4-2890-479b-8d40-424fe8fc4b8e",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-04T00:02:53.164927Z",
+  "branch": "review-cutover",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/review/cmd.go",
+    "cmd/entire/cli/review/cmd_test.go",
+    "cmd/entire/cli/review/export_test.go",
+    "cmd/entire/cli/review/picker.go",
+    "cmd/entire/cli/review/picker_test.go",
+    "cmd/entire/cli/review/setup.go",
+    "cmd/entire/cli/review/setup_test.go"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "8f68758c8af1",
+  "checkpoint_transcript_start": 100,
+  "transcript_lines_at_start": 100,
+  "token_usage": {
+    "input_tokens": 0,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 0,
+    "output_tokens": 0,
+    "api_call_count": 0
+  },
+  "session_metrics": {
+    "turn_count": 1
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-04T00:02:53.158445Z",
+    "agent_lines": 218,
+    "agent_removed": 62,
+    "human_added": 427,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 645,
+    "total_lines_changed": 785,
+    "agent_percentage": 35.6687898089172,
+    "metric_version": 2
+  },
+  "kind": "agent_review",
+  "review_skills": [
+    "/review",
+    "/pr-review-toolkit:review-pr"
+  ],
+  "review_prompt": "/review\n/pr-review-toolkit:review-pr\n\nScope: review the commits unique to this branch vs origin/HEAD, plus any uncommitted changes in the working tree. Ignore code outside this scope.\n\nCheckpoint context from commits in scope:\n- 353e3b52a575: prompt: - Codex run: TOKENS column stays blank during the run; final tally appears at end. - this was working before, with iterative token counts, not just at the end\n- 887eb28f1586: prompt: proceed for pr 2\n- 4efdb600636d: prompt: but is that actually how you navigate? like ↑↓ navigate is this accurate\n- 5ecddc347c0f: no summary or prompt recorded\n- 0c902d094d5c: checkpoint metadata unavailable\n\nUse `entire explain <id>` for full checkpoint context, or `entire explain <id> --raw-transcript` for raw transcripts.\n\nIn-progress session context (uncommitted):\n  3d4c9f88 Claude Code (touched: 17 files) prompt: i don't see skip default, Claude Code ┃ ← Both → Codex Reviewer Gemini CLI Reviewer OpenCode Reviewer Reviewer = runs on entire review Fixer = runs on entire review fix Both = reviews and fixes (counts as the Fixer) Skip = exclude from review"
+}
