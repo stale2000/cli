@@ -1,0 +1,21 @@
+i fixed up the remote branch.  PR pleas.
+
+---
+
+PR please, no git ops.
+
+---
+
+Hm. Pretend it didn't exist and overwrite the description and title.
+
+---
+
+I closed the PR because some bot owned it.  Make it again
+
+---
+
+I literally tried it, it works.  this comment sounds like bullshit https://github.com/entireio/cli/pull/1354#discussion_r3352720221
+
+---
+
+apply 2.

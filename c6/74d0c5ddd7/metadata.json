@@ -1,0 +1,25 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "c674d0c5ddd7",
+  "strategy": "manual-commit",
+  "branch": "git-remote-entire-info-flags",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/git-remote-entire/main.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/c6/74d0c5ddd7/0/metadata.json",
+      "transcript": "/c6/74d0c5ddd7/0/full.jsonl",
+      "content_hash": "/c6/74d0c5ddd7/0/content_hash.txt",
+      "prompt": "/c6/74d0c5ddd7/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 324,
+    "cache_creation_tokens": 3969,
+    "cache_read_tokens": 1044311,
+    "output_tokens": 4285,
+    "api_call_count": 14
+  }
+}
