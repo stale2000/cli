@@ -1,0 +1,38 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "388c3d8a3b31",
+  "session_id": "aa453120-709b-40c9-ba85-f902c87bf2d2",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-04T09:03:21.436985Z",
+  "branch": "soph/fix-checkpoint-path-traversal",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/validation/validators.go",
+    "cmd/entire/cli/validation/validators_test.go"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-8[1m]",
+  "turn_id": "d4d0d9f901cd",
+  "token_usage": {
+    "input_tokens": 15908,
+    "cache_creation_tokens": 232027,
+    "cache_read_tokens": 12119682,
+    "output_tokens": 97399,
+    "api_call_count": 72
+  },
+  "session_metrics": {
+    "turn_count": 4
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-04T09:03:21.421377Z",
+    "agent_lines": 29,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 29,
+    "total_lines_changed": 29,
+    "agent_percentage": 100,
+    "metric_version": 2
+  }
+}
