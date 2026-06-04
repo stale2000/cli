@@ -11,3 +11,7 @@ hmm, is it possible that running "mise run test:ci" now triggers the osx keychai
 ---
 
 was this introduced by this branch?
+
+---
+
+ok, can you commit the other changes, leave the test fix out and I'll commit that then later on a new branch based of main
