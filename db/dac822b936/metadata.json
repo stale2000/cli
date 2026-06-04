@@ -1,0 +1,28 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "dbdac822b936",
+  "strategy": "manual-commit",
+  "branch": "polymorphic-hatching-elephant",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/api/base_url.go",
+    "cmd/entire/cli/auth/control_plane.go",
+    "cmd/entire/cli/auth/control_plane_test.go",
+    "docs/architecture/upstream-host-resolution.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/db/dac822b936/0/metadata.json",
+      "transcript": "/db/dac822b936/0/full.jsonl",
+      "content_hash": "/db/dac822b936/0/content_hash.txt",
+      "prompt": "/db/dac822b936/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 753,
+    "cache_creation_tokens": 29502,
+    "cache_read_tokens": 3733778,
+    "output_tokens": 22873,
+    "api_call_count": 21
+  }
+}

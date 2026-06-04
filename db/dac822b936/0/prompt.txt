@@ -1,0 +1,1 @@
+there's a warning somewhere when you `entire auth use X` which says "auth doesn't match whatever and so you will suffer" - is that still relevant?  or is it part of the next bit of work, fixing up the API & contexts thing?
