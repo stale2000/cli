@@ -1,0 +1,20 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "7a049f08ce46",
+  "session_id": "d6b8ae84-4338-458e-ae8a-594eb414b667",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-04T14:32:53.390456Z",
+  "branch": "cor-389-control-plane-context-aware",
+  "checkpoints_count": 1,
+  "files_touched": [],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "9e14244b3a74",
+  "token_usage": {
+    "input_tokens": 19911,
+    "cache_creation_tokens": 528619,
+    "cache_read_tokens": 20327285,
+    "output_tokens": 110139,
+    "api_call_count": 131
+  }
+}
