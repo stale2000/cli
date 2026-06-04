@@ -1,0 +1,27 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "38a921fb7470",
+  "strategy": "manual-commit",
+  "branch": "soph/fix-checkpoint-path-traversal",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/osroot/osroot.go",
+    "cmd/entire/cli/osroot/osroot_test.go",
+    "cmd/entire/cli/strategy/manual_commit_rewind.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/38/a921fb7470/0/metadata.json",
+      "transcript": "/38/a921fb7470/0/full.jsonl",
+      "content_hash": "/38/a921fb7470/0/content_hash.txt",
+      "prompt": "/38/a921fb7470/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 7538,
+    "cache_creation_tokens": 43519,
+    "cache_read_tokens": 4529173,
+    "output_tokens": 25660,
+    "api_call_count": 15
+  }
+}
