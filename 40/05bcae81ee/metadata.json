@@ -1,0 +1,26 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "4005bcae81ee",
+  "strategy": "manual-commit",
+  "branch": "polymorphic-hatching-elephant",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/auth_context.go",
+    "cmd/entire/cli/auth_context_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/40/05bcae81ee/0/metadata.json",
+      "transcript": "/40/05bcae81ee/0/full.jsonl",
+      "content_hash": "/40/05bcae81ee/0/content_hash.txt",
+      "prompt": "/40/05bcae81ee/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 8413,
+    "cache_creation_tokens": 288989,
+    "cache_read_tokens": 12496968,
+    "output_tokens": 81754,
+    "api_call_count": 94
+  }
+}
