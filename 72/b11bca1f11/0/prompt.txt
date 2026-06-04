@@ -1,0 +1,44 @@
+currently, 'entire login' uses device flow, which is a bit weird because people need to verify a string of characters.  There's the other flow too, which also opens a browser pings a loopback listener when successfully authenticated, which is smoother.  What would it take to use that as default, and put the current flow behind a `--device` flag?  detailed plan please.  the backend already supports it.
+
+---
+
+wait, can we add this to auth-go library instead?  seems like a gap.  i'll clone it.  it's in /Users/paul/src/entireio/auth-go, and there is definitely prior art we can crib from /Users/paul/src/entirehq/entiredb/cmd/entire-core's auth login surface.  plan first, no implementation.
+
+---
+
+wait are you saying entireio/cli today does not use auth-go?
+
+---
+
+ok. the plan looks extremely involved, i wouldn't expect it to be much more than:
+
+- port PKCE from old handrolled entire-core into auth-go
+- use that in entireio/cli
+
+how much of that handrolled stuff is provided by battle-tested standard golang libraries btw?
+
+---
+
+wait why would we avoid x/oauth2? surely that lets us lean more on library code instead of our own dodgy shit?
+
+---
+
+alright fine, let's draft PRs for option 1.  start with auth-go.
+
+---
+
+try the lint again, things got stuck.
+
+---
+
+i'm on a plane downloading packages won't work.  let's allow CI to take care of it.  create a nice branch name, commit, draft PR.
+
+let's put in the description how we're aware this wasn't initially implemented, but we want to (where possible) try to provide the smoothest UX:   - On a local, interactive machine with a browser, loopback code flow genuinely is nicer UX — no code to type, no polling latency.   - Mature CLIs (gh, gcloud, aws sso) often ship both and fall back to device flow when there's no usable browser/localhost.
+
+---
+
+ok draft PR
+
+---
+
+i did push https://github.com/entireio/auth-go/pull/16, can we use that branch in cli's go.mod?
