@@ -3,7 +3,7 @@
   "checkpoint_id": "933bd57ab49b",
   "strategy": "manual-commit",
   "branch": "review-cutover",
-  "checkpoints_count": 26,
+  "checkpoints_count": 27,
   "files_touched": [
     "cmd/entire/cli/agent/codex/review_tokens.go",
     "cmd/entire/cli/agent/codex/review_tokens_test.go",
@@ -24,14 +24,20 @@
       "transcript": "/93/3bd57ab49b/1/full.jsonl",
       "content_hash": "/93/3bd57ab49b/1/content_hash.txt",
       "prompt": "/93/3bd57ab49b/1/prompt.txt"
+    },
+    {
+      "metadata": "/93/3bd57ab49b/2/metadata.json",
+      "transcript": "/93/3bd57ab49b/2/full.jsonl",
+      "content_hash": "/93/3bd57ab49b/2/content_hash.txt",
+      "prompt": "/93/3bd57ab49b/2/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 20237,
-    "cache_creation_tokens": 1140627,
-    "cache_read_tokens": 144838437,
-    "output_tokens": 386702,
-    "api_call_count": 301
+    "input_tokens": 34498,
+    "cache_creation_tokens": 1243362,
+    "cache_read_tokens": 145881766,
+    "output_tokens": 402805,
+    "api_call_count": 316
   },
   "has_review": true
 }
