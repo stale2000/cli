@@ -1,0 +1,8 @@
+Cursor said: "Empty skip hides suspension hint
+Medium Severity
+
+When created.Empty is true, mirror create returns immediately and never runs waitForMirrorClone. For an existing placement (created false), that bypasses the repo-scoped token exchange that triggers explainSuspendedMirror on suspended mirrors—users can see a success-style empty-upstream message instead of the resume guidance.
+
+"
+
+Copilot said: "The new created.Empty early-return path isn’t covered by tests. Since repo_mirror_test.go exists for this command set, it’d be good to add a regression test that simulates a CreateMirror response with empty: true and asserts the command prints the “nothing to clone” note and does not enter the clone-wait/polling path."
