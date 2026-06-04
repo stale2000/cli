@@ -1,0 +1,26 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "480a94f05ac8",
+  "strategy": "manual-commit",
+  "branch": "review-codex",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/agent/codex/reviewer.go",
+    "cmd/entire/cli/agent/codex/reviewer_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/48/0a94f05ac8/0/metadata.json",
+      "transcript": "/48/0a94f05ac8/0/full.jsonl",
+      "content_hash": "/48/0a94f05ac8/0/content_hash.txt",
+      "prompt": "/48/0a94f05ac8/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 419,
+    "cache_creation_tokens": 26614,
+    "cache_read_tokens": 9686143,
+    "output_tokens": 20246,
+    "api_call_count": 16
+  }
+}
