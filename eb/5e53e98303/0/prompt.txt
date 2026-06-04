@@ -1,0 +1,9 @@
+After merging main, tests started failing in https://github.com/entireio/cli/pull/1347 check what's up.
+
+---
+
+In how far has that something to do with the PR changes?
+
+---
+
+Ok, fix/address it in a separate PR?
