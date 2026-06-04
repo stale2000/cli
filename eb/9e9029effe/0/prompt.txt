@@ -1,0 +1,17 @@
+can you review the changes in this branch / PR
+
+---
+
+auth url is fine, can you update CLAUDE.md and do nits 3, 4 too
+
+---
+
+hmm, is it possible that running "mise run test:ci" now triggers the osx keychain somehow? I get a popup I should enter a password
+
+---
+
+was this introduced by this branch?
+
+---
+
+ok, can you commit the other changes, leave the test fix out and I'll commit that then later on a new branch based of main
