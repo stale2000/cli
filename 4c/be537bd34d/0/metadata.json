@@ -1,0 +1,119 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "4cbe537bd34d",
+  "session_id": "ed0a947c-ff45-488b-899b-633770020a5d",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-04T17:24:39.731132Z",
+  "branch": "review-codex",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/agent/claudecode/discovery.go",
+    "cmd/entire/cli/agent/claudecode/reviewer.go",
+    "cmd/entire/cli/agent/claudecode/reviewer_test.go",
+    "cmd/entire/cli/agent/claudecode/testdata/stream_with_deltas.jsonl",
+    "cmd/entire/cli/agent/codex/AGENT.md",
+    "cmd/entire/cli/agent/codex/discovery.go",
+    "cmd/entire/cli/agent/codex/discovery_test.go",
+    "cmd/entire/cli/agent/codex/review_tokens.go",
+    "cmd/entire/cli/agent/codex/review_tokens_test.go",
+    "cmd/entire/cli/agent/codex/reviewer.go",
+    "cmd/entire/cli/agent/codex/reviewer_test.go",
+    "cmd/entire/cli/agent/skilldiscovery/registry.go",
+    "cmd/entire/cli/agent/skilldiscovery/registry_test.go",
+    "cmd/entire/cli/agent/skilldiscovery/scan.go",
+    "cmd/entire/cli/review/types/reviewer.go",
+    "cmd/entire/cli/settings/settings.go"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-8[1m]",
+  "turn_id": "f938797ab269",
+  "checkpoint_transcript_start": 1123,
+  "transcript_lines_at_start": 1123,
+  "token_usage": {
+    "input_tokens": 8686,
+    "cache_creation_tokens": 20650,
+    "cache_read_tokens": 2356373,
+    "output_tokens": 11894,
+    "api_call_count": 5
+  },
+  "skill_events_version": 1,
+  "skill_events": [
+    {
+      "id": "claude-skill-toolu_01UzSEoDVaBVUzFGeVDpskmU",
+      "event_type": "tool_invocation",
+      "skill": {
+        "name": "superpowers:brainstorming"
+      },
+      "source": {
+        "agent": "claude-code",
+        "signal": "skill_tool_use",
+        "confidence": "explicit"
+      },
+      "turn_id": "f938797ab269",
+      "transcript_anchor": {
+        "unit": "line",
+        "start": 19,
+        "end": 20,
+        "entry_ids": [
+          "17d8821f-2514-426c-bc28-e28a444dc2f6"
+        ],
+        "tool_use_id": "toolu_01UzSEoDVaBVUzFGeVDpskmU"
+      },
+      "native": {
+        "tool_name": "Skill",
+        "tool_use_id": "toolu_01UzSEoDVaBVUzFGeVDpskmU"
+      },
+      "collapse": {
+        "target": "tool_pair",
+        "label": "Skill: superpowers:brainstorming",
+        "default_collapsed": true
+      }
+    },
+    {
+      "id": "claude-skill-toolu_01Pdm64buDEQan5Ka1KMi8ap",
+      "event_type": "tool_invocation",
+      "skill": {
+        "name": "superpowers:receiving-code-review"
+      },
+      "source": {
+        "agent": "claude-code",
+        "signal": "skill_tool_use",
+        "confidence": "explicit"
+      },
+      "turn_id": "f938797ab269",
+      "transcript_anchor": {
+        "unit": "line",
+        "start": 123,
+        "end": 124,
+        "entry_ids": [
+          "7ff3728b-c941-4ab9-98d0-29d79e3f381b"
+        ],
+        "tool_use_id": "toolu_01Pdm64buDEQan5Ka1KMi8ap"
+      },
+      "native": {
+        "tool_name": "Skill",
+        "tool_use_id": "toolu_01Pdm64buDEQan5Ka1KMi8ap"
+      },
+      "collapse": {
+        "target": "tool_pair",
+        "label": "Skill: superpowers:receiving-code-review",
+        "default_collapsed": true
+      }
+    }
+  ],
+  "session_metrics": {
+    "turn_count": 5
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-04T17:24:39.701887Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 0,
+    "total_lines_changed": 0,
+    "agent_percentage": 0,
+    "metric_version": 2
+  }
+}

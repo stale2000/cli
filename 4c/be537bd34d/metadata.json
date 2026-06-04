@@ -1,0 +1,40 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "4cbe537bd34d",
+  "strategy": "manual-commit",
+  "branch": "review-codex",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/agent/claudecode/discovery.go",
+    "cmd/entire/cli/agent/claudecode/reviewer.go",
+    "cmd/entire/cli/agent/claudecode/reviewer_test.go",
+    "cmd/entire/cli/agent/claudecode/testdata/stream_with_deltas.jsonl",
+    "cmd/entire/cli/agent/codex/AGENT.md",
+    "cmd/entire/cli/agent/codex/discovery.go",
+    "cmd/entire/cli/agent/codex/discovery_test.go",
+    "cmd/entire/cli/agent/codex/review_tokens.go",
+    "cmd/entire/cli/agent/codex/review_tokens_test.go",
+    "cmd/entire/cli/agent/codex/reviewer.go",
+    "cmd/entire/cli/agent/codex/reviewer_test.go",
+    "cmd/entire/cli/agent/skilldiscovery/registry.go",
+    "cmd/entire/cli/agent/skilldiscovery/registry_test.go",
+    "cmd/entire/cli/agent/skilldiscovery/scan.go",
+    "cmd/entire/cli/review/types/reviewer.go",
+    "cmd/entire/cli/settings/settings.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/4c/be537bd34d/0/metadata.json",
+      "transcript": "/4c/be537bd34d/0/full.jsonl",
+      "content_hash": "/4c/be537bd34d/0/content_hash.txt",
+      "prompt": ""
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 8686,
+    "cache_creation_tokens": 20650,
+    "cache_read_tokens": 2356373,
+    "output_tokens": 11894,
+    "api_call_count": 5
+  }
+}
