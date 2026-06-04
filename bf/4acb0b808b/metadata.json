@@ -1,0 +1,23 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "bf4acb0b808b",
+  "strategy": "manual-commit",
+  "branch": "soph/e2e-canary-keychain",
+  "checkpoints_count": 1,
+  "files_touched": null,
+  "sessions": [
+    {
+      "metadata": "/bf/4acb0b808b/0/metadata.json",
+      "transcript": "/bf/4acb0b808b/0/full.jsonl",
+      "content_hash": "/bf/4acb0b808b/0/content_hash.txt",
+      "prompt": "/bf/4acb0b808b/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 42559,
+    "cache_creation_tokens": 2017694,
+    "cache_read_tokens": 82481814,
+    "output_tokens": 330701,
+    "api_call_count": 248
+  }
+}
