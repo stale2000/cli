@@ -1,0 +1,13 @@
+ok.  make a nice branch name (use COR-389 plus descriptive slug) and push - let's also work on a PR draft.  but show me your suggested description before applying.
+
+---
+
+seems we already need to rebase on origin/main.  Then, yes, create the DRAFT PR with that description.
+
+---
+
+try again
+
+---
+
+this remark is on point https://github.com/entireio/cli/pull/1367#discussion_r3356627903 - user-facing we always say "login server" rather than "core" anything.  ensure we didn't put "core" anywhere user-facing

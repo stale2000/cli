@@ -1,0 +1,26 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "aaa317a7c3e4",
+  "strategy": "manual-commit",
+  "branch": "cor-389-control-plane-context-aware",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/auth_context.go",
+    "internal/coreapi/client.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/aa/a317a7c3e4/0/metadata.json",
+      "transcript": "/aa/a317a7c3e4/0/full.jsonl",
+      "content_hash": "/aa/a317a7c3e4/0/content_hash.txt",
+      "prompt": "/aa/a317a7c3e4/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 19726,
+    "cache_creation_tokens": 521089,
+    "cache_read_tokens": 18910787,
+    "output_tokens": 101710,
+    "api_call_count": 125
+  }
+}
