@@ -1,0 +1,25 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "68d85134573d",
+  "strategy": "manual-commit",
+  "branch": "linear-brewing-cocke",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "cmd/entire/cli/auth_context_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/68/d85134573d/0/metadata.json",
+      "transcript": "/68/d85134573d/0/full.jsonl",
+      "content_hash": "/68/d85134573d/0/content_hash.txt",
+      "prompt": "/68/d85134573d/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 3150,
+    "cache_creation_tokens": 27523,
+    "cache_read_tokens": 609606,
+    "output_tokens": 4667,
+    "api_call_count": 16
+  }
+}

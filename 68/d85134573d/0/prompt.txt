@@ -1,0 +1,11 @@
+ok fine bugbot wants tests, let's do it:
+
+New behavior is introduced via ValidArgsFunction/completeContextNames (annotated context-name tab completion), but there’s no unit test coverage for it even though this file already has tests. Adding a small test for completeContextNames would help lock in the expected output format (name + description, and "(active)" marker) and verify errors are swallowed as intended.
+
+---
+
+push
+
+---
+
+you stuck?
