@@ -1,0 +1,26 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "41d9aa9acef6",
+  "strategy": "manual-commit",
+  "branch": "review-codex",
+  "checkpoints_count": 5,
+  "files_touched": [
+    "cmd/entire/cli/agent/claudecode/transcript.go",
+    "cmd/entire/cli/agent/claudecode/transcript_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/41/d9aa9acef6/0/metadata.json",
+      "transcript": "/41/d9aa9acef6/0/full.jsonl",
+      "content_hash": "/41/d9aa9acef6/0/content_hash.txt",
+      "prompt": "/41/d9aa9acef6/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 2261,
+    "cache_creation_tokens": 194583,
+    "cache_read_tokens": 55333288,
+    "output_tokens": 168875,
+    "api_call_count": 77
+  }
+}
