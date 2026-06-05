@@ -45,3 +45,35 @@ for steps 2-5, how are we deciding which agents do what basically and the detail
 ---
 
 so i don't like it. it looks like a series of commands ran by a user instead of nice workflow or dashboard like prr.
+
+---
+
+okay now this is nice
+
+---
+
+is there a way you can show me the one you recommend like in the dashboard?
+
+---
+
+one thing you did not consider is how to invoke this by agent only. can we still do this by lets say, you have codex open, then you say run entire review with codex as review agent and claude as review and then use codex as fixer. or more simply can we still invoke review non interactively
+
+---
+
+and save the headless stuff too
+
+---
+
+can you try again running through doc reviewer
+
+---
+
+can you pass this seession to codex please
+
+---
+
+we can fix the blockers nad proceed here
+
+---
+
+are you still having a problem
