@@ -1,0 +1,23 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "c8acd7572a5b",
+  "strategy": "manual-commit",
+  "branch": "feat/review-pr3a-dashboard",
+  "checkpoints_count": 1,
+  "files_touched": null,
+  "sessions": [
+    {
+      "metadata": "/c8/acd7572a5b/0/metadata.json",
+      "transcript": "/c8/acd7572a5b/0/full.jsonl",
+      "content_hash": "/c8/acd7572a5b/0/content_hash.txt",
+      "prompt": "/c8/acd7572a5b/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 35606,
+    "cache_creation_tokens": 1645686,
+    "cache_read_tokens": 176211527,
+    "output_tokens": 593561,
+    "api_call_count": 368
+  }
+}
