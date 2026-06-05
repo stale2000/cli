@@ -92,3 +92,7 @@ Commit and continue
 ---
 
 Re-read my instructions about code comments, please
+
+---
+
+commit the changes
