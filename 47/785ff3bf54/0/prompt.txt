@@ -76,3 +76,7 @@ Make the cleanups and let me review the change as a whole before continuing
 ---
 
 commit and continue
+
+---
+
+Commit and continue
