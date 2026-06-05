@@ -1,0 +1,28 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "756af473d089",
+  "strategy": "manual-commit",
+  "branch": "update-api-specs",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "internal/coreapi/oas_json_gen.go",
+    "internal/coreapi/oas_schemas_gen.go",
+    "internal/coreapi/spec/core.gen.json",
+    "internal/coreapi/spec/core.openapi.json"
+  ],
+  "sessions": [
+    {
+      "metadata": "/75/6af473d089/0/metadata.json",
+      "transcript": "/75/6af473d089/0/full.jsonl",
+      "content_hash": "/75/6af473d089/0/content_hash.txt",
+      "prompt": "/75/6af473d089/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 7545,
+    "cache_creation_tokens": 111085,
+    "cache_read_tokens": 1489517,
+    "output_tokens": 12900,
+    "api_call_count": 31
+  }
+}

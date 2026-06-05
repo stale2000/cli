@@ -1,0 +1,9 @@
+We had an issue yesterday where a new field on the server (core API) caused the CLI to break.  Has anyone updated the CLI to tolerate new fields without dying?
+
+---
+
+where does core.gen.json come from?
+
+---
+
+Can you refresh now?
