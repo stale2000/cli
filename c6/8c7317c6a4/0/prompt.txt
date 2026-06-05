@@ -1,0 +1,21 @@
+check out main and pull the latest
+
+---
+
+are there moments where we reference  https://docs.entire.io/introduction in the cli
+
+---
+
+let's replace introduction URL with this : https://docs.entire.io/overview
+
+---
+
+also what are the other references for docs.entire.io ..please share them with me
+
+---
+
+replace https://docs.entire.io/cli/external-agents with https://docs.entire.io/agents/external-agent-plugins
+
+---
+
+oh that reference was just in the changelog..i dont want that change then.i only wanted changes that render in the CLI
