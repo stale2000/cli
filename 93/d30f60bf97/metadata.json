@@ -1,0 +1,25 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "93d30f60bf97",
+  "strategy": "manual-commit",
+  "branch": "cor-389-data-api-context-aware",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "internal/entireclient/clusterdiscovery/discovery.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/93/d30f60bf97/0/metadata.json",
+      "transcript": "/93/d30f60bf97/0/full.jsonl",
+      "content_hash": "/93/d30f60bf97/0/content_hash.txt",
+      "prompt": "/93/d30f60bf97/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 26873,
+    "cache_creation_tokens": 517534,
+    "cache_read_tokens": 32856889,
+    "output_tokens": 132831,
+    "api_call_count": 163
+  }
+}
