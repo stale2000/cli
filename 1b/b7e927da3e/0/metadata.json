@@ -1,0 +1,54 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "1bb7e927da3e",
+  "session_id": "019e953d-3ce8-7881-a9eb-31211a16b642",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-05T01:15:03.439978Z",
+  "branch": "feat/checkpoints-v1.1-streamline-mirroring",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/attach.go",
+    "cmd/entire/cli/attach_test.go"
+  ],
+  "agent": "Codex",
+  "model": "gpt-5.5",
+  "turn_id": "059ae9136f59",
+  "token_usage": {
+    "input_tokens": 710075,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 9438464,
+    "output_tokens": 36845,
+    "api_call_count": 66
+  },
+  "session_metrics": {
+    "turn_count": 1
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-05T01:15:03.406397Z",
+    "agent_lines": 69,
+    "agent_removed": 1,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 69,
+    "total_lines_changed": 70,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 69,
+      "agent_lines_removed": 1
+    }
+  ]
+}
