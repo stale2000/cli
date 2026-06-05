@@ -1,0 +1,23 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "8afbe8300962",
+  "strategy": "manual-commit",
+  "branch": "redo-review",
+  "checkpoints_count": 1,
+  "files_touched": null,
+  "sessions": [
+    {
+      "metadata": "/8a/fbe8300962/0/metadata.json",
+      "transcript": "/8a/fbe8300962/0/full.jsonl",
+      "content_hash": "/8a/fbe8300962/0/content_hash.txt",
+      "prompt": "/8a/fbe8300962/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 25378,
+    "cache_creation_tokens": 1392228,
+    "cache_read_tokens": 75838229,
+    "output_tokens": 390920,
+    "api_call_count": 223
+  }
+}
