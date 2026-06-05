@@ -1,0 +1,25 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "c57ad18d4e04",
+  "strategy": "manual-commit",
+  "branch": "paul/cor-394-flaky",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/testutil/testutil.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/c5/7ad18d4e04/0/metadata.json",
+      "transcript": "/c5/7ad18d4e04/0/full.jsonl",
+      "content_hash": "/c5/7ad18d4e04/0/content_hash.txt",
+      "prompt": "/c5/7ad18d4e04/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 6752,
+    "cache_creation_tokens": 60842,
+    "cache_read_tokens": 498288,
+    "output_tokens": 4252,
+    "api_call_count": 13
+  }
+}
