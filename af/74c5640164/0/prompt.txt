@@ -118,3 +118,10 @@ okay, so do you want to build on a new branch the next part of the rebuild? or w
 ---
 
 proceed
+
+---
+
+i started, it looks the extact same, no pipeline, AGENT                 STATUS      DURATION  TOKENS    PREVIEW
+claude-code           ⣽  running  18.5s               The skill's preamble hit a git error (no `origin/HEAD`). Let me gather the diff…
+
+Ctrl+O: drill in · Ctrl+C: cancel
