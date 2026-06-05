@@ -1,0 +1,32 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "1facee2350c8",
+  "strategy": "manual-commit",
+  "branch": "feat/checkpoints-v1.1-push-to-remote",
+  "checkpoints_count": 3,
+  "files_touched": [
+    "CLAUDE.md",
+    "cmd/entire/cli/checkpoint/committed_refs.go",
+    "cmd/entire/cli/checkpoint/committed_refs_test.go",
+    "cmd/entire/cli/integration_test/remote_operations_test.go",
+    "cmd/entire/cli/strategy/manual_commit_push.go",
+    "cmd/entire/cli/strategy/push_common_test.go",
+    "cmd/entire/cli/strategy/v1_custom_ref_mirror_test.go",
+    "docs/architecture/sessions-and-checkpoints.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/1f/acee2350c8/0/metadata.json",
+      "transcript": "/1f/acee2350c8/0/full.jsonl",
+      "content_hash": "/1f/acee2350c8/0/content_hash.txt",
+      "prompt": "/1f/acee2350c8/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 14661,
+    "cache_creation_tokens": 461883,
+    "cache_read_tokens": 12179359,
+    "output_tokens": 118156,
+    "api_call_count": 84
+  }
+}

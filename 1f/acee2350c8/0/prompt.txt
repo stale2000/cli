@@ -1,0 +1,17 @@
+after https://github.com/entireio/cli/pull/1376, what is left for checkpoints v1.1 to mirror v1?
+
+---
+
+Ok, let's make the next incremental change to support Push v1.1 to remote
+
+---
+
+Ok, on a new branch branched off from feat/checkpoints-v1.1-streamline-mirroring as a base, let's make the next incremental change to support Push v1.1 to remote
+
+---
+
+/simplify
+
+---
+
+/clean-go
