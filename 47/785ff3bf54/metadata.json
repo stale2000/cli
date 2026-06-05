@@ -1,0 +1,26 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "47785ff3bf54",
+  "strategy": "manual-commit",
+  "branch": "feat/checkpoints-v1.1-streamline-mirroring",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "cmd/entire/cli/checkpoint/store.go",
+    "cmd/entire/cli/strategy/push_common.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/47/785ff3bf54/0/metadata.json",
+      "transcript": "/47/785ff3bf54/0/full.jsonl",
+      "content_hash": "/47/785ff3bf54/0/content_hash.txt",
+      "prompt": "/47/785ff3bf54/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 888,
+    "cache_creation_tokens": 2920104,
+    "cache_read_tokens": 285738223,
+    "output_tokens": 365847,
+    "api_call_count": 648
+  }
+}
