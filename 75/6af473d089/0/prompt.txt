@@ -7,3 +7,7 @@ where does core.gen.json come from?
 ---
 
 Can you refresh now?
+
+---
+
+We're on a branch already.  Check everything, if it passes then commit.
