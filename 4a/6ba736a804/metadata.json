@@ -1,0 +1,23 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "4a6ba736a804",
+  "strategy": "manual-commit",
+  "branch": "feat/checkpoints-v1.1-push-to-remote",
+  "checkpoints_count": 1,
+  "files_touched": null,
+  "sessions": [
+    {
+      "metadata": "/4a/6ba736a804/0/metadata.json",
+      "transcript": "/4a/6ba736a804/0/full.jsonl",
+      "content_hash": "/4a/6ba736a804/0/content_hash.txt",
+      "prompt": "/4a/6ba736a804/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 15513,
+    "cache_creation_tokens": 510200,
+    "cache_read_tokens": 23094988,
+    "output_tokens": 151244,
+    "api_call_count": 123
+  }
+}
