@@ -1,0 +1,94 @@
+/pfleidi:review
+
+---
+
+commit the changes and fix the suggestions as a batch
+
+---
+
+/pfleidi:pr
+
+---
+
+The changes have just been comitted
+
+---
+
+Try now
+
+---
+
+Can you add a bit more details in regard to why this change was made and what problems it's trying to solve etc?
+
+---
+
+Can you improve the description a bit more given these parameters:
+
+  - The reaoning behind a change and why it exists is often very sparse
+  - Especially for bot reviews, some decisions being made during the implementation aren't clear so bots will often flag the same issues over and over again.
+  - The description should create tradeoffs and considerations. If it applies, we should also list options we considered and decided against.
+  - There's large sections with test plans that lists cli commands and newly added tests that's not helpful for a reviewer at all. We should skip that.
+
+---
+
+The feat/checkpoints-v1.1-rewind-clean has been merged already so the note about the commits beloging to it don't apply anymore.
+
+---
+
+Feel free to open the PR now. The other modified files will be committed in a different terminal soon
+
+---
+
+Can you pull in main and resolve the merge conflicts and then push again?
+
+---
+
+/pfleidi:pr-feedback
+
+---
+
+I confirm
+
+---
+
+One sec. Can we talk about these issues more thoroughly?
+
+---
+
+I'm wondering if comment #1 is actually valid: We're accepting the potential for the mirror to lag behind in a bunch of situations and that's intentional because we don't want to hide errors. Why is this one special?
+
+---
+
+Okay, fix all three comments, then
+
+---
+
+Can you re-read the CLAUDE.md file and take a look at my instructions about comments before making anymore changes?
+
+---
+
+do it
+
+---
+
+Make the cleanups and let me review the change as a whole before continuing
+
+---
+
+commit and continue
+
+---
+
+Commit and continue
+
+---
+
+/simplify
+
+---
+
+/simplify
+
+---
+
+Re-read my instructions about code comments, please
