@@ -1,0 +1,30 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "3711fee5ef90",
+  "strategy": "manual-commit",
+  "branch": "feat/review-pr2-verify",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/review/cmd.go",
+    "cmd/entire/cli/review/findings_wiring_test.go",
+    "cmd/entire/cli/review/manifest_test.go",
+    "cmd/entire/cli/review/pipeline_integration_test.go",
+    "cmd/entire/cli/review/results.go",
+    "cmd/entire/cli/review_bridge.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/37/11fee5ef90/0/metadata.json",
+      "transcript": "/37/11fee5ef90/0/full.jsonl",
+      "content_hash": "/37/11fee5ef90/0/content_hash.txt",
+      "prompt": "/37/11fee5ef90/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 33184,
+    "cache_creation_tokens": 1535352,
+    "cache_read_tokens": 132873858,
+    "output_tokens": 505639,
+    "api_call_count": 311
+  }
+}
