@@ -32,3 +32,7 @@ Can you improve the description a bit more given these parameters:
 ---
 
 The feat/checkpoints-v1.1-rewind-clean has been merged already so the note about the commits beloging to it don't apply anymore.
+
+---
+
+Feel free to open the PR now. The other modified files will be committed in a different terminal soon
