@@ -15,3 +15,7 @@ Ok, on a new branch branched off from feat/checkpoints-v1.1-streamline-mirroring
 ---
 
 /clean-go
+
+---
+
+Make a draft PR with the original pR we looked at as a base
