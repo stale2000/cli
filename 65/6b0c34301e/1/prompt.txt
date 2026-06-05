@@ -1,0 +1,34 @@
+/pfleidi:review
+
+---
+
+commit the changes and fix the suggestions as a batch
+
+---
+
+/pfleidi:pr
+
+---
+
+The changes have just been comitted
+
+---
+
+Try now
+
+---
+
+Can you add a bit more details in regard to why this change was made and what problems it's trying to solve etc?
+
+---
+
+Can you improve the description a bit more given these parameters:
+
+  - The reaoning behind a change and why it exists is often very sparse
+  - Especially for bot reviews, some decisions being made during the implementation aren't clear so bots will often flag the same issues over and over again.
+  - The description should create tradeoffs and considerations. If it applies, we should also list options we considered and decided against.
+  - There's large sections with test plans that lists cli commands and newly added tests that's not helpful for a reviewer at all. We should skip that.
+
+---
+
+The feat/checkpoints-v1.1-rewind-clean has been merged already so the note about the commits beloging to it don't apply anymore.

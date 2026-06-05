@@ -1,0 +1,229 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "656b0c34301e",
+  "session_id": "7d8b9a47-6f94-441b-adae-5402ded54425",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-05T01:32:18.729468Z",
+  "branch": "feat/checkpoints-v1.1-streamline-mirroring",
+  "checkpoints_count": 4,
+  "files_touched": [
+    "cmd/entire/cli/checkpoint/remote/git_test.go",
+    "cmd/entire/cli/doctor.go",
+    "cmd/entire/cli/explain.go",
+    "cmd/entire/cli/integration_test/http_remote_test.go",
+    "cmd/entire/cli/integration_test/remote_operations_test.go",
+    "cmd/entire/cli/strategy/checkpoint_remote.go",
+    "cmd/entire/cli/strategy/metadata_reconcile.go",
+    "cmd/entire/cli/strategy/metadata_reconcile_test.go",
+    "cmd/entire/cli/strategy/push_common.go",
+    "cmd/entire/cli/strategy/push_common_budget_unix_test.go",
+    "cmd/entire/cli/strategy/push_common_test.go",
+    "docs/architecture/sessions-and-checkpoints.md"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "b8bc5b103c98",
+  "token_usage": {
+    "input_tokens": 765,
+    "cache_creation_tokens": 2089355,
+    "cache_read_tokens": 235045495,
+    "output_tokens": 317461,
+    "api_call_count": 579
+  },
+  "skill_events_version": 1,
+  "skill_events": [
+    {
+      "id": "prompt-skill-claude-code-pfleidi:review-2026-06-04T23:34:45.943611Z",
+      "event_type": "prompt_invocation",
+      "skill": {
+        "name": "pfleidi:review"
+      },
+      "source": {
+        "agent": "claude-code",
+        "signal": "prompt_slash_command",
+        "confidence": "explicit"
+      },
+      "turn_id": "b5d7fdcae7c5",
+      "timestamp": "2026-06-04T23:34:45.943611Z",
+      "native": {
+        "command": "/pfleidi:review"
+      },
+      "collapse": {
+        "target": "user_message",
+        "label": "/pfleidi:review",
+        "default_collapsed": true
+      }
+    },
+    {
+      "id": "prompt-skill-claude-code-pfleidi:pr-2026-06-05T00:45:29.460555Z",
+      "event_type": "prompt_invocation",
+      "skill": {
+        "name": "pfleidi:pr"
+      },
+      "source": {
+        "agent": "claude-code",
+        "signal": "prompt_slash_command",
+        "confidence": "explicit"
+      },
+      "turn_id": "410a5e509190",
+      "timestamp": "2026-06-05T00:45:29.460555Z",
+      "native": {
+        "command": "/pfleidi:pr"
+      },
+      "collapse": {
+        "target": "user_message",
+        "label": "/pfleidi:pr",
+        "default_collapsed": true
+      }
+    },
+    {
+      "id": "claude-skill-toolu_01WgG4872NRRRoTZoVAoacUe",
+      "event_type": "tool_invocation",
+      "skill": {
+        "name": "brainstorming"
+      },
+      "source": {
+        "agent": "claude-code",
+        "signal": "skill_tool_use",
+        "confidence": "explicit"
+      },
+      "turn_id": "b8bc5b103c98",
+      "transcript_anchor": {
+        "unit": "line",
+        "start": 15,
+        "end": 16,
+        "entry_ids": [
+          "d0a2f93b-218d-42f2-a3b1-e8b9ecf66fcf"
+        ],
+        "tool_use_id": "toolu_01WgG4872NRRRoTZoVAoacUe"
+      },
+      "native": {
+        "tool_name": "Skill",
+        "tool_use_id": "toolu_01WgG4872NRRRoTZoVAoacUe"
+      },
+      "collapse": {
+        "target": "tool_pair",
+        "label": "Skill: brainstorming",
+        "default_collapsed": true
+      }
+    },
+    {
+      "id": "claude-skill-toolu_01NBRRYaEqH3oXBRF9ErxaPN",
+      "event_type": "tool_invocation",
+      "skill": {
+        "name": "writing-plans"
+      },
+      "source": {
+        "agent": "claude-code",
+        "signal": "skill_tool_use",
+        "confidence": "explicit"
+      },
+      "turn_id": "b8bc5b103c98",
+      "transcript_anchor": {
+        "unit": "line",
+        "start": 374,
+        "end": 375,
+        "entry_ids": [
+          "72b43bfe-8531-4d6a-aa40-a50d4e5fb809"
+        ],
+        "tool_use_id": "toolu_01NBRRYaEqH3oXBRF9ErxaPN"
+      },
+      "native": {
+        "tool_name": "Skill",
+        "tool_use_id": "toolu_01NBRRYaEqH3oXBRF9ErxaPN"
+      },
+      "collapse": {
+        "target": "tool_pair",
+        "label": "Skill: writing-plans",
+        "default_collapsed": true
+      }
+    }
+  ],
+  "session_metrics": {
+    "turn_count": 19
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-05T01:32:18.685489Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 9684,
+    "human_modified": 110,
+    "human_removed": 0,
+    "total_committed": 9684,
+    "total_lines_changed": 9794,
+    "agent_percentage": 0,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 205,
+      "user_lines_removed": 110,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        "cmd/entire/cli/checkpoint/remote/git_test.go": 1,
+        "cmd/entire/cli/doctor.go": 2,
+        "cmd/entire/cli/explain.go": 4,
+        "cmd/entire/cli/integration_test/http_remote_test.go": 3,
+        "cmd/entire/cli/integration_test/remote_operations_test.go": 6,
+        "cmd/entire/cli/strategy/checkpoint_remote.go": 1,
+        "cmd/entire/cli/strategy/metadata_reconcile.go": 23,
+        "cmd/entire/cli/strategy/metadata_reconcile_test.go": 17,
+        "cmd/entire/cli/strategy/push_common.go": 15,
+        "cmd/entire/cli/strategy/push_common_budget_unix_test.go": 3,
+        "cmd/entire/cli/strategy/push_common_test.go": 127,
+        "docs/architecture/sessions-and-checkpoints.md": 3
+      },
+      "user_removed_per_file": {
+        "cmd/entire/cli/checkpoint/remote/git_test.go": 1,
+        "cmd/entire/cli/doctor.go": 1,
+        "cmd/entire/cli/explain.go": 4,
+        "cmd/entire/cli/integration_test/http_remote_test.go": 3,
+        "cmd/entire/cli/integration_test/remote_operations_test.go": 6,
+        "cmd/entire/cli/strategy/checkpoint_remote.go": 1,
+        "cmd/entire/cli/strategy/metadata_reconcile.go": 16,
+        "cmd/entire/cli/strategy/metadata_reconcile_test.go": 13,
+        "cmd/entire/cli/strategy/push_common.go": 15,
+        "cmd/entire/cli/strategy/push_common_budget_unix_test.go": 3,
+        "cmd/entire/cli/strategy/push_common_test.go": 45,
+        "docs/architecture/sessions-and-checkpoints.md": 2
+      }
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 204,
+      "agent_lines_removed": 110
+    },
+    {
+      "checkpoint_number": 4,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 204,
+      "agent_lines_removed": 110
+    },
+    {
+      "checkpoint_number": 5,
+      "user_lines_added": 9589,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 399,
+      "user_added_per_file": {
+        "cmd/entire/cli/checkpoint/remote/git_test.go": 769,
+        "cmd/entire/cli/doctor.go": 460,
+        "cmd/entire/cli/explain.go": 2845,
+        "cmd/entire/cli/integration_test/http_remote_test.go": 448,
+        "cmd/entire/cli/integration_test/remote_operations_test.go": 791,
+        "cmd/entire/cli/strategy/checkpoint_remote.go": 190,
+        "cmd/entire/cli/strategy/metadata_reconcile.go": 454,
+        "cmd/entire/cli/strategy/metadata_reconcile_test.go": 930,
+        "cmd/entire/cli/strategy/push_common.go": 571,
+        "cmd/entire/cli/strategy/push_common_budget_unix_test.go": 57,
+        "cmd/entire/cli/strategy/push_common_test.go": 1674,
+        "docs/architecture/sessions-and-checkpoints.md": 400
+      }
+    }
+  ]
+}
