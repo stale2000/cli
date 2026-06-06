@@ -1,0 +1,27 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "cb812912363c",
+  "strategy": "manual-commit",
+  "branch": "cor-389-data-api-context-aware",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/auth.go",
+    "cmd/entire/cli/auth/repo_token.go",
+    "cmd/entire/cli/auth_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/cb/812912363c/0/metadata.json",
+      "transcript": "/cb/812912363c/0/full.jsonl",
+      "content_hash": "/cb/812912363c/0/content_hash.txt",
+      "prompt": "/cb/812912363c/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 7651,
+    "cache_creation_tokens": 153004,
+    "cache_read_tokens": 3850295,
+    "output_tokens": 29619,
+    "api_call_count": 46
+  }
+}

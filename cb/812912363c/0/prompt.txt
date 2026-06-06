@@ -1,0 +1,12 @@
+take a look at this PR, and the intent of COR-389 and thoroughly audit if all the paths do the right thing:
+
+- all API calls (data & core & whatever else) use contexts mechanism and get refreshed JWTs if possible
+- we've simplified all we can about this PR.
+
+---
+
+1. RepoScopedToken - update the comment so it's clear it's slated for deletion
+
+2. finding 2 & 3 - mention them in the PR.
+
+I'll take care of resolveAuthHostToken
