@@ -1,0 +1,23 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "99ecee35ca11",
+  "strategy": "manual-commit",
+  "branch": "cor-389-data-api-context-aware",
+  "checkpoints_count": 1,
+  "files_touched": null,
+  "sessions": [
+    {
+      "metadata": "/99/ecee35ca11/0/metadata.json",
+      "transcript": "/99/ecee35ca11/0/full.jsonl",
+      "content_hash": "/99/ecee35ca11/0/content_hash.txt",
+      "prompt": "/99/ecee35ca11/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 54391,
+    "cache_creation_tokens": 2147645,
+    "cache_read_tokens": 96157332,
+    "output_tokens": 277340,
+    "api_call_count": 332
+  }
+}
