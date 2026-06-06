@@ -1,0 +1,47 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "cb5ddec166d9",
+  "session_id": "6b26d89b-433f-4dab-8cf7-8faa6ae827a5",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-06T06:49:31.502298Z",
+  "branch": "cor-389-data-api-context-aware",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "internal/entireclient/clusterdiscovery/api_discovery.go",
+    "docs/architecture/upstream-host-resolution.md"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-8[1m]",
+  "turn_id": "ca3f712b4209",
+  "token_usage": {
+    "input_tokens": 30071,
+    "cache_creation_tokens": 1981806,
+    "cache_read_tokens": 50346905,
+    "output_tokens": 178949,
+    "api_call_count": 220
+  },
+  "session_metrics": {
+    "turn_count": 11
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-06T06:49:31.451138Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 7,
+    "human_modified": 5,
+    "human_removed": 0,
+    "total_committed": 7,
+    "total_lines_changed": 14,
+    "agent_percentage": 0,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}
