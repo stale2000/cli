@@ -1,0 +1,35 @@
+{
+  "cli_version": "0.7.6-nightly.202606060713.9f0ab678.0.20260607013021-dd0dd758fe72",
+  "checkpoint_id": "86a03348156e",
+  "strategy": "manual-commit",
+  "branch": "review-profiles",
+  "checkpoints_count": 3,
+  "files_touched": [
+    "cmd/entire/cli/agent/pi/reviewer.go",
+    "cmd/entire/cli/agent/pi/reviewer_test.go",
+    "cmd/entire/cli/attach.go",
+    "cmd/entire/cli/attach_test.go",
+    "cmd/entire/cli/integration_test/review_test.go",
+    "cmd/entire/cli/review/attach_test.go",
+    "cmd/entire/cli/review/cmd.go",
+    "cmd/entire/cli/review/marker_fallback.go",
+    "cmd/entire/cli/review_bridge.go",
+    "cmd/entire/cli/review_helpers.go",
+    "cmd/entire/cli/root.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/86/a03348156e/0/metadata.json",
+      "transcript": "/86/a03348156e/0/full.jsonl",
+      "content_hash": "/86/a03348156e/0/content_hash.txt",
+      "prompt": "/86/a03348156e/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 166,
+    "cache_creation_tokens": 719022,
+    "cache_read_tokens": 6885045,
+    "output_tokens": 63863,
+    "api_call_count": 84
+  }
+}

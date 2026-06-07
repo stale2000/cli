@@ -1,0 +1,77 @@
+{
+  "cli_version": "0.7.6-nightly.202606060713.9f0ab678.0.20260607013021-dd0dd758fe72",
+  "checkpoint_id": "86a03348156e",
+  "session_id": "019e9fb5-004d-7145-8f48-db6a240d0ab3",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-07T13:56:35.801118Z",
+  "branch": "review-profiles",
+  "checkpoints_count": 3,
+  "files_touched": [
+    "cmd/entire/cli/agent/pi/reviewer.go",
+    "cmd/entire/cli/agent/pi/reviewer_test.go",
+    "cmd/entire/cli/attach.go",
+    "cmd/entire/cli/attach_test.go",
+    "cmd/entire/cli/integration_test/review_test.go",
+    "cmd/entire/cli/review/attach_test.go",
+    "cmd/entire/cli/review/cmd.go",
+    "cmd/entire/cli/review/marker_fallback.go",
+    "cmd/entire/cli/review_bridge.go",
+    "cmd/entire/cli/review_helpers.go",
+    "cmd/entire/cli/root.go"
+  ],
+  "agent": "Pi",
+  "model": "claude-opus-4-8",
+  "turn_id": "fdc387cccd07",
+  "token_usage": {
+    "input_tokens": 166,
+    "cache_creation_tokens": 719022,
+    "cache_read_tokens": 6885045,
+    "output_tokens": 63863,
+    "api_call_count": 84
+  },
+  "session_metrics": {
+    "turn_count": 17
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-07T13:56:35.79052Z",
+    "agent_lines": 443,
+    "agent_removed": 164,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 443,
+    "total_lines_changed": 607,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 443,
+      "agent_lines_removed": 164
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 443,
+      "agent_lines_removed": 164
+    },
+    {
+      "checkpoint_number": 4,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 443,
+      "agent_lines_removed": 164
+    }
+  ]
+}

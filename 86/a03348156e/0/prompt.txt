@@ -1,0 +1,63 @@
+List me all the potential command combinations for review.
+
+---
+
+What is review attach even for?
+
+---
+
+Yeah, that alias is weird though if "entire attach" already exits and it's more convenient?
+
+---
+
+I still don't get what it's good for and why it a) doesn't work automatically and b) is another command.
+
+---
+
+But we know the session ID of the agents we spawn so we can attribute them to the review request?
+
+---
+
+Wait, but we do monitor the sessions in which case we need to somehow identify them?
+
+---
+
+It doesn't have to match a freshly spawned session but only whenever the next hook fires since the attach/attribution can and should happen once the session is done generating.
+
+---
+
+1. attaching sessions has to happen automatically as part of this feature. lay out how we can accomplish that
+2. entire attach can cover the other part if really needed, it requires to know the id anyway and we can have a flag to mark it "review".
+
+Reply concise and in simple words only!
+
+---
+
+> Result: spawned agents still self-tag via env (unchanged). Manually-started agents now
+   self-tag too, the moment their hook fires
+
+What does that mean? What's a mnually-started agent? Isn't everything started "manually" always?
+
+---
+
+Wait wtf... wdym with "you launch it"? The whole point of this conversation is "entire review"...
+
+---
+
+Ok, let's ignore Cursor. What about Pi where we do have the new integration here? https://github.com/entireio/cli/pull/1313
+
+---
+
+Ok, so what the fuck is missing now? I only want automatic solutions, no sloppy half assed integration. Let's drop "entire review attach" and provide an option for "entire attach" to mark as a review session.
+
+---
+
+A, B and C! Also, what does --skills do on attach?
+
+---
+
+Would --skills not be in the session anyway and also get parsed into metadata automatically?
+
+---
+
+"today just claude-code" this is not true, it's a specific claude, pi and generic implementation of identifiying skills?
