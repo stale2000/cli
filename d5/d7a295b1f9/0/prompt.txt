@@ -1,0 +1,14 @@
+1. cmd/entire/cli/strategy/common.go:512: EnsureMetadataBranch still seeds from origin/
+     entire/checkpoints/v1 before consulting checkpoint_remote. With checkpoint_remote
+     configured, origin is no longer the authoritative checkpoint store. If a stale origin
+     tracking ref exists, a fresh machine will seed from origin, show stale/missing
+     checkpoints, and may later replay stale origin metadata into the checkpoint remote.
+     The checkpoint remote should probably take precedence whenever configured.
+
+  2. cmd/entire/cli/strategy/checkpoint_remote.go:267: the heal path only repairs branches
+     whose tip tree has zero entries. A broken second-device branch in a Vercel-enabled
+     repo can contain only vercel.json, because orphan initialization adds it, so
+     isEmptyMetadataBranch returns false and the branch never heals from checkpoint_remote.
+     This leaves entire checkpoint list empty until some later sync path happens to
+     reconcile. Consider detecting “no checkpoint shards” rather than literal empty tree,
+     or ignoring known root-only metadata like vercel.json.

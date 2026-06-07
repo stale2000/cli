@@ -1,0 +1,75 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "d5d7a295b1f9",
+  "session_id": "9be15774-7ab0-4279-8eb6-4f8e6225889f",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-07T15:36:40.09877Z",
+  "branch": "fix/enable-fetch-checkpoint-remote",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/strategy/common.go",
+    "cmd/entire/cli/strategy/checkpoint_remote.go",
+    "cmd/entire/cli/strategy/checkpoint_remote_test.go"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-8[1m]",
+  "turn_id": "0f749caac3bd",
+  "checkpoint_transcript_start": 296,
+  "transcript_lines_at_start": 296,
+  "token_usage": {
+    "input_tokens": 4884,
+    "cache_creation_tokens": 111142,
+    "cache_read_tokens": 11666757,
+    "output_tokens": 81111,
+    "api_call_count": 50
+  },
+  "skill_events_version": 1,
+  "skill_events": [
+    {
+      "id": "prompt-skill-claude-code-simplify-2026-06-07T14:13:29.631305Z",
+      "event_type": "prompt_invocation",
+      "skill": {
+        "name": "simplify"
+      },
+      "source": {
+        "agent": "claude-code",
+        "signal": "prompt_slash_command",
+        "confidence": "explicit"
+      },
+      "turn_id": "1cc44d4d8a6b",
+      "timestamp": "2026-06-07T14:13:29.631305Z",
+      "native": {
+        "command": "/simplify"
+      },
+      "collapse": {
+        "target": "user_message",
+        "label": "/simplify",
+        "default_collapsed": true
+      }
+    }
+  ],
+  "session_metrics": {
+    "turn_count": 3
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-07T15:36:40.082321Z",
+    "agent_lines": 235,
+    "agent_removed": 60,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 235,
+    "total_lines_changed": 295,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}
