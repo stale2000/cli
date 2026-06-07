@@ -1,0 +1,27 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "82cfd5dcd08d",
+  "strategy": "manual-commit",
+  "branch": "fix/enable-fetch-checkpoint-remote",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/strategy/checkpoint_remote.go",
+    "cmd/entire/cli/strategy/checkpoint_remote_test.go",
+    "cmd/entire/cli/strategy/common.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/82/cfd5dcd08d/0/metadata.json",
+      "transcript": "/82/cfd5dcd08d/0/full.jsonl",
+      "content_hash": "/82/cfd5dcd08d/0/content_hash.txt",
+      "prompt": "/82/cfd5dcd08d/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 6072,
+    "cache_creation_tokens": 146277,
+    "cache_read_tokens": 4742188,
+    "output_tokens": 52974,
+    "api_call_count": 55
+  }
+}
