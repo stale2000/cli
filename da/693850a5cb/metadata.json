@@ -1,0 +1,26 @@
+{
+  "cli_version": "0.7.6-nightly.202606060713.9f0ab678.0.20260607013021-dd0dd758fe72",
+  "checkpoint_id": "da693850a5cb",
+  "strategy": "manual-commit",
+  "branch": "pi-invoked-skills-extraction",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "cmd/entire/cli/agent/pi/lifecycle.go",
+    "cmd/entire/cli/agent/pi/lifecycle_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/da/693850a5cb/0/metadata.json",
+      "transcript": "/da/693850a5cb/0/full.jsonl",
+      "content_hash": "/da/693850a5cb/0/content_hash.txt",
+      "prompt": "/da/693850a5cb/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 40,
+    "cache_creation_tokens": 390639,
+    "cache_read_tokens": 3200578,
+    "output_tokens": 28398,
+    "api_call_count": 20
+  }
+}
