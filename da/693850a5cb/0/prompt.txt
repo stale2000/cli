@@ -1,9 +1,1 @@
-Commit and push the changes. Then adjust the Pi integration to support invoked skills too but double check if that's not already the case.
-
----
-
-Create a separate PR for that. Then come back to this one.
-
----
-
 Yes
