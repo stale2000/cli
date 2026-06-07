@@ -1,1 +1,25 @@
 Critically review this integration. https://github.com/entireio/cli/pull/1266 what are options to simplify?
+
+---
+
+But would also love to be able to create a review comment via API? I always see "entire trail review [number]" NUMBER but wtf. I want lists, no one knows a fucking number before not having a list to pick from?
+
+---
+
+Ok, but the user might already be on a branch within a repo that has a certain trail ID and so it would be good to just get them the comments for that or allow to post for that?
+
+---
+
+wtf does that comment mean? Medium — finding commands bypass the resolveTrailRemote forge guard
+
+  resolveTrailReviewTarget (trail_review_cmd.go:436) calls gitremote.ResolveRemoteRepo directly:
+
+  host, owner, repo, err := gitremote.ResolveRemoteRepo(ctx, "origin")
+
+  But the watch path (and the rest of trail_cmd.go) goes through resolveTrailRemote, which exists specifically to catch an empty forge — its doc comment says:
+
+  ▎ Without this guard, an unmapped host (e.g. gitlab.com…) produces a malformed /api/v1/trails//owner/repo path that the server rejects with an opaque error instead of a clear
+  ▎ "unsupported forge" one.
+
+  So every entire trail finding * command on a non-GitHub origin reintroduces exactly the opaque-error behavior that guard was added to prevent — and it's inconsistent with entire
+  trail watch in the same PR. Recommend calling resolveTrailRemote(ctx) here instead.
