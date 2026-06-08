@@ -1,0 +1,27 @@
+Instead of entire signing all checkpoint commits as they are being created, sign them only at push time or at cherry-pick time. During such time, for each commit a message should be displayed "signing commit: <commit message>" or something to that effect.
+
+---
+
+Why would we need the watermark? There are two scenarios IMO:
+1. Local is not up to date, so all local commits are cherrypicked into remote tip - this is stateleness, nothing to worry about.
+2. Local is up to date, we can get the tip commit, and go back resigning all commits since tip commit
+
+Am I missing something?
+
+---
+
+Note that we only walk back our own local commits. We never walk back passed the base commit (remote tip).
+
+If the signing fails, we ask the user whether they want to retry, skip or abort.
+
+---
+
+yep, go ahead. The plan should be saved at ../ instead.
+
+---
+
+go ahead
+
+---
+
+1
