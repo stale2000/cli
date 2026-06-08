@@ -4,7 +4,7 @@
   "strategy_options": {
     "checkpoint_remote": {
       "provider": "github",
-      "repo": "entireio/cli-checkpoints"
+      "repo": "stale2000/cli"
     },
     "filtered_fetches": true
   },
