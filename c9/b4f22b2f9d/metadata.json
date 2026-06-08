@@ -1,0 +1,27 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "c9b4f22b2f9d",
+  "strategy": "manual-commit",
+  "branch": "sign-at-push",
+  "checkpoints_count": 6,
+  "files_touched": [
+    "cmd/entire/cli/checkpoint/objectsigner_errors.go",
+    "cmd/entire/cli/strategy/push_signing.go",
+    "cmd/entire/cli/strategy/push_signing_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/c9/b4f22b2f9d/0/metadata.json",
+      "transcript": "/c9/b4f22b2f9d/0/full.jsonl",
+      "content_hash": "/c9/b4f22b2f9d/0/content_hash.txt",
+      "prompt": ""
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 8,
+    "cache_creation_tokens": 11962,
+    "cache_read_tokens": 582492,
+    "output_tokens": 10235,
+    "api_call_count": 3
+  }
+}
