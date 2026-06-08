@@ -1,0 +1,1 @@
+can we do an interactive prompt on a git push hook
