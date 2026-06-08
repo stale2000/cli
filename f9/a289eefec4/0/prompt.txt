@@ -1,0 +1,1 @@
+There's a lot of README and example stuff in the PR here https://github.com/entireio/cli/pull/1266/ given no user can use this yet, it might be worth to remove.
