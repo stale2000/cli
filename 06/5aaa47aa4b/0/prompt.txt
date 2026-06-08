@@ -1,0 +1,7 @@
+Medium: cmd/entire/cli/setup.go:983 rebuilds the reported URL from info.Host, which
+    breaks entire://.../gh/owner/repo origins. gitremote.ParseURL preserves the forge at
+    cmd/entire/cli/gitremote/gitremote.go:109, but the helper would report
+    https://aws-us-east-2.entire.io/owner/repo.git instead of
+    https://github.com/owner/repo.git, so already-mirrored repos silently fail backend
+    enable reporting. I’d map Forge == "gh" to github.com for ProtocolEntire remotes, or
+    reuse a provider/forge host helper.
