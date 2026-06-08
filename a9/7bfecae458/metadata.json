@@ -1,0 +1,30 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "a97bfecae458",
+  "strategy": "manual-commit",
+  "branch": "sign-at-push",
+  "checkpoints_count": 6,
+  "files_touched": [
+    "cmd/entire/cli/strategy/manual_commit_push.go",
+    "cmd/entire/cli/strategy/metadata_reconcile.go",
+    "cmd/entire/cli/strategy/push_common.go",
+    "cmd/entire/cli/strategy/push_signing.go",
+    "cmd/entire/cli/strategy/push_signing_test.go",
+    "cmd/entire/cli/testutil/testutil.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/a9/7bfecae458/0/metadata.json",
+      "transcript": "/a9/7bfecae458/0/full.jsonl",
+      "content_hash": "/a9/7bfecae458/0/content_hash.txt",
+      "prompt": "/a9/7bfecae458/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 25,
+    "cache_creation_tokens": 450914,
+    "cache_read_tokens": 2864499,
+    "output_tokens": 26228,
+    "api_call_count": 16
+  }
+}
