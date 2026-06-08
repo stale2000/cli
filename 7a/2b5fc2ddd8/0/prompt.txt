@@ -1,0 +1,3 @@
+The progress UI, perhaps we have one line with "[entire] Signing commits:" and the next line keeps changing with "        1/4: <message" which changes for each one of the checkpoints.
+
+Also, if we do a initial fetch, that should show in the logs like "[entire] Fetching latest from remote".
