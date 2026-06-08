@@ -1,9 +1,12 @@
 {
   "cli_version": "dev",
   "checkpoint_id": "d1d1bb489817",
+  "session_id": "9283390e-1390-4119-9946-48d80280c60c",
   "strategy": "manual-commit",
+  "created_at": "2026-06-08T02:44:39.033977Z",
   "branch": "soph/more-path-hardening",
-  "checkpoints_count": 2,
+  "checkpoints_count": 1,
+  "save_step_count": 1,
   "files_touched": [
     "cmd/entire/cli/agent/agent.go",
     "cmd/entire/cli/agent/agent_test.go",
@@ -43,25 +46,45 @@
     "cmd/entire/cli/transcript_test.go",
     "e2e/testutil/session_paths.go"
   ],
-  "sessions": [
+  "agent": "Claude Code",
+  "model": "claude-opus-4-8[1m]",
+  "turn_id": "14bad9f05461",
+  "token_usage": {
+    "input_tokens": 18307,
+    "cache_creation_tokens": 248200,
+    "cache_read_tokens": 13524569,
+    "output_tokens": 50148,
+    "api_call_count": 131
+  },
+  "session_metrics": {
+    "turn_count": 1
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-08T02:44:39.021838Z",
+    "agent_lines": 227,
+    "agent_removed": 117,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 227,
+    "total_lines_changed": 344,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
     {
-      "metadata": "/d1/d1bb489817/0/metadata.json",
-      "transcript": "/d1/d1bb489817/0/full.jsonl",
-      "content_hash": "/d1/d1bb489817/0/content_hash.txt",
-      "prompt": "/d1/d1bb489817/0/prompt.txt"
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
     },
     {
-      "metadata": "/d1/d1bb489817/1/metadata.json",
-      "transcript": "/d1/d1bb489817/1/full.jsonl",
-      "content_hash": "/d1/d1bb489817/1/content_hash.txt",
-      "prompt": "/d1/d1bb489817/1/prompt.txt"
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 227,
+      "agent_lines_removed": 117
     }
-  ],
-  "token_usage": {
-    "input_tokens": 23376,
-    "cache_creation_tokens": 276175,
-    "cache_read_tokens": 13700816,
-    "output_tokens": 53060,
-    "api_call_count": 136
-  }
+  ]
 }

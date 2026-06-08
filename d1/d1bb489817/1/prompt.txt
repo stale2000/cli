@@ -1,0 +1,35 @@
+as a follwo up to https://github.com/entireio/cli/pull/1235
+
+We got this feedback: 
+
+I took a look at the PR, and it mostly looks great. 
+
+One thing still worth considering (from my perspective): ResolveSessionFile() in pi.go and codex.go still pass absolute paths which rely on call-site discipline as opposed to DiD which you have done in the other fixes. If other/future development calls ResolveSessionFile() on remote data without a prior ValidateSessionID() check, the vulnerability comes back. 
+
+Consider something like: 
+
+(in pi.go + codex.go)
+if filepath.IsAbs(agentSessionID) {
+-   return agentSessionID, nil
++   return "", fmt.Errorf("session ID must be relative, got absolute path: %q", agentSessionID)
+}
+
+I haven't done the diligence to know if Pi's live session hooks actually require (which is bad practice in general, but I digress) absolute paths. If they do, that use case should be abstracted to a separate method outside of the restore path.
+
+---
+
+sorry, this is the right PR https://github.com/entireio/cli/pull/1365 for the context for this feedback:
+
+I took a look at the PR, and it mostly looks great. 
+
+One thing still worth considering (from my perspective): ResolveSessionFile() in pi.go and codex.go still pass absolute paths which rely on call-site discipline as opposed to DiD which you have done in the other fixes. If other/future development calls ResolveSessionFile() on remote data without a prior ValidateSessionID() check, the vulnerability comes back. 
+
+Consider something like: 
+
+(in pi.go + codex.go)
+if filepath.IsAbs(agentSessionID) {
+-   return agentSessionID, nil
++   return "", fmt.Errorf("session ID must be relative, got absolute path: %q", agentSessionID)
+}
+
+I haven't done the diligence to know if Pi's live session hooks actually require (which is bad practice in general, but I digress) absolute paths. If they do, that use case should be abstracted to a separate method outside of the restore path.
