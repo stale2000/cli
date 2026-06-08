@@ -3,19 +3,19 @@
   "checkpoint_id": "d5d7a295b1f9",
   "session_id": "9be15774-7ab0-4279-8eb6-4f8e6225889f",
   "strategy": "manual-commit",
-  "created_at": "2026-06-07T15:40:29.048735Z",
+  "created_at": "2026-06-08T00:18:53.648954Z",
   "branch": "fix/enable-fetch-checkpoint-remote",
   "checkpoints_count": 1,
   "files_touched": [],
   "agent": "Claude Code",
   "model": "claude-opus-4-8[1m]",
-  "turn_id": "9bd870190ab9",
+  "turn_id": "2c8166a2291e",
   "token_usage": {
-    "input_tokens": 16265,
-    "cache_creation_tokens": 296424,
-    "cache_read_tokens": 20080418,
-    "output_tokens": 153608,
-    "api_call_count": 122
+    "input_tokens": 16619,
+    "cache_creation_tokens": 614638,
+    "cache_read_tokens": 24085632,
+    "output_tokens": 169001,
+    "api_call_count": 136
   },
   "skill_events_version": 1,
   "skill_events": [
@@ -43,7 +43,7 @@
     }
   ],
   "session_metrics": {
-    "turn_count": 4
+    "turn_count": 5
   },
   "prompt_attributions": [
     {
