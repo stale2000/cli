@@ -1,0 +1,17 @@
+Does ResolveSessionFile in pi.go gets called outside of an execution path derived from DispatchLifecycleEvent?
+
+---
+
+Map all areas whereby fields: SessionID, ToolUseID, SubagentID, SessionRef, ModifiedFiles / NewFiles / DeletedFiles and CWD are touched before them being properly validated (e.g. from DispatchLifecycleEvent). Focus on non-test code only.
+
+---
+
+IF we move the validation to ParseHookEvent instead, would that capture all the use of those fields? If not, what would be the gap?
+
+---
+
+go ahead.
+
+---
+
+commit changes
