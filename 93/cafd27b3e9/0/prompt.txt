@@ -1,0 +1,21 @@
+This is looking mostly alright:
+gpsup
+Signing commit 1/10: Initialize metadata ref
+Signing commit 2/10: Checkpoint: 3ea196124c6a
+Signing commit 3/10: Checkpoint: 17bb9c4d640c
+Signing commit 4/10: Checkpoint: 2961d515a4c0
+Signing commit 5/10: Checkpoint: c9b4f22b2f9d
+Signing commit 6/10: Checkpoint: a97bfecae458
+Signing commit 7/10: Checkpoint: 80f1dc39b648
+Signing commit 8/10: Checkpoint: 33401e3c6510
+Signing commit 9/10: Checkpoint: 17d941007e3b
+Signing commit 10/10: Finalize transcript for Checkpoint: 17d941007e3b
+[entire] Pushing entire/checkpoints/v1 to checkpoint remote.....
+[entire] Syncing entire/checkpoints/v1 with remote......[entire] Detected disconnected session metadata (local and remote share no common ancestor)
+[entire] Cherry-picking 9 local checkpoint(s) onto remote...
+.............[entire] Done — all local and remote checkpoints preserved
+................ done
+[entire] Pushing entire/checkpoints/v1 to checkpoint remote........ done
+
+
+However, if this was a locally initialised checkpoint branch, we should first fetch from the server, as this is more likely than not a shallow clone so that we avoid signing all the commits, to then have to sign them again after the fetch/rebase.
