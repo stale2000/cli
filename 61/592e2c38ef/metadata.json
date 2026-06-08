@@ -1,0 +1,26 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "61592e2c38ef",
+  "strategy": "manual-commit",
+  "branch": "cli-report-entire-enable",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/api/enable.go",
+    "cmd/entire/cli/setup.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/61/592e2c38ef/0/metadata.json",
+      "transcript": "/61/592e2c38ef/0/full.jsonl",
+      "content_hash": "/61/592e2c38ef/0/content_hash.txt",
+      "prompt": "/61/592e2c38ef/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 5643,
+    "cache_creation_tokens": 51376,
+    "cache_read_tokens": 1921145,
+    "output_tokens": 12047,
+    "api_call_count": 34
+  }
+}
