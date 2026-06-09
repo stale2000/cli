@@ -3,7 +3,7 @@
   "checkpoint_id": "6656450350ce",
   "session_id": "019ea9ab-7cd3-74c0-aad0-ebd41af014d4",
   "strategy": "manual-commit",
-  "created_at": "2026-06-09T04:21:48.802688Z",
+  "created_at": "2026-06-09T04:22:34.621219Z",
   "branch": "stale2000/condense-subagent-tokens",
   "checkpoints_count": 7,
   "save_step_count": 1,
