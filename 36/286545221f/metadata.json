@@ -1,0 +1,23 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "36286545221f",
+  "strategy": "manual-commit",
+  "branch": "stale2000/condense-subagent-tokens",
+  "checkpoints_count": 7,
+  "files_touched": null,
+  "sessions": [
+    {
+      "metadata": "/36/286545221f/0/metadata.json",
+      "transcript": "/36/286545221f/0/full.jsonl",
+      "content_hash": "/36/286545221f/0/content_hash.txt",
+      "prompt": "/36/286545221f/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 1294797,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 39657216,
+    "output_tokens": 100518,
+    "api_call_count": 280
+  }
+}
