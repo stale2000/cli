@@ -1,0 +1,25 @@
+{
+  "cli_version": "0.7.6-nightly.202606060713.9f0ab678.0.20260609033839-6b6b776e1d86",
+  "checkpoint_id": "aaea3422dc87",
+  "strategy": "manual-commit",
+  "branch": "review-profiles",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/review/picker.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/aa/ea3422dc87/0/metadata.json",
+      "transcript": "/aa/ea3422dc87/0/full.jsonl",
+      "content_hash": "/aa/ea3422dc87/0/content_hash.txt",
+      "prompt": "/aa/ea3422dc87/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 340,
+    "cache_creation_tokens": 2099876,
+    "cache_read_tokens": 23670702,
+    "output_tokens": 153163,
+    "api_call_count": 173
+  }
+}
