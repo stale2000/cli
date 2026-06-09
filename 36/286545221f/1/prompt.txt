@@ -1,0 +1,55 @@
+investigate the codebase thoroughly, and find some interesting and reproducible bugs that have real impact.
+
+---
+
+aren't there files for condensation though?  It would be surprising if this isn't covered.
+
+---
+
+How do we test this.  With codex.  Figure out if we can manually condense or trigger a condense so we can test it easier.  And then try this with a new CLI agent, that way its easier to reproduce and you don't have to worry about the desktop app.
+
+---
+
+Is this only for sub agents?
+
+---
+
+which has a free trial
+
+---
+
+is factory droid supported by entire
+
+---
+
+claud is working as the CLI.  test and try to reproduce the bug.  find a way to manaully trigger compressions, ect, with the sugagent bug.
+
+---
+
+design a way of fixing the bug that is elegant, conservative, and changes hopefully not much code.
+
+---
+
+implement it
+
+---
+
+review the code
+
+---
+
+make a new branch for this.  dont put codec in the name, make it stale2000/[name] .  
+
+Also, dont push yet.  There is a config file that needs to change to have teh entire logs push to the meta data branch.  make sure that works, the config file is fixed ( but not merged), then merge the meta data first, the branch second and wait on the PR.
+
+---
+
+no, pull from main for the meta data, dont include other, unrelated stuff.
+
+---
+
+and yes the checkpoint remote has to change.  to my repo, not to the remote.
+
+---
+
+is the branch pushed?
