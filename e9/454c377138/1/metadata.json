@@ -1,0 +1,117 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "e9454c377138",
+  "session_id": "019eaad9-6a88-78a0-94c4-0fe99696aefa",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-09T05:41:20.062822Z",
+  "branch": "codex/windows-interactive-prompts",
+  "checkpoints_count": 3,
+  "save_step_count": 3,
+  "files_touched": [
+    "cmd/entire/cli/interactive/interactive.go",
+    "cmd/entire/cli/interactive/tty.go",
+    "cmd/entire/cli/interactive/tty_other.go",
+    "cmd/entire/cli/interactive/tty_unix.go",
+    "cmd/entire/cli/interactive/tty_windows.go",
+    "cmd/entire/cli/login.go",
+    "cmd/entire/cli/strategy/manual_commit_hooks.go"
+  ],
+  "agent": "Codex",
+  "model": "gpt-5.5",
+  "turn_id": "292daa672cff",
+  "token_usage": {
+    "input_tokens": 176298,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 2763392,
+    "output_tokens": 15337,
+    "api_call_count": 43
+  },
+  "session_metrics": {
+    "turn_count": 3
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-09T05:41:20.047439Z",
+    "agent_lines": 0,
+    "agent_removed": 2,
+    "human_added": 143,
+    "human_modified": 23,
+    "human_removed": 0,
+    "total_committed": 143,
+    "total_lines_changed": 168,
+    "agent_percentage": 1.1904761904761905,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 3330,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".agents/skills/agent-integration/README.md": 71,
+        ".agents/skills/agent-integration/SKILL.md": 107,
+        ".agents/skills/agent-integration/implementer.md": 346,
+        ".agents/skills/agent-integration/researcher.md": 161,
+        ".agents/skills/agent-integration/test-writer.md": 211,
+        ".agents/skills/changelog/SKILL.md": 88,
+        ".agents/skills/e2e/SKILL.md": 32,
+        ".agents/skills/e2e/debug.md": 88,
+        ".agents/skills/e2e/implement.md": 117,
+        ".agents/skills/e2e/triage-ci.md": 176,
+        ".agents/skills/test-repo/README.md": 65,
+        ".agents/skills/test-repo/SKILL.md": 230,
+        ".agents/skills/test-repo/test-harness.sh": 245,
+        ".codex/agents/dev.toml": 108,
+        ".codex/agents/reviewer.toml": 163,
+        ".playwright-mcp/console-2026-06-08T23-15-17-386Z.log": 1,
+        ".playwright-mcp/page-2026-06-08T23-16-42-912Z.yml": 684,
+        ".playwright-mcp/page-2026-06-08T23-20-12-098Z.yml": 244,
+        ".playwright-mcp/page-2026-06-09T02-21-54-014Z.yml": 193
+      }
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 3378,
+      "agent_lines_removed": 16
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 49,
+      "user_lines_removed": 7,
+      "agent_lines_added": 3378,
+      "agent_lines_removed": 16,
+      "user_added_per_file": {
+        "cmd/entire/cli/interactive/tty.go": 30,
+        "cmd/entire/cli/interactive/tty_other.go": 1,
+        "cmd/entire/cli/interactive/tty_unix.go": 6,
+        "cmd/entire/cli/interactive/tty_windows.go": 12
+      },
+      "user_removed_per_file": {
+        "cmd/entire/cli/interactive/tty_other.go": 2,
+        "cmd/entire/cli/interactive/tty_unix.go": 2,
+        "cmd/entire/cli/interactive/tty_windows.go": 3
+      }
+    },
+    {
+      "checkpoint_number": 4,
+      "user_lines_added": 49,
+      "user_lines_removed": 7,
+      "agent_lines_added": 3378,
+      "agent_lines_removed": 16,
+      "user_added_per_file": {
+        "cmd/entire/cli/interactive/tty.go": 30,
+        "cmd/entire/cli/interactive/tty_other.go": 1,
+        "cmd/entire/cli/interactive/tty_unix.go": 6,
+        "cmd/entire/cli/interactive/tty_windows.go": 12
+      },
+      "user_removed_per_file": {
+        "cmd/entire/cli/interactive/tty_other.go": 2,
+        "cmd/entire/cli/interactive/tty_unix.go": 2,
+        "cmd/entire/cli/interactive/tty_windows.go": 3
+      }
+    }
+  ]
+}
