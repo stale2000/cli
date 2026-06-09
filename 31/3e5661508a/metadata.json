@@ -1,8 +1,8 @@
 {
   "cli_version": "dev",
-  "checkpoint_id": "9234c35440b2",
+  "checkpoint_id": "313e5661508a",
   "strategy": "manual-commit",
-  "branch": "codex/unify-uiform-accessibility",
+  "branch": "codex/unify-uiform-accessibility-v3",
   "checkpoints_count": 6,
   "files_touched": [
     "cmd/entire/cli/strategy/manual_commit_reset.go",
@@ -12,10 +12,10 @@
   ],
   "sessions": [
     {
-      "metadata": "/92/34c35440b2/0/metadata.json",
-      "transcript": "/92/34c35440b2/0/full.jsonl",
-      "content_hash": "/92/34c35440b2/0/content_hash.txt",
-      "prompt": "/92/34c35440b2/0/prompt.txt"
+      "metadata": "/31/3e5661508a/0/metadata.json",
+      "transcript": "/31/3e5661508a/0/full.jsonl",
+      "content_hash": "/31/3e5661508a/0/content_hash.txt",
+      "prompt": "/31/3e5661508a/0/prompt.txt"
     }
   ],
   "token_usage": {
