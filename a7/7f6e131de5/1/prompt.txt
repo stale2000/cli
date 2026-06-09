@@ -1,0 +1,43 @@
+Investigate the following bug.  
+
+Valid repo paths beginning with .. are falsely rejected as traversal
+ToRelativePath treats any relative path starting with .. as outside the repo:
+paths.go (line 168)
+But the repo already has the correct check in IsSubpath: reject only .. or ../..., not names like ..generated: paths.go (line 148).
+Same false-positive pattern appears in checkpoint metadata walkers:
+temporary.go (line 975), temporary.go (line 1036), committed.go (line 1850)
+Impact: legitimate files such as /repo/..generated/schema.json are silently filtered out of checkpoint file tracking, and checkpoint metadata writes can fail with false “path traversal detected” errors for legal child paths.
+Repro shape: paths.ToRelativePath("/repo/..generated/schema.json", "/repo") currently returns ""; expected "..generated/schema.json".
+Likely fix: replace strings.HasPrefix(rel, "..") with rel == ".." || strings.HasPrefix(rel, ".."+string(filepath.Separator)), and add regression tests for ..generated/file.
+
+---
+
+Explain what the bug was and its effect.
+
+---
+
+Are those things suposed to be outside the repo?  Whats the consensus on files like that?
+
+---
+
+Are there any risks with this fix?
+
+---
+
+critically review the code.
+
+---
+
+Are there issues with cross compatitibility?  Files for windows, mac, linux, ect?
+
+---
+
+fix issue [P3]
+
+---
+
+can you replicate the bug locally with a test repo or files.
+
+---
+
+Check [https://github.com/entireio/cli/issues](https://github.com/entireio/cli/issues) and the pull requests to see if anyone else covered the issue.

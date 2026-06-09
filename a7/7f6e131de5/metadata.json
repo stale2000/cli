@@ -3,21 +3,34 @@
   "checkpoint_id": "a77f6e131de5",
   "strategy": "manual-commit",
   "branch": "stale2000/fix-dotdot-path-traversal",
-  "checkpoints_count": 7,
-  "files_touched": null,
+  "checkpoints_count": 16,
+  "files_touched": [
+    "cmd/entire/cli/auth_test.go",
+    "cmd/entire/cli/checkpoint/checkpoint_test.go",
+    "cmd/entire/cli/checkpoint/committed.go",
+    "cmd/entire/cli/checkpoint/temporary.go",
+    "cmd/entire/cli/paths/paths.go",
+    "cmd/entire/cli/paths/paths_test.go"
+  ],
   "sessions": [
     {
       "metadata": "/a7/7f6e131de5/0/metadata.json",
       "transcript": "/a7/7f6e131de5/0/full.jsonl",
       "content_hash": "/a7/7f6e131de5/0/content_hash.txt",
       "prompt": "/a7/7f6e131de5/0/prompt.txt"
+    },
+    {
+      "metadata": "/a7/7f6e131de5/1/metadata.json",
+      "transcript": "/a7/7f6e131de5/1/full.jsonl",
+      "content_hash": "/a7/7f6e131de5/1/content_hash.txt",
+      "prompt": "/a7/7f6e131de5/1/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 1294797,
+    "input_tokens": 1644184,
     "cache_creation_tokens": 0,
-    "cache_read_tokens": 39657216,
-    "output_tokens": 100518,
-    "api_call_count": 280
+    "cache_read_tokens": 46115200,
+    "output_tokens": 122677,
+    "api_call_count": 339
   }
 }
