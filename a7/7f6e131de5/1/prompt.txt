@@ -1,1 +1,23 @@
 the branch should be stale2000/[name] remove previous PRs and fix metadata
+
+---
+
+review the code
+
+---
+
+it should still work though so dont worry about that. 
+
+Make a PR, give a description of the issue, its effects, simple ways of reproducing it and then an explanation of the fix.
+
+---
+
+go back to the previous info in the PR
+
+---
+
+now, fix the log against, do the more detailed ones that you wanted to use, but include a link to https://entire.io/gh/stale2000/cli/session/019eaaa8-c4a4-71b2-93d0-e249a631f82c at the top.
+
+---
+
+You updated the auth test timestamps for no reason I think?  Undo that.

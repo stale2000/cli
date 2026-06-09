@@ -3,9 +3,8 @@
   "checkpoint_id": "a77f6e131de5",
   "strategy": "manual-commit",
   "branch": "stale2000/fix-dotdot-path-traversal",
-  "checkpoints_count": 16,
+  "checkpoints_count": 11,
   "files_touched": [
-    "cmd/entire/cli/auth_test.go",
     "cmd/entire/cli/checkpoint/checkpoint_test.go",
     "cmd/entire/cli/checkpoint/committed.go",
     "cmd/entire/cli/checkpoint/temporary.go",
@@ -27,11 +26,11 @@
     }
   ],
   "token_usage": {
-    "input_tokens": 1644184,
+    "input_tokens": 1380608,
     "cache_creation_tokens": 0,
-    "cache_read_tokens": 46115200,
-    "output_tokens": 122677,
-    "api_call_count": 339
+    "cache_read_tokens": 44575616,
+    "output_tokens": 110475,
+    "api_call_count": 303
   },
   "combined_attribution": {
     "calculated_at": "2026-06-09T04:51:56.612595Z",
