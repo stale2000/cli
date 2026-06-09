@@ -4,7 +4,9 @@
   "strategy": "manual-commit",
   "branch": "stale2000/condense-subagent-tokens",
   "checkpoints_count": 10,
-  "files_touched": null,
+  "files_touched": [
+    "cmd/entire/cli/strategy/manual_commit_test.go"
+  ],
   "sessions": [
     {
       "metadata": "/66/56450350ce/0/metadata.json",
@@ -20,10 +22,10 @@
     }
   ],
   "token_usage": {
-    "input_tokens": 2377294,
+    "input_tokens": 1300994,
     "cache_creation_tokens": 0,
-    "cache_read_tokens": 52931200,
-    "output_tokens": 151004,
-    "api_call_count": 395
+    "cache_read_tokens": 40362496,
+    "output_tokens": 101796,
+    "api_call_count": 286
   }
 }
