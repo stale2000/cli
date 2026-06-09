@@ -57,3 +57,19 @@ is the branch pushed?
 ---
 
 push the branch to my repo.
+
+---
+
+remove that unrelated uifor change
+
+---
+
+Now, make a PR, a detailed description of the issue, how to reproduce it, what it effects and what the fix is.  It should be a PR to the upstream.
+
+---
+
+dont do the repo change, that changes the "repo": config file.  Update the commit description, and force push remove that config change.
+
+---
+
+whats this: // Register Claude Code agent for condensation token tests. what does that mean, do we need that comment?
