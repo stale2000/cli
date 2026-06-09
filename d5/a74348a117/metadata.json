@@ -1,0 +1,25 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "d5a74348a117",
+  "strategy": "manual-commit",
+  "branch": "feat/review-pr3a-dashboard",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/review_bridge.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/d5/a74348a117/0/metadata.json",
+      "transcript": "/d5/a74348a117/0/full.jsonl",
+      "content_hash": "/d5/a74348a117/0/content_hash.txt",
+      "prompt": "/d5/a74348a117/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 64773,
+    "cache_creation_tokens": 3728827,
+    "cache_read_tokens": 284018958,
+    "output_tokens": 755445,
+    "api_call_count": 527
+  }
+}

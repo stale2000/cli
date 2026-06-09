@@ -1,0 +1,9 @@
+/simplify
+
+---
+
+https://github.com/entireio/cli/actions/runs/27180169336/job/80237703781?pr=1377
+
+---
+
+gaah CI failures https://github.com/entireio/cli/actions/runs/27180169336/job/80237703781?pr=1377

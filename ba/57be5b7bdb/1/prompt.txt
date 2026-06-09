@@ -1,0 +1,202 @@
+let's pick up the next chunk of this work!
+
+  Handover — Data-API auth-context slice (next)
+
+  Where we got to
+
+  PR #1367 (cor-389-control-plane-context-aware, draft) makes the control plane follow the active auth context:
+  - org/repo/project/grant + auth status dial the active context's login server, with silent JWT refresh (auth.ResolveControlPlaneTarget → NewRefreshingLoginProvider). ENTIRE_AUTH_BASE_URL
+  is a fallback, not an override.
+  - Stale cross-core warning removed; review comments addressed.
+  - Design doc: docs/architecture/upstream-host-resolution.md — the "one core (login server) + resource servers" model. Read this first.
+
+  Already done elsewhere: git clusters are context-aware via internal/entireclient/clusterdiscovery (/.well-known/entire-cluster.json → core_urls → pick context). That's the template.
+
+  The goal of the next slice
+
+  Make ENTIRE_API_BASE_URL=https://partial.to entire activity (no ENTIRE_AUTH_BASE_URL) auto-pick the right login context. Affected commands: activity, search, trail, dispatch.
+
+  Two parts
+
+  1. Server — ~/src/entirehq/entire.io (you own this)
+
+  Add GET /.well-known/entire-api.json, unauthenticated, advertising trust roots:
+  { "issuer": "https://us.auth.partial.to",
+    "trusted_issuers": ["https://us.auth.partial.to", "https://eu.auth.partial.to"],
+    "audience": "entire-web-api",
+    "jwks_uri": "https://us.auth.partial.to/.well-known/jwks.json" }
+  - Source straight from existing config in api/src/env.ts: ENTIRE_CORE_BASE_URL (issuer), ENTIRE_CORE_TRUSTED_ISSUERS (trusted_issuers), ENTIRE_CORE_JWT_AUDIENCE (audience). The server
+  already knows all this — it just doesn't publish it.
+  - Mount in api/src/app.ts route table; no auth middleware.
+  - Reference implementation: entiredb's ~/src/entirehq/entiredb/server/cluster_discovery.go.
+  - partial.to is the staging deploy of the same code, so it comes for free.
+
+  2. Client — this repo
+
+  - Generalize internal/entireclient/clusterdiscovery: make the well-known path + response shape pluggable so it serves both entire-cluster.json (core_urls) and entire-api.json ({issuer,
+  trusted_issuers, audience, jwks_uri}). Reuse its selectContext and the discovery/ cache.
+    - Selection rule differs from the control plane: here a host is being matched, so use cluster semantics — active context wins only if eligible (its CoreURL ∈ trusted_issuers), else
+  sole-eligible, else error. (Control plane was "active always wins" because it had no host to match.) This is exactly the entire.io-active-but-hitting-partial.to case you raised earlier.
+  - Wire into the seams (audit: ~11 call sites, 3 constructors):
+    - cmd/entire/cli/api_client.go → NewAuthenticatedAPIClient (activity, trail; search token resolution)
+    - cmd/entire/cli/dispatch/cloud.go → NewCloudClient
+    - cmd/entire/cli/search/search.go → Search (also honors ENTIRE_SEARCH_URL, falls back to API base)
+  - Fallback: if entire-api.json 404s (old deployment / not rolled out), fall back to today's static resolution so nothing breaks pre-deploy.
+
+  ⚠️  The one real unknown — audience vs host
+
+  NewAuthenticatedAPIClient today does auth.TokenForResource(ctx, api.OriginOnly(dataURL)) — it exchanges for an audience derived from the data host origin. But entire.io validates aud
+  against ENTIRE_CORE_JWT_AUDIENCE = entire-web-api (an opaque string, not the host). So:
+  - First, figure out how this works today (does the core token already cover it via same-origin shortcut? is ENTIRE_CORE_JWT_AUDIENCE currently set to the host URL?).
+  - Then: the well-known advertises audience, and the CLI must exchange for that opaque audience, not the host origin. Verify auth-go tokenmanager supports an explicit/opaque audience (vs
+  origin-derived TokenRequest.Resource). If it doesn't, that's the first thing to add (a TokenForAudience-style path). This is the crux of the slice — settle it before wiring call sites.
+
+  Pointers
+
+  - Design + deferred notes: docs/architecture/upstream-host-resolution.md
+  - Client discovery to generalize: internal/entireclient/clusterdiscovery/{discovery,resolve}.go, cache in internal/entireclient/discovery/
+  - Token exchange: cmd/entire/cli/auth/exchange.go (TokenForResource, TokenRequest), auth-go tokenmanager
+  - Two-surface caution (never touch legacy ent_ PATs): memory auth-token-surfaces
+  - This handover is also saved as memory next-api-context-slice.
+
+---
+
+wait wait wait one thing to ensure: the "resource provider" we need to fix up lives in ~/src/entirehq/entire.io - the one in the 'entiredb' repo is already up to spec.  feel free to make a branch in entire.io.
+
+---
+
+continue
+
+---
+
+where is my draft PR?
+
+---
+
+wtf. don't touch my git remotes.  pushing to entire://../gh/.. makes it end up on github anyway.
+
+---
+
+i pushed entire.io, open a draft pr.  then, name streamed-honking-nebula properly and make a draft PR there too.
+
+---
+
+i want to double-check.  have we got shared helpers for core API and data APIs so that we don't have to implement the auth context derivation twice?
+
+---
+
+Cool.  Another thing i want to discuss: now that we're fully in on auth contexts, we should sunset the ENTIRE_AUTH_BASE_URL env var completely.  there should be no fallback.  if we try to hit a particular resource API and do not have a context authenticated to a login server it trusts, we should error and tell the user where they _can_ log in.  This will automatically cover off the case where a user has never logged in - same error output expected.  Something like:
+
+"you tried to hit X but you have no auth session that's suitable.  This resource accepts logins from:
+- login server 1
+- login server 2
+- ...
+
+log in with `entire login --server X` first.
+
+as part of this change, the last thing will be to indeed add a `--server` flag to `entire login` (it defaults to "https://us.auth.entire.io"), with which a user can fix the above.
+
+there should be prior art for such a login-first-please error over in ~/src/entirehq/entiredb/cmd/entire-core - take a look there and match it.  commit but don't push. ok?
+
+---
+
+okay, that's a lot.  we'll tackle it separately - make a COR-... card for me about removing ENTIRE_AUTH_BASE_URL.
+
+for today's work, we'll just pretend 'entire login' is the way to login, the ENTIRE_AUTH_BASE_URL override is a power-user thing anyway.
+
+---
+
+before we push, 1377 has a few reviewer comments.  let's consider each critically.
+
+---
+
+psuh
+
+---
+
+tests of https://github.com/entireio/cli/pull/1377 have failed.
+
+---
+
+yes file a card about that test flake.
+
+---
+
+okay, how are we doing on this job - basically done?
+
+---
+
+https://github.com/entirehq/entire.io/pull/2281 changes the API server to return jwks_uris (plural).  We don't use this field, so either let's drop it from our struct or fix up the name & shape.
+
+---
+
+https://github.com/entirehq/entire.io/pull/2281 changes the API server to return jwks_uris (plural).  We don't use this field, so either let's drop it from our struct or fix up the name & shape.
+
+---
+
+https://github.com/entirehq/entire.io/pull/2281 changes the API server to return jwks_uris (plural).  We don't use this field, so either let's drop it from our struct or fix up the name & shape.
+
+---
+
+https://github.com/entirehq/entire.io/pull/2281 changes the API server to return jwks_uris (plural).  We don't use this field, so either let's drop it from our struct or fix up the name & shape.
+
+---
+
+https://github.com/entirehq/entire.io/pull/2281 changes the API server to return jwks_uris (plural).  We don't use this field, so either let's drop it from our struct or fix up the name & shape.
+
+---
+
+https://github.com/entirehq/entire.io/pull/2281 changes the API server to return jwks_uris (plural).  We don't use this field, so either let's drop it from our struct or fix up the name & shape.
+
+---
+
+okay i guess we're done here.  take a moment to audit all API calls and ensure they use the context lookup mechanism.
+
+---
+
+one question, should 'auth status' & 'logout' use ResolveControlPlaneTarget too? why is resolveStatusTarget different?
+
+---
+
+>   - auth status is a liveness probe: it reads the stored token and does GET /me; a 401 should surface as "session expired, re-login." If it silently refreshed first (control-plane
+  behaviour), it would mask the very staleness it exists to report.
+
+That sounds like bullshit - a user who wants to see their sessions but has a stale JWT should surely automatically have their JWT updated, then see their sessions?
+
+---
+
+i think this is broken behaviour we should fix.  do it in this PR.
+
+---
+
+commit.  we'll test later.  now please do this again: take a moment to audit all API calls and ensure they use the context lookup mechanism.  do all the endpoints follow our vision laid out in the architecture doc?
+
+---
+
+ok, file a card for the gap you just found, as well as the dangling function.
+
+---
+
+ok, so.  are we sure that all sites using the new cluster discovery correctly refresh their JWT if possible?
+
+---
+
+do we cache /.well-known/entire-api.json the same way we cache the entire-cluster.json in git-remote-entire?
+
+---
+
+nope, we will cache entire-api.json too.  if we can, let's reuse the machinery of cluster_cores.json.  devise a plan for that and tell me about it before going ahead.  adding the 'audience' field shouldn't be that hard.
+
+---
+
+1. yep 24h
+2. commit here on this branch / PR.
+
+---
+
+alright.  now i have good news - for the data API, Both staging and prod require aud == base URI (https://partial.to / https://entire.io).  Does this change anything about how much we can fold together the api_discovery.json and cluster_cores.json caching mechanisms?
+
+---
+
+1. do the full fold.
+2. let's just focus on this cli repo.

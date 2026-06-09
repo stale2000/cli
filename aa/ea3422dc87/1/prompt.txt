@@ -1,0 +1,12 @@
+/review
+
+Review profile: general
+
+Task: Review this change for correctness, regressions, API design, missing tests, maintainability, and user-facing behavior changes. Report only actionable findings with concrete evidence.
+
+Scope: review the commits unique to this branch vs origin/HEAD, plus any uncommitted changes in the working tree. Ignore code outside this scope.
+
+Checkpoint context from commits in scope:
+- 86a03348156e: prompt: Create a separate PR for that. Then come back to this one.
+
+Use `entire explain <id>` for full checkpoint context, or `entire explain <id> --raw-transcript` for raw transcripts.

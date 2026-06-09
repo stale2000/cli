@@ -1,0 +1,44 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "ba57be5b7bdb",
+  "strategy": "manual-commit",
+  "branch": "cor-389-data-api-context-aware",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "internal/entireclient/clusterdiscovery/api_discovery.go",
+    "internal/entireclient/clusterdiscovery/resolve.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/ba/57be5b7bdb/0/metadata.json",
+      "transcript": "/ba/57be5b7bdb/0/full.jsonl",
+      "content_hash": "/ba/57be5b7bdb/0/content_hash.txt",
+      "prompt": "/ba/57be5b7bdb/0/prompt.txt"
+    },
+    {
+      "metadata": "/ba/57be5b7bdb/1/metadata.json",
+      "transcript": "/ba/57be5b7bdb/1/full.jsonl",
+      "content_hash": "/ba/57be5b7bdb/1/content_hash.txt",
+      "prompt": "/ba/57be5b7bdb/1/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 73830,
+    "cache_creation_tokens": 2251745,
+    "cache_read_tokens": 121176783,
+    "output_tokens": 339027,
+    "api_call_count": 391
+  },
+  "combined_attribution": {
+    "calculated_at": "2026-06-09T02:18:52.636143Z",
+    "agent_lines": 54,
+    "agent_removed": 58,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 54,
+    "total_lines_changed": 112,
+    "agent_percentage": 100,
+    "metric_version": 2
+  }
+}
