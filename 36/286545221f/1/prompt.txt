@@ -53,3 +53,7 @@ and yes the checkpoint remote has to change.  to my repo, not to the remote.
 ---
 
 is the branch pushed?
+
+---
+
+push the branch to my repo.
