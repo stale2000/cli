@@ -1,0 +1,95 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "5212b6104998",
+  "session_id": "019ea9ab-7cd3-74c0-aad0-ebd41af014d4",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-09T00:19:01.859416Z",
+  "branch": "codex/standardize-git-test-setup",
+  "checkpoints_count": 5,
+  "save_step_count": 1,
+  "files_touched": [
+    "cmd/entire/cli/checkpoint/backwards_compat_test.go",
+    "cmd/entire/cli/checkpoint/checkpoint_test.go",
+    "cmd/entire/cli/checkpoint/committed_tripwire_test.go",
+    "cmd/entire/cli/checkpoint/committed_update_test.go",
+    "cmd/entire/cli/checkpoint/tree_surgery_equiv_test.go",
+    "cmd/entire/cli/clean_test.go",
+    "cmd/entire/cli/explain_test.go",
+    "cmd/entire/cli/reset_test.go",
+    "cmd/entire/cli/resume_test.go",
+    "cmd/entire/cli/state_test.go",
+    "cmd/entire/cli/status_test.go",
+    "cmd/entire/cli/strategy/clean_test.go",
+    "cmd/entire/cli/strategy/common_test.go",
+    "cmd/entire/cli/strategy/content_overlap_test.go",
+    "cmd/entire/cli/strategy/hard_reset_test.go",
+    "cmd/entire/cli/strategy/manual_commit_staging_test.go",
+    "cmd/entire/cli/strategy/manual_commit_test.go",
+    "cmd/entire/cli/strategy/metadata_reconcile_test.go",
+    "cmd/entire/cli/strategy/phase_postcommit_test.go",
+    "cmd/entire/cli/strategy/phase_wiring_test.go",
+    "cmd/entire/cli/strategy/rewind_test.go",
+    "cmd/entire/cli/strategy/session_state_test.go"
+  ],
+  "agent": "Codex",
+  "model": "gpt-5.5",
+  "turn_id": "d8116fc0a922",
+  "token_usage": {
+    "input_tokens": 436077,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 13313664,
+    "output_tokens": 28094,
+    "api_call_count": 103
+  },
+  "session_metrics": {
+    "turn_count": 5
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-09T00:19:01.8364Z",
+    "agent_lines": 378,
+    "agent_removed": 386,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 378,
+    "total_lines_changed": 764,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 3137,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".agents/skills/agent-integration/README.md": 71,
+        ".agents/skills/agent-integration/SKILL.md": 107,
+        ".agents/skills/agent-integration/implementer.md": 346,
+        ".agents/skills/agent-integration/researcher.md": 161,
+        ".agents/skills/agent-integration/test-writer.md": 211,
+        ".agents/skills/changelog/SKILL.md": 88,
+        ".agents/skills/e2e/SKILL.md": 32,
+        ".agents/skills/e2e/debug.md": 88,
+        ".agents/skills/e2e/implement.md": 117,
+        ".agents/skills/e2e/triage-ci.md": 176,
+        ".agents/skills/test-repo/README.md": 65,
+        ".agents/skills/test-repo/SKILL.md": 230,
+        ".agents/skills/test-repo/test-harness.sh": 245,
+        ".codex/agents/dev.toml": 108,
+        ".codex/agents/reviewer.toml": 163,
+        ".playwright-mcp/console-2026-06-08T23-15-17-386Z.log": 1,
+        ".playwright-mcp/page-2026-06-08T23-16-42-912Z.yml": 684,
+        ".playwright-mcp/page-2026-06-08T23-20-12-098Z.yml": 244
+      }
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 3518,
+      "agent_lines_removed": 393
+    }
+  ]
+}

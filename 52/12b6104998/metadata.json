@@ -1,0 +1,46 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "5212b6104998",
+  "strategy": "manual-commit",
+  "branch": "codex/standardize-git-test-setup",
+  "checkpoints_count": 5,
+  "files_touched": [
+    "cmd/entire/cli/checkpoint/backwards_compat_test.go",
+    "cmd/entire/cli/checkpoint/checkpoint_test.go",
+    "cmd/entire/cli/checkpoint/committed_tripwire_test.go",
+    "cmd/entire/cli/checkpoint/committed_update_test.go",
+    "cmd/entire/cli/checkpoint/tree_surgery_equiv_test.go",
+    "cmd/entire/cli/clean_test.go",
+    "cmd/entire/cli/explain_test.go",
+    "cmd/entire/cli/reset_test.go",
+    "cmd/entire/cli/resume_test.go",
+    "cmd/entire/cli/state_test.go",
+    "cmd/entire/cli/status_test.go",
+    "cmd/entire/cli/strategy/clean_test.go",
+    "cmd/entire/cli/strategy/common_test.go",
+    "cmd/entire/cli/strategy/content_overlap_test.go",
+    "cmd/entire/cli/strategy/hard_reset_test.go",
+    "cmd/entire/cli/strategy/manual_commit_staging_test.go",
+    "cmd/entire/cli/strategy/manual_commit_test.go",
+    "cmd/entire/cli/strategy/metadata_reconcile_test.go",
+    "cmd/entire/cli/strategy/phase_postcommit_test.go",
+    "cmd/entire/cli/strategy/phase_wiring_test.go",
+    "cmd/entire/cli/strategy/rewind_test.go",
+    "cmd/entire/cli/strategy/session_state_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/52/12b6104998/0/metadata.json",
+      "transcript": "/52/12b6104998/0/full.jsonl",
+      "content_hash": "/52/12b6104998/0/content_hash.txt",
+      "prompt": "/52/12b6104998/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 436077,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 13313664,
+    "output_tokens": 28094,
+    "api_call_count": 103
+  }
+}

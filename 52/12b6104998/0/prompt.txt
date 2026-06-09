@@ -1,0 +1,22 @@
+There is a code improvement opportunity:
+
+Standardize git test setup
+The repo documents testutil.InitRepo, but there are many direct git.PlainInit calls across tests. The helper already centralizes user config, GPG disabling, and CRLF setup in testutil.go (line 33). Converting tests to the helper would reduce flaky auth/signing/config behavior and make future git test changes cheaper.
+
+Investigate why this would be useful and what it protects against, and how it standardizes things.
+
+---
+
+What would be the targeted fix per usage of plainInit?
+
+---
+
+Lets not add helpers, what would the conservative approach to this be?  Is it similar lines of code also?
+
+---
+
+is replacing it with just testutil.InitRepo(t, dir), safe or at least equivalent to what its already doing?  Whats the recommended practice from the rest of the codebase?
+
+---
+
+Alright, conservatively evaluate each case and convert the cases that can be improved in a way thats similar to the best practices of the repo.
