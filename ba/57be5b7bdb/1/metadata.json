@@ -1,0 +1,37 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "ba57be5b7bdb",
+  "session_id": "6b26d89b-433f-4dab-8cf7-8faa6ae827a5",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-09T02:18:52.063827Z",
+  "branch": "cor-389-data-api-context-aware",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "internal/entireclient/clusterdiscovery/resolve.go"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-8[1m]",
+  "turn_id": "f3c80114aa40",
+  "token_usage": {
+    "input_tokens": 67529,
+    "cache_creation_tokens": 2222103,
+    "cache_read_tokens": 119000221,
+    "output_tokens": 320575,
+    "api_call_count": 375
+  },
+  "session_metrics": {
+    "turn_count": 23
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-09T02:18:51.992952Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 24,
+    "human_modified": 18,
+    "human_removed": 0,
+    "total_committed": 24,
+    "total_lines_changed": 42,
+    "agent_percentage": 0,
+    "metric_version": 2
+  }
+}
