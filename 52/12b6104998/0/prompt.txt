@@ -20,3 +20,7 @@ is replacing it with just testutil.InitRepo(t, dir), safe or at least equivalent
 ---
 
 Alright, conservatively evaluate each case and convert the cases that can be improved in a way thats similar to the best practices of the repo.
+
+---
+
+create a new branch, push it and make sure this session is recorded in entireio, check the website to ensure the session is uploaded (loop/double check until fixed), also make a PR to the main repo with an understandable description of the problem, and the fix.
