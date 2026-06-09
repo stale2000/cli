@@ -1,0 +1,53 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "5c4e773b5316",
+  "session_id": "019ea9df-d0d9-7c41-a8dc-91ed5d127d35",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-09T02:14:34.631995Z",
+  "branch": "codex/unify-uiform-accessibility",
+  "checkpoints_count": 3,
+  "save_step_count": 1,
+  "files_touched": [],
+  "agent": "Codex",
+  "model": "gpt-5.5",
+  "turn_id": "cdbbc4779968",
+  "token_usage": {
+    "input_tokens": 579601,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 7195264,
+    "output_tokens": 29739,
+    "api_call_count": 75
+  },
+  "session_metrics": {
+    "turn_count": 9
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 3137,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".agents/skills/agent-integration/README.md": 71,
+        ".agents/skills/agent-integration/SKILL.md": 107,
+        ".agents/skills/agent-integration/implementer.md": 346,
+        ".agents/skills/agent-integration/researcher.md": 161,
+        ".agents/skills/agent-integration/test-writer.md": 211,
+        ".agents/skills/changelog/SKILL.md": 88,
+        ".agents/skills/e2e/SKILL.md": 32,
+        ".agents/skills/e2e/debug.md": 88,
+        ".agents/skills/e2e/implement.md": 117,
+        ".agents/skills/e2e/triage-ci.md": 176,
+        ".agents/skills/test-repo/README.md": 65,
+        ".agents/skills/test-repo/SKILL.md": 230,
+        ".agents/skills/test-repo/test-harness.sh": 245,
+        ".codex/agents/dev.toml": 108,
+        ".codex/agents/reviewer.toml": 163,
+        ".playwright-mcp/console-2026-06-08T23-15-17-386Z.log": 1,
+        ".playwright-mcp/page-2026-06-08T23-16-42-912Z.yml": 684,
+        ".playwright-mcp/page-2026-06-08T23-20-12-098Z.yml": 244
+      }
+    }
+  ]
+}

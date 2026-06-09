@@ -1,0 +1,23 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "5c4e773b5316",
+  "strategy": "manual-commit",
+  "branch": "codex/unify-uiform-accessibility",
+  "checkpoints_count": 3,
+  "files_touched": null,
+  "sessions": [
+    {
+      "metadata": "/5c/4e773b5316/0/metadata.json",
+      "transcript": "/5c/4e773b5316/0/full.jsonl",
+      "content_hash": "/5c/4e773b5316/0/content_hash.txt",
+      "prompt": "/5c/4e773b5316/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 579601,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 7195264,
+    "output_tokens": 29739,
+    "api_call_count": 75
+  }
+}
