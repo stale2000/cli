@@ -28,3 +28,7 @@ should the is accessible mode helper function be removed?  It might be used in t
 ---
 
 try to keep other code as unchanged as possible other than the targeted fix.
+
+---
+
+Make a new branch, push chat logs to entireIO, verify that they are there, and make a PR to the main repo from my repo.
