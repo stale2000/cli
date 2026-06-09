@@ -1,16 +1,1 @@
-Investigate the following bug:
-
-Windows interactive prompts are effectively disabled.
-Root Cause: interactive.CanPromptInteractively() unconditionally probes /dev/tty (interactive.go (line 34), interactive.go (line 53)). On native Windows that path does not exist, so the helper returns false and every caller takes the noninteractive branch. waitForEnter() also hardcodes /dev/tty (login.go (line 253)).
-
----
-
-what is an interactive prompt and the effect of this
-
----
-
-review code, ensure that it is simple and conservative.
-
----
-
-what about askConfirmTTY will that work.
+create a branch, and push this chat logs to the meta entire branch. No PR yet.
