@@ -1,0 +1,24 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "6656450350ce",
+  "session_id": "019ea9ab-7cd3-74c0-aad0-ebd41af014d4",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-09T04:21:48.802688Z",
+  "branch": "stale2000/condense-subagent-tokens",
+  "checkpoints_count": 7,
+  "save_step_count": 1,
+  "files_touched": [],
+  "agent": "Codex",
+  "model": "gpt-5.5",
+  "turn_id": "c3a101216189",
+  "token_usage": {
+    "input_tokens": 1294797,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 39657216,
+    "output_tokens": 100518,
+    "api_call_count": 280
+  },
+  "session_metrics": {
+    "turn_count": 17
+  }
+}
