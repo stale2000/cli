@@ -1,0 +1,29 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "490d8a478629",
+  "strategy": "manual-commit",
+  "branch": "codex/tighten-agent-test-parallelization",
+  "checkpoints_count": 3,
+  "files_touched": [
+    "cmd/entire/cli/agent/agent_test.go",
+    "cmd/entire/cli/agent/chunking_test.go",
+    "cmd/entire/cli/agent/claudecode/transcript_test.go",
+    "cmd/entire/cli/agent/geminicli/gemini_test.go",
+    "cmd/entire/cli/agent/session_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/49/0d8a478629/0/metadata.json",
+      "transcript": "/49/0d8a478629/0/full.jsonl",
+      "content_hash": "/49/0d8a478629/0/content_hash.txt",
+      "prompt": "/49/0d8a478629/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 214429,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 2865152,
+    "output_tokens": 14359,
+    "api_call_count": 32
+  }
+}

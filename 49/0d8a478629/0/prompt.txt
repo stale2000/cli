@@ -1,0 +1,16 @@
+Investigate the following cleanup task
+
+Tighten test parallelization opportunistically
+There are 3,943 top-level tests and 2,706 t.Parallel() calls found by a rough scan. Some omissions are legitimate because of t.Chdir or process-global state, but simple pure parser/table tests in agent packages are good candidates for incremental cleanup as files are touched.
+
+---
+
+Create a robust benchmark for the existing tests so that they can be compared to the tests after the fix is in. 
+
+Then, find conservative and safe places to add this change, implement it, and then benchmark again.  
+
+Create an easy to understand chart or description of the benefit.
+
+---
+
+so what is the percentage change?
