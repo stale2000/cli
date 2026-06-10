@@ -1,0 +1,116 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "c93f3cd1bb07",
+  "session_id": "019eb399-2d0c-7a52-bd77-ee57e66eb3fe",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-10T22:23:32.534139Z",
+  "branch": "stale2000/fix-auth-status-date-timezone",
+  "checkpoints_count": 6,
+  "save_step_count": 6,
+  "files_touched": [
+    "cmd/entire/cli/auth.go",
+    "cmd/entire/cli/auth_test.go"
+  ],
+  "agent": "Codex",
+  "model": "gpt-5.5",
+  "turn_id": "91a1024b9c26",
+  "token_usage": {
+    "input_tokens": 134740,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 1399168,
+    "output_tokens": 6792,
+    "api_call_count": 29
+  },
+  "session_metrics": {
+    "turn_count": 6
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-10T22:23:32.518203Z",
+    "agent_lines": 16,
+    "agent_removed": 2,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 16,
+    "total_lines_changed": 18,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 3581,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".agents/skills/agent-integration/README.md": 71,
+        ".agents/skills/agent-integration/SKILL.md": 107,
+        ".agents/skills/agent-integration/implementer.md": 346,
+        ".agents/skills/agent-integration/researcher.md": 161,
+        ".agents/skills/agent-integration/test-writer.md": 211,
+        ".agents/skills/changelog/SKILL.md": 88,
+        ".agents/skills/e2e/SKILL.md": 32,
+        ".agents/skills/e2e/debug.md": 88,
+        ".agents/skills/e2e/implement.md": 117,
+        ".agents/skills/e2e/triage-ci.md": 176,
+        ".agents/skills/test-repo/README.md": 65,
+        ".agents/skills/test-repo/SKILL.md": 230,
+        ".agents/skills/test-repo/test-harness.sh": 245,
+        ".codex/agents/dev.toml": 108,
+        ".codex/agents/reviewer.toml": 163,
+        ".playwright-mcp/console-2026-06-08T23-15-17-386Z.log": 1,
+        ".playwright-mcp/console-2026-06-10T21-25-07-804Z.log": 1,
+        ".playwright-mcp/console-2026-06-10T21-29-30-251Z.log": 1,
+        ".playwright-mcp/page-2026-06-08T23-16-42-912Z.yml": 684,
+        ".playwright-mcp/page-2026-06-08T23-20-12-098Z.yml": 244,
+        ".playwright-mcp/page-2026-06-09T02-21-54-014Z.yml": 193,
+        ".playwright-mcp/page-2026-06-10T21-25-13-720Z.yml": 83,
+        ".playwright-mcp/page-2026-06-10T21-25-55-556Z.yml": 83,
+        ".playwright-mcp/page-2026-06-10T21-29-38-321Z.yml": 83
+      }
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 3597,
+      "agent_lines_removed": 2
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 3597,
+      "agent_lines_removed": 2
+    },
+    {
+      "checkpoint_number": 4,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 3597,
+      "agent_lines_removed": 2
+    },
+    {
+      "checkpoint_number": 5,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 3597,
+      "agent_lines_removed": 2
+    },
+    {
+      "checkpoint_number": 6,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 3597,
+      "agent_lines_removed": 2
+    },
+    {
+      "checkpoint_number": 7,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 3597,
+      "agent_lines_removed": 2
+    }
+  ]
+}

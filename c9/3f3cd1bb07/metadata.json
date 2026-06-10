@@ -1,0 +1,26 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "c93f3cd1bb07",
+  "strategy": "manual-commit",
+  "branch": "stale2000/fix-auth-status-date-timezone",
+  "checkpoints_count": 6,
+  "files_touched": [
+    "cmd/entire/cli/auth.go",
+    "cmd/entire/cli/auth_test.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/c9/3f3cd1bb07/0/metadata.json",
+      "transcript": "/c9/3f3cd1bb07/0/full.jsonl",
+      "content_hash": "/c9/3f3cd1bb07/0/content_hash.txt",
+      "prompt": "/c9/3f3cd1bb07/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 134740,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 1399168,
+    "output_tokens": 6792,
+    "api_call_count": 29
+  }
+}

@@ -1,0 +1,25 @@
+investigate the following bug:
+
+auth status session dates shift by local timezone
+auth.go (line 489)
+formatAuthDate parses RFC3339 then calls Local(). In this environment, 2026-01-01T00:00:00Z rendered as 2025-12-31, and go test ./cmd/entire/cli/... failed in TestRunAuthStatus_RendersSessionsTable. Real effect: active session created/expiry dates are off by one for users west of UTC.
+
+---
+
+what is the impact of this bug?
+
+---
+
+where is this rendered?
+
+---
+
+What is local for though?  It would seem like local is supposed to be the correct function, right? Thats why its called local.  Is this not true?
+
+---
+
+why does date only change anything?  Isn't it still doing the local timezone?
+
+---
+
+Ah, so is the server time correct, and this changes it to a local timezone, making it off?
