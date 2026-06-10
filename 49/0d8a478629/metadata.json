@@ -2,7 +2,7 @@
   "cli_version": "dev",
   "checkpoint_id": "490d8a478629",
   "strategy": "manual-commit",
-  "branch": "stale2000/tighten-agent-test-parallelization",
+  "branch": "stale2000/tighten-agent-test-parallelization-v2",
   "checkpoints_count": 3,
   "files_touched": [
     "cmd/entire/cli/agent/agent_test.go",
