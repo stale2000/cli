@@ -4,7 +4,7 @@
   "session_id": "019eb34d-b79e-7371-b8c1-9171962a02ed",
   "strategy": "manual-commit",
   "created_at": "2026-06-10T21:04:49.873234Z",
-  "branch": "codex/tighten-agent-test-parallelization",
+  "branch": "stale2000/tighten-agent-test-parallelization",
   "checkpoints_count": 3,
   "save_step_count": 2,
   "files_touched": [
