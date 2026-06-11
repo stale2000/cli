@@ -43,3 +43,7 @@ is this token the only change in the current files?
 ---
 
 No, forget the other local changes, I am asking for the stuff that you added.  If this is a targeted fix, I want to do that, but if it includes other e2e test fixes I want to evaluate those first
+
+---
+
+alright, create a targeted fix for the copilot issue, make a branch on my repo, as well as push the entire logs to the meta data branch.
