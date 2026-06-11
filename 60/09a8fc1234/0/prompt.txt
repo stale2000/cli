@@ -1,0 +1,45 @@
+Go to the following page.  
+
+[https://github.com/entireio/cli/actions/runs/27316570831/job/80698358751](https://github.com/entireio/cli/actions/runs/27316570831/job/80698358751)
+
+Look at all the tests that are failing.  both in the selected e2e tests in the current job, and in the e2e tests everywhere else.  
+
+Investigate how to fix them, and try to find a conservative fix for at least some of them.
+
+---
+
+Explain what the bug was
+
+---
+
+Sometimes the end to end tests succeed entirely though.  Check through the commit history.  
+
+Then check what has changed, if anything, related to that to determine the bug.  Or maybe its transient.  Investigate. 
+
+[https://github.com/entireio/cli/commits/main/](https://github.com/entireio/cli/commits/main/)
+
+---
+
+Is it safe to change the git auth token?  What that on purpose before?  Or what it a mistake?  Is it a config issue?
+
+I dont want to change they key being used if the solution is to add it to git configs (which I cant do technically, but that might be the fix)
+
+---
+
+So is the change good then or should the other key be modified?  What makes the most sense.
+
+---
+
+Is copilot github token present?  How do we check?  Are other tests doing it?
+
+---
+
+thats not going to print the token is it?
+
+---
+
+is this token the only change in the current files?
+
+---
+
+No, forget the other local changes, I am asking for the stuff that you added.  If this is a targeted fix, I want to do that, but if it includes other e2e test fixes I want to evaluate those first
