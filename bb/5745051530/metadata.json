@@ -1,0 +1,26 @@
+{
+  "cli_version": "dev",
+  "checkpoint_id": "bb5745051530",
+  "strategy": "manual-commit",
+  "branch": "stale2000/fix-checkpoint-symlink-leak",
+  "checkpoints_count": 10,
+  "files_touched": [
+    "cmd/entire/cli/checkpoint/checkpoint_test.go",
+    "cmd/entire/cli/checkpoint/temporary.go"
+  ],
+  "sessions": [
+    {
+      "metadata": "/bb/5745051530/0/metadata.json",
+      "transcript": "/bb/5745051530/0/full.jsonl",
+      "content_hash": "/bb/5745051530/0/content_hash.txt",
+      "prompt": "/bb/5745051530/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 239136,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 4968960,
+    "output_tokens": 18533,
+    "api_call_count": 60
+  }
+}
