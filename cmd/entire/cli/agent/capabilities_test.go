@@ -113,134 +113,150 @@ func (m *mockBuiltinPromptAgent) ExtractPrompts(string, int) ([]string, error) {
 
 // --- Tests ---
 
-func TestAsHookSupport(t *testing.T) {
+func TestDeclaredCapabilityAdapters(t *testing.T) {
 	t.Parallel()
 
-	t.Run("not implemented", func(t *testing.T) {
-		t.Parallel()
-		ag := &mockBaseAgent{}
-		_, ok := AsHookSupport(ag)
-		if ok {
-			t.Error("expected false for agent not implementing HookSupport")
-		}
-	})
+	tests := []struct {
+		name   string
+		enable func(*DeclaredCaps)
+		as     func(Agent) (any, bool)
+	}{
+		{
+			name:   "hooks",
+			enable: func(caps *DeclaredCaps) { caps.Hooks = true },
+			as: func(ag Agent) (any, bool) {
+				return AsHookSupport(ag)
+			},
+		},
+		{
+			name:   "transcript analyzer",
+			enable: func(caps *DeclaredCaps) { caps.TranscriptAnalyzer = true },
+			as: func(ag Agent) (any, bool) {
+				return AsTranscriptAnalyzer(ag)
+			},
+		},
+		{
+			name:   "prompt extractor",
+			enable: func(caps *DeclaredCaps) { caps.TranscriptAnalyzer = true },
+			as: func(ag Agent) (any, bool) {
+				return AsPromptExtractor(ag)
+			},
+		},
+		{
+			name:   "transcript preparer",
+			enable: func(caps *DeclaredCaps) { caps.TranscriptPreparer = true },
+			as: func(ag Agent) (any, bool) {
+				return AsTranscriptPreparer(ag)
+			},
+		},
+		{
+			name:   "token calculator",
+			enable: func(caps *DeclaredCaps) { caps.TokenCalculator = true },
+			as: func(ag Agent) (any, bool) {
+				return AsTokenCalculator(ag)
+			},
+		},
+		{
+			name:   "text generator",
+			enable: func(caps *DeclaredCaps) { caps.TextGenerator = true },
+			as: func(ag Agent) (any, bool) {
+				return AsTextGenerator(ag)
+			},
+		},
+		{
+			name:   "transcript compactor",
+			enable: func(caps *DeclaredCaps) { caps.CompactTranscript = true },
+			as: func(ag Agent) (any, bool) {
+				return AsTranscriptCompactor(ag)
+			},
+		},
+		{
+			name:   "hook response writer",
+			enable: func(caps *DeclaredCaps) { caps.HookResponseWriter = true },
+			as: func(ag Agent) (any, bool) {
+				return AsHookResponseWriter(ag)
+			},
+		},
+		{
+			name:   "subagent-aware extractor",
+			enable: func(caps *DeclaredCaps) { caps.SubagentAwareExtractor = true },
+			as: func(ag Agent) (any, bool) {
+				return AsSubagentAwareExtractor(ag)
+			},
+		},
+	}
 
-	t.Run("builtin agent", func(t *testing.T) {
-		t.Parallel()
-		ag := &mockBuiltinHookAgent{}
-		hs, ok := AsHookSupport(ag)
-		if !ok || hs == nil {
-			t.Error("expected true for built-in agent implementing HookSupport")
-		}
-	})
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 
-	t.Run("declared true", func(t *testing.T) {
-		t.Parallel()
-		ag := &mockFullAgent{caps: DeclaredCaps{Hooks: true}}
-		hs, ok := AsHookSupport(ag)
-		if !ok || hs == nil {
-			t.Error("expected true when capability declared true")
-		}
-	})
+			t.Run("nil agent", func(t *testing.T) {
+				t.Parallel()
+				if capability, ok := tt.as(nil); ok || capability != nil {
+					t.Fatalf("got (%T, %v), want nil false", capability, ok)
+				}
+			})
 
-	t.Run("declared false", func(t *testing.T) {
-		t.Parallel()
-		ag := &mockFullAgent{caps: DeclaredCaps{Hooks: false}}
-		_, ok := AsHookSupport(ag)
-		if ok {
-			t.Error("expected false when capability declared false")
-		}
-	})
+			t.Run("not implemented", func(t *testing.T) {
+				t.Parallel()
+				if capability, ok := tt.as(&mockBaseAgent{}); ok || capability != nil {
+					t.Fatalf("got (%T, %v), want nil false", capability, ok)
+				}
+			})
+
+			t.Run("declared", func(t *testing.T) {
+				t.Parallel()
+				var caps DeclaredCaps
+				tt.enable(&caps)
+				capability, ok := tt.as(&mockFullAgent{caps: caps})
+				if !ok || capability == nil {
+					t.Fatalf("got (%T, %v), want capability true", capability, ok)
+				}
+			})
+
+			t.Run("undeclared", func(t *testing.T) {
+				t.Parallel()
+				if capability, ok := tt.as(&mockFullAgent{}); ok || capability != nil {
+					t.Fatalf("got (%T, %v), want nil false", capability, ok)
+				}
+			})
+		})
+	}
 }
 
-func TestAsTranscriptAnalyzer(t *testing.T) {
+func TestDeclaredCapabilityAdapters_BuiltinsBypassDeclarations(t *testing.T) {
 	t.Parallel()
 
-	t.Run("not implemented", func(t *testing.T) {
-		t.Parallel()
-		_, ok := AsTranscriptAnalyzer(&mockBaseAgent{})
-		if ok {
-			t.Error("expected false")
-		}
-	})
+	tests := []struct {
+		name string
+		ag   Agent
+		as   func(Agent) (any, bool)
+	}{
+		{
+			name: "hook support",
+			ag:   &mockBuiltinHookAgent{},
+			as: func(ag Agent) (any, bool) {
+				return AsHookSupport(ag)
+			},
+		},
+		{
+			name: "prompt extractor",
+			ag:   &mockBuiltinPromptAgent{},
+			as: func(ag Agent) (any, bool) {
+				return AsPromptExtractor(ag)
+			},
+		},
+	}
 
-	t.Run("declared true", func(t *testing.T) {
-		t.Parallel()
-		ag := &mockFullAgent{caps: DeclaredCaps{TranscriptAnalyzer: true}}
-		ta, ok := AsTranscriptAnalyzer(ag)
-		if !ok || ta == nil {
-			t.Error("expected true")
-		}
-	})
-
-	t.Run("declared false", func(t *testing.T) {
-		t.Parallel()
-		ag := &mockFullAgent{caps: DeclaredCaps{TranscriptAnalyzer: false}}
-		_, ok := AsTranscriptAnalyzer(ag)
-		if ok {
-			t.Error("expected false")
-		}
-	})
-}
-
-func TestAsTranscriptPreparer(t *testing.T) {
-	t.Parallel()
-
-	t.Run("not implemented", func(t *testing.T) {
-		t.Parallel()
-		_, ok := AsTranscriptPreparer(&mockBaseAgent{})
-		if ok {
-			t.Error("expected false")
-		}
-	})
-
-	t.Run("declared true", func(t *testing.T) {
-		t.Parallel()
-		ag := &mockFullAgent{caps: DeclaredCaps{TranscriptPreparer: true}}
-		tp, ok := AsTranscriptPreparer(ag)
-		if !ok || tp == nil {
-			t.Error("expected true")
-		}
-	})
-
-	t.Run("declared false", func(t *testing.T) {
-		t.Parallel()
-		ag := &mockFullAgent{caps: DeclaredCaps{TranscriptPreparer: false}}
-		_, ok := AsTranscriptPreparer(ag)
-		if ok {
-			t.Error("expected false")
-		}
-	})
-}
-
-func TestAsTokenCalculator(t *testing.T) {
-	t.Parallel()
-
-	t.Run("not implemented", func(t *testing.T) {
-		t.Parallel()
-		_, ok := AsTokenCalculator(&mockBaseAgent{})
-		if ok {
-			t.Error("expected false")
-		}
-	})
-
-	t.Run("declared true", func(t *testing.T) {
-		t.Parallel()
-		ag := &mockFullAgent{caps: DeclaredCaps{TokenCalculator: true}}
-		tc, ok := AsTokenCalculator(ag)
-		if !ok || tc == nil {
-			t.Error("expected true")
-		}
-	})
-
-	t.Run("declared false", func(t *testing.T) {
-		t.Parallel()
-		ag := &mockFullAgent{caps: DeclaredCaps{TokenCalculator: false}}
-		_, ok := AsTokenCalculator(ag)
-		if ok {
-			t.Error("expected false")
-		}
-	})
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			capability, ok := tt.as(tt.ag)
+			if !ok || capability == nil {
+				t.Fatalf("got (%T, %v), want capability true", capability, ok)
+			}
+		})
+	}
 }
 
 func TestAsModelExtractor(t *testing.T) {
@@ -269,173 +285,6 @@ func TestAsModelExtractor(t *testing.T) {
 		_, ok := AsModelExtractor(nil)
 		if ok {
 			t.Error("expected false")
-		}
-	})
-}
-
-func TestAsTextGenerator(t *testing.T) {
-	t.Parallel()
-
-	t.Run("not implemented", func(t *testing.T) {
-		t.Parallel()
-		_, ok := AsTextGenerator(&mockBaseAgent{})
-		if ok {
-			t.Error("expected false")
-		}
-	})
-
-	t.Run("declared true", func(t *testing.T) {
-		t.Parallel()
-		ag := &mockFullAgent{caps: DeclaredCaps{TextGenerator: true}}
-		tg, ok := AsTextGenerator(ag)
-		if !ok || tg == nil {
-			t.Error("expected true")
-		}
-	})
-
-	t.Run("declared false", func(t *testing.T) {
-		t.Parallel()
-		ag := &mockFullAgent{caps: DeclaredCaps{TextGenerator: false}}
-		_, ok := AsTextGenerator(ag)
-		if ok {
-			t.Error("expected false")
-		}
-	})
-}
-
-func TestAsHookResponseWriter(t *testing.T) {
-	t.Parallel()
-
-	t.Run("not implemented", func(t *testing.T) {
-		t.Parallel()
-		_, ok := AsHookResponseWriter(&mockBaseAgent{})
-		if ok {
-			t.Error("expected false")
-		}
-	})
-
-	t.Run("declared true", func(t *testing.T) {
-		t.Parallel()
-		ag := &mockFullAgent{caps: DeclaredCaps{HookResponseWriter: true}}
-		hrw, ok := AsHookResponseWriter(ag)
-		if !ok || hrw == nil {
-			t.Error("expected true")
-		}
-	})
-
-	t.Run("declared false", func(t *testing.T) {
-		t.Parallel()
-		ag := &mockFullAgent{caps: DeclaredCaps{HookResponseWriter: false}}
-		_, ok := AsHookResponseWriter(ag)
-		if ok {
-			t.Error("expected false")
-		}
-	})
-}
-
-func TestAsTranscriptCompactor(t *testing.T) {
-	t.Parallel()
-
-	t.Run("not implemented", func(t *testing.T) {
-		t.Parallel()
-		_, ok := AsTranscriptCompactor(&mockBaseAgent{})
-		if ok {
-			t.Error("expected false")
-		}
-	})
-
-	t.Run("declared true", func(t *testing.T) {
-		t.Parallel()
-		ag := &mockFullAgent{caps: DeclaredCaps{CompactTranscript: true}}
-		tc, ok := AsTranscriptCompactor(ag)
-		if !ok || tc == nil {
-			t.Error("expected true")
-		}
-	})
-
-	t.Run("declared false", func(t *testing.T) {
-		t.Parallel()
-		ag := &mockFullAgent{caps: DeclaredCaps{CompactTranscript: false}}
-		_, ok := AsTranscriptCompactor(ag)
-		if ok {
-			t.Error("expected false")
-		}
-	})
-}
-
-func TestAsSubagentAwareExtractor(t *testing.T) {
-	t.Parallel()
-
-	t.Run("not implemented", func(t *testing.T) {
-		t.Parallel()
-		_, ok := AsSubagentAwareExtractor(&mockBaseAgent{})
-		if ok {
-			t.Error("expected false")
-		}
-	})
-
-	t.Run("declared true", func(t *testing.T) {
-		t.Parallel()
-		ag := &mockFullAgent{caps: DeclaredCaps{SubagentAwareExtractor: true}}
-		sae, ok := AsSubagentAwareExtractor(ag)
-		if !ok || sae == nil {
-			t.Error("expected true")
-		}
-	})
-
-	t.Run("declared false", func(t *testing.T) {
-		t.Parallel()
-		ag := &mockFullAgent{caps: DeclaredCaps{SubagentAwareExtractor: false}}
-		_, ok := AsSubagentAwareExtractor(ag)
-		if ok {
-			t.Error("expected false")
-		}
-	})
-}
-
-func TestAsPromptExtractor(t *testing.T) {
-	t.Parallel()
-
-	t.Run("not implemented", func(t *testing.T) {
-		t.Parallel()
-		_, ok := AsPromptExtractor(&mockBaseAgent{})
-		if ok {
-			t.Error("expected false for agent not implementing PromptExtractor")
-		}
-	})
-
-	t.Run("builtin agent", func(t *testing.T) {
-		t.Parallel()
-		ag := &mockBuiltinPromptAgent{}
-		pe, ok := AsPromptExtractor(ag)
-		if !ok || pe == nil {
-			t.Error("expected true for built-in agent implementing PromptExtractor")
-		}
-	})
-
-	t.Run("declared with TranscriptAnalyzer true", func(t *testing.T) {
-		t.Parallel()
-		ag := &mockFullAgent{caps: DeclaredCaps{TranscriptAnalyzer: true}}
-		pe, ok := AsPromptExtractor(ag)
-		if !ok || pe == nil {
-			t.Error("expected true when TranscriptAnalyzer capability declared true")
-		}
-	})
-
-	t.Run("declared with TranscriptAnalyzer false", func(t *testing.T) {
-		t.Parallel()
-		ag := &mockFullAgent{caps: DeclaredCaps{TranscriptAnalyzer: false}}
-		_, ok := AsPromptExtractor(ag)
-		if ok {
-			t.Error("expected false when TranscriptAnalyzer capability declared false")
-		}
-	})
-
-	t.Run("nil agent", func(t *testing.T) {
-		t.Parallel()
-		_, ok := AsPromptExtractor(nil)
-		if ok {
-			t.Error("expected false for nil agent")
 		}
 	})
 }
