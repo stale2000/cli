@@ -1,0 +1,9 @@
+cechkout the branch and check the feedback from here:
+
+[https://github.com/entireio/cli/pull/1395#pullrequestreview-4506038599](https://github.com/entireio/cli/pull/1395#pullrequestreview-4506038599)
+
+"Can you use testutil.InitRepo(t, tempDir) as in your [https://github.com/entireio/cli/pull/1390/changes](https://github.com/entireio/cli/pull/1390/changes)"
+
+---
+
+merge main into this.
